@@ -1,8 +1,5 @@
-//
-// Created by antiwanted on 2020-12-02.
-//
-
 #ifndef SIMPLE_JSON_TYPES_H
 #define SIMPLE_JSON_TYPES_H
-
+#include "BaseType.h"
+#include "BaseException.h"
 #endif //SIMPLE_JSON_TYPES_H
