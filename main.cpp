@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Types.h"
+#include "external/Types.h"
 
 int main() {
     std::cout << "Start Simple JSON Project!" << std::endl;
