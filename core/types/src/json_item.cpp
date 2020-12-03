@@ -8,13 +8,21 @@ JsonItem::JsonItem(double data) : data_double {data}, used_type {DataType::doubl
 
 JsonItem::JsonItem(int data) : data_int {data}, used_type(DataType::integer_type) {}
 
-JsonItem::JsonItem(JsonItem::type_array * data) : data_array(data), used_type(DataType::array_type) {}
+JsonItem::JsonItem(JsonItem::type_array data) : data_array {new type_array {std::move(data)}},
+used_type(DataType::array_type) {}
 
-JsonItem::JsonItem(JsonItem::type_array && data) : data_array(&data), used_type(DataType::array_type) {}
+JsonItem::JsonItem(JsonItem::type_array && data) : data_array {new type_array {std::move(data)}},
+used_type(DataType::array_type) {}
 
-JsonItem::JsonItem(std::string * data) : data_string {data}, used_type(DataType::string_type) {}
+JsonItem::JsonItem(std::string data) : data_string {new std::string {std::move(data)}},
+used_type(DataType::string_type) {}
 
-JsonItem::JsonItem(std::string &&data) : data_string {&data}, used_type(DataType::string_type) {}
+JsonItem::JsonItem(std::string &&data) : data_string {new std::string {std::move(data)}},
+used_type(DataType::string_type) {}
+
+JsonItem::JsonItem(Json data) : data_json {new Json {std::move(data)}}, used_type {DataType::json_type} {}
+
+JsonItem::JsonItem(Json &&data) : data_json {new Json {std::move(data)}}, used_type {DataType::json_type} {}
 #pragma endregion
 
 // operator overloading body
@@ -50,7 +58,17 @@ JsonItem::operator type_array () const {
 
 // Destructor
 JsonItem::~JsonItem() {
-    if (used_type == DataType::string_type) {
-        delete data_string;
+    switch (used_type) {
+        case DataType::array_type:
+            delete data_array;
+            return;
+        case DataType::json_type:
+            delete data_json;
+            return;
+        case DataType::string_type:
+            delete data_string;
+            return;
+        default:
+            return;
     }
 }

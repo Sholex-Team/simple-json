@@ -7,6 +7,7 @@ enum DataType : std::uint8_t {
     string_type,
     double_type,
     array_type,
+    json_type,
     unknown
 };
 

@@ -22,12 +22,14 @@ public:
     // Constructors
     JsonItem(double data);
     JsonItem(int data);
-    JsonItem(type_array * data);
+    JsonItem(type_array data);
     JsonItem(type_array && data);
-    JsonItem(std::string * data);
+    JsonItem(std::string data);
     JsonItem(std::string && data);
+    JsonItem(Json data);
+    JsonItem(Json &&data);
 
-    // operator overloading for cast
+    // Conversion operators for implicit & explicit conversions
     operator int() const;
     operator double() const;
     operator type_array() const;
