@@ -8,10 +8,10 @@ JsonItem::JsonItem(double data) : data_double {data}, used_type {DataType::doubl
 
 JsonItem::JsonItem(int data) : data_int {data}, used_type(DataType::integer_type) {}
 
-JsonItem::JsonItem(JsonItem::type_array data) : data_array {new type_array {std::move(data)}},
+JsonItem::JsonItem(JsonItem::type_array data) : data_array(&data),
 used_type(DataType::array_type) {}
 
-JsonItem::JsonItem(JsonItem::type_array && data) : data_array {new type_array {std::move(data)}},
+JsonItem::JsonItem(JsonItem::type_array && data) : data_array(std::move(&data)),
 used_type(DataType::array_type) {}
 
 JsonItem::JsonItem(std::string data) : data_string {new std::string {std::move(data)}},
@@ -24,7 +24,7 @@ JsonItem::JsonItem(Json data) : data_json {new Json {std::move(data)}}, used_typ
 
 JsonItem::JsonItem(Json &&data) : data_json {new Json {std::move(data)}}, used_type {DataType::json_type} {}
 
-JsonItem::JsonItem(JsonItem &json_item) {
+JsonItem::JsonItem(const JsonItem &json_item) {
     used_type = json_item.used_type;
     switch (json_item.used_type) {
         case DataType::integer_type:
