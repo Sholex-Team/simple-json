@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include "enum_types.h"
+#include "json_type.h"
 
 class JsonItem {
     typedef std::vector<JsonItem> type_array;
@@ -13,6 +14,7 @@ private:
         double data_double;
         type_array * data_array;
         std::string * data_string;
+        Json * data_json;
     };
     DataType used_type;
 public:
