@@ -5,6 +5,8 @@
 #include "enum_types.h"
 #include "json_type.h"
 
+class Json;
+
 class JsonItem {
     typedef std::vector<JsonItem> type_array;
 
