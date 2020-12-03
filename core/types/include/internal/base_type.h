@@ -2,6 +2,7 @@
 #define SIMPLE_JSON_BASE_TYPE_H
 #include <string>
 #include "enum_types.h"
+
 class JsonItem {
 private:
     union {
@@ -11,16 +12,22 @@ private:
     };
     DataType used_type;
 public:
-    JsonItem(double data);
 
+    // Constructors
+    JsonItem(double data);
     JsonItem(int data);
 
+    JsonItem(float data);
     JsonItem(std::string * data);
-
     JsonItem(std::string &&data);
 
-    operator int() const;
+    // operator overloading for cast
+    operator int();
+    operator float();
+    operator double();
+    operator std::string();
 
+    //
     ~JsonItem();
 };
 #endif
