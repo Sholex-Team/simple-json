@@ -7,9 +7,6 @@ enum DataType : std::uint8_t {
     float_type,
     string_type,
     double_type,
-    unsigned_integer_type,
-    unsigned_short_type,
-    short_type,
     unknown = 100
 };
 

@@ -10,12 +10,6 @@ std::string type_convertor(DataType type) {
             return "string";
         case 3:
             return "double";
-        case 4:
-            return "unsigned int";
-        case 5:
-            return "unsigned short";
-        case 6:
-            return "short";
         default:
             return "";
     }
