@@ -1,5 +1,5 @@
-#ifndef SIMPLE_JSON_BASE_TYPE_H
-#define SIMPLE_JSON_BASE_TYPE_H
+#ifndef SIMPLE_JSON_JSON_ITEM_H
+#define SIMPLE_JSON_JSON_ITEM_H
 #include <string>
 #include <vector>
 #include "enum_types.h"

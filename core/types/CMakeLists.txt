@@ -4,8 +4,9 @@ project(types VERSION 1.0.0)
 add_library(
         types
         src/base_exception.cpp
-        src/base_type.cpp
+        src/json_item.cpp
         src/enum_types.cpp
+        src/json_type.cpp
 )
 
 # set variables
