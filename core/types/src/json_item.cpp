@@ -1,6 +1,7 @@
 #include "json_item.h"
 #include "enum_types.h"
 #include "base_exception.h"
+#include <utility>
 
 // Constructors body
 #pragma region Constructors
@@ -8,9 +9,11 @@ JsonItem::JsonItem(double data) : data_double {data}, used_type {DataType::doubl
 
 JsonItem::JsonItem(int data) : data_int {data}, used_type(DataType::integer_type) {}
 
-JsonItem::JsonItem(JsonItem::type_array data) : data_array(&data), used_type(DataType::array_type) {}
+JsonItem::JsonItem(JsonItem::type_array data) : data_array {new type_array {std::move(data)}},
+used_type(DataType::array_type) {}
 
-JsonItem::JsonItem(JsonItem::type_array && data) : data_array(std::move(&data)), used_type(DataType::array_type) {}
+JsonItem::JsonItem(JsonItem::type_array && data) : data_array {new type_array {std::move(data)}},
+used_type(DataType::array_type) {}
 
 JsonItem::JsonItem(std::string data) : data_string {new std::string {std::move(data)}},
 used_type(DataType::string_type) {}
