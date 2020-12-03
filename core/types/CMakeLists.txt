@@ -6,10 +6,6 @@ add_library(
         src/base_exception.cpp
         src/base_type.cpp
         src/enum_types.cpp
-        src/json_object.cpp
-        include/internal/json_object.h
-        include/internal/json_list.h
-        src/json_list.cpp
 )
 
 # set variables
