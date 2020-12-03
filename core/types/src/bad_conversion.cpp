@@ -1,6 +1,6 @@
 #include "bad_conversion.h"
 
-BadConversion::BadConversion(DataType to) noexcept : std::exception(), to {to} {}
+BadConversion::BadConversion(DataType to) noexcept : JsonException(), to {to} {}
 
 const char * BadConversion::what() const noexcept {
     switch (to) {
