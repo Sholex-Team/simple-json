@@ -57,13 +57,16 @@ JsonItem::JsonItem(JsonItem &&json_item) noexcept {
             data_double = json_item.data_double;
             return;
         case DataType::string_type:
-            data_string = new std::string {*json_item.data_string};
+            data_string = json_item.data_string;
+            json_item.data_string = nullptr;
             return;
         case DataType::array_type:
-            data_array = new type_array {*json_item.data_array};
+            data_array = json_item.data_array;
+            json_item.data_array = nullptr;
             return;
         case DataType::json_type:
-            data_json = new Json {*json_item.data_json};
+            data_json = json_item.data_json;
+            json_item.data_json = nullptr;
             return;
         default:
             return;
