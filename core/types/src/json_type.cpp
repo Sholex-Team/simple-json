@@ -9,3 +9,5 @@ auto Json::get(const std::string& key, const JsonItem& default_return) const {
         return default_return;
     }
 }
+
+Json::Json(Json && json) { map_type(std::move(json)); }

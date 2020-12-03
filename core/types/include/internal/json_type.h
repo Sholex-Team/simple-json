@@ -13,6 +13,9 @@ class Json : public map_type {
 public:
     auto get(const std::string& key, const JsonItem& default_return) const;
 
+    Json(Json && json);
+
+
 };
 
 #endif //SIMPLE_JSON_JSON_TYPE_H
