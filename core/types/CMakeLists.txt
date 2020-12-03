@@ -1,7 +1,7 @@
 project(types VERSION 1.0.0)
 
 # library
-add_library(types src/base_exception.cpp src/base_type.cpp)
+add_library(types src/base_exception.cpp src/base_type.cpp src/enum_types.cpp)
 
 # set variables
 set(INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)

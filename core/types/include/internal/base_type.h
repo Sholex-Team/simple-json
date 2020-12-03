@@ -1,16 +1,38 @@
 #ifndef SIMPLE_JSON_BASE_TYPE_H
 #define SIMPLE_JSON_BASE_TYPE_H
 #include <string>
-class BaseItem {
+#include "enum_types.h"
+class JsonItem {
 private:
     union {
-        unsigned int content_int;
-        float content_float;
-        std::string content_string;
+        unsigned int data_u_i;
+        unsigned short data_u_s;
+        short data_short;
+        int data_int;
+        double data_double;
+        float data_float;
+        std::string data_string;
     };
+    DataType used_type;
 public:
-    template<typename T>
-    T get_data() {
-    }
+    JsonItem(double data);
+
+    JsonItem(int data);
+
+    JsonItem(float data);
+
+    JsonItem(short data);
+
+    JsonItem(unsigned short data);
+
+    JsonItem(unsigned int data);
+
+    JsonItem(std::string data);
+
+    JsonItem(std::string &&data);
+
+    operator int();
+
+    ~JsonItem() {}
 };
 #endif
