@@ -3,25 +3,17 @@
 #include <cstring>
 #include <memory>
 
-BadConversion::BadConversion(DataType from, DataType to) : std::exception(), from {from}, to {to} {}
+BadConversion::BadConversion(DataType to) noexcept : std::exception(), to {to} {}
 
 const char * BadConversion::what() const noexcept {
-    std::stringstream stream;
-    stream << "Bad Conversion ";
-    if (from != DataType::unknown) {
-        stream << "from ";
-        stream << type_convertor(from) << " ";
+    switch (to) {
+        case DataType::integer_type:
+            return "Bad conversion to integer !";
+        case DataType::double_type:
+            return "Bad conversion to double !";
+        case DataType::string_type:
+            return "Bad conversion to std::string !";
+        default:
+            return "Bad Conversion !";
     }
-    if (to != DataType::unknown) {
-        stream << "to ";
-        stream << type_convertor(to) << " ";
-    }
-    stream << "!";
-    std::shared_ptr message {std::make_shared<char [40]>()};
-    size_t current {0};
-    for(char c: stream.str()) {
-        message[current] = c;
-        ++current;
-    }
-    return message.get();
 }

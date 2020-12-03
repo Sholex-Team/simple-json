@@ -4,7 +4,6 @@
 #include <string>
 enum DataType : std::uint8_t {
     integer_type,
-    float_type,
     string_type,
     double_type,
     unknown

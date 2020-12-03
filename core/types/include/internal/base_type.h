@@ -7,7 +7,6 @@ private:
     union {
         int data_int;
         double data_double;
-        float data_float;
         std::string *data_string;
     };
     DataType used_type;

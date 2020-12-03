@@ -4,11 +4,10 @@
 #include <exception>
 class BadConversion : public std::exception {
 private:
-    DataType from;
     DataType to;
 public:
     const char * what() const noexcept override;
-    BadConversion(DataType from, DataType to);
-    BadConversion() : std::exception(), from {100}, to {100} {};
+    BadConversion(DataType to) noexcept;
+    BadConversion() noexcept : std::exception(), to {DataType::unknown} {}
 };
 #endif
