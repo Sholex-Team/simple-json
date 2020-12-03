@@ -3,7 +3,6 @@
 
 #include <map>
 #include <string>
-#include "json_item.h"
 
 class JsonItem;
 
@@ -11,7 +10,7 @@ typedef std::map<std::string, JsonItem> map_type;
 
 class Json : public map_type {
 public:
-    JsonItem get(const std::string& key, const JsonItem& default_return) const;
+    JsonItem get(key_type& key, JsonItem& default_return);
     Json();
     Json(Json && json) noexcept;
     Json(Json & json) = default;
