@@ -24,6 +24,6 @@ public:
 
     operator int();
 
-    ~JsonItem() {}
+    ~JsonItem();
 };
 #endif

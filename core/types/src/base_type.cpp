@@ -18,3 +18,9 @@ JsonItem::operator int () {
     }
     throw BadConversion(DataType::unknown, DataType::integer_type);
 }
+
+JsonItem::~JsonItem() {
+    if (used_type == DataType::string_type) {
+        delete data_string;
+    }
+}
