@@ -1,7 +1,16 @@
 project(types VERSION 1.0.0)
 
 # library
-add_library(types src/base_exception.cpp src/base_type.cpp src/enum_types.cpp src/json_object.cpp include/internal/json_object.h include/internal/json_list.h src/json_list.cpp)
+add_library(
+        types
+        src/base_exception.cpp
+        src/base_type.cpp
+        src/enum_types.cpp
+        src/json_object.cpp
+        include/internal/json_object.h
+        include/internal/json_list.h
+        src/json_list.cpp
+)
 
 # set variables
 set(INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
