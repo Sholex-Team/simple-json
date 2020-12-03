@@ -1,4 +1,4 @@
-#include "base_exception.h"
+#include "bad_conversion.h"
 
 BadConversion::BadConversion(DataType to) noexcept : std::exception(), to {to} {}
 

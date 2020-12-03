@@ -1,6 +1,6 @@
 #include "json_item.h"
 #include "enum_types.h"
-#include "base_exception.h"
+#include "bad_conversion.h"
 #include <utility>
 
 // Constructors body
