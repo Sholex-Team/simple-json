@@ -30,6 +30,8 @@ public:
     JsonItem(std::string && data);
     JsonItem(Json data);
     JsonItem(Json &&data);
+    JsonItem(JsonItem &json_item);
+    JsonItem(JsonItem &&json_item) noexcept;
 
     // Conversion operators for implicit & explicit conversions
     operator int() const;

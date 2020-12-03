@@ -1,7 +1,12 @@
 
 #include <stdexcept>
 #include "json_type.h"
+#pragma region Constructors
+Json::Json() : map_type() {}
 
+Json::Json(Json && json) noexcept : map_type(std::move(json)) {}
+#pragma endregion
+#pragma region Methods
 JsonItem Json::get(const std::string& key, const JsonItem& default_return) const {
     try {
         return this->at(key);
@@ -9,5 +14,4 @@ JsonItem Json::get(const std::string& key, const JsonItem& default_return) const
         return default_return;
     }
 }
-
-Json::Json(Json && json) { map_type(std::move(json)); }
+#pragma endregion

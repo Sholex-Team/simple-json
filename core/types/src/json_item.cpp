@@ -23,6 +23,52 @@ used_type(DataType::string_type) {}
 JsonItem::JsonItem(Json data) : data_json {new Json {std::move(data)}}, used_type {DataType::json_type} {}
 
 JsonItem::JsonItem(Json &&data) : data_json {new Json {std::move(data)}}, used_type {DataType::json_type} {}
+
+JsonItem::JsonItem(JsonItem &json_item) {
+    used_type = json_item.used_type;
+    switch (json_item.used_type) {
+        case DataType::integer_type:
+            data_int = json_item.data_int;
+            return;
+        case DataType::double_type:
+            data_double = json_item.data_double;
+            return;
+        case DataType::string_type:
+            data_string = new std::string {*json_item.data_string};
+            return;
+        case DataType::array_type:
+            data_array = new type_array {*json_item.data_array};
+            return;
+        case DataType::json_type:
+            data_json = new Json {*json_item.data_json};
+            return;
+        default:
+            return;
+    }
+}
+
+JsonItem::JsonItem(JsonItem &&json_item) noexcept {
+    used_type = json_item.used_type;
+    switch (json_item.used_type) {
+        case DataType::integer_type:
+            data_int = json_item.data_int;
+            return;
+        case DataType::double_type:
+            data_double = json_item.data_double;
+            return;
+        case DataType::string_type:
+            data_string = new std::string {*json_item.data_string};
+            return;
+        case DataType::array_type:
+            data_array = new type_array {*json_item.data_array};
+            return;
+        case DataType::json_type:
+            data_json = new Json {*json_item.data_json};
+            return;
+        default:
+            return;
+    }
+}
 #pragma endregion
 
 // operator overloading body
