@@ -10,7 +10,7 @@ JsonItem::JsonItem(std::string * data) : data_string {data}, used_type(DataType:
 
 JsonItem::JsonItem(std::string &&data) : data_string {&data}, used_type(DataType::string_type) {}
 
-JsonItem::operator int () {
+JsonItem::operator int () const {
     if (used_type == DataType::integer_type) {
         return data_int;
     }

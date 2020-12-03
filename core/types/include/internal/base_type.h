@@ -15,13 +15,11 @@ public:
 
     JsonItem(int data);
 
-    JsonItem(float data);
-
     JsonItem(std::string * data);
 
     JsonItem(std::string &&data);
 
-    operator int();
+    operator int() const;
 
     ~JsonItem();
 };
