@@ -2,6 +2,7 @@
 #include "enum_types.h"
 #include "bad_conversion.h"
 #include <utility>
+#include <sstream>
 
 // Constructors body
 #pragma region Constructors
@@ -148,6 +149,32 @@ void JsonItem::copy(const JsonItem & json_item) {
         default:
             return;
     }
+}
+
+std::ostream &operator<<(std::ostream &os, JsonItem &json_item) {
+    std::stringstream stream;
+    switch (json_item.used_type) {
+        case DataType::integer_type:
+            stream << json_item.data_int;
+            break;
+        case string_type:
+            stream << json_item.data_string;
+            break;
+        case double_type:
+            stream << json_item.data_double;
+            break;
+        case array_type:
+            stream << json_item.data_array;
+            break;
+        case json_type:
+            stream << json_item.data_json;
+            break;
+        case unknown:
+            stream << "unknown";
+            break;
+    }
+    os << stream.str();
+    return os;
 }
 
 #pragma endregion

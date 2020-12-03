@@ -46,6 +46,9 @@ public:
     JsonItem & operator = (const JsonItem & json_item);
     JsonItem & operator = (JsonItem && json_item) noexcept;
 
+    // OStream Operator
+    friend std::ostream & operator<<(std::ostream &os, JsonItem &json_item);
+
     // Destructors
     ~JsonItem();
 };
