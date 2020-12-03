@@ -3,6 +3,6 @@
 
 #include <exception>
 
-class BaseException : public std::exception {};
+class JsonException : public std::exception {};
 
 #endif //SIMPLE_JSON_BASE_EXCEPTION_H
