@@ -30,6 +30,7 @@ public:
     JsonItem(type_array && data);
     JsonItem(std::string data);
     JsonItem(std::string && data);
+    JsonItem(const char *  data);
     JsonItem(Json data);
     JsonItem(Json &&data);
     JsonItem(const JsonItem &json_item);
@@ -41,9 +42,8 @@ public:
     operator type_array() const;
     operator std::string() const;
 
-    // Operator Overloading
+    // Assignment Operator Overloading
     JsonItem & operator = (const JsonItem & json_item);
-
     JsonItem & operator = (JsonItem && json_item) noexcept;
 
     // Destructors

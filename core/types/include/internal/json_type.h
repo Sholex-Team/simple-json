@@ -10,7 +10,7 @@ typedef std::map<std::string, JsonItem> map_type;
 
 class Json : public map_type {
 public:
-    JsonItem get(key_type& key, JsonItem& default_return);
+    JsonItem get(const char * key, JsonItem default_return);
     Json();
     Json(Json && json) noexcept;
     Json(Json & json) = default;

@@ -21,6 +21,9 @@ used_type {DataType::string_type} {}
 JsonItem::JsonItem(std::string &&data) : data_string {new std::string {std::move(data)}},
 used_type {DataType::string_type} {}
 
+JsonItem::JsonItem(const char *data) : data_string {new std::string {data}},
+used_type {DataType::string_type} {}
+
 JsonItem::JsonItem(Json data) : data_json {new Json {std::move(data)}}, used_type {DataType::json_type} {}
 
 JsonItem::JsonItem(Json &&data) : data_json {new Json {std::move(data)}}, used_type {DataType::json_type} {}
