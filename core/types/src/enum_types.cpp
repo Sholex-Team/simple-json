@@ -2,13 +2,13 @@
 
 std::string type_convertor(DataType type) {
     switch (type) {
-        case 0:
+        case DataType::integer_type:
             return "int";
-        case 1:
+        case DataType::float_type:
             return "float";
-        case 2:
+        case DataType::string_type:
             return "string";
-        case 3:
+        case DataType::double_type:
             return "double";
         default:
             return "";

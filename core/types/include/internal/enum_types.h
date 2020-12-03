@@ -7,7 +7,7 @@ enum DataType : std::uint8_t {
     float_type,
     string_type,
     double_type,
-    unknown = 100
+    unknown
 };
 
 std::string type_convertor(DataType type);

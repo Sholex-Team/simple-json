@@ -8,12 +8,11 @@ BadConversion::BadConversion(DataType from, DataType to) : std::exception(), fro
 const char * BadConversion::what() const noexcept {
     std::stringstream stream;
     stream << "Bad Conversion ";
-    DataType unknown {100};
-    if (from != unknown) {
+    if (from != DataType::unknown) {
         stream << "from ";
         stream << type_convertor(from) << " ";
     }
-    if (to != unknown) {
+    if (to != DataType::unknown) {
         stream << "to ";
         stream << type_convertor(to) << " ";
     }
