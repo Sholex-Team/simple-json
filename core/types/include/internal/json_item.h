@@ -28,7 +28,7 @@ public:
     JsonItem(std::string && data);
     JsonItem(Json data);
     JsonItem(Json &&data);
-    JsonItem(const JsonItem &json_item);
+    JsonItem(JsonItem &json_item);
     JsonItem(JsonItem &&json_item) noexcept;
 
     // Conversion operators for implicit & explicit conversions
