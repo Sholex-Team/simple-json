@@ -20,18 +20,16 @@ public:
     // Constructors
     JsonItem(double data);
     JsonItem(int data);
-    JsonItem(float data);
     JsonItem(type_array * data);
     JsonItem(type_array && data);
     JsonItem(std::string * data);
     JsonItem(std::string && data);
 
     // operator overloading for cast
-    operator int();
-    operator float();
-    operator double();
-    operator type_array();
-    operator std::string();
+    operator int() const;
+    operator double() const;
+    operator type_array() const;
+    operator std::string() const;
 
     // Destructors
     ~JsonItem();

@@ -8,8 +8,6 @@ JsonItem::JsonItem(double data) : data_double {data}, used_type {DataType::doubl
 
 JsonItem::JsonItem(int data) : data_int {data}, used_type(DataType::integer_type) {}
 
-JsonItem::JsonItem(float data) : data_float {data}, used_type(DataType::float_type) {}
-
 JsonItem::JsonItem(JsonItem::type_array * data) : data_array(data), used_type(DataType::array_type) {}
 
 JsonItem::JsonItem(JsonItem::type_array && data) : data_array(&data), used_type(DataType::array_type) {}
@@ -19,42 +17,34 @@ JsonItem::JsonItem(std::string * data) : data_string {data}, used_type(DataType:
 JsonItem::JsonItem(std::string &&data) : data_string {&data}, used_type(DataType::string_type) {}
 #pragma endregion
 
-JsonItem::operator int () const {
 // operator overloading body
 #pragma region Operators overloading
-JsonItem::operator int () {
+JsonItem::operator int () const {
     if (used_type == DataType::integer_type) {
         return data_int;
     }
     throw BadConversion {DataType::integer_type};
 }
 
-JsonItem::operator float() {
-    if (used_type == DataType::float_type) {
-        return data_float;
-    }
-
-    throw BadConversion(DataType::unknown, DataType::float_type);
-}
-
-JsonItem::operator double () {
+JsonItem::operator double () const {
     if (used_type == DataType::double_type) {
         return data_double;
     }
-
-    throw BadConversion(DataType::unknown, DataType::double_type);
+    throw BadConversion{DataType::double_type};
 }
 
-JsonItem::operator std::string () {
+JsonItem::operator std::string () const {
     if (used_type == DataType::string_type) {
-        return *data_string;
+        return * data_string;
     }
-
-    throw BadConversion(DataType::unknown, DataType::string_type);
+    throw BadConversion{DataType::string_type};
 }
 
-JsonItem::operator type_array() {
-    return JsonItem::type_array();
+JsonItem::operator type_array () const {
+    if (used_type == DataType::array_type) {
+        return * data_array;
+    }
+    throw BadConversion {DataType::array_type};
 }
 #pragma endregion
 
