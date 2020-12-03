@@ -1,7 +1,4 @@
 #include "base_exception.h"
-#include <sstream>
-#include <cstring>
-#include <memory>
 
 BadConversion::BadConversion(DataType to) noexcept : std::exception(), to {to} {}
 
