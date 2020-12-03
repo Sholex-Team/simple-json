@@ -11,7 +11,7 @@ typedef std::map<std::string, JsonItem> map_type;
 
 class Json : public map_type {
 public:
-    auto get(const std::string& key, const JsonItem& default_return) const;
+    JsonItem get(const std::string& key, const JsonItem& default_return) const;
 
     Json(Json && json);
 
