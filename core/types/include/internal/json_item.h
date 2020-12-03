@@ -17,9 +17,13 @@ private:
         Json * data_json;
     };
     DataType used_type;
-public:
 
+    void move(JsonItem && json_item) noexcept;
+
+    void copy(const JsonItem & json_item);
+public:
     // Constructors
+    JsonItem();
     JsonItem(double data);
     JsonItem(int data);
     JsonItem(type_array data);
@@ -36,6 +40,11 @@ public:
     operator double() const;
     operator type_array() const;
     operator std::string() const;
+
+    // Operator Overloading
+    JsonItem & operator = (const JsonItem & json_item);
+
+    JsonItem & operator = (JsonItem && json_item) noexcept;
 
     // Destructors
     ~JsonItem();
