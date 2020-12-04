@@ -3,11 +3,13 @@ project(types VERSION 1.0.0)
 # library
 add_library(
         types
-        src/bad_conversion.cpp
         src/json_item.cpp
-        src/enum_types.cpp
+        src/array_type.cpp
         src/json_type.cpp
-        include/internal/base_exception.h "include/internal/stream_exceptions.h" "src/stream_exceptions.cpp")
+        src/enum_types.cpp
+        src/bad_conversion.cpp
+        src/stream_exceptions.cpp
+)
 
 # set variables
 set(INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)

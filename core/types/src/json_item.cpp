@@ -1,4 +1,5 @@
 #include "json_item.h"
+#include "array_type.h"
 #include "enum_types.h"
 #include "bad_conversion.h"
 #include "stream_exceptions.h"
@@ -12,10 +13,10 @@ JsonItem::JsonItem(int data) : data_int {data}, used_type {DataType::integer_typ
 
 JsonItem::JsonItem(bool data) : data_boolean {data}, used_type {DataType::boolean_type} {}
 
-JsonItem::JsonItem(JsonItem::type_array data) : data_array {new type_array(std::move(data))},
+JsonItem::JsonItem(Array data) : data_array {new Array(std::move(data))},
 used_type {DataType::array_type} {}
 
-JsonItem::JsonItem(JsonItem::type_array && data) : data_array {new type_array(std::move(data))},
+JsonItem::JsonItem(Array && data) : data_array {new Array(std::move(data))},
 used_type {DataType::array_type} {}
 
 JsonItem::JsonItem(std::string data) : data_string {new std::string {std::move(data)}},
@@ -65,7 +66,7 @@ JsonItem::operator std::string () const {
     throw BadConversion{DataType::string_type};
 }
 
-JsonItem::operator type_array () const {
+JsonItem::operator Array () const {
     if (used_type == DataType::array_type) {
         return * data_array;
     }
@@ -150,7 +151,7 @@ void JsonItem::copy(const JsonItem & json_item) {
             data_string = new std::string {*json_item.data_string};
             return;
         case DataType::array_type:
-            data_array = new type_array {*json_item.data_array};
+            data_array = new Array {*json_item.data_array};
             return;
         case DataType::json_type:
             data_json = new Json {*json_item.data_json};

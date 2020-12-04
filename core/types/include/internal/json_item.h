@@ -1,20 +1,19 @@
 #ifndef SIMPLE_JSON_JSON_ITEM_H
 #define SIMPLE_JSON_JSON_ITEM_H
-#include <string>
+#include <iostream>
 #include <vector>
 #include "enum_types.h"
 #include "json_type.h"
-#include <iostream>
+#include "array_type.h"
 
 class JsonItem {
-    typedef std::vector<JsonItem> type_array;
 
 private:
     union {
         int data_int;
         double data_double;
         bool data_boolean;
-        type_array * data_array;
+        Array * data_array;
         std::string * data_string;
         Json * data_json;
     };
@@ -29,8 +28,8 @@ public:
     JsonItem(double data);
     JsonItem(int data);
     JsonItem(bool data);
-    JsonItem(type_array data);
-    JsonItem(type_array && data);
+    JsonItem(Array data);
+    JsonItem(Array && data);
     JsonItem(std::string data);
     JsonItem(std::string && data);
     JsonItem(const char * data);
@@ -42,7 +41,7 @@ public:
     // Conversion operators for implicit & explicit conversions
     operator int() const;
     operator double() const;
-    operator type_array() const;
+    operator Array() const;
     operator std::string() const;
 
     // Assignment Operator Overloading
