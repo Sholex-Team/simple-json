@@ -10,7 +10,6 @@ class JsonItem;
 class Array;
 typedef std::map<std::string, JsonItem> map_type;
 typedef std::initializer_list<std::pair<const std::string, JsonItem>> json_list_type;
-typedef std::initializer_list<std::pair<const std::string, Array>> json_array_list_type;
 
 class Json : public map_type {
 public:
