@@ -33,10 +33,10 @@ public:
     JsonItem(array_list_type & list_initial);
     JsonItem(array_list_type && list_initial);
     JsonItem(std::string data);
-    JsonItem(std::string && data);
+    explicit JsonItem(std::string && data);
     JsonItem(const char * data);
     JsonItem(Json data);
-    JsonItem(Json && data);
+    explicit JsonItem(Json && data);
     JsonItem(json_list_type & initializer_list);
     JsonItem(json_list_type && initializer_list);
     JsonItem(const JsonItem & json_item);
