@@ -36,7 +36,7 @@ used_type {DataType::string_type} {}
 
 JsonItem::JsonItem(Json data) : data_json {new Json {std::move(data)}}, used_type {DataType::json_type} {}
 
-JsonItem::JsonItem(Json &&data) : data_json {new Json {std::move(data)}}, used_type {DataType::json_type} {}
+JsonItem::JsonItem(Json && data) : data_json {new Json {std::move(data)}}, used_type {DataType::json_type} {}
 
 JsonItem::JsonItem(json_list_type & initializer_list) : data_json {new Json {initializer_list}},
 used_type {DataType::json_type} {}
@@ -44,11 +44,11 @@ used_type {DataType::json_type} {}
 JsonItem::JsonItem(json_list_type && initializer_list) : data_json {new Json {initializer_list}},
 used_type {DataType::json_type} {}
 
-JsonItem::JsonItem(const JsonItem & json_item) {
+JsonItem::JsonItem(const JsonItem & json_item) : used_type {json_item.used_type} {
     copy(json_item);
 }
 
-JsonItem::JsonItem(JsonItem && json_item) noexcept {
+JsonItem::JsonItem(JsonItem && json_item) noexcept : used_type {json_item.used_type} {
     move(json_item);
 }
 
@@ -86,11 +86,13 @@ JsonItem::operator Array () const {
 }
 
 JsonItem & JsonItem::operator = (const JsonItem & json_item) {
+    used_type = json_item.used_type;
     copy(json_item);
     return *this;
 }
 
 JsonItem & JsonItem::operator = (JsonItem && json_item) noexcept {
+    used_type = json_item.used_type;
     move(json_item);
     return *this;
 }
@@ -119,7 +121,6 @@ JsonItem::~JsonItem() {
 #pragma region Methods
 
 void JsonItem::move(JsonItem & json_item) noexcept {
-    used_type = json_item.used_type;
     switch (json_item.used_type) {
         case DataType::integer_type:
             data_int = json_item.data_int;
@@ -148,7 +149,6 @@ void JsonItem::move(JsonItem & json_item) noexcept {
 }
 
 void JsonItem::copy(const JsonItem & json_item) {
-    used_type = json_item.used_type;
     switch (json_item.used_type) {
         case DataType::integer_type:
             data_int = json_item.data_int;

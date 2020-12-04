@@ -28,7 +28,7 @@ public:
     JsonItem(double data);
     JsonItem(int data);
     JsonItem(bool data);
-    JsonItem(Array data);
+    explicit JsonItem(Array data);
     JsonItem(Array && data);
     JsonItem(array_list_type & list_initial);
     JsonItem(array_list_type && list_initial);
