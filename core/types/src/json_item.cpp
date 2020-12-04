@@ -141,7 +141,7 @@ JsonItem::~JsonItem() {
 
 #pragma endregion Destructor
 
-#pragma region Methods
+#pragma region Private Methods
 
 void JsonItem::move(JsonItem & json_item) noexcept {
     switch (json_item.used_type) {
@@ -229,6 +229,18 @@ std::ostream & operator << (std::ostream & os, JsonItem & json_item) {
 std::ostream & operator << (std::ostream & os, JsonItem && json_item) {
     os << json_item;
     return os;
+}
+
+#pragma endregion
+
+#pragma region Public Method
+
+JsonItem &JsonItem::at(const int & index) {
+    return operator[](index);
+}
+
+JsonItem &JsonItem::at(const char * index) {
+    return operator[](index);
 }
 
 #pragma endregion

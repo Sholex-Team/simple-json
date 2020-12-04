@@ -19,8 +19,8 @@ private:
     };
     DataType used_type;
 
+    // Private Method
     void move(JsonItem & json_item) noexcept;
-
     void copy(const JsonItem & json_item);
 public:
     // Constructors
@@ -60,6 +60,10 @@ public:
     // Operator [] Overloading
     JsonItem & operator [] (const int & index);
     JsonItem & operator [] (const char * index);
+
+    // Public Method
+    JsonItem & at (const int & index);
+    JsonItem & at (const char * index);
 
     // Destructors
     ~JsonItem();
