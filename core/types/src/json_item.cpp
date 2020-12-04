@@ -106,14 +106,14 @@ JsonItem & JsonItem::operator = (JsonItem && json_item) noexcept {
     return *this;
 }
 
-JsonItem &JsonItem::operator[](const int & index) {
+JsonItem & JsonItem::operator[](const int & index) {
     if (used_type == DataType::array_type) {
         return data_array->at(index);
     }
     throw InvalidIndexException(used_type);
 }
 
-JsonItem &JsonItem::operator[](const char * index) {
+JsonItem & JsonItem::operator[](const char * index) {
     if (used_type == DataType::json_type) {
         return data_json->at(index);
     }
@@ -200,7 +200,7 @@ void JsonItem::copy(const JsonItem & json_item) {
 
 #pragma region OS Overloading
 
-std::ostream & operator << (std::ostream & os, JsonItem & json_item) {
+std::ostream & operator<<(std::ostream & os, JsonItem & json_item) {
     switch (json_item.used_type) {
         case DataType::integer_type:
             os << json_item.data_int;
@@ -226,7 +226,7 @@ std::ostream & operator << (std::ostream & os, JsonItem & json_item) {
     return os;
 }
 
-std::ostream & operator << (std::ostream & os, JsonItem && json_item) {
+std::ostream & operator<<(std::ostream & os, JsonItem && json_item) {
     os << json_item;
     return os;
 }
@@ -235,11 +235,11 @@ std::ostream & operator << (std::ostream & os, JsonItem && json_item) {
 
 #pragma region Public Method
 
-JsonItem &JsonItem::at(const int & index) {
+JsonItem & JsonItem::at(const int index) {
     return operator[](index);
 }
 
-JsonItem &JsonItem::at(const char * index) {
+JsonItem & JsonItem::at(const char * index) {
     return operator[](index);
 }
 

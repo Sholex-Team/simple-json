@@ -18,12 +18,12 @@ public:
     Array(array_list_type && list_initial);
 
     // Assignment Operator Overloading
-    Array & operator = (const Array & array) = default;
-    Array & operator = (Array && array) noexcept = default;
+    Array & operator=(const Array & array) = default;
+    Array & operator=(Array && array) noexcept = default;
 
     // Friends
-    friend std::ostream & operator << (std::ostream & os, Array && array);
-    friend std::ostream & operator << (std::ostream & os, Array & array);
+    friend std::ostream & operator<<(std::ostream & os, Array && array);
+    friend std::ostream & operator<<(std::ostream & os, Array & array);
 };
 
 #endif //SIMPLE_JSON_ARRAY_TYPE_H

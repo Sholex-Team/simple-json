@@ -50,20 +50,20 @@ public:
     operator Json() const;
 
     // Assignment Operator Overloading
-    JsonItem & operator = (const JsonItem & json_item);
-    JsonItem & operator = (JsonItem && json_item) noexcept;
+    JsonItem & operator=(const JsonItem & json_item);
+    JsonItem & operator=(JsonItem && json_item) noexcept;
 
     // Friends
-    friend std::ostream & operator << (std::ostream & os, JsonItem && json_item);
-    friend std::ostream & operator << (std::ostream & os, JsonItem & json_item);
+    friend std::ostream & operator<<(std::ostream & os, JsonItem && json_item);
+    friend std::ostream & operator<<(std::ostream & os, JsonItem & json_item);
 
     // Operator [] Overloading
-    JsonItem & operator [] (const int & index);
-    JsonItem & operator [] (const char * index);
+    JsonItem & operator [](const int & index);
+    JsonItem & operator [](const char * index);
 
     // Public Method
-    JsonItem & at (const int & index);
-    JsonItem & at (const char * index);
+    JsonItem & at(const int index);
+    JsonItem & at(const char * index);
 
     // Destructors
     ~JsonItem();
