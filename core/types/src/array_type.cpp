@@ -3,8 +3,6 @@
 
 #pragma region Construcors
 
-Array::Array(Array &&array) noexcept : type_array(std::move(array)) {}
-
 Array::Array(array_list_type & list_initial) : type_array(list_initial) {}
 
 Array::Array(array_list_type && list_initial) : type_array(list_initial) {}

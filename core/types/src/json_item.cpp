@@ -49,7 +49,7 @@ JsonItem::JsonItem(const JsonItem & json_item) {
 }
 
 JsonItem::JsonItem(JsonItem && json_item) noexcept {
-    move(std::move(json_item));
+    move(json_item);
 }
 
 JsonItem::JsonItem() : used_type {DataType::unknown} {}
@@ -91,7 +91,7 @@ JsonItem & JsonItem::operator = (const JsonItem & json_item) {
 }
 
 JsonItem & JsonItem::operator = (JsonItem && json_item) noexcept {
-    move(std::move(json_item));
+    move(json_item);
     return *this;
 }
 
@@ -118,7 +118,7 @@ JsonItem::~JsonItem() {
 
 #pragma region Methods
 
-void JsonItem::move(JsonItem && json_item) noexcept {
+void JsonItem::move(JsonItem & json_item) noexcept {
     used_type = json_item.used_type;
     switch (json_item.used_type) {
         case DataType::integer_type:

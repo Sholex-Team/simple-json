@@ -13,7 +13,7 @@ public:
     // Constructors
     Array() = default;
     Array(Array & array) = default;
-    Array(Array && array) noexcept;
+    Array(Array && array) noexcept = default;
     Array(array_list_type & list_initial);
     Array(array_list_type && list_initial);
 

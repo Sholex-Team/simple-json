@@ -19,7 +19,7 @@ private:
     };
     DataType used_type;
 
-    void move(JsonItem && json_item) noexcept;
+    void move(JsonItem & json_item) noexcept;
 
     void copy(const JsonItem & json_item);
 public:
