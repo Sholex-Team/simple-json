@@ -3,6 +3,10 @@
 
 int main() {
     std::cout << "Start Simple JSON Project!" << std::endl;
-    JsonItem test {Array {1, 2, 3}};
+    Json a {
+            {"a", Json {
+                    {"a", 8}
+            }}
+    };
     return 0;
 }

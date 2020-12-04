@@ -47,6 +47,7 @@ public:
     operator double() const;
     operator Array() const;
     operator std::string() const;
+    operator Json() const;
 
     // Assignment Operator Overloading
     JsonItem & operator = (const JsonItem & json_item);

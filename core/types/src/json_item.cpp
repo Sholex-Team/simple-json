@@ -85,6 +85,13 @@ JsonItem::operator Array () const {
     throw BadConversion {DataType::array_type};
 }
 
+JsonItem::operator Json () const {
+    if (used_type == DataType::json_type) {
+        return * data_json;
+    }
+    throw BadConversion {DataType::json_type};
+}
+
 JsonItem & JsonItem::operator = (const JsonItem & json_item) {
     used_type = json_item.used_type;
     copy(json_item);
