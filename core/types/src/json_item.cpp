@@ -161,16 +161,16 @@ std::ostream & operator << (std::ostream & os, JsonItem & json_item) {
         case DataType::integer_type:
             os << json_item.data_int;
             break;
-        case string_type:
+        case DataType::string_type:
             os << * (json_item.data_string);
             break;
-        case double_type:
+        case DataType::double_type:
             os << json_item.data_double;
             break;
-        case array_type:
+        case DataType::array_type:
             os << json_item.data_array;
             break;
-        case json_type:
+        case DataType::json_type:
             os << json_item.data_json;
             break;
         default:
