@@ -57,6 +57,10 @@ public:
     friend std::ostream & operator << (std::ostream & os, JsonItem && json_item);
     friend std::ostream & operator << (std::ostream & os, JsonItem & json_item);
 
+    // Operator [] Overloading
+    JsonItem & operator [] (const int & index);
+    JsonItem & operator [] (const std::string & index);
+
     // Destructors
     ~JsonItem();
 };

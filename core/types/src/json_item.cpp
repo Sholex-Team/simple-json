@@ -3,6 +3,7 @@
 #include "enum_types.h"
 #include "bad_conversion.h"
 #include "stream_exceptions.h"
+#include "invalid_index_exception.h"
 #include <utility>
 
 // Constructors body
@@ -213,6 +214,20 @@ std::ostream & operator << (std::ostream & os, JsonItem & json_item) {
 std::ostream & operator << (std::ostream & os, JsonItem && json_item) {
     os << json_item;
     return os;
+}
+
+JsonItem &JsonItem::operator[](const int & index) {
+    if (used_type == DataType::array_type) {
+        return data_array->at(index);
+    }
+    throw InvalidIndexException(used_type);
+}
+
+JsonItem &JsonItem::operator[](const std::string & index) {
+    if (used_type == DataType::json_type) {
+        return data_json->at(index);
+    }
+    throw InvalidIndexException(used_type);
 }
 
 #pragma endregion
