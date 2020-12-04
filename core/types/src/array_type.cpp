@@ -5,7 +5,13 @@
 
 Array::Array(Array &&array) noexcept : type_array(std::move(array)) {}
 
+Array::Array(array_list_type & list_initial) : type_array(list_initial) {}
+
+Array::Array(array_list_type && list_initial) : type_array(list_initial) {}
+
 #pragma endregion
+
+#pragma region OS Overloading
 
 std::ostream & operator << (std::ostream & os, Array & array) {
     os << '[';
@@ -19,20 +25,6 @@ std::ostream & operator << (std::ostream & os, Array & array) {
 std::ostream & operator << (std::ostream &os, Array && array) {
     os << array;
     return os;
-}
-
-Array::Array(std::initializer_list<JsonItem> list_initial) : type_array(list_initial){}
-
-#pragma region Assignment Operator Overloading
-
-Array &Array::operator=(const Array &json_item) {
-    type_array::operator=(json_item);
-    return *this;
-}
-
-Array &Array::operator=(Array &&json_item) noexcept {
-    type_array::operator=(json_item);
-    return *this;
 }
 
 #pragma endregion
