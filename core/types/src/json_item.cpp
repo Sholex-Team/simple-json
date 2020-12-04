@@ -38,6 +38,11 @@ JsonItem::JsonItem(Json data) : data_json {new Json {std::move(data)}}, used_typ
 
 JsonItem::JsonItem(Json &&data) : data_json {new Json {std::move(data)}}, used_type {DataType::json_type} {}
 
+JsonItem::JsonItem(json_list_type & initializer_list) : data_json {new Json {initializer_list}},
+used_type {DataType::json_type} {}
+JsonItem::JsonItem(json_list_type && initializer_list) : data_json {new Json {initializer_list}},
+used_type {DataType::json_type} {}
+
 JsonItem::JsonItem(const JsonItem & json_item) {
     copy(json_item);
 }

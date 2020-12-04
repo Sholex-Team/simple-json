@@ -37,6 +37,8 @@ public:
     JsonItem(const char * data);
     JsonItem(Json data);
     JsonItem(Json && data);
+    JsonItem(json_list_type & initializer_list);
+    JsonItem(json_list_type && initializer_list);
     JsonItem(const JsonItem & json_item);
     JsonItem(JsonItem && json_item) noexcept;
 
