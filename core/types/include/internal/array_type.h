@@ -10,9 +10,8 @@ typedef std::vector<JsonItem> type_array;
 
 class Array : public type_array {
 public:
-
     // Constructors
-    Array();
+    Array() = default;
     Array(Array & array) = default;
     Array(Array && array) noexcept;
 

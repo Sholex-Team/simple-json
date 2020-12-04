@@ -5,7 +5,6 @@
 
 #pragma region Constructors
 
-Json::Json() : map_type() {}
 Json::Json(Json && json) noexcept : map_type(std::move(json)) {}
 
 #pragma endregion

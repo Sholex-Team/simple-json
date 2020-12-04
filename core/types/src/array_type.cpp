@@ -3,8 +3,6 @@
 
 #pragma region Construcors
 
-Array::Array() : type_array() {}
-
 Array::Array(Array &&array) noexcept : type_array(std::move(array)) {}
 
 #pragma endregion

@@ -12,7 +12,7 @@ class Json : public map_type {
 public:
     JsonItem get(const char * key, JsonItem & default_value);
     JsonItem get(const char * key, JsonItem && default_value);
-    Json();
+    Json() = default;
     Json(Json && json) noexcept;
     Json(Json & json) = default;
 };
