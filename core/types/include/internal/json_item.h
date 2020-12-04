@@ -30,6 +30,8 @@ public:
     JsonItem(bool data);
     JsonItem(Array data);
     JsonItem(Array && data);
+    JsonItem(array_list_type & list_initial);
+    JsonItem(array_list_type && list_initial);
     JsonItem(std::string data);
     JsonItem(std::string && data);
     JsonItem(const char * data);

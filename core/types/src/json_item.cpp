@@ -19,6 +19,12 @@ used_type {DataType::array_type} {}
 JsonItem::JsonItem(Array && data) : data_array {new Array(std::move(data))},
 used_type {DataType::array_type} {}
 
+JsonItem::JsonItem(array_list_type & list_initial) : data_array {new Array{list_initial}},
+used_type(DataType::array_type) {}
+
+JsonItem::JsonItem(array_list_type && list_initial) : data_array {new Array{list_initial}},
+used_type(DataType::array_type) {}
+
 JsonItem::JsonItem(std::string data) : data_string {new std::string {std::move(data)}},
 used_type {DataType::string_type} {}
 
