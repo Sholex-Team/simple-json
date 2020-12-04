@@ -59,7 +59,7 @@ public:
 
     // Operator [] Overloading
     JsonItem & operator [] (const int & index);
-    JsonItem & operator [] (const std::string & index);
+    JsonItem & operator [] (const char * index);
 
     // Destructors
     ~JsonItem();

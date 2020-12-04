@@ -113,7 +113,7 @@ JsonItem &JsonItem::operator[](const int & index) {
     throw InvalidIndexException(used_type);
 }
 
-JsonItem &JsonItem::operator[](const std::string & index) {
+JsonItem &JsonItem::operator[](const char * index) {
     if (used_type == DataType::json_type) {
         return data_json->at(index);
     }
