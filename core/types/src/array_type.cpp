@@ -35,9 +35,4 @@ Array &Array::operator=(Array &&json_item) noexcept {
     return *this;
 }
 
-Array &Array::operator=(std::initializer_list<JsonItem> list_initial) noexcept {
-    vector::operator=(list_initial);
-    return *this;
-}
-
 #pragma endregion

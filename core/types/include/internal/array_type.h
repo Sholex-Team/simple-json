@@ -19,7 +19,6 @@ public:
     // Assignment Operator Overloading
     Array & operator = (const Array & json_item);
     Array & operator = (Array && json_item) noexcept;
-    Array & operator = (std::initializer_list<JsonItem> list_initial) noexcept;
 
     // Friends
     friend std::ostream & operator << (std::ostream & os, Array && array);
