@@ -58,6 +58,7 @@ JsonItem::JsonItem() : used_type {DataType::unknown} {}
 #pragma endregion
 
 #pragma region Operators overloading
+
 JsonItem::operator int () const {
     if (used_type == DataType::integer_type) {
         return data_int;
@@ -103,6 +104,20 @@ JsonItem & JsonItem::operator = (JsonItem && json_item) noexcept {
     used_type = json_item.used_type;
     move(json_item);
     return *this;
+}
+
+JsonItem &JsonItem::operator[](const int & index) {
+    if (used_type == DataType::array_type) {
+        return data_array->at(index);
+    }
+    throw InvalidIndexException(used_type);
+}
+
+JsonItem &JsonItem::operator[](const std::string & index) {
+    if (used_type == DataType::json_type) {
+        return data_json->at(index);
+    }
+    throw InvalidIndexException(used_type);
 }
 
 #pragma endregion
@@ -214,20 +229,6 @@ std::ostream & operator << (std::ostream & os, JsonItem & json_item) {
 std::ostream & operator << (std::ostream & os, JsonItem && json_item) {
     os << json_item;
     return os;
-}
-
-JsonItem &JsonItem::operator[](const int & index) {
-    if (used_type == DataType::array_type) {
-        return data_array->at(index);
-    }
-    throw InvalidIndexException(used_type);
-}
-
-JsonItem &JsonItem::operator[](const std::string & index) {
-    if (used_type == DataType::json_type) {
-        return data_json->at(index);
-    }
-    throw InvalidIndexException(used_type);
 }
 
 #pragma endregion

@@ -9,7 +9,8 @@ add_library(
         src/enum_types.cpp
         src/bad_conversion.cpp
         src/stream_exceptions.cpp
-        src/invalid_index_exception.cpp include/internal/invalid_index_exception.h)
+        src/invalid_index_exception.cpp
+)
 
 # set variables
 set(INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
