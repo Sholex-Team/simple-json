@@ -22,3 +22,22 @@ std::ostream & operator << (std::ostream &os, Array && array) {
 }
 
 Array::Array(std::initializer_list<JsonItem> list_initial) : type_array(list_initial){}
+
+#pragma region Assignment Operator Overloading
+
+Array &Array::operator=(const Array &json_item) {
+    type_array::operator=(json_item);
+    return *this;
+}
+
+Array &Array::operator=(Array &&json_item) noexcept {
+    type_array::operator=(json_item);
+    return *this;
+}
+
+Array &Array::operator=(std::initializer_list<JsonItem> list_initial) noexcept {
+    vector::operator=(list_initial);
+    return *this;
+}
+
+#pragma endregion
