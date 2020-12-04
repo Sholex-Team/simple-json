@@ -12,7 +12,7 @@ Json::Json(Json && json) noexcept : map_type(std::move(json)) {}
 
 #pragma region Methods
 
-JsonItem & Json::get(const char * key, JsonItem & default_return) {
+JsonItem Json::get(const char * key, JsonItem & default_return) {
     try {
         return at(key);
     } catch (std::out_of_range &e) {
@@ -20,8 +20,9 @@ JsonItem & Json::get(const char * key, JsonItem & default_return) {
     }
 }
 
-JsonItem & Json::get(const char * key, JsonItem && default_return) {
-    return get(key, default_return);
+JsonItem Json::get(const char * key, JsonItem && default_return) {
+    std::cout << "R-value called !" << std::endl;
+    return std::move(get(key, default_return));
 }
 
 #pragma endregion

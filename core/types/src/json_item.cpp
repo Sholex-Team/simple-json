@@ -33,7 +33,7 @@ JsonItem::JsonItem(const JsonItem & json_item) {
     copy(json_item);
 }
 
-JsonItem::JsonItem(JsonItem &&json_item) noexcept {
+JsonItem::JsonItem(JsonItem && json_item) noexcept {
     move(std::move(json_item));
 }
 
