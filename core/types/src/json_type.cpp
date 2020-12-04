@@ -21,7 +21,6 @@ JsonItem Json::get(const char * key, JsonItem & default_return) {
 }
 
 JsonItem Json::get(const char * key, JsonItem && default_return) {
-    std::cout << "R-value called !" << std::endl;
     return std::move(get(key, default_return));
 }
 
