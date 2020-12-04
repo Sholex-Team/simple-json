@@ -1,8 +1,8 @@
 #include "json_item.h"
 #include "enum_types.h"
 #include "bad_conversion.h"
+#include "stream_exceptions.h"
 #include <utility>
-#include <sstream>
 
 // Constructors body
 #pragma region Constructors
@@ -19,10 +19,10 @@ used_type {DataType::array_type} {}
 JsonItem::JsonItem(std::string data) : data_string {new std::string {std::move(data)}},
 used_type {DataType::string_type} {}
 
-JsonItem::JsonItem(std::string &&data) : data_string {new std::string {std::move(data)}},
+JsonItem::JsonItem(std::string && data) : data_string {new std::string {std::move(data)}},
 used_type {DataType::string_type} {}
 
-JsonItem::JsonItem(const char *data) : data_string {new std::string {data}},
+JsonItem::JsonItem(const char * data) : data_string {new std::string {data}},
 used_type {DataType::string_type} {}
 
 JsonItem::JsonItem(Json data) : data_json {new Json {std::move(data)}}, used_type {DataType::json_type} {}
@@ -41,7 +41,6 @@ JsonItem::JsonItem() : used_type {DataType::unknown} {}
 
 #pragma endregion
 
-// operator overloading body
 #pragma region Operators overloading
 JsonItem::operator int () const {
     if (used_type == DataType::integer_type) {
@@ -83,7 +82,7 @@ JsonItem & JsonItem::operator = (JsonItem && json_item) noexcept {
 
 #pragma endregion
 
-// Destructor
+#pragma region Destructor
 JsonItem::~JsonItem() {
     switch (used_type) {
         case DataType::array_type:
@@ -99,6 +98,8 @@ JsonItem::~JsonItem() {
             return;
     }
 }
+
+#pragma endregion Destructor
 
 #pragma region Methods
 
@@ -151,29 +152,35 @@ void JsonItem::copy(const JsonItem & json_item) {
     }
 }
 
-std::ostream &operator<<(std::ostream &os, JsonItem &json_item) {
-    std::stringstream stream;
+#pragma endregion
+
+#pragma region OS Overloading
+
+std::ostream & operator << (std::ostream & os, JsonItem & json_item) {
     switch (json_item.used_type) {
         case DataType::integer_type:
-            stream << json_item.data_int;
+            os << json_item.data_int;
             break;
         case string_type:
-            stream << json_item.data_string;
+            os << * (json_item.data_string);
             break;
         case double_type:
-            stream << json_item.data_double;
+            os << json_item.data_double;
             break;
         case array_type:
-            stream << json_item.data_array;
+            os << json_item.data_array;
             break;
         case json_type:
-            stream << json_item.data_json;
+            os << json_item.data_json;
             break;
-        case unknown:
-            stream << "unknown";
-            break;
+        default:
+            throw StreamInsertionException();
     }
-    os << stream.str();
+    return os;
+}
+
+std::ostream & operator << (std::ostream & os, JsonItem && json_item) {
+    os << json_item;
     return os;
 }
 

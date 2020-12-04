@@ -4,7 +4,7 @@
 int main() {
     std::cout << "Start Simple JSON Project!" << std::endl;
     Json a;
-    a["foo"] = "10";
-    std::cout << a.get("fo", "None");
+    auto result = a.get("fo", "None");
+    std::cout << result << std::endl;
     return 0;
 }

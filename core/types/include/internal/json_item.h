@@ -4,6 +4,7 @@
 #include <vector>
 #include "enum_types.h"
 #include "json_type.h"
+#include <iostream>
 
 class JsonItem {
     typedef std::vector<JsonItem> type_array;
@@ -30,11 +31,11 @@ public:
     JsonItem(type_array && data);
     JsonItem(std::string data);
     JsonItem(std::string && data);
-    JsonItem(const char *  data);
+    JsonItem(const char * data);
     JsonItem(Json data);
-    JsonItem(Json &&data);
-    JsonItem(const JsonItem &json_item);
-    JsonItem(JsonItem &&json_item) noexcept;
+    JsonItem(Json && data);
+    JsonItem(const JsonItem & json_item);
+    JsonItem(JsonItem && json_item) noexcept;
 
     // Conversion operators for implicit & explicit conversions
     operator int() const;
@@ -46,10 +47,12 @@ public:
     JsonItem & operator = (const JsonItem & json_item);
     JsonItem & operator = (JsonItem && json_item) noexcept;
 
-    // OStream Operator
-    friend std::ostream & operator<<(std::ostream &os, JsonItem &json_item);
+    // Friends
+    friend std::ostream & operator << (std::ostream & os, JsonItem && json_item);
+    friend std::ostream & operator << (std::ostream & os, JsonItem & json_item);
 
     // Destructors
     ~JsonItem();
 };
+
 #endif

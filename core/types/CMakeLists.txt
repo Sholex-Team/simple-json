@@ -7,7 +7,7 @@ add_library(
         src/json_item.cpp
         src/enum_types.cpp
         src/json_type.cpp
-        include/internal/base_exception.h)
+        include/internal/base_exception.h "include/internal/stream_exceptions.h" "src/stream_exceptions.cpp")
 
 # set variables
 set(INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
