@@ -14,6 +14,7 @@ public:
     Array() = default;
     Array(Array & array) = default;
     Array(Array && array) noexcept;
+    Array(std::initializer_list<JsonItem> list_initial);
 
     // Friends
     friend std::ostream & operator << (std::ostream & os, Array && array);

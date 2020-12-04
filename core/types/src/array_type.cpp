@@ -20,3 +20,5 @@ std::ostream & operator << (std::ostream &os, Array && array) {
     os << array;
     return os;
 }
+
+Array::Array(std::initializer_list<JsonItem> list_initial) : type_array(list_initial){}
