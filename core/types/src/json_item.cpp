@@ -192,7 +192,7 @@ std::ostream & operator << (std::ostream & os, JsonItem & json_item) {
             os << json_item.data_boolean;
             break;
         case DataType::array_type:
-            os << json_item.data_array;
+            os << * json_item.data_array;
             break;
         case DataType::json_type:
             os << json_item.data_json;

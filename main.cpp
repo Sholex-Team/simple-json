@@ -3,8 +3,7 @@
 
 int main() {
     std::cout << "Start Simple JSON Project!" << std::endl;
-    Array a;
-    a = {1, 2, 3};
-    std::cout << a;
+    JsonItem a {1, 2, 3, 4};
+    std::cout << a << std::endl;
     return 0;
 }
