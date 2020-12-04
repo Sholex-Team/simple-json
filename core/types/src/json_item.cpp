@@ -10,6 +10,8 @@ JsonItem::JsonItem(double data) : data_double {data}, used_type {DataType::doubl
 
 JsonItem::JsonItem(int data) : data_int {data}, used_type {DataType::integer_type} {}
 
+JsonItem::JsonItem(bool data) : data_boolean {data}, used_type {DataType::boolean_type} {}
+
 JsonItem::JsonItem(JsonItem::type_array data) : data_array {new type_array(std::move(data))},
 used_type {DataType::array_type} {}
 
@@ -112,6 +114,9 @@ void JsonItem::move(JsonItem && json_item) noexcept {
         case DataType::double_type:
             data_double = json_item.data_double;
             return;
+        case DataType::boolean_type:
+            data_boolean = json_item.data_boolean;
+            return;
         case DataType::string_type:
             data_string = json_item.data_string;
             json_item.data_string = nullptr;
@@ -137,6 +142,9 @@ void JsonItem::copy(const JsonItem & json_item) {
             return;
         case DataType::double_type:
             data_double = json_item.data_double;
+            return;
+        case DataType::boolean_type:
+            data_boolean = json_item.data_boolean;
             return;
         case DataType::string_type:
             data_string = new std::string {*json_item.data_string};
@@ -166,6 +174,9 @@ std::ostream & operator << (std::ostream & os, JsonItem & json_item) {
             break;
         case DataType::double_type:
             os << json_item.data_double;
+            break;
+        case DataType::boolean_type:
+            os << json_item.data_boolean;
             break;
         case DataType::array_type:
             os << json_item.data_array;

@@ -13,6 +13,7 @@ private:
     union {
         int data_int;
         double data_double;
+        bool data_boolean;
         type_array * data_array;
         std::string * data_string;
         Json * data_json;
@@ -27,6 +28,7 @@ public:
     JsonItem();
     JsonItem(double data);
     JsonItem(int data);
+    JsonItem(bool data);
     JsonItem(type_array data);
     JsonItem(type_array && data);
     JsonItem(std::string data);
