@@ -14,8 +14,8 @@ typedef std::initializer_list<std::pair<const JsonKey, Json>> json_list_type;
 
 class JsonObject : public map_type {
 public:
-    Json get(JsonKey, Json &);
-    Json get(JsonKey, Json &&);
+    Json get(const char *, Json &);
+    Json get(const char *, Json &&);
     JsonObject() = default;
     JsonObject(json_list_type &);
     JsonObject(json_list_type &&);
