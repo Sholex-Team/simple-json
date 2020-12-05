@@ -5,11 +5,12 @@
 #include <string>
 #include <initializer_list>
 #include <utility>
+#include "json_key.h"
 
 class Json;
 class Array;
-typedef std::map<std::string, Json> map_type;
-typedef std::initializer_list<std::pair<const std::string, Json>> json_list_type;
+typedef std::map<JsonKey, Json> map_type;
+typedef std::initializer_list<std::pair<JsonKey, Json>> json_list_type;
 
 class JsonObject : public map_type {
 public:
