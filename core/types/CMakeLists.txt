@@ -10,7 +10,8 @@ add_library(
         src/bad_conversion.cpp
         src/stream_exceptions.cpp
         src/invalid_index.cpp
-        include/internal/json_key.h src/json_key.cpp)
+        src/json_key.cpp
+)
 
 # set variables
 set(INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)

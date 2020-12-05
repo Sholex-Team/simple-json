@@ -18,9 +18,9 @@ public:
     ~JsonKey();
 
     // Operators
-    bool operator < (const JsonKey &);
-    bool operator > (const JsonKey &);
-    bool operator == (const JsonKey &);
+    bool operator<(const JsonKey &);
+    bool operator>(const JsonKey &);
+    bool operator==(const JsonKey &);
 };
 
 // Operator Overloading
