@@ -61,11 +61,11 @@ public:
 
     // Operator [] Overloading
     Json & operator [](const int &);
-    Json & operator [](const char *);
+    Json & operator [](JsonKey &);
 
     // Public Method
     Json & at(const int);
-    Json & at(const char *);
+    Json & at(JsonKey);
 
     // Destructors
     ~Json();

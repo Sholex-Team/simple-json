@@ -13,7 +13,7 @@ JsonObject::JsonObject(json_list_type && initializer_list) : map_type(initialize
 
 #pragma region Methods
 
-Json JsonObject::get(const char * key, Json & default_return) {
+Json JsonObject::get(JsonKey key, Json & default_return) {
     try {
         return at(JsonKey {key});
     } catch (std::out_of_range &e) {
@@ -21,7 +21,7 @@ Json JsonObject::get(const char * key, Json & default_return) {
     }
 }
 
-Json JsonObject::get(const char * key, Json && default_return) {
+Json JsonObject::get(JsonKey key, Json && default_return) {
     return std::move(get(key, default_return));
 }
 
