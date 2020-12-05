@@ -14,6 +14,8 @@ JsonItem::JsonItem(int data) : data_int {data}, used_type {DataType::integer_typ
 
 JsonItem::JsonItem(bool data) : data_boolean {data}, used_type {DataType::boolean_type} {}
 
+JsonItem::JsonItem(JsonItem::nullptr_type t) : used_type(DataType::null_type) {}
+
 JsonItem::JsonItem(Array data) : data_array {new Array(std::move(data))},
 used_type {DataType::array_type} {}
 
@@ -219,6 +221,9 @@ std::ostream & operator<<(std::ostream & os, JsonItem & json_item) {
             break;
         case DataType::json_type:
             os << json_item.data_json;
+            break;
+        case DataType::null_type:
+            os << nullptr;
             break;
         default:
             throw StreamInsertionException();

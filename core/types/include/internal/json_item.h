@@ -1,12 +1,14 @@
 #ifndef SIMPLE_JSON_JSON_ITEM_H
 #define SIMPLE_JSON_JSON_ITEM_H
-#include <iostream>
+#include <ostream>
 #include <vector>
 #include "enum_types.h"
 #include "json_type.h"
 #include "array_type.h"
 
 class JsonItem {
+
+    typedef decltype(nullptr) nullptr_type;
 
 private:
     union {
@@ -28,15 +30,16 @@ public:
     JsonItem(double data);
     JsonItem(int data);
     JsonItem(bool data);
-    JsonItem(Array data);
-    explicit JsonItem(Array && data);
+    JsonItem(nullptr_type t);
+    explicit JsonItem(Array data);
+    JsonItem(Array && data);
     JsonItem(array_list_type & list_initial);
     JsonItem(array_list_type && list_initial);
-    JsonItem(std::string data);
-    explicit JsonItem(std::string && data);
+    explicit JsonItem(std::string data);
+    JsonItem(std::string && data);
     JsonItem(const char * data);
-    JsonItem(Json data);
-    explicit JsonItem(Json && data);
+    explicit JsonItem(Json data);
+    JsonItem(Json && data);
     JsonItem(json_list_type & initializer_list);
     JsonItem(json_list_type && initializer_list);
     JsonItem(const JsonItem & json_item);

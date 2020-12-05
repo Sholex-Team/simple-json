@@ -11,6 +11,7 @@ enum DataType : std::uint8_t {
     boolean_type,
     array_type,
     json_type,
+    null_type,
     unknown
 };
 
