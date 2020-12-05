@@ -8,8 +8,6 @@
 
 class JsonItem {
 
-    typedef decltype(nullptr) nullptr_type;
-
 private:
     union {
         int data_int;
@@ -30,7 +28,7 @@ public:
     JsonItem(double data);
     JsonItem(int data);
     JsonItem(bool data);
-    JsonItem(nullptr_type t);
+    JsonItem(std::nullptr_t t);
     explicit JsonItem(Array data);
     JsonItem(Array && data);
     JsonItem(array_list_type & list_initial);

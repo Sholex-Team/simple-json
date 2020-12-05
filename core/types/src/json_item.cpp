@@ -14,7 +14,7 @@ JsonItem::JsonItem(int data) : data_int {data}, used_type {DataType::integer_typ
 
 JsonItem::JsonItem(bool data) : data_boolean {data}, used_type {DataType::boolean_type} {}
 
-JsonItem::JsonItem(JsonItem::nullptr_type t) : used_type(DataType::null_type) {}
+JsonItem::JsonItem(std::nullptr_t t) : used_type(DataType::null_type) {}
 
 JsonItem::JsonItem(Array data) : data_array {new Array(std::move(data))},
 used_type {DataType::array_type} {}
