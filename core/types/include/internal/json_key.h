@@ -23,4 +23,7 @@ public:
     bool operator == (const JsonKey &);
 };
 
+// Operator Overloading
+JsonKey operator""_json_key(const char *);
+
 #endif //SIMPLE_JSON_JSON_KEY_H

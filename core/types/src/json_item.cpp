@@ -3,7 +3,7 @@
 #include "enum_types.h"
 #include "bad_conversion.h"
 #include "stream_exceptions.h"
-#include "invalid_index_exception.h"
+#include "invalid_index.h"
 #include <utility>
 
 // Constructors body

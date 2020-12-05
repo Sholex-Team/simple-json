@@ -38,4 +38,8 @@ bool JsonKey::operator==(const JsonKey & json_key) {
     return key == json_key.key;
 }
 
+JsonKey operator""_json_key(const char * key_ptr) {
+    return JsonKey(key_ptr);
+}
+
 #pragma endregion

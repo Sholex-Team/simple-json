@@ -9,7 +9,7 @@ add_library(
         src/enum_types.cpp
         src/bad_conversion.cpp
         src/stream_exceptions.cpp
-        src/invalid_index_exception.cpp
+        src/invalid_index.cpp
         include/internal/json_key.h src/json_key.cpp)
 
 # set variables

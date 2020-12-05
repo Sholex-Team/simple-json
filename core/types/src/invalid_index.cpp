@@ -1,5 +1,5 @@
 
-#include "invalid_index_exception.h"
+#include "invalid_index.h"
 
 const char *InvalidIndexException::what() const noexcept {
     switch (to) {

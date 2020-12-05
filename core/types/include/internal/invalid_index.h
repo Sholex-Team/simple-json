@@ -1,6 +1,6 @@
 
-#ifndef SIMPLE_JSON_INVALID_INDEX_EXCEPTION_H
-#define SIMPLE_JSON_INVALID_INDEX_EXCEPTION_H
+#ifndef SIMPLE_JSON_INVALID_INDEX_H
+#define SIMPLE_JSON_INVALID_INDEX_H
 
 #include "base_exception.h"
 #include "enum_types.h"
@@ -14,4 +14,4 @@ public:
     InvalidIndexException() noexcept : JsonException(), to {DataType::unknown} {}
 };
 
-#endif //SIMPLE_JSON_INVALID_INDEX_EXCEPTION_H
+#endif //SIMPLE_JSON_INVALID_INDEX_H
