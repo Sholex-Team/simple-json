@@ -8,7 +8,7 @@ private:
     DataType to;
 public:
     const char * what() const noexcept override;
-    BadConversion(DataType to) noexcept;
+    BadConversion(DataType) noexcept;
     BadConversion() noexcept : JsonException(), to {DataType::unknown} {}
 };
 #endif

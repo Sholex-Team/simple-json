@@ -13,13 +13,13 @@ typedef std::initializer_list<std::pair<const std::string, JsonItem>> json_list_
 
 class Json : public map_type {
 public:
-    JsonItem get(const char * key, JsonItem & default_value);
-    JsonItem get(const char * key, JsonItem && default_value);
+    JsonItem get(const char *, JsonItem &);
+    JsonItem get(const char *, JsonItem &&);
     Json() = default;
-    Json(json_list_type & initializer_list);
-    Json(json_list_type && initializer_list);
-    Json(Json && json) noexcept = default;
-    Json(Json & json) = default;
+    Json(json_list_type &);
+    Json(json_list_type &&);
+    Json(Json &&) noexcept = default;
+    Json(Json &) = default;
 };
 
 #endif //SIMPLE_JSON_JSON_TYPE_H

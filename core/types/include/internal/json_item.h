@@ -20,28 +20,28 @@ private:
     DataType used_type;
 
     // Private Method
-    void move(JsonItem & json_item) noexcept;
-    void copy(const JsonItem & json_item);
+    void move(JsonItem &) noexcept;
+    void copy(const JsonItem &);
 public:
     // Constructors
     JsonItem();
-    JsonItem(double data);
-    JsonItem(int data);
-    JsonItem(bool data);
+    JsonItem(double);
+    JsonItem(int);
+    JsonItem(bool);
     JsonItem(std::nullptr_t t);
-    explicit JsonItem(Array data);
-    JsonItem(Array && data);
-    JsonItem(array_list_type & list_initial);
-    JsonItem(array_list_type && list_initial);
-    explicit JsonItem(std::string data);
-    JsonItem(std::string && data);
-    JsonItem(const char * data);
-    explicit JsonItem(Json data);
-    JsonItem(Json && data);
-    JsonItem(json_list_type & initializer_list);
-    JsonItem(json_list_type && initializer_list);
-    JsonItem(const JsonItem & json_item);
-    JsonItem(JsonItem && json_item) noexcept;
+    explicit JsonItem(Array);
+    JsonItem(Array &&);
+    JsonItem(array_list_type &);
+    JsonItem(array_list_type &&);
+    explicit JsonItem(std::string);
+    JsonItem(std::string &&);
+    JsonItem(const char *);
+    explicit JsonItem(Json);
+    JsonItem(Json &&);
+    JsonItem(json_list_type &);
+    JsonItem(json_list_type &&);
+    JsonItem(const JsonItem &);
+    JsonItem(JsonItem &&) noexcept;
 
     // Conversion operators for implicit & explicit conversions
     operator int() const;
@@ -51,20 +51,20 @@ public:
     operator Json() const;
 
     // Assignment Operator Overloading
-    JsonItem & operator=(const JsonItem & json_item);
-    JsonItem & operator=(JsonItem && json_item) noexcept;
+    JsonItem & operator=(const JsonItem &);
+    JsonItem & operator=(JsonItem &&) noexcept;
 
     // Friends
-    friend std::ostream & operator<<(std::ostream & os, JsonItem && json_item);
-    friend std::ostream & operator<<(std::ostream & os, JsonItem & json_item);
+    friend std::ostream & operator<<(std::ostream &, JsonItem &&);
+    friend std::ostream & operator<<(std::ostream &, JsonItem &);
 
     // Operator [] Overloading
-    JsonItem & operator [](const int & index);
-    JsonItem & operator [](const char * index);
+    JsonItem & operator [](const int &);
+    JsonItem & operator [](const char *);
 
     // Public Method
-    JsonItem & at(const int index);
-    JsonItem & at(const char * index);
+    JsonItem & at(const int);
+    JsonItem & at(const char *);
 
     // Destructors
     ~JsonItem();

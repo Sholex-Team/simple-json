@@ -12,18 +12,18 @@ class Array : public type_array {
 public:
     // Constructors
     Array() = default;
-    Array(Array & array) = default;
-    Array(Array && array) noexcept = default;
-    Array(array_list_type & list_initial);
-    Array(array_list_type && list_initial);
+    Array(Array &) = default;
+    Array(Array &&) noexcept = default;
+    Array(array_list_type &);
+    Array(array_list_type &&);
 
     // Assignment Operator Overloading
-    Array & operator=(const Array & array) = default;
-    Array & operator=(Array && array) noexcept = default;
+    Array & operator=(const Array &) = default;
+    Array & operator=(Array &&) noexcept = default;
 
     // Friends
-    friend std::ostream & operator<<(std::ostream & os, Array && array);
-    friend std::ostream & operator<<(std::ostream & os, Array & array);
+    friend std::ostream & operator<<(std::ostream &, Array &&);
+    friend std::ostream & operator<<(std::ostream &, Array &);
 };
 
 #endif //SIMPLE_JSON_ARRAY_TYPE_H

@@ -10,7 +10,7 @@ private:
     DataType to;
 public:
     const char * what() const noexcept override;
-    InvalidIndexException(DataType to) noexcept;
+    InvalidIndexException(DataType) noexcept;
     InvalidIndexException() noexcept : JsonException(), to {DataType::unknown} {}
 };
 
