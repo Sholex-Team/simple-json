@@ -34,7 +34,7 @@ public:
     Json(Array &&);
     Json(array_list_type &);
     Json(array_list_type &&);
-    explicit Json(std::string);
+    Json(std::string);
     Json(std::string &&);
     Json(const char *);
     explicit Json(JsonObject);
