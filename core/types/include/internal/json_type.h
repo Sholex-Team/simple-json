@@ -6,20 +6,20 @@
 #include <initializer_list>
 #include <utility>
 
-class JsonItem;
+class Json;
 class Array;
-typedef std::map<std::string, JsonItem> map_type;
-typedef std::initializer_list<std::pair<const std::string, JsonItem>> json_list_type;
+typedef std::map<std::string, Json> map_type;
+typedef std::initializer_list<std::pair<const std::string, Json>> json_list_type;
 
-class Json : public map_type {
+class JsonObject : public map_type {
 public:
-    JsonItem get(const char *, JsonItem &);
-    JsonItem get(const char *, JsonItem &&);
-    Json() = default;
-    Json(json_list_type &);
-    Json(json_list_type &&);
-    Json(Json &&) noexcept = default;
-    Json(Json &) = default;
+    Json get(const char *, Json &);
+    Json get(const char *, Json &&);
+    JsonObject() = default;
+    JsonObject(json_list_type &);
+    JsonObject(json_list_type &&);
+    JsonObject(JsonObject &&) noexcept = default;
+    JsonObject(JsonObject &) = default;
 };
 
 #endif //SIMPLE_JSON_JSON_TYPE_H

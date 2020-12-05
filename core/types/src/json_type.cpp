@@ -5,15 +5,15 @@
 
 #pragma region Constructors
 
-Json::Json(json_list_type & initializer_list) : map_type(initializer_list) {}
+JsonObject::JsonObject(json_list_type & initializer_list) : map_type(initializer_list) {}
 
-Json::Json(json_list_type && initializer_list) : map_type(initializer_list) {}
+JsonObject::JsonObject(json_list_type && initializer_list) : map_type(initializer_list) {}
 
 #pragma endregion
 
 #pragma region Methods
 
-JsonItem Json::get(const char * key, JsonItem & default_return) {
+Json JsonObject::get(const char * key, Json & default_return) {
     try {
         return at(key);
     } catch (std::out_of_range &e) {
@@ -21,7 +21,7 @@ JsonItem Json::get(const char * key, JsonItem & default_return) {
     }
 }
 
-JsonItem Json::get(const char * key, JsonItem && default_return) {
+Json JsonObject::get(const char * key, Json && default_return) {
     return std::move(get(key, default_return));
 }
 

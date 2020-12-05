@@ -8,114 +8,114 @@
 
 // Constructors body
 #pragma region Constructors
-JsonItem::JsonItem(double data) : data_double {data}, used_type {DataType::double_type} {}
+Json::Json(double data) : data_double {data}, used_type {DataType::double_type} {}
 
-JsonItem::JsonItem(int data) : data_int {data}, used_type {DataType::integer_type} {}
+Json::Json(int data) : data_int {data}, used_type {DataType::integer_type} {}
 
-JsonItem::JsonItem(bool data) : data_boolean {data}, used_type {DataType::boolean_type} {}
+Json::Json(bool data) : data_boolean {data}, used_type {DataType::boolean_type} {}
 
-JsonItem::JsonItem(std::nullptr_t t) : used_type(DataType::null_type) {}
+Json::Json(std::nullptr_t t) : used_type(DataType::null_type) {}
 
-JsonItem::JsonItem(Array data) : data_array {new Array(std::move(data))},
-used_type {DataType::array_type} {}
+Json::Json(Array data) : data_array {new Array(std::move(data))},
+                         used_type {DataType::array_type} {}
 
-JsonItem::JsonItem(Array && data) : data_array {new Array(std::move(data))},
-used_type {DataType::array_type} {}
+Json::Json(Array && data) : data_array {new Array(std::move(data))},
+                            used_type {DataType::array_type} {}
 
-JsonItem::JsonItem(array_list_type & list_initial) : data_array {new Array{list_initial}},
-used_type(DataType::array_type) {}
+Json::Json(array_list_type & list_initial) : data_array {new Array{list_initial}},
+                                             used_type(DataType::array_type) {}
 
-JsonItem::JsonItem(array_list_type && list_initial) : data_array {new Array{list_initial}},
-used_type(DataType::array_type) {}
+Json::Json(array_list_type && list_initial) : data_array {new Array{list_initial}},
+                                              used_type(DataType::array_type) {}
 
-JsonItem::JsonItem(std::string data) : data_string {new std::string {std::move(data)}},
-used_type {DataType::string_type} {}
+Json::Json(std::string data) : data_string {new std::string {std::move(data)}},
+                               used_type {DataType::string_type} {}
 
-JsonItem::JsonItem(std::string && data) : data_string {new std::string {std::move(data)}},
-used_type {DataType::string_type} {}
+Json::Json(std::string && data) : data_string {new std::string {std::move(data)}},
+                                  used_type {DataType::string_type} {}
 
-JsonItem::JsonItem(const char * data) : data_string {new std::string {data}},
-used_type {DataType::string_type} {}
+Json::Json(const char * data) : data_string {new std::string {data}},
+                                used_type {DataType::string_type} {}
 
-JsonItem::JsonItem(Json data) : data_json {new Json {std::move(data)}}, used_type {DataType::json_type} {}
+Json::Json(JsonObject data) : data_json {new JsonObject {std::move(data)}}, used_type {DataType::json_type} {}
 
-JsonItem::JsonItem(Json && data) : data_json {new Json {std::move(data)}}, used_type {DataType::json_type} {}
+Json::Json(JsonObject && data) : data_json {new JsonObject {std::move(data)}}, used_type {DataType::json_type} {}
 
-JsonItem::JsonItem(json_list_type & initializer_list) : data_json {new Json {initializer_list}},
-used_type {DataType::json_type} {}
+Json::Json(json_list_type & initializer_list) : data_json {new JsonObject {initializer_list}},
+                                                used_type {DataType::json_type} {}
 
-JsonItem::JsonItem(json_list_type && initializer_list) : data_json {new Json {initializer_list}},
-used_type {DataType::json_type} {}
+Json::Json(json_list_type && initializer_list) : data_json {new JsonObject {initializer_list}},
+                                                 used_type {DataType::json_type} {}
 
-JsonItem::JsonItem(const JsonItem & json_item) : used_type {json_item.used_type} {
+Json::Json(const Json & json_item) : used_type {json_item.used_type} {
     copy(json_item);
 }
 
-JsonItem::JsonItem(JsonItem && json_item) noexcept : used_type {json_item.used_type} {
+Json::Json(Json && json_item) noexcept : used_type {json_item.used_type} {
     move(json_item);
 }
 
-JsonItem::JsonItem() : used_type {DataType::unknown} {}
+Json::Json() : used_type {DataType::unknown} {}
 
 #pragma endregion
 
 #pragma region Operators overloading
 
-JsonItem::operator int () const {
+Json::operator int () const {
     if (used_type == DataType::integer_type) {
         return data_int;
     }
     throw BadConversion {DataType::integer_type};
 }
 
-JsonItem::operator double () const {
+Json::operator double () const {
     if (used_type == DataType::double_type) {
         return data_double;
     }
     throw BadConversion{DataType::double_type};
 }
 
-JsonItem::operator std::string () const {
+Json::operator std::string () const {
     if (used_type == DataType::string_type) {
         return * data_string;
     }
     throw BadConversion{DataType::string_type};
 }
 
-JsonItem::operator Array () const {
+Json::operator Array () const {
     if (used_type == DataType::array_type) {
         return * data_array;
     }
     throw BadConversion {DataType::array_type};
 }
 
-JsonItem::operator Json () const {
+Json::operator JsonObject () const {
     if (used_type == DataType::json_type) {
         return * data_json;
     }
     throw BadConversion {DataType::json_type};
 }
 
-JsonItem & JsonItem::operator = (const JsonItem & json_item) {
+Json & Json::operator = (const Json & json_item) {
     used_type = json_item.used_type;
     copy(json_item);
     return *this;
 }
 
-JsonItem & JsonItem::operator = (JsonItem && json_item) noexcept {
+Json & Json::operator = (Json && json_item) noexcept {
     used_type = json_item.used_type;
     move(json_item);
     return *this;
 }
 
-JsonItem & JsonItem::operator[](const int & index) {
+Json & Json::operator[](const int & index) {
     if (used_type == DataType::array_type) {
         return data_array->at(index);
     }
     throw InvalidIndexException(used_type);
 }
 
-JsonItem & JsonItem::operator[](const char * index) {
+Json & Json::operator[](const char * index) {
     if (used_type == DataType::json_type) {
         return data_json->at(index);
     }
@@ -125,7 +125,7 @@ JsonItem & JsonItem::operator[](const char * index) {
 #pragma endregion
 
 #pragma region Destructor
-JsonItem::~JsonItem() {
+Json::~Json() {
     switch (used_type) {
         case DataType::array_type:
             delete data_array;
@@ -145,7 +145,7 @@ JsonItem::~JsonItem() {
 
 #pragma region Private Methods
 
-void JsonItem::move(JsonItem & json_item) noexcept {
+void Json::move(Json & json_item) noexcept {
     switch (json_item.used_type) {
         case DataType::integer_type:
             data_int = json_item.data_int;
@@ -173,7 +173,7 @@ void JsonItem::move(JsonItem & json_item) noexcept {
     }
 }
 
-void JsonItem::copy(const JsonItem & json_item) {
+void Json::copy(const Json & json_item) {
     switch (json_item.used_type) {
         case DataType::integer_type:
             data_int = json_item.data_int;
@@ -191,7 +191,7 @@ void JsonItem::copy(const JsonItem & json_item) {
             data_array = new Array {*json_item.data_array};
             return;
         case DataType::json_type:
-            data_json = new Json {*json_item.data_json};
+            data_json = new JsonObject {*json_item.data_json};
             return;
         default:
             return;
@@ -202,7 +202,7 @@ void JsonItem::copy(const JsonItem & json_item) {
 
 #pragma region OS Overloading
 
-std::ostream & operator<<(std::ostream & os, JsonItem & json_item) {
+std::ostream & operator<<(std::ostream & os, Json & json_item) {
     switch (json_item.used_type) {
         case DataType::integer_type:
             os << json_item.data_int;
@@ -231,7 +231,7 @@ std::ostream & operator<<(std::ostream & os, JsonItem & json_item) {
     return os;
 }
 
-std::ostream & operator<<(std::ostream & os, JsonItem && json_item) {
+std::ostream & operator<<(std::ostream & os, Json && json_item) {
     os << json_item;
     return os;
 }
@@ -240,11 +240,11 @@ std::ostream & operator<<(std::ostream & os, JsonItem && json_item) {
 
 #pragma region Public Method
 
-JsonItem & JsonItem::at(const int index) {
+Json & Json::at(const int index) {
     return operator[](index);
 }
 
-JsonItem & JsonItem::at(const char * index) {
+Json & Json::at(const char * index) {
     return operator[](index);
 }
 

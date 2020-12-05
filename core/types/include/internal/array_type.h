@@ -4,9 +4,9 @@
 #include <vector>
 #include <ostream>
 
-class JsonItem;
-typedef std::vector<JsonItem> type_array;
-typedef std::initializer_list<JsonItem> array_list_type;
+class Json;
+typedef std::vector<Json> type_array;
+typedef std::initializer_list<Json> array_list_type;
 
 class Array : public type_array {
 public:
