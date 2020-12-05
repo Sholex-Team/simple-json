@@ -1,5 +1,7 @@
 #include <iostream>
-#include "types.h"
+#include "simple_json.h"
+
+using namespace simple_json::types;
 
 int main() {
     std::cout << "Start Simple JSON Project!" << std::endl;

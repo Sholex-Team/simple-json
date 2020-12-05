@@ -1,5 +1,7 @@
 #include "bad_conversion.h"
 
+using namespace simple_json::types::exceptions;
+
 BadConversion::BadConversion(DataType to) noexcept : JsonException(), to {to} {}
 
 const char * BadConversion::what() const noexcept {

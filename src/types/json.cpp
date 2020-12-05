@@ -6,6 +6,10 @@
 #include "invalid_index.h"
 #include <utility>
 
+using namespace simple_json;
+using namespace ::types;
+using namespace ::exceptions;
+
 // Constructors body
 #pragma region Constructors
 Json::Json(double data) : data_double {data}, used_type {DataType::double_type} {}
@@ -195,7 +199,7 @@ void Json::copy(const Json & json_item) {
 
 #pragma region OS Overloading
 
-std::ostream & operator<<(std::ostream & os, Json & json_item) {
+std::ostream & types::operator<<(std::ostream & os, Json & json_item) {
     switch (json_item.used_type) {
         case DataType::integer_type:
             os << json_item.data_int;
@@ -224,7 +228,7 @@ std::ostream & operator<<(std::ostream & os, Json & json_item) {
     return os;
 }
 
-std::ostream & operator<<(std::ostream & os, Json && json_item) {
+std::ostream & types::operator<<(std::ostream & os, Json && json_item) {
     os << json_item;
     return os;
 }

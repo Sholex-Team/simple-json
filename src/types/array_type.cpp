@@ -1,6 +1,9 @@
 #include "array_type.h"
 #include "json.h"
 
+using namespace simple_json;
+using namespace ::types;
+
 #pragma region Construcors
 
 Array::Array(array_list_type & list_initial) : type_array(list_initial) {}
@@ -11,7 +14,7 @@ Array::Array(array_list_type && list_initial) : type_array(list_initial) {}
 
 #pragma region OS Overloading
 
-std::ostream & operator<<(std::ostream & os, Array & array) {
+std::ostream & types::operator<<(std::ostream & os, Array & array) {
     os << '[';
     for (size_t i {0}; i < array.size(); ++i) {
         os << array.at(i) << ((i == array.size() - 1) ? "" : ", ");
@@ -20,7 +23,7 @@ std::ostream & operator<<(std::ostream & os, Array & array) {
     return os;
 }
 
-std::ostream & operator<<(std::ostream &os, Array && array) {
+std::ostream & types::operator<<(std::ostream &os, Array && array) {
     os << array;
     return os;
 }

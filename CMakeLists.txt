@@ -1,6 +1,15 @@
 cmake_minimum_required(VERSION 3.17)
 project("Simple JSON" VERSION 1.0.0)
 set(CMAKE_CXX_STANDARD 17)
-add_subdirectory(core)
-add_executable(simple_json main.cpp)
-target_link_libraries(simple_json PRIVATE types)
+add_executable(
+        simple_json main.cpp
+        src/types/stream_exceptions.cpp
+        src/types/array_type.cpp
+        src/types/bad_conversion.cpp
+        src/types/invalid_index.cpp
+        src/types/json.cpp
+        src/types/json_key.cpp
+        src/types/json_object.cpp
+)
+target_include_directories(simple_json PUBLIC include/external)
+target_include_directories(simple_json PRIVATE include/internal)

@@ -1,5 +1,7 @@
 #include "invalid_index.h"
 
+using namespace simple_json::types::exceptions;
+
 const char * InvalidIndexException::what() const noexcept {
     switch (to) {
         case DataType::integer_type:
