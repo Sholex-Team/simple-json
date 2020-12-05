@@ -6,7 +6,6 @@ add_library(
         src/json.cpp
         src/array_type.cpp
         src/json_object.cpp
-        src/enum_types.cpp
         src/bad_conversion.cpp
         src/stream_exceptions.cpp
         src/invalid_index.cpp

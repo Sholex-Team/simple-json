@@ -1,4 +1,3 @@
-
 #ifndef SIMPLE_JSON_INVALID_INDEX_H
 #define SIMPLE_JSON_INVALID_INDEX_H
 
@@ -10,7 +9,7 @@ private:
     DataType to;
 public:
     const char * what() const noexcept override;
-    InvalidIndexException(DataType) noexcept;
+    explicit InvalidIndexException(DataType) noexcept;
     InvalidIndexException() noexcept : JsonException(), to {DataType::unknown} {}
 };
 

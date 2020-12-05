@@ -1,5 +1,6 @@
 #ifndef SIMPLE_JSON_JSON_H
 #define SIMPLE_JSON_JSON_H
+
 #include <ostream>
 #include <vector>
 #include "enum_types.h"
@@ -60,8 +61,8 @@ public:
     friend std::ostream & operator<<(std::ostream &, Json &);
 
     // Operator [] Overloading
-    Json & operator [](const int &);
-    Json & operator [](const char * &);
+    Json & operator[](const int &);
+    Json & operator[](const char * &);
 
     // Public Method
     Json & at(const int);

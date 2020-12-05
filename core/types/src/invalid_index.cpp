@@ -1,7 +1,6 @@
-
 #include "invalid_index.h"
 
-const char *InvalidIndexException::what() const noexcept {
+const char * InvalidIndexException::what() const noexcept {
     switch (to) {
         case DataType::integer_type:
             return "invalid used index integer 1";

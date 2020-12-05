@@ -16,26 +16,19 @@ Json::Json(bool data) : data_boolean {data}, used_type {DataType::boolean_type} 
 
 Json::Json(std::nullptr_t t) : used_type(DataType::null_type) {}
 
-Json::Json(Array data) : data_array {new Array(std::move(data))},
-                         used_type {DataType::array_type} {}
+Json::Json(Array data) : data_array {new Array(std::move(data))}, used_type {DataType::array_type} {}
 
-Json::Json(Array && data) : data_array {new Array(std::move(data))},
-                            used_type {DataType::array_type} {}
+Json::Json(Array && data) : data_array {new Array(std::move(data))}, used_type {DataType::array_type} {}
 
-Json::Json(array_list_type & list_initial) : data_array {new Array{list_initial}},
-                                             used_type(DataType::array_type) {}
+Json::Json(array_list_type & list_initial) : data_array {new Array{list_initial}}, used_type(DataType::array_type) {}
 
-Json::Json(array_list_type && list_initial) : data_array {new Array{list_initial}},
-                                              used_type(DataType::array_type) {}
+Json::Json(array_list_type && list_initial) : data_array {new Array{list_initial}}, used_type(DataType::array_type) {}
 
-Json::Json(std::string data) : data_string {new std::string {std::move(data)}},
-                               used_type {DataType::string_type} {}
+Json::Json(std::string data) : data_string {new std::string {std::move(data)}}, used_type {DataType::string_type} {}
 
-Json::Json(std::string && data) : data_string {new std::string {std::move(data)}},
-                                  used_type {DataType::string_type} {}
+Json::Json(std::string && data) : data_string {new std::string {std::move(data)}}, used_type {DataType::string_type} {}
 
-Json::Json(const char * data) : data_string {new std::string {data}},
-                                used_type {DataType::string_type} {}
+Json::Json(const char * data) : data_string {new std::string {data}}, used_type {DataType::string_type} {}
 
 Json::Json(JsonObject data) : data_json {new JsonObject {std::move(data)}}, used_type {DataType::json_type} {}
 
@@ -61,48 +54,48 @@ Json::Json() : used_type {DataType::unknown} {}
 
 #pragma region Operators overloading
 
-Json::operator int () const {
+Json::operator int() const {
     if (used_type == DataType::integer_type) {
         return data_int;
     }
     throw BadConversion {DataType::integer_type};
 }
 
-Json::operator double () const {
+Json::operator double() const {
     if (used_type == DataType::double_type) {
         return data_double;
     }
     throw BadConversion{DataType::double_type};
 }
 
-Json::operator std::string () const {
+Json::operator std::string() const {
     if (used_type == DataType::string_type) {
         return * data_string;
     }
     throw BadConversion{DataType::string_type};
 }
 
-Json::operator Array () const {
+Json::operator Array() const {
     if (used_type == DataType::array_type) {
         return * data_array;
     }
     throw BadConversion {DataType::array_type};
 }
 
-Json::operator JsonObject () const {
+Json::operator JsonObject() const {
     if (used_type == DataType::json_type) {
         return * data_json;
     }
     throw BadConversion {DataType::json_type};
 }
 
-Json & Json::operator = (const Json & json_item) {
+Json & Json::operator=(const Json & json_item) {
     used_type = json_item.used_type;
     copy(json_item);
     return *this;
 }
 
-Json & Json::operator = (Json && json_item) noexcept {
+Json & Json::operator=(Json && json_item) noexcept {
     used_type = json_item.used_type;
     move(json_item);
     return *this;
