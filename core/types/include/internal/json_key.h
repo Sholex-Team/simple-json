@@ -11,7 +11,7 @@ public:
     explicit JsonKey(char *);
     explicit JsonKey(std::string &);
     explicit JsonKey(std::string &&);
-    JsonKey(JsonKey &);
+    JsonKey(const JsonKey &);
     JsonKey(JsonKey &&) noexcept;
 
     // Destructors

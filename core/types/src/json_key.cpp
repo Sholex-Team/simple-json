@@ -8,7 +8,7 @@ JsonKey::JsonKey(std::string & key) : key {new std::string {key}} {}
 
 JsonKey::JsonKey(std::string && key) : JsonKey(key) {}
 
-JsonKey::JsonKey(JsonKey & json_key) : key {new std::string {*json_key.key}} {}
+JsonKey::JsonKey(const JsonKey & json_key) : key {new std::string {*json_key.key}} {}
 
 JsonKey::JsonKey(JsonKey && json_key) noexcept : key {json_key.key} {
     json_key.key = nullptr;
