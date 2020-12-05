@@ -5,6 +5,7 @@
 #include "enum_types.h"
 #include "json_type.h"
 #include "array_type.h"
+#include "json_key.h"
 
 class Json {
 

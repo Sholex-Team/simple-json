@@ -15,7 +15,7 @@ JsonObject::JsonObject(json_list_type && initializer_list) : map_type(initialize
 
 Json JsonObject::get(const char * key, Json & default_return) {
     try {
-        return at(key);
+        return at(JsonKey {key});
     } catch (std::out_of_range &e) {
         return default_return;
     }

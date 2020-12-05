@@ -117,7 +117,7 @@ Json & Json::operator[](const int & index) {
 
 Json & Json::operator[](const char * index) {
     if (used_type == DataType::json_type) {
-        return data_json->at(index);
+        return data_json->at(JsonKey {index});
     }
     throw InvalidIndexException(used_type);
 }
