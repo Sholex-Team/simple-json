@@ -1,9 +1,9 @@
-#ifndef SIMPLE_JSON_JSON_ITEM_H
-#define SIMPLE_JSON_JSON_ITEM_H
+#ifndef SIMPLE_JSON_JSON_H
+#define SIMPLE_JSON_JSON_H
 #include <ostream>
 #include <vector>
 #include "enum_types.h"
-#include "json_type.h"
+#include "json_object.h"
 #include "array_type.h"
 #include "json_key.h"
 

@@ -1,5 +1,5 @@
-#ifndef SIMPLE_JSON_JSON_TYPE_H
-#define SIMPLE_JSON_JSON_TYPE_H
+#ifndef SIMPLE_JSON_JSON_OBJECT_H
+#define SIMPLE_JSON_JSON_OBJECT_H
 
 #include <map>
 #include <string>
@@ -23,4 +23,4 @@ public:
     JsonObject(JsonObject &) = default;
 };
 
-#endif //SIMPLE_JSON_JSON_TYPE_H
+#endif //SIMPLE_JSON_JSON_OBJECT_H

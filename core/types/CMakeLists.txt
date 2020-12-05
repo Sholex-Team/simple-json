@@ -3,9 +3,9 @@ project(types VERSION 1.0.0)
 # library
 add_library(
         types
-        src/json_item.cpp
+        src/json.cpp
         src/array_type.cpp
-        src/json_type.cpp
+        src/json_object.cpp
         src/enum_types.cpp
         src/bad_conversion.cpp
         src/stream_exceptions.cpp
