@@ -24,6 +24,6 @@ public:
 };
 
 // Operator Overloading
-JsonKey operator""_json_key(const char *);
+JsonKey operator""_json_key(const char *, size_t);
 
 #endif //SIMPLE_JSON_JSON_KEY_H
