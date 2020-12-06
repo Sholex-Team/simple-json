@@ -14,6 +14,9 @@ namespace simple_json::types {
     typedef std::initializer_list<std::pair<const JsonKey, Json>> json_list_type;
 
     class JsonObject : public map_type {
+    private:
+        std::ostream & create_ostream_without_indent(std::ostream &);
+        std::ostream & create_ostream_with_indent(std::ostream &);
     public:
         Json get(const char *, Json &);
         Json get(const char *, Json &&);
@@ -22,6 +25,10 @@ namespace simple_json::types {
         JsonObject(json_list_type &&);
         JsonObject(JsonObject &&) noexcept = default;
         JsonObject(JsonObject &) = default;
+
+        // Operator OStream
+        friend std::ostream & operator<<(std::ostream &, JsonObject &);
+        friend std::ostream & operator<<(std::ostream &, JsonObject &&);
     };
 
 }

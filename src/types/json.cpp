@@ -4,6 +4,7 @@
 #include "bad_conversion.h"
 #include "stream_exceptions.h"
 #include "invalid_index.h"
+#include <utility>
 
 using namespace simple_json;
 using namespace ::types;
