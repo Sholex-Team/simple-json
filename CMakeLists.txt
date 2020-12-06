@@ -10,6 +10,6 @@ add_executable(
         src/types/json.cpp
         src/types/json_key.cpp
         src/types/json_object.cpp
-        include/internal/indent_json.h)
+        src/types/indent.cpp)
 target_include_directories(simple_json PUBLIC include/external)
 target_include_directories(simple_json PRIVATE include/internal)

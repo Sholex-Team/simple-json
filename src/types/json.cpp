@@ -34,15 +34,15 @@ Json::Json(std::string && data) : data_string {new std::string {std::move(data)}
 
 Json::Json(const char * data) : data_string {new std::string {data}}, used_type {DataType::string_type} {}
 
-Json::Json(JsonObject data) : data_json {new JsonObject {std::move(data)}}, used_type {DataType::json_type} {}
+Json::Json(JsonObject data) : data_json_object {new JsonObject {std::move(data)}}, used_type {DataType::json_object_type} {}
 
-Json::Json(JsonObject && data) : data_json {new JsonObject {std::move(data)}}, used_type {DataType::json_type} {}
+Json::Json(JsonObject && data) : data_json_object {new JsonObject {std::move(data)}}, used_type {DataType::json_object_type} {}
 
-Json::Json(json_list_type & initializer_list) : data_json {new JsonObject {initializer_list}},
-                                                used_type {DataType::json_type} {}
+Json::Json(json_list_type & initializer_list) : data_json_object {new JsonObject {initializer_list}},
+                                                used_type {DataType::json_object_type} {}
 
-Json::Json(json_list_type && initializer_list) : data_json {new JsonObject {initializer_list}},
-                                                 used_type {DataType::json_type} {}
+Json::Json(json_list_type && initializer_list) : data_json_object {new JsonObject {initializer_list}},
+                                                 used_type {DataType::json_object_type} {}
 
 Json::Json(const Json & json_item) : used_type {json_item.used_type} {
     copy(json_item);
@@ -87,10 +87,10 @@ Json::operator Array() const {
 }
 
 Json::operator JsonObject() const {
-    if (used_type == DataType::json_type) {
-        return * data_json;
+    if (used_type == DataType::json_object_type) {
+        return * data_json_object;
     }
-    throw BadConversion {DataType::json_type};
+    throw BadConversion {DataType::json_object_type};
 }
 
 Json & Json::operator=(const Json & json_item) {
@@ -113,8 +113,8 @@ Json & Json::operator[](const int & index) {
 }
 
 Json & Json::operator[](const char * & index) {
-    if (used_type == DataType::json_type) {
-        return data_json->at(JsonKey {index});
+    if (used_type == DataType::json_object_type) {
+        return data_json_object->at(JsonKey {index});
     }
     throw InvalidIndexException(used_type);
 }
@@ -127,8 +127,8 @@ Json::~Json() {
         case DataType::array_type:
             delete data_array;
             return;
-        case DataType::json_type:
-            delete data_json;
+        case DataType::json_object_type:
+            delete data_json_object;
             return;
         case DataType::string_type:
             delete data_string;
@@ -161,9 +161,9 @@ void Json::move(Json & json_item) noexcept {
             data_array = json_item.data_array;
             json_item.data_array = nullptr;
             return;
-        case DataType::json_type:
-            data_json = json_item.data_json;
-            json_item.data_json = nullptr;
+        case DataType::json_object_type:
+            data_json_object = json_item.data_json_object;
+            json_item.data_json_object = nullptr;
             return;
         default:
             return;
@@ -187,8 +187,8 @@ void Json::copy(const Json & json_item) {
         case DataType::array_type:
             data_array = new Array {*json_item.data_array};
             return;
-        case DataType::json_type:
-            data_json = new JsonObject {*json_item.data_json};
+        case DataType::json_object_type:
+            data_json_object = new JsonObject {*json_item.data_json_object};
             return;
         default:
             return;
@@ -199,7 +199,7 @@ void Json::copy(const Json & json_item) {
 
 #pragma region OS Overloading
 
-std::ostream & types::operator<<(std::ostream & os, Json & json_item) {
+std::ostream & types::operator<<(std::ostream & os, const Json & json_item) {
     switch (json_item.used_type) {
         case DataType::integer_type:
             os << json_item.data_int;
@@ -216,8 +216,8 @@ std::ostream & types::operator<<(std::ostream & os, Json & json_item) {
         case DataType::array_type:
             os << * json_item.data_array;
             break;
-        case DataType::json_type:
-            os << json_item.data_json;
+        case DataType::json_object_type:
+            os << json_item.data_json_object;
             break;
         case DataType::null_type:
             os << nullptr;
@@ -228,7 +228,7 @@ std::ostream & types::operator<<(std::ostream & os, Json & json_item) {
     return os;
 }
 
-std::ostream & types::operator<<(std::ostream & os, Json && json_item) {
+std::ostream & types::operator<<(std::ostream & os, const Json && json_item) {
     os << json_item;
     return os;
 }

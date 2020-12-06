@@ -11,7 +11,7 @@ namespace simple_json::types {
         double_type,
         boolean_type,
         array_type,
-        json_type,
+        json_object_type,
         null_type,
         unknown
     };

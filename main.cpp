@@ -8,6 +8,6 @@ int main() {
     JsonObject a {
             {"t"_json_key, 5}
     };
-    std::cout << std::setw(5) << a;
+    std::cout << a << std::endl;
     return 0;
 }

@@ -2,6 +2,7 @@
 #define SIMPLE_JSON_JSON_KEY_H
 
 #include <string>
+#include <iostream>
 
 namespace simple_json::types {
     class JsonKey {
@@ -24,12 +25,14 @@ namespace simple_json::types {
         bool operator==(const JsonKey &) const;
 
         // Operator OStream
-        friend std::ostream & operator<<(std::ostream &, JsonKey &&);
-        friend std::ostream & operator<<(std::ostream &, JsonKey &);
+        friend std::ostream & operator<<(std::ostream &, const JsonKey &&);
+        friend std::ostream & operator<<(std::ostream &, const JsonKey &);
     };
 
-// Operator Overloading
+    // Operator Overloading
     JsonKey operator""_json_key(const char *, size_t);
+    std::ostream & operator<<(std::ostream &, const JsonKey &&);
+    std::ostream & operator<<(std::ostream &, const JsonKey &);
 }
 
 #endif //SIMPLE_JSON_JSON_KEY_H

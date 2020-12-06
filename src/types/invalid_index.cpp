@@ -8,7 +8,7 @@ const char * InvalidIndexException::what() const noexcept {
             return "invalid used index integer 1";
         case DataType::double_type:
             return "invalid used index double !";
-        case DataType::json_type:
+        case DataType::json_object_type:
             return "invalid used index(\"integer\") in json !";
         case DataType::string_type:
             return "invalid used index(\"string\") in string !";

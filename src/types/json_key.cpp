@@ -29,13 +29,13 @@ JsonKey::~JsonKey() {
 
 #pragma region Operator Overloading
 
-std::ostream & types::operator<<(std::ostream & os, JsonKey && json_key) {
-    os << json_key;
+std::ostream & types::operator<<(std::ostream & os, const JsonKey & json_key) {
+    os << '"' << *json_key.key << '"';
     return os;
 }
 
-std::ostream & types::operator<<(std::ostream & os, JsonKey & json_key) {
-    os << * (json_key.key);
+std::ostream & types::operator<<(std::ostream & os, const JsonKey && json_key) {
+    os << json_key;
     return os;
 }
 

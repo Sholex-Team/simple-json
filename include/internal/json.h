@@ -6,9 +6,11 @@
 #include "enum_types.h"
 #include "json_object.h"
 #include "array_type.h"
-#include "json_key.h"
 
 namespace simple_json::types {
+    class JsonKey;
+    class JsonObject;
+    class Array;
     class Json {
     private:
         union {
@@ -17,7 +19,7 @@ namespace simple_json::types {
             bool data_boolean;
             Array * data_array;
             std::string * data_string;
-            JsonObject * data_json;
+            JsonObject * data_json_object;
         };
         DataType used_type;
 
@@ -57,8 +59,8 @@ namespace simple_json::types {
         Json & operator=(Json &&) noexcept;
 
         // Friends
-        friend std::ostream & operator<<(std::ostream &, Json &&);
-        friend std::ostream & operator<<(std::ostream &, Json &);
+        friend std::ostream & operator<<(std::ostream &, const Json &);
+        friend std::ostream & operator<<(std::ostream &, const Json &&);
 
         // Operator [] Overloading
         Json & operator[](const int &);
@@ -72,8 +74,8 @@ namespace simple_json::types {
         ~Json();
     };
 
-    std::ostream & operator<<(std::ostream &, Json &);
-    std::ostream & operator<<(std::ostream &, Json &&);
+    std::ostream & operator<<(std::ostream &, const Json &);
+    std::ostream & operator<<(std::ostream &, const Json &&);
 }
 
 #endif
