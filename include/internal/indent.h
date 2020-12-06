@@ -2,27 +2,32 @@
 #define SIMPLE_JSON_INDENT_H
 
 #include <ostream>
+#include "enum_types.h"
+
+using simple_json::types::StreamType;
 
 namespace simple_json::indent {
-    class Indent {
-    private:
-        size_t indent_length {0};
-    public:
-        Indent() = default;
-        explicit Indent(size_t indent_length);
-        [[nodiscard]] size_t get_indent_length() const { return indent_length; }
-    } static static_indent_obj;
+    struct Indent {
+        static size_t indent_length;
+    };
 
-    inline Indent set_indent(size_t _indent_length = 4) {
-        return Indent {_indent_length};
+    inline StreamType set_indent(size_t length = 4)  {
+        Indent::indent_length = length;
+        return StreamType::indent;
     }
 
-    inline Indent unset_indent() {
-        return Indent {};
+    inline StreamType unset_indent() {
+        Indent::indent_length = 0;
+        return StreamType::indent;
     }
 
-    std::ostream & operator<<(std::ostream &, Indent &);
-    std::ostream & operator<<(std::ostream &, Indent &&);
+    inline std::ostream & operator<<(std::ostream & os, StreamType &) {
+        return os;
+    }
+
+    inline std::ostream & operator<<(std::ostream & os, StreamType &&) {
+        return os;
+    }
 }
 
 #endif //SIMPLE_JSON_INDENT_H

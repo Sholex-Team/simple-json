@@ -4,12 +4,12 @@
 
 using namespace simple_json;
 using namespace ::types;
-using namespace ::indent;
+using namespace simple_json::indent;
 
 int main() {
     JsonObject a {
             {"t"_json_key, 5}
     };
-    std::cout << set_indent() << a << std::endl;
+    std::cout << set_indent(10) << a << std::endl;
     return 0;
 }

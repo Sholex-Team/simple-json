@@ -15,6 +15,10 @@ namespace simple_json::types {
         null_type,
         unknown
     };
+
+    enum StreamType : std::uint8_t {
+        indent
+    };
 }
 
 #endif //SIMPLE_JSON_ENUM_TYPES_H
