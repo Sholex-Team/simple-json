@@ -10,12 +10,12 @@ namespace simple_json::indent {
 
     inline SetIndent set_indent(size_t length = 4)  {
         indent_length = length;
-        return SetIndent {};
+        return {};
     }
 
     inline SetIndent unset_indent() {
         indent_length = 0;
-        return SetIndent {};
+        return {};
     }
 
     inline std::ostream & operator<<(std::ostream & os, SetIndent &) {
