@@ -20,6 +20,7 @@ inline Indent unset_indent() {
     return Indent();
 }
 
-std::ostream & operator<<(std::ostream & os, Indent & set_indent);
+std::ostream & operator<<(std::ostream &, Indent &);
+std::ostream & operator<<(std::ostream &, Indent &&);
 
 #endif //SIMPLE_JSON_INDENT_H

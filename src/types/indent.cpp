@@ -13,4 +13,9 @@ std::ostream & operator<<(std::ostream & os, Indent & set_indent) {
     return os;
 }
 
+std::ostream & operator<<(std::ostream & os, Indent && set_indent) {
+    os << set_indent;
+    return os;
+}
+
 #pragma endregion

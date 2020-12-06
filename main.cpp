@@ -8,6 +8,6 @@ int main() {
     JsonObject a {
             {"t"_json_key, 5}
     };
-    std::cout << a << std::endl;
+    std::cout << set_indent() << a << std::endl;
     return 0;
 }
