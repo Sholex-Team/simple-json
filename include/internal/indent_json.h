@@ -4,26 +4,25 @@
 
 #include <ostream>
 
-enum indent_enum {
-    set_indent_enum,
-    unset_indent_enum
-};
+class _Indent {
+private:
+    size_t indent_length {0};
+public:
+    _Indent() = default;
+    explicit _Indent(size_t indent_length) : indent_length(indent_length) {}
+    [[nodiscard]] size_t get_indent_length() const { return indent_length; }
+} static static_indent_obj;
 
-struct IndentState {
-    indent_enum indent {indent_enum::unset_indent_enum};
-    int indent_sze {0};
-};
-
-static IndentState current_state;
-
-inline std::ostream & set_indent(std::ostream & os) {
-    current_state.indent = indent_enum::set_indent_enum;
-    current_state.indent_sze = 4;
-    return os;
+_Indent set_indent(size_t _indent_length = 4) {
+    return _Indent {_indent_length};
 }
 
-inline std::ostream & unset_indent(std::ostream & os) {
-    current_state.indent = indent_enum::unset_indent_enum;
+_Indent unset_indent() {
+    return _Indent();
+}
+
+std::ostream & operator<<(std::ostream & os, _Indent & set_indent) {
+    static_indent_obj = set_indent;
     return os;
 }
 

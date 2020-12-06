@@ -1,6 +1,7 @@
 #ifndef SIMPLE_JSON_SIMPLE_JSON_H
 #define SIMPLE_JSON_SIMPLE_JSON_H
 
+#include "indent_json.h"
 #include "array_type.h"
 #include "bad_conversion.h"
 #include "base_exception.h"

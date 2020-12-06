@@ -34,13 +34,10 @@ Json JsonObject::get(const char * key, Json && default_return) {
 
 
 std::ostream & simple_json::types::operator<<(std::ostream & os, JsonObject & json_object) {
-    switch (current_state.indent) {
-
-        case set_indent_enum:
-            return json_object.create_ostream_with_indent(os);
-        case unset_indent_enum:
-            return json_object.create_ostream_without_indent(os);
+    if (static_indent_obj.get_indent_length() == 0) {
+        return json_object.create_ostream_without_indent(os);
     }
+    return json_object.create_ostream_with_indent(os);
 }
 
 std::ostream & simple_json::types::operator<<(std::ostream & os, JsonObject && json_object) {
