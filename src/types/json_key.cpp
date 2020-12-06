@@ -56,3 +56,11 @@ JsonKey types::operator""_json_key(const char * key_ptr, size_t) {
 }
 
 #pragma endregion
+
+#pragma region Methods
+
+size_t JsonKey::length() const noexcept {
+    return key->size();
+}
+
+#pragma endregion

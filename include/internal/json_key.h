@@ -27,6 +27,9 @@ namespace simple_json::types {
         // Operator OStream
         friend std::ostream & operator<<(std::ostream &, const JsonKey &&);
         friend std::ostream & operator<<(std::ostream &, const JsonKey &);
+
+        // Methods
+        size_t length() const noexcept;
     };
 
     // Operator Overloading

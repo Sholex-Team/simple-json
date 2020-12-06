@@ -245,4 +245,8 @@ Json & Json::at(const char * index) {
     return operator[](index);
 }
 
+DataType Json::get_used_type() const noexcept{
+    return used_type;
+}
+
 #pragma endregion

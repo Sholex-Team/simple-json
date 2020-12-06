@@ -18,7 +18,7 @@ namespace simple_json::types {
 class JsonObject : public map_type {
     private:
         std::ostream & create_ostream_without_indent(std::ostream &) const;
-        std::ostream & create_ostream_with_indent(std::ostream &) const;
+        std::ostream & create_ostream_with_indent(std::ostream &, size_t) const;
     public:
         Json get(const char *, Json &);
         Json get(const char *, Json &&);

@@ -11,6 +11,7 @@ namespace simple_json::types {
     class JsonKey;
     class JsonObject;
     class Array;
+
     class Json {
     private:
         union {
@@ -69,6 +70,7 @@ namespace simple_json::types {
         // Public Method
         Json & at(int);
         Json & at(const char *);
+        DataType get_used_type() const noexcept;
 
         // Destructors
         ~Json();
