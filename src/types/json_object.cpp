@@ -6,7 +6,7 @@
 
 using namespace simple_json;
 using namespace ::types;
-using namespace simple_json::indent;
+using namespace ::indent;
 
 #pragma region Constructors
 
