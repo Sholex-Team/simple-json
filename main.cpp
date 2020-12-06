@@ -2,7 +2,9 @@
 #include <iomanip>
 #include "simple_json.h"
 
-using namespace simple_json::types;
+using namespace simple_json;
+using namespace ::types;
+using namespace ::indent;
 
 int main() {
     JsonObject a {
