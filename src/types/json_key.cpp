@@ -41,6 +41,15 @@ bool JsonKey::operator==(const JsonKey & right_json_key) const {
     return key == right_json_key.key;
 }
 
+std::ostream & types::operator<<(std::ostream & os, JsonKey & json_key) {
+    os << * (json_key.key);
+}
+
+std::ostream & types::operator<<(std::ostream & os, JsonKey && json_key) {
+    os << json_key;
+    return os;
+}
+
 JsonKey types::operator""_json_key(const char * key_ptr, size_t) {
     return JsonKey(key_ptr);
 }

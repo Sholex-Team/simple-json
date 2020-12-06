@@ -23,7 +23,7 @@ std::ostream & types::operator<<(std::ostream & os, Array & array) {
     return os;
 }
 
-std::ostream & types::operator<<(std::ostream &os, Array && array) {
+std::ostream & types::operator<<(std::ostream & os, Array && array) {
     os << array;
     return os;
 }
