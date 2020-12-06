@@ -7,17 +7,15 @@
 using simple_json::types::StreamType;
 
 namespace simple_json::indent {
-    struct Indent {
-        static size_t indent_length;
-    };
+    extern size_t indent_length;
 
     inline StreamType set_indent(size_t length = 4)  {
-        Indent::indent_length = length;
+        indent_length = length;
         return StreamType::indent;
     }
 
     inline StreamType unset_indent() {
-        Indent::indent_length = 0;
+        indent_length = 0;
         return StreamType::indent;
     }
 

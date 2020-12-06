@@ -36,7 +36,7 @@ Json JsonObject::get(const char * key, Json && default_return) {
 
 
 std::ostream & types::operator<<(std::ostream & os, const JsonObject & json_object) {
-    if (Indent::indent_length == 0) {
+    if (indent_length == 0) {
         return json_object.create_ostream_without_indent(os);
     }
     return json_object.create_ostream_with_indent(os);

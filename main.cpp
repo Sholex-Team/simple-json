@@ -10,6 +10,6 @@ int main() {
     JsonObject a {
             {"t"_json_key, 5}
     };
-    std::cout << set_indent(10) << a << std::endl;
+    std::cout << set_indent(10) << std::setw(10) << a << std::endl;
     return 0;
 }
