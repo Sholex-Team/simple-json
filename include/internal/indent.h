@@ -8,7 +8,7 @@ private:
     size_t indent_length {0};
 public:
     Indent() = default;
-    explicit Indent(size_t indent_length) : indent_length {indent_length} {}
+    explicit Indent(size_t indent_length);
     [[nodiscard]] size_t get_indent_length() const { return indent_length; }
 } static static_indent_obj;
 
