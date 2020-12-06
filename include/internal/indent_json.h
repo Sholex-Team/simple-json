@@ -13,11 +13,11 @@ public:
     [[nodiscard]] size_t get_indent_length() const { return indent_length; }
 } static static_indent_obj;
 
-_Indent set_indent(size_t _indent_length = 4) {
+inline _Indent set_indent(size_t _indent_length = 4) {
     return _Indent {_indent_length};
 }
 
-_Indent unset_indent() {
+inline _Indent unset_indent() {
     return _Indent();
 }
 
