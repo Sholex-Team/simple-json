@@ -56,7 +56,7 @@ Json::Json() : used_type {DataType::unknown} {}
 
 #pragma endregion
 
-#pragma region Operators overloading
+#pragma region Operator Overloading
 
 Json::operator int() const {
     if (used_type == DataType::integer_type) {
@@ -117,6 +117,32 @@ Json & Json::operator[](const char * & index) {
         return data_json_object->at(JsonKey {index});
     }
     throw InvalidIndexException(used_type);
+}
+
+bool Json::operator==(const Json & json_item) const {
+    if (json_item.used_type != used_type) {
+        return false;
+    }
+    switch (used_type) {
+        case DataType::integer_type:
+            return data_int == json_item.data_int;
+        case DataType::string_type:
+            return data_string == json_item.data_string;
+        case DataType::double_type:
+            return data_double == json_item.data_double;
+        case DataType::boolean_type:
+            return data_boolean == json_item.data_boolean;
+        case DataType::array_type:
+            return data_array == json_item.data_array;
+        case DataType::json_object_type:
+            return data_json_object == json_item.data_json_object;
+        default:
+            return true;
+    }
+}
+
+bool Json::operator==(const Json && json_item) const {
+    return *this == json_item;
 }
 
 #pragma endregion

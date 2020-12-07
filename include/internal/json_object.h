@@ -8,6 +8,8 @@
 #include "json_key.h"
 #include "aliases.h"
 #include "iostream"
+#include <utility>
+#include <iomanip>
 
 namespace simple_json::types {
     class Json;
@@ -17,8 +19,8 @@ namespace simple_json::types {
 
 class JsonObject : public map_type {
     private:
-        std::ostream & create_ostream_without_indent(std::ostream &) const;
-        std::ostream & create_ostream_with_indent(std::ostream &, size_t) const;
+        std::ostream & stream_without_indent(std::ostream &) const;
+        std::ostream & stream_with_indent(std::ostream &, size_t) const;
     public:
         Json get(const char *, Json &);
         Json get(const char *, Json &&);
@@ -28,9 +30,10 @@ class JsonObject : public map_type {
         JsonObject(JsonObject &&) noexcept = default;
         JsonObject(JsonObject &) = default;
 
-        // Operator OStream
+        // Friends
         friend std::ostream & operator<<(std::ostream &, const JsonObject &);
         friend std::ostream & operator<<(std::ostream &, const JsonObject &&);
+        friend Array;
     };
 
     std::ostream & operator<<(std::ostream &, const JsonObject &);

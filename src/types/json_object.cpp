@@ -2,8 +2,6 @@
 #include "json_object.h"
 #include "json.h"
 #include "indent.h"
-#include <utility>
-#include <iomanip>
 
 using namespace simple_json;
 using namespace ::types;
@@ -38,9 +36,9 @@ Json JsonObject::get(const char * key, Json && default_return) {
 
 std::ostream & types::operator<<(std::ostream & os, const JsonObject & json_object) {
     if (indent_length == 0) {
-        return json_object.create_ostream_without_indent(os);
+        return json_object.stream_without_indent(os);
     }
-    return json_object.create_ostream_with_indent(os, indent_length);
+    return json_object.stream_with_indent(os, indent_length);
 }
 
 std::ostream & types::operator<<(std::ostream & os, const JsonObject && json_object) {
@@ -52,7 +50,7 @@ std::ostream & types::operator<<(std::ostream & os, const JsonObject && json_obj
 
 #pragma region Private Method
 
-std::ostream & JsonObject::create_ostream_without_indent(std::ostream & os) const {
+std::ostream & JsonObject::stream_without_indent(std::ostream & os) const {
     os << '{';
     for (const auto & p: * this) {
         os << p.first << ": " << p.second << ( p.first == std::prev(end())->first ? "" : ", ");
@@ -61,21 +59,24 @@ std::ostream & JsonObject::create_ostream_without_indent(std::ostream & os) cons
     return os;
 }
 
-std::ostream & JsonObject::create_ostream_with_indent(std::ostream & os, size_t indent_length_local) const {
+std::ostream & JsonObject::stream_with_indent(std::ostream & os, size_t local_indent) const {
     os << '{';
     for (const auto & p: * this) {
         os << std::endl;
-        os << std::setw(indent_length_local) << p.first << ": ";
-        if (p.second.used_type == DataType::json_object_type) {
-            JsonObject(p.second).create_ostream_with_indent(
-                    os, indent_length_local + indent_length
-            );
-        } else {
-            os << p.second;
+        os << std::setw(local_indent) << p.first << ": ";
+        switch (p.second.used_type) {
+            case DataType::json_object_type:
+                p.second.data_json_object->stream_with_indent(os, local_indent + indent_length);
+                break;
+            case DataType::array_type:
+                p.second.data_array->stream_with_indent(os, local_indent + indent_length);
+                break;
+            default:
+                os << p.second;
         }
         os << ( p.first == std::prev(end())->first ? "" : ",");
     }
-    os << '\n' << std::setw(indent_length_local - indent_length) << '}';
+    os << '\n' << std::setw(local_indent - indent_length) << '}';
     return os;
 }
 

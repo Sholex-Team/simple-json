@@ -15,7 +15,7 @@ int main() {
             {"a1"_json_key, "sadi"},
             {"a2"_json_key, "sina"},
     };
-    a["t9"_json_key] = {"ali", 5, {12, "reza", "mosi"}};
+    a["t9"_json_key] = {"ali", 5};
     std::cout << set_indent(4) << a << std::endl;
     return 0;
 }
