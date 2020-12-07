@@ -58,6 +58,8 @@ public:
     // Assignment Operator Overloading
     Json & operator=(const Json &);
     Json & operator=(Json &&) noexcept;
+    Json & operator=(json_list_type &);
+    Json & operator=(json_list_type &&);
 
     // Friends
     friend std::ostream & operator<<(std::ostream &, const Json &);

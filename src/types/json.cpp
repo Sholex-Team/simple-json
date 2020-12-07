@@ -243,7 +243,7 @@ std::ostream & types::operator<<(std::ostream & os, const Json & json_item) {
             os << * json_item.data_array;
             break;
         case DataType::json_object_type:
-            os << json_item.data_json_object;
+            os << * json_item.data_json_object;
             break;
         case DataType::null_type:
             os << nullptr;
