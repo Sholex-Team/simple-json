@@ -44,6 +44,7 @@ std::ostream & Array::stream_with_indent(std::ostream & os, size_t local_indent)
     os << '[';
     for (const Json & item: * this) {
         os << std::endl;
+        os << std::setw(local_indent);
         switch (item.used_type) {
             case DataType::json_object_type:
                 item.data_json_object->stream_with_indent(os, local_indent + indent_length);
@@ -52,7 +53,7 @@ std::ostream & Array::stream_with_indent(std::ostream & os, size_t local_indent)
                 item.data_array->stream_with_indent(os, local_indent + indent_length);
                 break;
             default:
-                os << std::setw(local_indent) << item;
+                os << item;
         }
         os << ( item == *std::prev(end()) ? "" : ",");
     }
