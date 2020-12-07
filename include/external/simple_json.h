@@ -19,5 +19,6 @@
 #include <iostream>
 #include <exception>
 #include "indent.h"
+#include "serializer.h"
 
 #endif //SIMPLE_JSON_SIMPLE_JSON_H

@@ -63,7 +63,6 @@ public:
 
     // Friends
     friend std::ostream & operator<<(std::ostream &, const Json &);
-    friend std::ostream & operator<<(std::ostream &, const Json &&);
     friend JsonObject;
     friend Array;
 
@@ -82,7 +81,6 @@ public:
 };
 
 std::ostream & operator<<(std::ostream &, const Json &);
-std::ostream & operator<<(std::ostream &, const Json &&);
 }
 
 #endif

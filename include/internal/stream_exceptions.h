@@ -8,6 +8,11 @@ namespace simple_json::types::exceptions {
     public:
         const char * what() const noexcept override;
     };
+
+    class WritingToFileException : public JsonException {
+    public:
+        const char * what() const noexcept override;
+    };
 }
 
 #endif //SIMPLE_JSON_STREAM_EXCEPTIONS_H

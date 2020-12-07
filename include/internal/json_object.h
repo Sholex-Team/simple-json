@@ -32,12 +32,10 @@ class JsonObject : public map_type {
 
         // Friends
         friend std::ostream & operator<<(std::ostream &, const JsonObject &);
-        friend std::ostream & operator<<(std::ostream &, const JsonObject &&);
         friend Array;
     };
 
     std::ostream & operator<<(std::ostream &, const JsonObject &);
-    std::ostream & operator<<(std::ostream &, const JsonObject &&);
 }
 
 #endif //SIMPLE_JSON_JSON_OBJECT_H

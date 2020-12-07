@@ -18,6 +18,8 @@ namespace simple_json::indent {
         return {};
     }
 
+    size_t switch_indent(size_t);
+
     inline std::ostream & operator<<(std::ostream & os, SetIndent &) {
         return os;
     }

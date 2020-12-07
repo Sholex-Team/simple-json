@@ -1,15 +1,15 @@
-#include <iostream>
 #include "simple_json.h"
+#include <iostream>
+#include <string>
 
 using namespace simple_json;
-using namespace ::types;
-using namespace ::indent;
 
 int main() {
-    Json a {
+    types::Json a {
             {"t5"_json_key, 5},
             {"names"_json_key, {"Ali", "Ahmad", "Reza", {{"test"_json_key, 5}}}},
     };
-    std::cout << set_indent(4) << a << std::endl;
+    std::string result {serializer::dumps(a)};
+    std::cout << result << std::endl;
     return 0;
 }

@@ -15,32 +15,27 @@ Array::Array(array_list_type && list_initial) : type_array(list_initial) {}
 
 #pragma region OS Overloading
 
-std::ostream & types::operator<<(std::ostream & os, Array & array) {
+std::ostream & types::operator<<(std::ostream & os, const Array & array) {
     if (indent_length == 0) {
         return array.stream_without_indent(os);
     }
     return array.stream_with_indent(os, indent_length);
 }
 
-std::ostream & types::operator<<(std::ostream & os, Array && array) {
-    os << array;
-    return os;
-}
-
 #pragma endregion
 
 #pragma region Private Methods
 
-std::ostream & Array::stream_without_indent(std::ostream & os) {
+std::ostream & Array::stream_without_indent(std::ostream & os) const {
     os << '[';
     for (const Json & item: * this) {
-        os << item << ": " << item << ( item == *std::prev(end()) ? "" : ", ");
+        os << item << ( item == *std::prev(end()) ? "" : ", ");
     }
     os << ']';
     return os;
 }
 
-std::ostream & Array::stream_with_indent(std::ostream & os, size_t local_indent) {
+std::ostream & Array::stream_with_indent(std::ostream & os, size_t local_indent) const {
     os << '[';
     for (const Json & item: * this) {
         os << std::endl;

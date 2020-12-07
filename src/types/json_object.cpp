@@ -33,17 +33,11 @@ Json JsonObject::get(const char * key, Json && default_return) {
 
 #pragma region Operator Overloading OStream
 
-
 std::ostream & types::operator<<(std::ostream & os, const JsonObject & json_object) {
     if (indent_length == 0) {
         return json_object.stream_without_indent(os);
     }
     return json_object.stream_with_indent(os, indent_length);
-}
-
-std::ostream & types::operator<<(std::ostream & os, const JsonObject && json_object) {
-    os << json_object;
-    return os;
 }
 
 #pragma endregion

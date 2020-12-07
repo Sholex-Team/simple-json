@@ -14,8 +14,8 @@ namespace simple_json::types {
 
     class Array : public type_array {
     private:
-        std::ostream & stream_without_indent(std::ostream &);
-        std::ostream & stream_with_indent(std::ostream &, size_t);
+        std::ostream & stream_without_indent(std::ostream &) const;
+        std::ostream & stream_with_indent(std::ostream &, size_t) const;
     public:
         // Constructors
         Array() = default;
@@ -29,13 +29,11 @@ namespace simple_json::types {
         Array & operator=(Array &&) noexcept = default;
 
         // Friends
-        friend std::ostream & operator<<(std::ostream &, Array &&);
-        friend std::ostream & operator<<(std::ostream &, Array &);
+        friend std::ostream & operator<<(std::ostream &, const Array &);
         friend JsonObject;
     };
 
-    std::ostream & operator<<(std::ostream &, Array &);
-    std::ostream & operator<<(std::ostream &, Array &&);
+    std::ostream & operator<<(std::ostream &, const Array &);
 }
 
 #endif //SIMPLE_JSON_ARRAY_TYPE_H

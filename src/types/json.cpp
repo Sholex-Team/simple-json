@@ -254,11 +254,6 @@ std::ostream & types::operator<<(std::ostream & os, const Json & json_item) {
     return os;
 }
 
-std::ostream & types::operator<<(std::ostream & os, const Json && json_item) {
-    os << json_item;
-    return os;
-}
-
 #pragma endregion
 
 #pragma region Public Method
