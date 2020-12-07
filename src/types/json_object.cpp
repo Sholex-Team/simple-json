@@ -68,14 +68,14 @@ std::ostream & JsonObject::create_ostream_with_indent(std::ostream & os, size_t 
         os << std::setw(indent_length_local) << p.first << ": ";
         if (p.second.get_used_type() == DataType::json_object_type) {
             JsonObject(p.second).create_ostream_with_indent(
-                    os, indent_length_local + 2 * indent_length + p.first.length()
+                    os, indent_length_local + indent_length
             );
         } else {
             os << p.second;
         }
         os << ( p.first == std::prev(end())->first ? "" : ",");
     }
-    os << std::setw(indent_length_local - indent_length) << "\n}";
+    os << '\n' << std::setw(indent_length_local - indent_length) << '}';
     return os;
 }
 
