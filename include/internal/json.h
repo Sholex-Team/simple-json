@@ -62,6 +62,7 @@ namespace simple_json::types {
         // Friends
         friend std::ostream & operator<<(std::ostream &, const Json &);
         friend std::ostream & operator<<(std::ostream &, const Json &&);
+        friend JsonObject;
 
         // Operator [] Overloading
         Json & operator[](const int &);
@@ -70,7 +71,6 @@ namespace simple_json::types {
         // Public Method
         Json & at(int);
         Json & at(const char *);
-        DataType get_used_type() const noexcept;
 
         // Destructors
         ~Json();

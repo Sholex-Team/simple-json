@@ -5,6 +5,8 @@
 #include <iostream>
 
 namespace simple_json::types {
+    class JsonObject;
+
     class JsonKey {
     private:
         std::string * key;
@@ -27,9 +29,7 @@ namespace simple_json::types {
         // Operator OStream
         friend std::ostream & operator<<(std::ostream &, const JsonKey &&);
         friend std::ostream & operator<<(std::ostream &, const JsonKey &);
-
-        // Methods
-        size_t length() const noexcept;
+        friend JsonObject;
     };
 
     // Operator Overloading

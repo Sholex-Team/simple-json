@@ -66,7 +66,7 @@ std::ostream & JsonObject::create_ostream_with_indent(std::ostream & os, size_t 
     for (const auto & p: * this) {
         os << std::endl;
         os << std::setw(indent_length_local) << p.first << ": ";
-        if (p.second.get_used_type() == DataType::json_object_type) {
+        if (p.second.used_type == DataType::json_object_type) {
             JsonObject(p.second).create_ostream_with_indent(
                     os, indent_length_local + indent_length
             );
