@@ -21,9 +21,6 @@ void serializer::dump(Json & json, const std::string & file_name, size_t local_i
     try {
         file_stream.open(file_name);
         if (!file_stream) {
-            if (file_stream.is_open()) {
-                file_stream.close();
-            }
             throw WritingToFileException();
         }
         size_t old_indent = switch_indent(local_indent);
