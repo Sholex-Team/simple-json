@@ -4,6 +4,7 @@ using namespace simple_json;
 using namespace ::types;
 using namespace ::indent;
 using namespace ::exceptions;
+using namespace ::serializer;
 
 #pragma region Serializer Functions
 
@@ -15,18 +16,28 @@ std::string serializer::dumps(const Json & json, size_t local_indent) {
     return std::move(stream.str());
 }
 
-void serializer::dump(const Json & json, const std::string & file_name, size_t local_indent) {
-    std::ofstream output_file {file_name};
-    if (!output_file) {
-        if (output_file.is_open()) {
-            output_file.close();
+Dump::Dump(const Json & json, const std::string & file_name, size_t local_indent) :
+file_stream {file_name} {
+    if (!file_stream) {
+        if (file_stream.is_open()) {
+            file_stream.close();
         }
         throw WritingToFileException();
     }
     size_t old_indent = switch_indent(local_indent);
-    output_file << json;
+    file_stream << json;
     indent_length = old_indent;
-    output_file.close();
+    file_stream.close();
+}
+
+Dump::~Dump() {
+    if (file_stream.is_open()) {
+        file_stream.close();
+    }
+}
+
+void serializer::dump(Json & json, const std::string & file_name, size_t local_indent) {
+    Dump(json, file_name, local_indent);
 }
 
 #pragma endregion

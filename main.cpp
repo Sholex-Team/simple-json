@@ -7,7 +7,11 @@ int main() {
             {"t5"_json_key, 5},
             {"names"_json_key, {"Ali", "Ahmad", "Reza", {{"test"_json_key, 5}}}},
     };
-    serializer::dump(a, "test.json", 3);
-    serializer::dump(a, "test1.json");
+    try {
+        serializer::dump(a, "test.json", 3);
+        serializer::dump(a, "/home/antiwanted/Desktop/test.json");
+    } catch (exceptions::WritingToFileException & e) {
+        std::cout << e.what() << std::endl;
+    }
     return 0;
 }
