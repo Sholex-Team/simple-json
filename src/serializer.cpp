@@ -27,13 +27,14 @@ void serializer::dump(Json & json, const std::string & file_name, size_t local_i
             throw WritingToFileException();
         }
         size_t old_indent = switch_indent(local_indent);
-        file_stream << json;
+        file_stream << json << std::endl;
         indent_length = old_indent;
         file_stream.close();
     } catch (std::exception & e) {
         if (file_stream.is_open()) {
             file_stream.close();
         }
+        throw e;
     }
 }
 
