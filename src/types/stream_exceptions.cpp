@@ -1,6 +1,6 @@
 #include "stream_exceptions.h"
 
-namespace simple_json::types::exceptions {
+namespace simple_json::serializer::exceptions {
     #pragma region Public Methods
 
         const char * StreamInsertionException::what() const noexcept {

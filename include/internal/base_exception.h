@@ -3,7 +3,7 @@
 
 #include <exception>
 
-namespace simple_json::types::exceptions {
+namespace simple_json::base_exceptions {
     class JsonException : public std::exception {};
 }
 
