@@ -7,7 +7,6 @@
 #include <utility>
 
 namespace simple_json::types {
-    using namespace exceptions;
     #pragma region Constructors
     Json::Json(double data) : data_double {data}, used_type {DataType::double_type} {}
 
@@ -71,35 +70,35 @@ namespace simple_json::types {
         if (used_type == DataType::integer_type) {
             return data_int;
         }
-        throw BadConversion {DataType::integer_type};
+        throw exceptions::BadConversion {DataType::integer_type};
     }
 
     Json::operator double() const {
         if (used_type == DataType::double_type) {
             return data_double;
         }
-        throw BadConversion {DataType::double_type};
+        throw exceptions::BadConversion {DataType::double_type};
     }
 
     Json::operator std::string() const {
         if (used_type == DataType::string_type) {
             return * data_string;
         }
-        throw BadConversion {DataType::string_type};
+        throw exceptions::BadConversion {DataType::string_type};
     }
 
     Json::operator Array() const {
         if (used_type == DataType::array_type) {
             return * data_array;
         }
-        throw BadConversion {DataType::array_type};
+        throw exceptions::BadConversion {DataType::array_type};
     }
 
     Json::operator JsonObject() const {
         if (used_type == DataType::json_object_type) {
             return * data_json_object;
         }
-        throw BadConversion {DataType::json_object_type};
+        throw exceptions::BadConversion {DataType::json_object_type};
     }
 
     Json & Json::operator=(const Json & json_item) {
@@ -118,14 +117,14 @@ namespace simple_json::types {
         if (used_type == DataType::array_type) {
             return data_array->at(index);
         }
-        throw InvalidIndexException {used_type};
+        throw exceptions::InvalidIndexException {used_type};
     }
 
     Json & Json::operator[](const char * & index) {
         if (used_type == DataType::json_object_type) {
             return data_json_object->at(JsonKey {index});
         }
-        throw InvalidIndexException {used_type};
+        throw exceptions::InvalidIndexException {used_type};
     }
 
     bool Json::operator==(const Json & json_item) const {

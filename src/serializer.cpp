@@ -2,6 +2,7 @@
 
 namespace simple_json::serializer {
     using namespace indent;
+    using namespace types;
     using namespace exceptions;
     #pragma region Serializer Functions
 

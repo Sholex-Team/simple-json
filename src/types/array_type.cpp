@@ -1,8 +1,9 @@
 #include "array_type.h"
 #include "json.h"
 
+using namespace simple_json::indent;
+
 namespace simple_json::types {
-    using namespace indent;
     #pragma region Construcors
 
     Array::Array(array_list_type & list_initial) : type_array(list_initial) {}

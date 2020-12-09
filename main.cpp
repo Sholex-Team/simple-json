@@ -1,7 +1,9 @@
 #include "simple_json.h"
 
-using namespace simple_json::serializer;
-using namespace simple_json::types::exceptions;
+using namespace simple_json;
+using namespace types;
+using namespace exceptions;
+using namespace serializer;
 
 int main() {
     Json a {
