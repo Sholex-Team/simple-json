@@ -21,8 +21,7 @@ namespace simple_json::types {
         Array() = default;
         Array(Array &) = default;
         Array(Array &&) noexcept = default;
-        Array(array_list_type &);
-        Array(array_list_type &&);
+        Array(const array_list_type &);
 
         // Assignment Operator Overloading
         Array & operator=(const Array &) = default;

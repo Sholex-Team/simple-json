@@ -6,9 +6,7 @@
 namespace simple_json::types {
     #pragma region Constructors
 
-    JsonObject::JsonObject(json_list_type &initializer_list) : map_type(initializer_list) {}
-
-    JsonObject::JsonObject(json_list_type &&initializer_list) : map_type(initializer_list) {}
+    JsonObject::JsonObject(const json_list_type &initializer_list) : map_type(initializer_list) {}
 
     #pragma endregion
 

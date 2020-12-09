@@ -6,9 +6,7 @@ using namespace simple_json::indent;
 namespace simple_json::types {
     #pragma region Construcors
 
-    Array::Array(array_list_type & list_initial) : type_array(list_initial) {}
-
-    Array::Array(array_list_type && list_initial) : type_array(list_initial) {}
+    Array::Array(const array_list_type & list_initial) : type_array(list_initial) {}
 
     #pragma endregion
 

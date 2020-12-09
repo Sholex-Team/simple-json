@@ -255,7 +255,7 @@ namespace simple_json::types {
                 os << nullptr;
                 break;
             default:
-                throw StreamInsertionException();
+                throw serializer::exceptions::StreamInsertionException();
         }
         return os;
     }

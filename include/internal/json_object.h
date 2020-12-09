@@ -25,8 +25,7 @@ namespace simple_json::types {
             Json get(const char *, const Json &) const;
             Json get(const char *, Json &&) const;
             JsonObject() = default;
-            JsonObject(json_list_type &);
-            JsonObject(json_list_type &&);
+            JsonObject(const json_list_type &);
             JsonObject(JsonObject &&) noexcept = default;
             JsonObject(JsonObject &) = default;
 

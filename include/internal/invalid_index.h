@@ -5,7 +5,7 @@
 #include "enum_types.h"
 
 namespace simple_json::types::exceptions {
-        class InvalidIndexException : public JsonException {
+        class InvalidIndexException : public base_exceptions::JsonException {
         private:
             DataType to;
         public:

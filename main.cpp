@@ -1,8 +1,8 @@
 #include "simple_json.h"
 
 using namespace simple_json;
-using namespace ::types;
-using namespace ::serializer;
+using namespace types;
+using namespace serializer;
 using namespace types::exceptions;
 using namespace serializer::exceptions;
 
