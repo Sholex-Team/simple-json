@@ -8,8 +8,8 @@ int main() {
             {"names"_json_key, {"Ali", "Ahmad", "Reza", {{"test"_json_key, 5}}}},
     };
     try {
-        serializer::dump(a, "test.json", 3);
-        serializer::dump(a, "/home/antiwanted/Desktop/test.json");
+        serializer::dump(a, "../test.json", 3);
+        serializer::dump(a, "../test-without-indent.json");
     } catch (exceptions::WritingToFileException & e) {
         std::cout << e.what() << std::endl;
     }
