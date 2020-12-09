@@ -1,16 +1,17 @@
 #include "simple_json.h"
 
-using namespace simple_json;
+using namespace simple_json::serializer;
+using namespace simple_json::types::exceptions;
 
 int main() {
-    types::Json a {
+    Json a {
             {"t5"_json_key, 5},
             {"names"_json_key, {"Ali", "Ahmad", "Reza", {{"test"_json_key, 5}}}},
     };
     try {
-        serializer::dump(a, "../test.json", 3);
-        serializer::dump(a, "../test-without-indent.json");
-    } catch (exceptions::WritingToFileException & e) {
+        dump(a, "../test.json", 3);
+        dump(a, "../test-without-indent.json");
+    } catch (WritingToFileException & e) {
         std::cout << e.what() << std::endl;
     }
     return 0;

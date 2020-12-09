@@ -4,9 +4,6 @@
 #include "base_exception.h"
 #include "enum_types.h"
 
-using namespace simple_json;
-using namespace ::types;
-
 namespace simple_json::types::exceptions {
         class BadConversion : public JsonException {
         private:
