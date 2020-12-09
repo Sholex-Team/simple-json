@@ -9,21 +9,19 @@
 #include <fstream>
 #include "stream_exceptions.h"
 
-using namespace simple_json::types;
-
 namespace simple_json::serializer {
-    std::string dumps(const Json &, size_t = 0);
+    std::string dumps(const simple_json::types::Json &, size_t = 0);
 
     class Dump {
     private:
         std::ofstream file_stream;
     public:
         // Constructor
-        Dump(const Json &, const std::string &, size_t);
+        Dump(const simple_json::types::Json &, const std::string &, size_t);
         ~Dump();
     };
 
-    void dump(Json &, const std::string &, size_t = 0);
+    void dump(simple_json::types::Json &, const std::string &, size_t = 0);
 }
 
 #endif //SIMPLE_JSON_SERIALIZER_H
