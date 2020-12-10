@@ -4,6 +4,7 @@
 #include "bad_conversion.h"
 #include "stream_exceptions.h"
 #include "invalid_index.h"
+#include "iterator_exceptions.h"
 #include <utility>
 
 namespace simple_json::types {
@@ -270,6 +271,94 @@ namespace simple_json::types {
 
     Json & Json::at(const char * index) {
         return operator[](index);
+    }
+
+    #pragma endregion
+
+    #pragma region Iterators
+
+    // Constructors
+    Json::iterator::iterator(iterator && r_iterator)  noexcept {
+        used_type = r_iterator.used_type;
+        if (used_type == IteratorTypes::json_object_iterator_type) {
+            json_object_iterator = r_iterator.json_object_iterator;
+            r_iterator.json_object_iterator = nullptr;
+        } else {
+            array_iterator = r_iterator.array_iterator;
+            r_iterator.array_iterator = nullptr;
+        }
+    }
+
+    Json::iterator::iterator(const iterator & r_iterator) {
+        used_type = r_iterator.used_type;
+        if (used_type == IteratorTypes::array_iterator_type) {
+            array_iterator = new Array::iterator {*r_iterator.array_iterator};
+        } else {
+            json_object_iterator = new JsonObject::iterator {*r_iterator.json_object_iterator};
+        }
+    }
+
+    Json::iterator::iterator(const Array::iterator & array_iterator) :
+    array_iterator {new Array::iterator {array_iterator}},
+    used_type {IteratorTypes::array_iterator_type} {}
+
+
+    Json::iterator::iterator(const JsonObject::iterator & json_object_iterator) :
+    json_object_iterator {new JsonObject::iterator {json_object_iterator}},
+    used_type {IteratorTypes::json_object_iterator_type} {}
+
+    // Public Methods
+    Json::iterator Json::begin() {
+        switch (used_type) {
+            case DataType::array_type:
+                return Json::iterator {data_array->begin()};
+            case DataType::json_object_type:
+                return Json::iterator {data_json_object->begin()};
+            default:
+                throw iterators::exceptions::InvalidIteration {used_type};
+        }
+    }
+
+    Json::iterator Json::end() {
+        switch (used_type) {
+            case DataType::array_type:
+                return Json::iterator {data_array->end()};
+            case DataType::json_object_type:
+                return Json::iterator {data_json_object->end()};
+            default:
+                throw iterators::exceptions::InvalidIteration {used_type};
+        }
+    }
+
+    Json & Json::iterator::operator*() const {
+        return * * array_iterator;
+    }
+
+    const Json::iterator Json::iterator::operator++(int) {
+        Json::iterator temp {* this};
+        if (used_type == IteratorTypes::array_iterator_type) {
+            ++*array_iterator;
+        } else {
+            ++*json_object_iterator;
+        }
+        return std::move(temp);
+    }
+
+    Json::iterator & Json::iterator::operator++() {
+        if (used_type == IteratorTypes::array_iterator_type) {
+            ++*array_iterator;
+        } else {
+            ++*json_object_iterator;
+        }
+        return * this;
+    }
+
+    bool Json::iterator::operator!=(const iterator & r_iterator) const {
+        if (used_type == IteratorTypes::array_iterator_type) {
+            return * array_iterator != * r_iterator.array_iterator;
+        } else {
+            return * json_object_iterator != * r_iterator.json_object_iterator;
+        }
     }
 
     #pragma endregion

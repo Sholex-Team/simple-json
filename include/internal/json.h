@@ -2,7 +2,6 @@
 #define SIMPLE_JSON_JSON_H
 
 #include <ostream>
-#include <vector>
 #include "enum_types.h"
 #include "json_object.h"
 #include "array_type.h"
@@ -28,6 +27,32 @@ namespace simple_json::types {
         void move(Json &) noexcept;
         void copy(const Json &);
     public:
+        // Iterators
+        class iterator {
+        private:
+            union {
+                Array::iterator * array_iterator;
+                JsonObject::iterator * json_object_iterator;
+            };
+
+            IteratorTypes used_type;
+        public:
+            // Constructors
+            iterator(const iterator &);
+            iterator(iterator &&) noexcept;
+            explicit iterator(const Array::iterator &);
+            explicit iterator(const JsonObject::iterator &);
+
+            // Public Methods
+            Json & operator*() const;
+            const iterator operator++(int);
+            iterator & operator++();
+            bool operator!=(const iterator &) const;
+        };
+
+        iterator begin();
+        iterator end();
+
         // Constructors
         Json();
         Json(double);

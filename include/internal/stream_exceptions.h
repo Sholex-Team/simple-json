@@ -1,8 +1,6 @@
 #ifndef SIMPLE_JSON_STREAM_EXCEPTIONS_H
 #define SIMPLE_JSON_STREAM_EXCEPTIONS_H
 
-
-#include <valarray>
 #include "base_exception.h"
 #include "array_type.h"
 

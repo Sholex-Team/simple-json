@@ -15,6 +15,11 @@ namespace simple_json::types {
         null_type,
         unknown
     };
+
+    enum IteratorTypes : std::uint8_t  {
+        array_iterator_type,
+        json_object_iterator_type
+    };
 }
 
 #endif //SIMPLE_JSON_ENUM_TYPES_H
