@@ -385,4 +385,3 @@ namespace simple_json::types {
 
     #pragma endregion
 }
-
