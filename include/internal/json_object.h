@@ -22,8 +22,7 @@ namespace simple_json::types {
             std::ostream & stream_without_indent(std::ostream &) const;
             std::ostream & stream_with_indent(std::ostream &, size_t) const;
         public:
-            Json get(const char *, const Json &) const;
-            Json get(const char *, Json &&) const;
+            // Constructors
             JsonObject() = default;
             JsonObject(const json_list_type &);
             JsonObject(JsonObject &&) noexcept = default;
@@ -32,6 +31,10 @@ namespace simple_json::types {
             // Friends
             friend std::ostream & operator<<(std::ostream &, const JsonObject &);
             friend Array;
+
+            // Public Methods
+            Json get(const char *, const Json &) const;
+            Json get(const char *, Json &&) const;
         };
 
     std::ostream & operator<<(std::ostream &, const JsonObject &);

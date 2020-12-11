@@ -344,6 +344,13 @@ namespace simple_json::types {
         throw iterators::exceptions::InvalidType {};
     }
 
+    JsonObject & Json::items() const {
+        if (used_type == DataType::json_object_type) {
+            return * data_json_object;
+        }
+        throw iterators::exceptions::InvalidType {};
+    }
+
     // Operator Overloading
     Json & Json::iterator::operator*() const {
         return * * array_iterator;

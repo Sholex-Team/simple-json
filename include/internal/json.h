@@ -55,6 +55,7 @@ namespace simple_json::types {
 
         iterator begin();
         iterator end();
+        JsonObject & items() const;
 
         // Constructors
         Json();
