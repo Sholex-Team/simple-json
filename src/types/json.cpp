@@ -330,6 +330,21 @@ namespace simple_json::types {
         }
     }
 
+    Json & Json::iterator::value() {
+        if (used_type == IteratorTypes::json_object_iterator_type) {
+            return (* json_object_iterator)->second;
+        }
+        throw iterators::exceptions::InvalidType {};
+    }
+
+    const JsonKey & Json::iterator::key() {
+        if (used_type == IteratorTypes::json_object_iterator_type){
+            return (* json_object_iterator)->first;
+        }
+        throw iterators::exceptions::InvalidType {};
+    }
+
+    // Operator Overloading
     Json & Json::iterator::operator*() const {
         return * * array_iterator;
     }

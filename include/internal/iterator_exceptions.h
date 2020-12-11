@@ -15,7 +15,12 @@ namespace simple_json::iterators::exceptions {
         types::DataType from;
     public:
         InvalidIteration();
-        InvalidIteration(types::DataType);
+        explicit InvalidIteration(types::DataType);
+        const char * what() const noexcept override;
+    };
+
+    class InvalidType : public base_exceptions::JsonException {
+    public:
         const char * what() const noexcept override;
     };
 }

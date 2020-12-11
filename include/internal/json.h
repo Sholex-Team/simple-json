@@ -5,6 +5,7 @@
 #include "enum_types.h"
 #include "json_object.h"
 #include "array_type.h"
+#include <string>
 
 namespace simple_json::types {
     class JsonKey;
@@ -48,6 +49,8 @@ namespace simple_json::types {
             const iterator operator++(int);
             iterator & operator++();
             bool operator!=(const iterator &) const;
+            const JsonKey & key();
+            Json & value();
         };
 
         iterator begin();

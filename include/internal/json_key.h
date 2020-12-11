@@ -30,6 +30,9 @@ namespace simple_json::types {
         friend std::ostream & operator<<(std::ostream &, const JsonKey &&);
         friend std::ostream & operator<<(std::ostream &, const JsonKey &);
         friend JsonObject;
+
+        // Public Methods
+        inline const std::string & get_key() {return * key;};
     };
 
     // Operator Overloading
