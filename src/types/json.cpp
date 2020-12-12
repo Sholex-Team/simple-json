@@ -439,7 +439,7 @@ namespace simple_json::types {
          throw iterators::exceptions::InvalidDereference {};
     }
 
-    const Json::const_iterator Json::const_iterator::operator++(int) {
+    Json::const_iterator Json::const_iterator::operator++(int) {
         Json::const_iterator temp {* this};
         add_to_iterator();
         return std::move(temp);

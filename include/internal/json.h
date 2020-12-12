@@ -61,7 +61,7 @@ namespace simple_json::types {
 
         class const_iterator : public iterators::JsonIterator {
         private:
-            union {
+            const union {
                 Array::const_iterator * array_iterator;
                 JsonObject::const_iterator * json_object_iterator;
             };
@@ -76,7 +76,7 @@ namespace simple_json::types {
 
             // Operators
             const Json & operator*() const;
-            const const_iterator operator++(int);
+            const_iterator operator++(int);
             const_iterator & operator++();
             bool operator!=(const const_iterator &) const;
 
