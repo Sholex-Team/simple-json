@@ -5,6 +5,7 @@
 #include "enum_types.h"
 #include "json_object.h"
 #include "array_type.h"
+#include "base_iterator.h"
 #include <string>
 
 namespace simple_json::types {
@@ -29,14 +30,14 @@ namespace simple_json::types {
         void copy(const Json &);
     public:
         // Iterators
-        class iterator {
+        class iterator : public iterators::JsonIterator {
         private:
             union {
                 Array::iterator * array_iterator;
                 JsonObject::iterator * json_object_iterator;
             };
-
-            IteratorTypes used_type;
+        protected:
+            void add_to_iterator() override;
         public:
             // Constructors
             iterator(const iterator &);
@@ -44,17 +45,53 @@ namespace simple_json::types {
             explicit iterator(const Array::iterator &);
             explicit iterator(const JsonObject::iterator &);
 
-            // Public Methods
+            // Operator Overloading
             Json & operator*() const;
             const iterator operator++(int);
             iterator & operator++();
             bool operator!=(const iterator &) const;
-            const JsonKey & key();
-            Json & value();
+
+            // Public Methods
+            const JsonKey & key() const override;
+            Json & value() const;
+
+            // Destructor
+            ~iterator() noexcept override;
+        };
+
+        class const_iterator : public iterators::JsonIterator {
+        private:
+            union {
+                Array::const_iterator * array_iterator;
+                JsonObject::const_iterator * json_object_iterator;
+            };
+        protected:
+            void add_to_iterator() override;
+        public:
+            // Constructors
+            const_iterator(const const_iterator &);
+            const_iterator(const_iterator &&) noexcept;
+            explicit const_iterator(const JsonObject::const_iterator &);
+            explicit const_iterator(const Array::const_iterator &);
+
+            // Operators
+            const Json & operator*() const;
+            const const_iterator operator++(int);
+            const_iterator & operator++();
+            bool operator!=(const const_iterator &) const;
+
+            // Public Methods
+            const JsonKey & key() const override;
+            const Json & value() const;
+
+            // Destructor
+            ~const_iterator() noexcept override;
         };
 
         iterator begin();
         iterator end();
+        const_iterator cbegin();
+        const_iterator cend();
         JsonObject & items() const;
 
         // Constructors

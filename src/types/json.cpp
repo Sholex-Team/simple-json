@@ -278,8 +278,7 @@ namespace simple_json::types {
     #pragma region Iterators
 
     // Constructors
-    Json::iterator::iterator(iterator && r_iterator)  noexcept {
-        used_type = r_iterator.used_type;
+    Json::iterator::iterator(iterator && r_iterator) noexcept : iterators::JsonIterator {r_iterator.used_type} {
         if (used_type == IteratorTypes::json_object_iterator_type) {
             json_object_iterator = r_iterator.json_object_iterator;
             r_iterator.json_object_iterator = nullptr;
@@ -289,23 +288,50 @@ namespace simple_json::types {
         }
     }
 
-    Json::iterator::iterator(const iterator & r_iterator) {
-        used_type = r_iterator.used_type;
+    Json::iterator::iterator(const iterator & r_iterator) : iterators::JsonIterator {r_iterator.used_type} {
         if (used_type == IteratorTypes::array_iterator_type) {
-            array_iterator = new Array::iterator {*r_iterator.array_iterator};
+            array_iterator = new Array::iterator {* r_iterator.array_iterator};
         } else {
-            json_object_iterator = new JsonObject::iterator {*r_iterator.json_object_iterator};
+            json_object_iterator = new JsonObject::iterator {* r_iterator.json_object_iterator};
         }
     }
 
     Json::iterator::iterator(const Array::iterator & array_iterator) :
-    array_iterator {new Array::iterator {array_iterator}},
-    used_type {IteratorTypes::array_iterator_type} {}
+    iterators::JsonIterator {IteratorTypes::array_iterator_type},
+    array_iterator {new Array::iterator {array_iterator}} {}
 
 
     Json::iterator::iterator(const JsonObject::iterator & json_object_iterator) :
-    json_object_iterator {new JsonObject::iterator {json_object_iterator}},
-    used_type {IteratorTypes::json_object_iterator_type} {}
+    iterators::JsonIterator {IteratorTypes::json_object_iterator_type},
+    json_object_iterator {new JsonObject::iterator {json_object_iterator}} {}
+
+    Json::const_iterator::const_iterator(const Array::const_iterator & array_iterator) :
+    iterators::JsonIterator {IteratorTypes::array_iterator_type},
+    array_iterator {new Array::const_iterator {array_iterator}} {}
+
+    Json::const_iterator::const_iterator(const JsonObject::const_iterator & json_object_iterator) :
+    iterators::JsonIterator {IteratorTypes::json_object_iterator_type},
+    json_object_iterator {new JsonObject::const_iterator {json_object_iterator}} {}
+
+    Json::const_iterator::const_iterator(const Json::const_iterator & r_iterator) :
+    iterators::JsonIterator {r_iterator.used_type} {
+        if (used_type == IteratorTypes::array_iterator_type) {
+            array_iterator = new Array::const_iterator {* r_iterator.array_iterator};
+        } else {
+            json_object_iterator = new JsonObject::const_iterator {* r_iterator.json_object_iterator};
+        }
+    }
+
+    Json::const_iterator::const_iterator(Json::const_iterator && r_iterator) noexcept :
+    iterators::JsonIterator {r_iterator.used_type} {
+        if (used_type == IteratorTypes::array_iterator_type) {
+            array_iterator = r_iterator.array_iterator;
+            r_iterator.array_iterator = nullptr;
+        } else {
+            json_object_iterator = r_iterator.json_object_iterator;
+            r_iterator.json_object_iterator = nullptr;
+        }
+    }
 
     // Public Methods
     Json::iterator Json::begin() {
@@ -330,18 +356,36 @@ namespace simple_json::types {
         }
     }
 
-    Json & Json::iterator::value() {
-        if (used_type == IteratorTypes::json_object_iterator_type) {
-            return (* json_object_iterator)->second;
+    Json::const_iterator Json::cbegin() {
+        switch (used_type) {
+            case DataType::array_type:
+                return Json::const_iterator {data_array->cbegin()};
+            case DataType::json_object_type:
+                return Json::const_iterator {data_json_object->cbegin()};
+            default:
+                throw iterators::exceptions::InvalidIteration {used_type};
         }
-        throw iterators::exceptions::InvalidType {};
     }
 
-    const JsonKey & Json::iterator::key() {
-        if (used_type == IteratorTypes::json_object_iterator_type){
-            return (* json_object_iterator)->first;
+    Json::const_iterator Json::cend() {
+        switch (used_type) {
+            case DataType::array_type:
+                return Json::const_iterator {data_array->cend()};
+            case DataType::json_object_type:
+                return Json::const_iterator {data_json_object->cend()};
+            default:
+                throw iterators::exceptions::InvalidIteration {used_type};
         }
-        throw iterators::exceptions::InvalidType {};
+    }
+
+    Json & Json::iterator::value() const {
+        check_json_object();
+        return (* json_object_iterator)->second;
+    }
+
+    const JsonKey & Json::iterator::key() const {
+        check_json_object();
+        return (* json_object_iterator)->first;
     }
 
     JsonObject & Json::items() const {
@@ -351,27 +395,32 @@ namespace simple_json::types {
         throw iterators::exceptions::InvalidType {};
     }
 
+    const JsonKey & Json::const_iterator::key() const {
+        check_json_object();
+        return (* json_object_iterator)->first;
+    }
+
+    const Json & Json::const_iterator::value() const {
+        check_json_object();
+        return (* json_object_iterator)->second;
+    }
+
     // Operator Overloading
     Json & Json::iterator::operator*() const {
-        return * * array_iterator;
+        if (used_type == IteratorTypes::array_iterator_type) {
+            return * * array_iterator;
+        }
+        throw iterators::exceptions::InvalidDereference {};
     }
 
     const Json::iterator Json::iterator::operator++(int) {
         Json::iterator temp {* this};
-        if (used_type == IteratorTypes::array_iterator_type) {
-            ++*array_iterator;
-        } else {
-            ++*json_object_iterator;
-        }
+        add_to_iterator();
         return std::move(temp);
     }
 
     Json::iterator & Json::iterator::operator++() {
-        if (used_type == IteratorTypes::array_iterator_type) {
-            ++*array_iterator;
-        } else {
-            ++*json_object_iterator;
-        }
+        add_to_iterator();
         return * this;
     }
 
@@ -380,6 +429,65 @@ namespace simple_json::types {
             return * array_iterator != * r_iterator.array_iterator;
         } else {
             return * json_object_iterator != * r_iterator.json_object_iterator;
+        }
+    }
+
+    const Json & Json::const_iterator::operator*() const {
+         if (used_type == IteratorTypes::array_iterator_type) {
+             return * * array_iterator;
+         }
+         throw iterators::exceptions::InvalidDereference {};
+    }
+
+    const Json::const_iterator Json::const_iterator::operator++(int) {
+        Json::const_iterator temp {* this};
+        add_to_iterator();
+        return std::move(temp);
+    }
+
+    Json::const_iterator & Json::const_iterator::operator++() {
+        add_to_iterator();
+        return * this;
+    }
+
+    bool Json::const_iterator::operator!=(const const_iterator & r_iterator) const {
+        if (used_type == IteratorTypes::array_iterator_type) {
+            return * array_iterator == * r_iterator.array_iterator;
+        }
+        return * json_object_iterator == * r_iterator.json_object_iterator;
+    }
+
+    // Protected Methods
+    void Json::iterator::add_to_iterator() {
+        if (used_type == IteratorTypes::array_iterator_type) {
+            ++ * array_iterator;
+        } else {
+            ++ * json_object_iterator;
+        }
+    }
+
+    void Json::const_iterator::add_to_iterator() {
+        if (used_type == IteratorTypes::array_iterator_type) {
+            ++ * array_iterator;
+        } else {
+            ++ * json_object_iterator;
+        }
+    }
+
+    // Destructors
+    Json::iterator::~iterator() noexcept {
+        if (used_type == IteratorTypes::array_iterator_type) {
+            delete array_iterator;
+        } else {
+            delete json_object_iterator;
+        }
+    }
+
+    Json::const_iterator::~const_iterator() noexcept {
+        if (used_type == IteratorTypes::array_iterator_type) {
+            delete array_iterator;
+        } else {
+            delete json_object_iterator;
         }
     }
 
