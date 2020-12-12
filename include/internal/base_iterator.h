@@ -9,7 +9,7 @@ namespace simple_json::iterators {
     class JsonIterator {
     protected:
         types::IteratorTypes used_type;
-        virtual void add_to_iterator();
+        virtual void add_to_iterator() = 0;
         void check_json_object() const;
     public:
         // Constructors
@@ -17,7 +17,7 @@ namespace simple_json::iterators {
         JsonIterator(JsonIterator &) = default;
 
         // Public Methods
-        virtual const types::JsonKey & key() const;
+        virtual const simple_json::types::JsonKey & key() const = 0;
 
         // Destructor
         virtual ~JsonIterator() noexcept = default;
