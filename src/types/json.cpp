@@ -6,6 +6,7 @@
 #include "invalid_index.h"
 #include "iterator_exceptions.h"
 #include <utility>
+#include <invalid_operator.h>
 
 namespace simple_json::types {
     #pragma region Constructors
@@ -422,6 +423,40 @@ namespace simple_json::types {
     Json::iterator & Json::iterator::operator++() {
         add_to_iterator();
         return * this;
+    }
+
+    Json::iterator Json::iterator::operator+(int i) const {
+        if (used_type == IteratorTypes::array_iterator_type) {
+            return Json::iterator{* array_iterator + i};
+        } else {
+            throw exceptions::InvalidOperator {};
+        }
+    }
+
+    Json::iterator Json::iterator::operator-(int i) const {
+        if (used_type == IteratorTypes::array_iterator_type) {
+            return Json::iterator{* array_iterator - i};
+        } else {
+            throw exceptions::InvalidOperator {};
+        }
+    }
+
+    Json::iterator Json::iterator::operator+=(int i) {
+        if (used_type == IteratorTypes::array_iterator_type) {
+            * array_iterator += i;
+            return * this;
+        } else {
+            throw exceptions::InvalidOperator {};
+        }
+    }
+
+    Json::iterator Json::iterator::operator-=(int i) {
+        if (used_type == IteratorTypes::array_iterator_type) {
+            * array_iterator -= i;
+            return * this;
+        } else {
+            throw exceptions::InvalidOperator {};
+        }
     }
 
     bool Json::iterator::operator!=(const iterator & r_iterator) const {

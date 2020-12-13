@@ -49,6 +49,10 @@ namespace simple_json::types {
             Json & operator*() const;
             const iterator operator++(int);
             iterator & operator++();
+            iterator operator+(int) const;
+            iterator operator-(int) const;
+            iterator operator+=(int);
+            iterator operator-=(int);
             bool operator!=(const iterator &) const;
 
             // Public Methods
