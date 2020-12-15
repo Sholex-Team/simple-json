@@ -13,6 +13,8 @@ add_executable(
         src/types/json_object.cpp
         src/types/indent.cpp
         src/serializer.cpp
-        include/internal/iterator_exceptions.h src/types/iterator_exceptions.cpp include/internal/base_iterator.h src/types/base_iterator.cpp)
+        src/deserializer.cpp
+        src/types/iterator_exceptions.cpp
+        src/types/base_iterator.cpp)
 target_include_directories(simple_json PUBLIC include/external)
 target_include_directories(simple_json PRIVATE include/internal)
