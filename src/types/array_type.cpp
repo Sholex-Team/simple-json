@@ -1,7 +1,7 @@
 #include "array_type.h"
 #include "json.h"
 
-using namespace simple_json::indent;
+using namespace simple_json::indent; // TODO use alias type
 
 namespace simple_json::types {
     #pragma region Construcors

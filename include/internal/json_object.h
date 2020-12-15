@@ -14,8 +14,8 @@
 namespace simple_json::types {
     class Json;
     class Array;
-    typedef std::map<JsonKey, Json> map_type;
-    typedef std::initializer_list<std::pair<const JsonKey, Json>> json_list_type;
+    using map_type = std::map<JsonKey, Json>;
+    using json_list_type = std::initializer_list<std::pair<const JsonKey, Json>>;
 
     class JsonObject : public map_type {
         private:
