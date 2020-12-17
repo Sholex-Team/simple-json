@@ -15,6 +15,6 @@ add_executable(
         src/serializer.cpp
         src/deserializer.cpp
         src/types/iterator_exceptions.cpp
-        src/types/base_iterator.cpp)
+        src/types/base_iterator.cpp include/internal/deserializer_exceptions.h src/types/deserializer_exceptions.cpp include/internal/invalid_operation.h src/types/invalid_operation.cpp)
 target_include_directories(simple_json PUBLIC include/external)
 target_include_directories(simple_json PRIVATE include/internal)

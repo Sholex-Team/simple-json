@@ -1,9 +1,13 @@
-
 #ifndef SIMPLE_JSON_DESERIALIZER_H
 #define SIMPLE_JSON_DESERIALIZER_H
 
 #include "json.h"
 #include <fstream>
+#include <string>
+#include <stack>
+#include <utility>
+#include "enum_types.h"
+#include "deserializer_exceptions.h"
 
 namespace simple_json::deserializer {
     simple_json::types::Json loads(const std::string &);
@@ -12,7 +16,7 @@ namespace simple_json::deserializer {
     private:
         std::ifstream file_stream;
     public:
-        Load(std::string);
+        explicit Load(std::string);
         ~Load();
     };
 

@@ -50,7 +50,12 @@ namespace simple_json::types {
         move(json_item);
     }
 
-    Json::Json() : used_type {DataType::unknown} {}
+    Json::Json() : used_type {DataType::json_object_type}, data_json_object {new JsonObject {}} {}
+
+    Json::Json(DataType object_type) :
+    used_type {object_type != DataType::string_type ? object_type : DataType::unknown} {
+        create_object();
+    }
 
     #pragma endregion
 
@@ -65,6 +70,12 @@ namespace simple_json::types {
     Json & Json::operator=(json_list_type & json_list) {
         used_type = DataType::json_object_type;
         data_json_object = new JsonObject(json_list);
+        return * this;
+    }
+
+    Json & Json::operator=(DataType object_type) {
+        used_type = object_type;
+        create_object();
         return * this;
     }
 
@@ -230,6 +241,37 @@ namespace simple_json::types {
         }
     }
 
+    void Json::create_object() {
+        switch (used_type) {
+            case DataType::integer_type:
+                data_int = 0;
+                return;
+            case DataType::double_type:
+                data_double = 0.0;
+                return;
+            case DataType::string_type:
+                data_string = new std::string {};
+                return;
+            case DataType::array_type:
+                data_array = new Array {};
+                return;
+            case DataType::json_object_type:
+                data_json_object = new JsonObject {};
+                return;
+            case DataType::boolean_type:
+                data_boolean = false;
+                return;
+            default:
+                return;
+        }
+    }
+
+    void Json::check_type(DataType target_type) const {
+        if (used_type != target_type) {
+            throw exceptions::InvalidOperation {target_type};
+        }
+    }
+
     #pragma endregion
 
     #pragma region OS Overloading
@@ -264,7 +306,7 @@ namespace simple_json::types {
 
     #pragma endregion
 
-    #pragma region Public Method
+    #pragma region Public Methods
 
     Json & Json::at(const int index) {
         return operator[](index);
@@ -272,6 +314,31 @@ namespace simple_json::types {
 
     Json & Json::at(const char * index) {
         return operator[](index);
+    }
+
+    void Json::push_back(const Json & new_item) {
+        check_type(DataType::array_type);
+        data_array->push_back(new_item);
+    }
+
+    void Json::insert(const pair_type & new_item) {
+        check_type(DataType::json_object_type);
+        data_json_object->insert(new_item);
+    }
+
+    void Json::push_back(Json && new_item) {
+        check_type(DataType::array_type);
+        data_array->push_back(std::move(new_item));
+    }
+
+    void Json::insert(pair_type && new_item) {
+        check_type(DataType::json_object_type);
+        data_json_object->insert(std::move(new_item));
+    }
+
+    Json & Json::back() const noexcept {
+        check_type(DataType::array_type);
+        return data_array->back();
     }
 
     #pragma endregion
@@ -285,6 +352,7 @@ namespace simple_json::types {
             r_iterator.json_object_iterator = nullptr;
         } else {
             array_iterator = r_iterator.array_iterator;
+            r_iterator.array_iterator = nullptr;
             r_iterator.array_iterator = nullptr;
         }
     }

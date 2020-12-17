@@ -6,6 +6,7 @@
 #include "json_object.h"
 #include "array_type.h"
 #include "base_iterator.h"
+#include "invalid_operation.h"
 #include <string>
 
 namespace simple_json::types {
@@ -28,6 +29,8 @@ namespace simple_json::types {
         // Private Method
         void move(Json &) noexcept;
         void copy(const Json &);
+        void create_object();
+        void check_type(DataType) const;
     public:
         // Iterators
         class iterator : public iterators::JsonIterator {
@@ -100,6 +103,7 @@ namespace simple_json::types {
 
         // Constructors
         Json();
+        explicit Json(DataType);
         Json(double);
         Json(int);
         Json(bool);
@@ -130,6 +134,7 @@ namespace simple_json::types {
         Json & operator=(Json &&) noexcept;
         Json & operator=(json_list_type &);
         Json & operator=(array_list_type &);
+        Json & operator=(DataType);
 
         // Friends
         friend std::ostream & operator<<(std::ostream &, const Json &);
@@ -145,6 +150,12 @@ namespace simple_json::types {
         // Public Method
         Json & at(int);
         Json & at(const char *);
+        void push_back(const Json &);
+        void insert(const pair_type &);
+        void push_back(Json &&);
+        void insert(pair_type &&);
+        Json & back() const noexcept;
+        inline DataType type() const noexcept {return used_type;}
 
         // Destructors
         ~Json();
