@@ -43,10 +43,39 @@ namespace simple_json::deserializer {
                         }
                     } else if (last_type == DataType::string_type) {
                         last_value.push_back(ch);
-                    } else if (last_type == DataType::string_key) {
+                    } else if (last_type == DataType::string_key_type) {
                         last_key.push_back(ch);
                     } else {
                         throw exceptions::ParsingException {};
+                    }
+                    break;
+                case '[':
+                    if (last_type == DataType::unknown) {
+                        if (primary_stack.empty()) {
+                            main_object = DataType::array_type;
+                            primary_stack.push(& main_object);
+                            continue;
+                        }
+                        if (primary_stack.top()->type() == DataType::json_object_type) {
+                            if (!last_key.empty()) {
+                                primary_stack.top()->insert({
+                                    types::JsonKey {last_key},
+                                    Json {DataType::array_type}
+                                });
+                                primary_stack.push(& primary_stack.top()->at(last_key.c_str()));
+                                last_key.clear();
+                            }
+                            throw exceptions::ParsingException {};
+                        } else if (primary_stack.top()->type() == DataType::array_type) {
+                            primary_stack.top()->push_back(Json {DataType::array_type});
+                            primary_stack.push(& primary_stack.top()->back());
+                        } else {
+                            throw exceptions::ParsingException {};
+                        }
+                    } else if (last_type == DataType::string_type) {
+                        last_value.push_back(ch);
+                    } else if (last_type == DataType::string_key_type) {
+                        last_key.push_back(ch);
                     }
                     break;
             }
