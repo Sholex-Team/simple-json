@@ -193,44 +193,43 @@ namespace simple_json::deserializer {
                             throw exceptions::ParsingException {};
                     }
                 case '-':
-                    switch (last_type) {
-                        case DataType::unknown:
-                            last_type = DataType::integer_type;
-                            last_value.push_back(ch);
-                            continue;
-                        case DataType::string_type:
-                            last_value.push_back(ch);
-                            continue;
-                        case DataType::string_key_type:
-                            last_key.push_back(ch);
-                            continue;
-                        default:
-                            throw exceptions::ParsingException {};
+                    if (last_type == DataType::unknown) {
+                        last_type = DataType::integer_type;
+                        last_value.push_back(ch);
+                        continue;
+                    } else if (last_type != DataType::string_type && last_type != DataType::string_key_type) {
+                        throw exceptions::ParsingException {};
                     }
-
                 case '.':
                     if (last_type == DataType::unknown || last_type == DataType::integer_type) {
                         last_type = DataType::double_type;
                         last_value.push_back(ch);
-                    } else if (last_type == DataType::string_type) {
-                        last_value.push_back(ch);
-                    } else if (last_type == DataType::string_key_type) {
-                        last_key.push_back(ch);
-                    } else {
+                        continue;
+                    } else if (last_type != DataType::string_type && last_type != DataType::string_key_type) {
                         throw exceptions::ParsingException {};
                     }
-                    continue;
+                case '\n':
+                case '\t':
+                case ' ':
+                    if (last_type == DataType::unknown) {
+                        continue;
+                    } else if (last_type != DataType::string_key_type && last_type != DataType::string_type) {
+                        throw exceptions::ParsingException {};
+                    }
                 default:
                     switch (last_type) {
                         case DataType::string_type:
                             last_value.push_back(ch);
+                            continue;
                         case DataType::string_key_type:
                             last_key.push_back(ch);
+                            continue;
                         case DataType::unknown:
                             if (isdigit(ch)) {
                                 last_type = DataType::integer_type;
                                 last_value.push_back(ch);
                             }
+                            continue;
                         default:
                             if (isdigit(ch)) {
                                 last_value.push_back(ch);
