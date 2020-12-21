@@ -1,9 +1,9 @@
 #include "serializer.h"
 
 namespace simple_json::serializer {
-    using namespace indent; // TODO use alias type
-    using namespace types; // TODO use alias type
-    using namespace exceptions; // TODO use alias type
+    using namespace indent;
+    using namespace types;
+    using namespace exceptions;
     #pragma region Serializer Functions
 
     std::string dumps(const Json & json, size_t local_indent) {
