@@ -2,8 +2,6 @@
 
 namespace simple_json::deserializer {
     using Json = types::Json;
-    using JsonObject = types::JsonObject;
-    using Array = types::Array;
     using DataType = types::DataType;
     using JsonKey = types::JsonKey;
 
@@ -193,7 +191,53 @@ namespace simple_json::deserializer {
                             throw exceptions::ParsingException {};
                         default:
                             throw exceptions::ParsingException {};
-                }
+                    }
+                case '-':
+                    switch (last_type) {
+                        case DataType::unknown:
+                            last_type = DataType::integer_type;
+                            last_value.push_back(ch);
+                            continue;
+                        case DataType::string_type:
+                            last_value.push_back(ch);
+                            continue;
+                        case DataType::string_key_type:
+                            last_key.push_back(ch);
+                            continue;
+                        default:
+                            throw exceptions::ParsingException {};
+                    }
+
+                case '.':
+                    if (last_type == DataType::unknown || last_type == DataType::integer_type) {
+                        last_type = DataType::double_type;
+                        last_value.push_back(ch);
+                    } else if (last_type == DataType::string_type) {
+                        last_value.push_back(ch);
+                    } else if (last_type == DataType::string_key_type) {
+                        last_key.push_back(ch);
+                    } else {
+                        throw exceptions::ParsingException {};
+                    }
+                    continue;
+                default:
+                    switch (last_type) {
+                        case DataType::string_type:
+                            last_value.push_back(ch);
+                        case DataType::string_key_type:
+                            last_key.push_back(ch);
+                        case DataType::unknown:
+                            if (isdigit(ch)) {
+                                last_type = DataType::integer_type;
+                                last_value.push_back(ch);
+                            }
+                        default:
+                            if (isdigit(ch)) {
+                                last_value.push_back(ch);
+                                continue;
+                            }
+                            throw exceptions::ParsingException {};
+                    }
             }
         }
         return std::move(main_object);
