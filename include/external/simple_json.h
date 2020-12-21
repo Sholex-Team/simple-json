@@ -13,5 +13,7 @@
 #include "stream_exceptions.h"
 #include "indent.h"
 #include "serializer.h"
+#include "deserializer.h"
+#include "deserializer_exceptions.h"
 
 #endif //SIMPLE_JSON_SIMPLE_JSON_H

@@ -8,6 +8,7 @@
 #include <utility>
 #include "enum_types.h"
 #include "deserializer_exceptions.h"
+#include <cstdlib>
 
 namespace simple_json::deserializer {
     simple_json::types::Json loads(const std::string &);

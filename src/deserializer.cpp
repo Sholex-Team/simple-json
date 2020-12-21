@@ -6,7 +6,7 @@ namespace simple_json::deserializer {
     using JsonKey = types::JsonKey;
 
     Json loads(const std::string & json_text) {
-        Json main_object {DataType::unknown};
+        Json main_object(DataType::unknown);
         std::stack<Json *> primary_stack {};
         std::string last_value {};
         std::string last_key {};
@@ -18,6 +18,28 @@ namespace simple_json::deserializer {
         for (char ch: json_text) {
             if (finished) {
                 throw exceptions::ParsingException {};
+            }
+            if (ch == '}' || ch == ']' || ch == ',') {
+                if (last_type == DataType::integer_type || last_type == DataType::double_type) {
+                    if (last_type == DataType::integer_type) {
+                        long int integer_value {strtol(last_value.c_str(), nullptr, 10)};
+                        if (primary_stack.top()->type() == DataType::array_type) {
+                            primary_stack.top()->push_back(integer_value);
+                        } else {
+                            primary_stack.top()->insert({JsonKey {last_key}, integer_value});
+                            last_key.clear();
+                        }
+                    } else {
+                        double double_value {strtod(last_value.c_str(), nullptr)};
+                        if (primary_stack.top()->type() == DataType::array_type) {
+                            primary_stack.top()->push_back(double_value);
+                        } else {
+                            primary_stack.top()->insert({JsonKey {last_key}, double_value});
+                            last_key.clear();
+                        }
+                    }
+                    last_value.clear();
+                }
             }
             switch (ch) {
                 case '}':
@@ -78,15 +100,15 @@ namespace simple_json::deserializer {
                                 if (!last_key.empty()) {
                                     primary_stack.top()->insert({
                                         JsonKey {last_key},
-                                        Json {DataType::json_object_type
-                                        }});
+                                        Json(DataType::json_object_type)
+                                    });
                                     primary_stack.push(& primary_stack.top()->at(last_key.c_str()));
                                     last_key.clear();
                                     continue;
                                 }
                                 throw exceptions::ParsingException {};
                             } else if (primary_stack.top()->type() == DataType::array_type) {
-                                primary_stack.top()->push_back({Json {DataType::json_object_type}});
+                                primary_stack.top()->push_back(Json(DataType::json_object_type));
                                 primary_stack.push(& primary_stack.top()->back());
                             }
                         case DataType::string_type:
@@ -109,14 +131,14 @@ namespace simple_json::deserializer {
                             if (!last_key.empty()) {
                                 primary_stack.top()->insert({
                                     JsonKey {last_key},
-                                    Json {DataType::array_type}
+                                    Json(DataType::array_type)
                                 });
                                 primary_stack.push(& primary_stack.top()->at(last_key.c_str()));
                                 last_key.clear();
                             }
                             throw exceptions::ParsingException {};
                         } else if (primary_stack.top()->type() == DataType::array_type) {
-                            primary_stack.top()->push_back(Json {DataType::array_type});
+                            primary_stack.top()->push_back(Json(DataType::array_type));
                             primary_stack.push(& primary_stack.top()->back());
                         } else {
                             throw exceptions::ParsingException {};

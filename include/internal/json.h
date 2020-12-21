@@ -17,7 +17,7 @@ namespace simple_json::types {
     class Json {
     private:
         union {
-            int data_int;
+            long int data_int;
             double data_double;
             bool data_boolean;
             Array * data_array;
@@ -103,9 +103,8 @@ namespace simple_json::types {
 
         // Constructors
         Json();
-        explicit Json(DataType);
         Json(double);
-        Json(int);
+        Json(long int);
         Json(bool);
         Json(std::nullptr_t t);
         explicit Json(Array);
@@ -121,6 +120,7 @@ namespace simple_json::types {
         Json(json_list_type &&);
         Json(const Json &);
         Json(Json &&) noexcept;
+        explicit Json(DataType);
 
         // Conversion operators for implicit & explicit conversions
         operator int() const;

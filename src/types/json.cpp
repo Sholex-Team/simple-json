@@ -12,29 +12,37 @@ namespace simple_json::types {
     #pragma region Constructors
     Json::Json(double data) : data_double {data}, used_type {DataType::double_type} {}
 
-    Json::Json(int data) : data_int {data}, used_type {DataType::integer_type} {}
+    Json::Json(long int data) : data_int {data}, used_type {DataType::integer_type} {}
 
     Json::Json(bool data) : data_boolean {data}, used_type {DataType::boolean_type} {}
 
     Json::Json(std::nullptr_t t) : used_type(DataType::null_type) {}
 
-    Json::Json(Array data) : data_array {new Array(std::move(data))}, used_type {DataType::array_type} {}
+    Json::Json(Array data) : data_array {new Array(std::move(data))},
+    used_type {DataType::array_type} {}
 
-    Json::Json(Array && data) : data_array {new Array(std::move(data))}, used_type {DataType::array_type} {}
+    Json::Json(Array && data) : data_array {new Array(std::move(data))},
+    used_type {DataType::array_type} {}
 
-    Json::Json(array_list_type & list_initial) : data_array {new Array{list_initial}}, used_type(DataType::array_type) {}
+    Json::Json(array_list_type & list_initial) : data_array {new Array{list_initial}},
+    used_type(DataType::array_type) {}
 
-    Json::Json(array_list_type && list_initial) : data_array {new Array{list_initial}}, used_type(DataType::array_type) {}
+    Json::Json(array_list_type && list_initial) : data_array {new Array{list_initial}},
+    used_type(DataType::array_type) {}
 
-    Json::Json(std::string data) : data_string {new std::string {std::move(data)}}, used_type {DataType::string_type} {}
+    Json::Json(std::string data) : data_string {new std::string {std::move(data)}},
+    used_type {DataType::string_type} {}
 
-    Json::Json(std::string && data) : data_string {new std::string {std::move(data)}}, used_type {DataType::string_type} {}
+    Json::Json(std::string && data) : data_string {new std::string {std::move(data)}},
+    used_type {DataType::string_type} {}
 
     Json::Json(const char * data) : data_string {new std::string {data}}, used_type {DataType::string_type} {}
 
-    Json::Json(JsonObject data) : data_json_object {new JsonObject {std::move(data)}}, used_type {DataType::json_object_type} {}
+    Json::Json(JsonObject data) : data_json_object {new JsonObject {std::move(data)}},
+    used_type {DataType::json_object_type} {}
 
-    Json::Json(JsonObject && data) : data_json_object {new JsonObject {std::move(data)}}, used_type {DataType::json_object_type} {}
+    Json::Json(JsonObject && data) : data_json_object {new JsonObject {std::move(data)}},
+    used_type {DataType::json_object_type} {}
 
     Json::Json(json_list_type & initializer_list) : data_json_object {new JsonObject {initializer_list}},
                                                     used_type {DataType::json_object_type} {}
@@ -52,8 +60,8 @@ namespace simple_json::types {
 
     Json::Json() : used_type {DataType::json_object_type}, data_json_object {new JsonObject {}} {}
 
-    Json::Json(DataType object_type) :
-    used_type {object_type != DataType::string_type ? object_type : DataType::unknown} {
+    Json::Json(const DataType object_type) :
+    used_type {object_type} {
         create_object();
     }
 
