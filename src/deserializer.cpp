@@ -38,6 +38,7 @@ namespace simple_json::deserializer {
                             last_key.clear();
                         }
                     }
+                    last_type = DataType::unknown;
                     last_value.clear();
                 }
             }
