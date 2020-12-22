@@ -32,7 +32,7 @@ namespace simple_json::types {
     Json::Json(array_list_type && list_initial) : data_array {new Array{list_initial}},
     used_type(DataType::array_type) {}
 
-    Json::Json(std::string data) : data_string {new std::string {std::move(data)}},
+    Json::Json(std::string & data) : data_string {new std::string {data}},
     used_type {DataType::string_type} {}
 
     Json::Json(std::string && data) : data_string {new std::string {std::move(data)}},

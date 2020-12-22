@@ -112,7 +112,7 @@ namespace simple_json::types {
         Json(Array &&);
         Json(array_list_type &);
         Json(array_list_type &&);
-        Json(std::string);
+        Json(std::string &);
         Json(std::string &&);
         Json(const char *);
         explicit Json(JsonObject);

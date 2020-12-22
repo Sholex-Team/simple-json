@@ -210,7 +210,7 @@ namespace simple_json::deserializer {
                                 continue;
                                 // Closing an array string value
                             } else if (primary_stack.top()->type() == DataType::array_type) {
-                                primary_stack.top()->push_back(Json {last_value});
+                                primary_stack.top()->push_back(Json(last_value));
                                 last_value.clear();
                                 last_type = DataType::unknown;
                                 continue;
