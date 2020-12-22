@@ -14,6 +14,8 @@ namespace simple_json::types {
 
     Json::Json(long int data) : data_int {data}, used_type {DataType::integer_type} {}
 
+    Json::Json(int data) : data_int {data}, used_type {DataType::integer_type} {}
+
     Json::Json(bool data) : data_boolean {data}, used_type {DataType::boolean_type} {}
 
     Json::Json(std::nullptr_t t) : used_type(DataType::null_type) {}

@@ -106,6 +106,7 @@ namespace simple_json::types {
         Json(double);
         Json(long int);
         Json(bool);
+        Json(int);
         Json(std::nullptr_t t);
         explicit Json(Array);
         Json(Array &&);
