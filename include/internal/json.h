@@ -104,20 +104,18 @@ namespace simple_json::types {
         // Constructors
         Json();
         Json(double);
-        Json(long int);
+        explicit Json(long int);
         Json(bool);
         Json(std::nullptr_t t);
         explicit Json(Array);
         Json(Array &&);
-        Json(array_list_type &);
-        Json(array_list_type &&);
+        Json(const array_list_type &);
         Json(std::string);
         Json(std::string &&);
         Json(const char *);
         explicit Json(JsonObject);
         Json(JsonObject &&);
-        Json(json_list_type &);
-        Json(json_list_type &&);
+        Json(const json_list_type &);
         Json(const Json &);
         Json(Json &&) noexcept;
         explicit Json(DataType);
