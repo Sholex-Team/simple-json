@@ -10,7 +10,7 @@ namespace simple_json::types {
     class Json;
     class JsonObject;
     using type_array = std::vector<Json>;
-    using array_list_type = std::initializer_list<std::initializer_list<Json>>;
+    using array_list_type = std::initializer_list<Json>;
 
     class Array : public type_array {
     private:
