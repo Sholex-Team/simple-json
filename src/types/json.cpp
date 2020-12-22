@@ -24,7 +24,10 @@ namespace simple_json::types {
     Json::Json(Array && data) : data_array {new Array(std::move(data))},
     used_type {DataType::array_type} {}
 
-    Json::Json(const array_list_type & list_initial) : data_array {new Array{list_initial}},
+    Json::Json(array_list_type & list_initial) : data_array {new Array{list_initial}},
+    used_type(DataType::array_type) {}
+
+    Json::Json(array_list_type && list_initial) : data_array {new Array{list_initial}},
     used_type(DataType::array_type) {}
 
     Json::Json(std::string data) : data_string {new std::string {std::move(data)}},
@@ -41,8 +44,11 @@ namespace simple_json::types {
     Json::Json(JsonObject && data) : data_json_object {new JsonObject {std::move(data)}},
     used_type {DataType::json_object_type} {}
 
-    Json::Json(const json_list_type & initializer_list) : data_json_object {new JsonObject {initializer_list}},
+    Json::Json(json_list_type & initializer_list) : data_json_object {new JsonObject {initializer_list}},
                                                     used_type {DataType::json_object_type} {}
+
+    Json::Json(json_list_type && initializer_list) : data_json_object {new JsonObject {initializer_list}},
+                                                     used_type {DataType::json_object_type} {}
 
     Json::Json(const Json & json_item) : used_type {json_item.used_type} {
         copy(json_item);
