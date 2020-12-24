@@ -94,7 +94,7 @@ namespace simple_json::deserializer {
                     }
                     throw exceptions::ParsingException {};
                 case '{':
-                    key_split = true;
+                    array_split = true;
                     switch (last_type) {
                         case DataType::unknown:
                             if (primary_stack.empty()) {
@@ -203,7 +203,7 @@ namespace simple_json::deserializer {
                             if (primary_stack.top()->type() == DataType::json_object_type) {
                                 primary_stack.top()->insert({
                                     JsonKey {last_key},
-                                    Json {last_value}
+                                    Json(last_value)
                                 });
                                 last_value.clear();
                                 last_key.clear();
@@ -219,7 +219,7 @@ namespace simple_json::deserializer {
                             throw exceptions::ParsingException {};
                         case DataType::string_key_type:
                             // Closing string key
-                            if (!last_key.empty() && array_split) {
+                            if (!last_key.empty()) {
                                 last_type = DataType::unknown;
                                 continue;
                             }
