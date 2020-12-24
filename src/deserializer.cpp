@@ -188,6 +188,7 @@ namespace simple_json::deserializer {
                                 // Creating  a string as array value
                                 if (last_key.empty() && array_split) {
                                     last_type = DataType::string_type;
+                                    array_split = false;
                                     continue;
                                 }
                             }
