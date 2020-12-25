@@ -137,17 +137,13 @@ namespace simple_json::types {
     }
 
     Json & Json::operator[](const int & index) {
-        if (used_type == DataType::array_type) {
-            return data_array->at(index);
-        }
-        throw exceptions::InvalidIndexException {used_type};
+        check_type(DataType::array_type);
+        return (* data_array)[index];
     }
 
     Json & Json::operator[](const char * & index) {
-        if (used_type == DataType::json_object_type) {
-            return data_json_object->at(JsonKey {index});
-        }
-        throw exceptions::InvalidIndexException {used_type};
+        check_type(DataType::json_object_type);
+        return (* data_json_object)[JsonKey {index}];
     }
 
     bool Json::operator==(const Json & json_item) const {
@@ -318,12 +314,14 @@ namespace simple_json::types {
 
     #pragma region Public Methods
 
-    Json & Json::at(const int index) {
-        return operator[](index);
+    Json & Json::at(const size_t index) {
+        check_type(DataType::array_type);
+        return data_array->at(index);
     }
 
     Json & Json::at(const char * index) {
-        return operator[](index);
+        check_type(DataType::json_object_type);
+        return data_json_object->at(JsonKey {index});
     }
 
     void Json::push_back(const Json & new_item) {

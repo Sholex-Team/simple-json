@@ -149,7 +149,7 @@ namespace simple_json::types {
         bool operator==(const Json &&) const;
 
         // Public Method
-        Json & at(int);
+        Json & at(size_t);
         Json & at(const char *);
         void push_back(const Json &);
         void insert(const pair_type &);
