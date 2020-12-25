@@ -142,8 +142,8 @@ namespace simple_json::deserializer {
                                 });
                                 primary_stack.push(& primary_stack.top()->at(last_key.c_str()));
                                 last_key.clear();
+                                continue;
                             }
-                            throw exceptions::ParsingException {};
                         } else if (primary_stack.top()->type() == DataType::array_type) {
                             primary_stack.top()->push_back(Json(DataType::array_type));
                             primary_stack.push(& primary_stack.top()->back());
