@@ -28,7 +28,7 @@ namespace simple_json::types {
     #pragma region Operator Overloading
 
     std::ostream & operator<<(std::ostream & os, const JsonKey & json_key) {
-        os << '"' << *json_key.key << '"';
+        os << '"' << * json_key.key << '"';
         return os;
     }
 
@@ -38,15 +38,15 @@ namespace simple_json::types {
     }
 
     bool JsonKey::operator<(const JsonKey & right_json_key) const {
-        return key < right_json_key.key;
+        return * key < * right_json_key.key;
     }
 
     bool JsonKey::operator>(const JsonKey & right_json_key) const {
-        return key > right_json_key.key;
+        return * key > * right_json_key.key;
     }
 
     bool JsonKey::operator==(const JsonKey & right_json_key) const {
-        return key == right_json_key.key;
+        return * key == * right_json_key.key;
     }
 
     JsonKey operator""_json_key(const char * key_ptr, size_t) {
