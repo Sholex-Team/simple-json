@@ -7,7 +7,7 @@ using namespace types;
 using namespace deserializer;
 
 int main() {
-    std::string test_json {R"({"t": "h", "h": [1]})"};
+    std::string test_json {R"({"t": "h", "h": [1, 2, [1, 2]]})"};
     Json loaded(loads(test_json));
     std::cout << loaded << std::endl;
     return 0;
