@@ -129,6 +129,7 @@ namespace simple_json::deserializer {
                                 primary_stack.top()->push_back(Json(DataType::json_object_type));
                                 primary_stack.push(& primary_stack.top()->back());
                             }
+                            continue;
                         case DataType::string_type:
                             last_value.push_back(ch);
                             continue;
