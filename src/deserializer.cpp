@@ -62,6 +62,7 @@ namespace simple_json::deserializer {
                         if (primary_stack.empty()) {
                             finished = true;
                         }
+                        array_split = false;
                         continue;
                     }
                     throw exceptions::ParsingException {};
