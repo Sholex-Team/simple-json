@@ -296,6 +296,9 @@ namespace simple_json::deserializer {
                     }
             }
         }
+        if (!primary_stack.empty() || last_type != DataType::unknown) {
+            throw exceptions::ParsingException {};
+        }
         return std::move(main_object);
     }
 }
