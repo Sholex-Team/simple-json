@@ -1,6 +1,7 @@
 #include "stream_exceptions.h"
 
-namespace simple_json::serializer::exceptions {
+namespace simple_json {
+    namespace serializer::exceptions {
     #pragma region Public Methods
 
         const char * StreamInsertionException::what() const noexcept {
@@ -12,4 +13,15 @@ namespace simple_json::serializer::exceptions {
         }
 
     #pragma endregion
+    }
+
+    namespace deserializer::exceptions {
+    #pragma region Public Methods
+
+        const char * ReadingFromFileException::what() const noexcept {
+            return "Reading from file failed !";
+        }
+
+    #pragma endregion
+    }
 }

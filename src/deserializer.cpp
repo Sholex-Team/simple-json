@@ -6,23 +6,23 @@ namespace simple_json::deserializer {
     using JsonKey = types::JsonKey;
 
     namespace {
-        Json deserializer(std::istream &stream) {
+        Json deserializer(std::istream && stream) {
             Json main_object(DataType::unknown);
-            std::stack<Json *> primary_stack{};
-            std::string last_value{};
-            std::string last_key{};
+            std::stack<Json *> primary_stack {};
+            std::string last_value {};
+            std::string last_key {};
             DataType last_type{DataType::unknown};
-            bool escaped{false};
-            bool finished{false};
-            bool key_split{false};
-            bool array_split{false};
-            char false_str[]{"false"};
-            char true_str[]{"true"};
-            char null_str[]{"null"};
+            bool escaped {false};
+            bool finished {false};
+            bool key_split {false};
+            bool array_split {false};
+            char false_str [] {"false"};
+            char true_str [] {"true"};
+            char null_str [] {"null"};
             char ch;
             while (stream.get(ch)) {
                 if (finished) {
-                    throw exceptions::ParsingException{};
+                    throw exceptions::ParsingException {};
                 }
                 if (ch == '}' || ch == ']' || ch == ',') {
                     if (last_type == DataType::integer_type || last_type == DataType::double_type) {
@@ -76,7 +76,7 @@ namespace simple_json::deserializer {
                         switch (last_type) {
                             case DataType::unknown:
                                 if (key_split || array_split) {
-                                    throw exceptions::ParsingException{};
+                                    throw exceptions::ParsingException {};
                                 }
                                 array_split = true;
                                 continue;
@@ -87,13 +87,13 @@ namespace simple_json::deserializer {
                                 last_key.push_back(ch);
                                 continue;
                             default:
-                                throw exceptions::ParsingException{};
+                                throw exceptions::ParsingException {};
                         }
                     case ':':
                         switch (last_type) {
                             case DataType::unknown:
                                 if (key_split || array_split) {
-                                    throw exceptions::ParsingException{};
+                                    throw exceptions::ParsingException {};
                                 }
                                 key_split = true;
                                 continue;
@@ -104,14 +104,14 @@ namespace simple_json::deserializer {
                                 last_value.push_back(ch);
                                 continue;
                             default:
-                                throw exceptions::ParsingException{};
+                                throw exceptions::ParsingException {};
                         }
                     case '\\':
                         if (last_type == DataType::string_key_type || last_type == DataType::string_type) {
                             escaped = true;
                             continue;
                         }
-                        throw exceptions::ParsingException{};
+                        throw exceptions::ParsingException {};
                     case '{':
                         array_split = true;
                         switch (last_type) {
@@ -124,9 +124,9 @@ namespace simple_json::deserializer {
                                 if (primary_stack.top()->type() == DataType::json_object_type) {
                                     if (!last_key.empty()) {
                                         primary_stack.top()->insert({
-                                                                            JsonKey{last_key},
-                                                                            Json(DataType::json_object_type)
-                                                                    });
+                                            JsonKey{last_key},
+                                            Json(DataType::json_object_type)
+                                        });
                                         primary_stack.push(&primary_stack.top()->at(last_key.c_str()));
                                         last_key.clear();
                                         continue;
@@ -157,21 +157,21 @@ namespace simple_json::deserializer {
                             if (primary_stack.top()->type() == DataType::json_object_type) {
                                 if (!last_key.empty() && key_split) {
                                     primary_stack.top()->insert({
-                                                                        JsonKey{last_key},
-                                                                        Json(DataType::array_type)
-                                                                });
+                                        JsonKey{last_key},
+                                        Json(DataType::array_type)
+                                    });
                                     primary_stack.push(&primary_stack.top()->at(last_key.c_str()));
                                     last_key.clear();
                                     key_split = false;
                                     array_split = true;
                                     continue;
                                 }
-                                throw exceptions::ParsingException{};
+                                throw exceptions::ParsingException {};
                             } else if (primary_stack.top()->type() == DataType::array_type && array_split) {
                                 primary_stack.top()->push_back(Json(DataType::array_type));
                                 primary_stack.push(&primary_stack.top()->back());
                             } else {
-                                throw exceptions::ParsingException{};
+                                throw exceptions::ParsingException {};
                             }
                         } else if (last_type == DataType::string_type) {
                             last_value.push_back(ch);
@@ -225,9 +225,9 @@ namespace simple_json::deserializer {
                                 // Closing a json object string value
                                 if (primary_stack.top()->type() == DataType::json_object_type) {
                                     primary_stack.top()->insert({
-                                                                        JsonKey{last_key},
-                                                                        Json(last_value)
-                                                                });
+                                        JsonKey{last_key},
+                                        Json(last_value)
+                                    });
                                     last_value.clear();
                                     last_key.clear();
                                     last_type = DataType::unknown;
@@ -239,16 +239,16 @@ namespace simple_json::deserializer {
                                     last_type = DataType::unknown;
                                     continue;
                                 }
-                                throw exceptions::ParsingException{};
+                                throw exceptions::ParsingException {};
                             case DataType::string_key_type:
                                 // Closing string key
                                 if (!last_key.empty()) {
                                     last_type = DataType::unknown;
                                     continue;
                                 }
-                                throw exceptions::ParsingException{};
+                                throw exceptions::ParsingException {};
                             default:
-                                throw exceptions::ParsingException{};
+                                throw exceptions::ParsingException {};
                         }
                     case '-':
                         if (last_type == DataType::unknown) {
@@ -256,7 +256,7 @@ namespace simple_json::deserializer {
                             last_value.push_back(ch);
                             continue;
                         } else if (last_type != DataType::string_type && last_type != DataType::string_key_type) {
-                            throw exceptions::ParsingException{};
+                            throw exceptions::ParsingException {};
                         }
                     case '.':
                         if (last_type == DataType::unknown || last_type == DataType::integer_type) {
@@ -264,7 +264,7 @@ namespace simple_json::deserializer {
                             last_value.push_back(ch);
                             continue;
                         } else if (last_type != DataType::string_type && last_type != DataType::string_key_type) {
-                            throw exceptions::ParsingException{};
+                            throw exceptions::ParsingException {};
                         }
                     case '\n':
                     case '\t':
@@ -272,7 +272,7 @@ namespace simple_json::deserializer {
                         if (last_type == DataType::unknown) {
                             continue;
                         } else if (last_type != DataType::string_key_type && last_type != DataType::string_type) {
-                            throw exceptions::ParsingException{};
+                            throw exceptions::ParsingException {};
                         }
                     default:
                         switch (last_type) {
@@ -284,10 +284,10 @@ namespace simple_json::deserializer {
                                 continue;
                             case DataType::unknown:
                                 if (primary_stack.top()->type() == DataType::array_type && !array_split) {
-                                    throw exceptions::ParsingException{};
+                                    throw exceptions::ParsingException {};
                                 }
                                 if (primary_stack.top()->type() == DataType::json_object_type && !key_split) {
-                                    throw exceptions::ParsingException{};
+                                    throw exceptions::ParsingException {};
                                 }
                                 if (isdigit(ch)) {
                                     last_type = DataType::integer_type;
@@ -299,7 +299,7 @@ namespace simple_json::deserializer {
                                     last_value.push_back(ch);
                                     continue;
                                 }
-                                throw exceptions::ParsingException{};
+                                throw exceptions::ParsingException {};
                         }
                 }
             }
@@ -315,8 +315,10 @@ namespace simple_json::deserializer {
             }
         }
 
-        Load::Load(std::string file_path) {
-            file_stream.open(file_path, std::ios::out);
+        Load::Load(const std::string & file_path) : file_stream {file_path} {
+            if (!file_stream) {
+                throw exceptions::ReadingFromFileException {};
+            }
         }
 
         simple_json::types::Json simple_json::deserializer::Load::load() {
@@ -325,12 +327,10 @@ namespace simple_json::deserializer {
     }
 
     simple_json::types::Json loads(const std::string & json_text) {
-        std::stringstream string_stream {json_text};
-        return deserializer(string_stream);
+        return deserializer(std::stringstream {json_text});
     }
 
     simple_json::types::Json load(const std::string & file_path) {
-        Load load_object {file_path};
-        return load_object.load();
+        return Load {file_path}.load();
     }
 }

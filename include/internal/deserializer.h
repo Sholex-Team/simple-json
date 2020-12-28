@@ -10,20 +10,21 @@
 #include "deserializer_exceptions.h"
 #include <cstdlib>
 #include <iostream>
+#include "stream_exceptions.h"
 
 namespace simple_json::deserializer {
-    simple_json::types::Json loads(const std::string &);
-    simple_json::types::Json load(std::string);
+    types::Json loads(const std::string &);
+    types::Json load(const std::string &);
 
     namespace {
-        simple_json::types::Json deserializer(std::istream &);
+        types::Json deserializer(std::istream &);
 
         class Load {
         private:
             std::ifstream file_stream;
         public:
-            simple_json::types::Json load();
-            explicit Load(std::string);
+            types::Json load();
+            explicit Load(const std::string &);
             ~Load();
         };
     }
