@@ -12,18 +12,21 @@
 #include <iostream>
 
 namespace simple_json::deserializer {
-    simple_json::types::Json deserializer(const std::istream &);
     simple_json::types::Json loads(const std::string &);
-
-    class Load {
-    private:
-        std::ifstream file_stream;
-    public:
-        explicit Load(std::string);
-        ~Load();
-    };
-
     simple_json::types::Json load(std::string);
+
+    namespace {
+        simple_json::types::Json deserializer(std::istream &);
+
+        class Load {
+        private:
+            std::ifstream file_stream;
+        public:
+            simple_json::types::Json load();
+            explicit Load(std::string);
+            ~Load();
+        };
+    }
 }
 
 #endif //SIMPLE_JSON_DESERIALIZER_H
