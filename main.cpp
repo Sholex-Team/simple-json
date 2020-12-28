@@ -26,7 +26,7 @@ int main() {
       }
     ]
   })"};
-    Json loaded(loads(test_json));
+    Json loaded(deserializer(test_json));
     std::cout << loaded << std::endl;
     return 0;
 }

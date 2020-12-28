@@ -9,8 +9,10 @@
 #include "enum_types.h"
 #include "deserializer_exceptions.h"
 #include <cstdlib>
+#include <iostream>
 
 namespace simple_json::deserializer {
+    simple_json::types::Json deserializer(const std::istream &);
     simple_json::types::Json loads(const std::string &);
 
     class Load {

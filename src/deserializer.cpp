@@ -5,7 +5,7 @@ namespace simple_json::deserializer {
     using DataType = types::DataType;
     using JsonKey = types::JsonKey;
 
-    Json loads(const std::string & json_text) {
+    Json deserializer(const std::istream & stream) {
         Json main_object(DataType::unknown);
         std::stack<Json *> primary_stack {};
         std::string last_value {};
@@ -15,7 +15,8 @@ namespace simple_json::deserializer {
         bool finished {false};
         bool key_split {false};
         bool array_split {false};
-        for (char ch: json_text) {
+        char ch;
+        while (stream.get(ch)){
             if (finished) {
                 throw exceptions::ParsingException {};
             }
@@ -301,5 +302,10 @@ namespace simple_json::deserializer {
             throw exceptions::ParsingException {};
         }
         return std::move(main_object);
+    }
+
+    simple_json::types::Json loads(const std::string & str) {
+        std::stringstream string_stream {str};
+        deserializer(string_stream);
     }
 }
