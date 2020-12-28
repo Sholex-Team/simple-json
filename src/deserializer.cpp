@@ -15,8 +15,11 @@ namespace simple_json::deserializer {
         bool finished {false};
         bool key_split {false};
         bool array_split {false};
+        char false_str [] {"false"};
+        char true_str [] {"true"};
+        char null_str [] {"null"};
         char ch;
-        while (stream.get(ch)){
+        while (stream.get(ch)) {
             if (finished) {
                 throw exceptions::ParsingException {};
             }
@@ -302,10 +305,5 @@ namespace simple_json::deserializer {
             throw exceptions::ParsingException {};
         }
         return std::move(main_object);
-    }
-
-    simple_json::types::Json loads(const std::string & str) {
-        std::stringstream string_stream {str};
-        deserializer(string_stream);
     }
 }

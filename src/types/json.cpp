@@ -18,7 +18,7 @@ namespace simple_json::types {
 
     Json::Json(bool data) : data_boolean {data}, used_type {DataType::boolean_type} {}
 
-    Json::Json(std::nullptr_t t) : used_type(DataType::null_type) {}
+    Json::Json(std::nullptr_t) : used_type(DataType::null_type) {}
 
     Json::Json(Array data) : data_array {new Array(std::move(data))},
     used_type {DataType::array_type} {}
