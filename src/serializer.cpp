@@ -17,10 +17,10 @@ namespace simple_json::serializer {
 
     void dump(types::Json & json, std::ofstream & file_stream, size_t local_indent) {
         if (!file_stream) {
-            throw 0; // TODO set exception
+            throw exceptions::WritingToFileException();
         }
         if (!file_stream.is_open()) {
-            throw 0; // TODO set exception
+            throw exceptions::WritingToFileException();
         }
         size_t old_indent = indent::switch_indent(local_indent);
         file_stream << json;
