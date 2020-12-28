@@ -324,7 +324,7 @@ namespace simple_json::deserializer {
         }
     }
 
-    simple_json::types::Json loads(const std::string & str) {
+    simple_json::types::Json loads(const std::string & json_text) {
         std::stringstream string_stream {str};
         return deserializer(string_stream);
     }
