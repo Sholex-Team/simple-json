@@ -306,4 +306,9 @@ namespace simple_json::deserializer {
         }
         return std::move(main_object);
     }
+
+    simple_json::types::Json loads(const std::string & str) {
+        std::stringstream string_stream {str};
+        return std::move(deserializer(string_stream));
+    }
 }
