@@ -5,7 +5,7 @@ namespace simple_json::deserializer {
     using DataType = types::DataType;
     using JsonKey = types::JsonKey;
 
-    Json deserializer(const std::istream & stream) {
+    Json deserializer(std::istream & stream) {
         Json main_object(DataType::unknown);
         std::stack<Json *> primary_stack {};
         std::string last_value {};
