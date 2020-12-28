@@ -1,16 +1,14 @@
 #include "simple_json.h"
-#include "string"
 #include <iostream>
 
+
 using namespace simple_json;
-using namespace types;
-using namespace deserializer;
+using namespace utils;
 
 int main() {
-    std::string test_json {R"({
-    "nameHash": "WEAPON_NAVYREVOLVER"
-})"};
-    Json loaded(loads(test_json));
-    std::cout << loaded << std::endl;
+    auto a = split("ad__fn", "_");
+    for (auto aa: a) {
+        std::cout << aa << std::endl;
+    }
     return 0;
 }

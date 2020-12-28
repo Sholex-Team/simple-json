@@ -15,5 +15,6 @@
 #include "serializer.h"
 #include "deserializer.h"
 #include "deserializer_exceptions.h"
+#include "json_utils.h"
 
 #endif //SIMPLE_JSON_SIMPLE_JSON_H
