@@ -15,6 +15,18 @@ namespace simple_json::serializer {
         Dump(json, file_name, local_indent);
     }
 
+    void dump(types::Json & json, std::ofstream & file_stream, size_t local_indent) {
+        if (!file_stream) {
+            throw 0; // TODO set exception
+        }
+        if (!file_stream.is_open()) {
+            throw 0; // TODO set exception
+        }
+        size_t old_indent = indent::switch_indent(local_indent);
+        file_stream << json;
+        indent::indent_length = old_indent;
+    }
+
     namespace {
         Dump::Dump(const types::Json &json, const std::string &file_name, size_t local_indent) :
                 file_stream {file_name} {

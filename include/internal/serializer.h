@@ -12,6 +12,7 @@
 namespace simple_json::serializer {
     std::string dumps(const types::Json &, size_t = 0);
     void dump(types::Json &, const std::string &, size_t = 0);
+    void dump(types::Json &, std::ofstream &, size_t = 0);
 
     namespace {
         class Dump {
