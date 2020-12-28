@@ -7,6 +7,10 @@ namespace simple_json::deserializer {
 
     namespace {
         Json deserializer(std::istream && stream) {
+            return deserializer(stream);
+        }
+
+        Json deserializer(std::istream & stream) {
             Json main_object(DataType::unknown);
             std::stack<Json *> primary_stack {};
             std::string last_value {};

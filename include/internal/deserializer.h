@@ -17,6 +17,7 @@ namespace simple_json::deserializer {
     types::Json load(const std::string &);
 
     namespace {
+        types::Json deserializer(std::istream &&);
         types::Json deserializer(std::istream &);
 
         class Load {
