@@ -337,4 +337,11 @@ namespace simple_json::deserializer {
     simple_json::types::Json load(const std::string & file_path) {
         return Load {file_path}.load();
     }
+
+    simple_json::types::Json load(std::ifstream & file_stream) {
+        if (!file_stream) {
+            throw exceptions::ReadingFromFileException {};
+        }
+        return deserializer(file_stream);
+    }
 }
