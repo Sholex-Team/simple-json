@@ -5,6 +5,8 @@
 #include <vector>
 
 namespace simple_json::types {
+    class Json;
+
     class JsonPointer {
     private:
         std::string * pointer_text;
@@ -22,11 +24,8 @@ namespace simple_json::types {
         // Operator Overloading
         bool operator==(const JsonPointer &) const;
         friend std::ostream & operator<<(std::ostream &, const JsonPointer &);
-
-        // Public Method
-        inline std::vector<std::string> get_list_index() {
-            return * pointer_list;
-        }
+        friend Json & operator[] (const JsonPointer &);
+        friend Json & at(const JsonPointer &);
     };
 
     // Operator Overloading
