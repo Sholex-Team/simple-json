@@ -12,7 +12,7 @@ namespace simple_json::types {
 
     #pragma region Methods
 
-    Json JsonObject::get(const char *key, const Json &default_return) const {
+    Json JsonObject::get(const char *key, const Json & default_return) const {
         try {
             return at(JsonKey{key});
         } catch (std::out_of_range &e) {
