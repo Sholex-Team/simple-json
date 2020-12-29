@@ -6,9 +6,10 @@ using namespace simple_json;
 using namespace utils;
 
 int main() {
-    auto a = split("ad__fn", "_");
-    for (auto aa: a) {
-        std::cout << aa << std::endl;
+    std::string s = "reza__mosi__";
+    auto splitted = split(s, "__");
+    for (auto slice: splitted) {
+        std::cout << slice << std::endl;
     }
     return 0;
 }
