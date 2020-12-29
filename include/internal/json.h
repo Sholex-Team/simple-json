@@ -8,6 +8,7 @@
 #include "base_iterator.h"
 #include "invalid_operation.h"
 #include <string>
+#include "json_pointer.h"
 
 namespace simple_json::types {
     class JsonKey;
@@ -145,12 +146,14 @@ namespace simple_json::types {
         // Operator Overloading
         Json & operator[](const int &);
         Json & operator[](const char * &);
+        Json & operator[](const JsonPointer &);
         bool operator==(const Json &) const;
         bool operator==(const Json &&) const;
 
         // Public Method
         Json & at(size_t);
         Json & at(const std::string &);
+        Json & at(const JsonPointer &);
         void push_back(const Json &);
         void insert(const pair_type &);
         void push_back(Json &&);

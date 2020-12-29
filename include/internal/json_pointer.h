@@ -23,9 +23,9 @@ namespace simple_json::types {
 
         // Operator Overloading
         bool operator==(const JsonPointer &) const;
+        // Friends
         friend std::ostream & operator<<(std::ostream &, const JsonPointer &);
-        friend Json & operator[] (const JsonPointer &);
-        friend Json & at(const JsonPointer &);
+        friend Json;
     };
 
     // Operator Overloading
