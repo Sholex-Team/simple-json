@@ -90,7 +90,7 @@ namespace simple_json::types {
         return * this;
     }
 
-    Json::operator int() const {
+    Json::operator long int() const {
         if (used_type == DataType::integer_type) {
             return data_int;
         }

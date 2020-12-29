@@ -130,7 +130,7 @@ namespace simple_json::types {
         explicit Json(DataType);
 
         // Conversion operators for implicit & explicit conversions
-        operator int() const;
+        operator long int() const;
         operator double() const;
         operator Array() const;
         operator std::string() const;
