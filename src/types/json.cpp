@@ -342,6 +342,23 @@ namespace simple_json::types {
         return data_json_object->at(JsonKey {index});
     }
 
+    Json & Json::at(const JsonPointer & json_pointer) {
+        Json * tmp_return {this};
+        can_iterate();
+        for (const std::string & index: * json_pointer.pointer_list) {
+            if (used_type == DataType::array_type) {
+                if (utils::is_digit(index)) {
+                    tmp_return = & tmp_return->at(strtol(index.c_str(), nullptr, 10));
+                } else {
+                    throw exceptions::InvalidOperation {};
+                }
+            } else {
+                tmp_return = & tmp_return->at(index);
+            }
+        }
+        return * tmp_return;
+    }
+
     void Json::push_back(const Json & new_item) {
         check_type(DataType::array_type);
         data_array->push_back(new_item);
