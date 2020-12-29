@@ -8,6 +8,7 @@
 namespace simple_json::utils {
     bool startswith(const char *, const char *);
     std::vector<std::string> split(std::string, const std::string &);
+    bool is_digit(const std::string &);
 }
 
 #endif //SIMPLE_JSON_JSON_UTILS_H

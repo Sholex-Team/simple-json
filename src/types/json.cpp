@@ -7,6 +7,7 @@
 #include "iterator_exceptions.h"
 #include <utility>
 #include <invalid_operator.h>
+#include "json_utils.h"
 
 namespace simple_json::types {
     #pragma region Constructors
@@ -144,6 +145,26 @@ namespace simple_json::types {
     Json & Json::operator[](const char * & index) {
         check_type(DataType::json_object_type);
         return (* data_json_object)[JsonKey {index}];
+    }
+
+    Json & Json::operator[](const JsonPointer & json_pointer) {
+        Json & tmp_return = * this;
+        if (!(used_type == DataType::array_type || used_type == DataType::json_object_type)) {
+            throw exceptions::InvalidOperation {};
+        }
+
+        for (const std::string & index: * json_pointer.pointer_list) {
+            if (used_type == DataType::array_type) {
+                if (utils::is_digit(index)) {
+                    tmp_return = tmp_return.at(strtol(index.c_str(), nullptr, 10));
+                } else {
+                    throw exceptions::InvalidOperation {};
+                }
+            } else {
+                tmp_return = tmp_return.at(index);
+            }
+        }
+        return tmp_return;
     }
 
     bool Json::operator==(const Json & json_item) const {
