@@ -319,7 +319,7 @@ namespace simple_json::types {
         return data_array->at(index);
     }
 
-    Json & Json::at(const char * index) {
+    Json & Json::at(const std::string & index) {
         check_type(DataType::json_object_type);
         return data_json_object->at(JsonKey {index});
     }

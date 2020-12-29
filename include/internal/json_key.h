@@ -12,9 +12,7 @@ namespace simple_json::types {
         std::string * key;
     public:
         // Constructors
-        explicit JsonKey(char *);
-        explicit JsonKey(std::string &);
-        explicit JsonKey(std::string &&);
+        explicit JsonKey(const std::string &);
         JsonKey(const JsonKey &);
         JsonKey(JsonKey &&) noexcept;
 

@@ -150,7 +150,7 @@ namespace simple_json::types {
 
         // Public Method
         Json & at(size_t);
-        Json & at(const char *);
+        Json & at(const std::string &);
         void push_back(const Json &);
         void insert(const pair_type &);
         void push_back(Json &&);

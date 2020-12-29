@@ -3,11 +3,7 @@
 namespace simple_json::types {
     #pragma region Constructors
 
-    JsonKey::JsonKey(char * key) : key {new std::string {key}} {}
-
-    JsonKey::JsonKey(std::string & key) : key {new std::string {key}} {}
-
-    JsonKey::JsonKey(std::string && key) : JsonKey(key) {}
+    JsonKey::JsonKey(const std::string & key) : key {new std::string {key}} {}
 
     JsonKey::JsonKey(const JsonKey & json_key) : key {new std::string {*json_key.key}} {}
 
