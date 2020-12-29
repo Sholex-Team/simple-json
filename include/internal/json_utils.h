@@ -6,7 +6,7 @@
 #include <string>
 
 namespace simple_json::utils {
-    bool startswith(char *, char *);
+    bool startswith(const char *, const char *);
     std::vector<std::string> split(std::string, const std::string &);
 }
 
