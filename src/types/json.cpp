@@ -153,12 +153,12 @@ namespace simple_json::types {
         for (const std::string & index: * json_pointer.pointer_list) {
             if (used_type == DataType::array_type) {
                 if (utils::is_digit(index)) {
-                    tmp_return = & tmp_return->at(strtol(index.c_str(), nullptr, 10));
+                    tmp_return = & (* tmp_return->data_array)[strtol(index.c_str(), nullptr, 10)];
                 } else {
                     throw exceptions::InvalidOperation {};
                 }
             } else {
-                tmp_return = & tmp_return->at(index);
+                tmp_return = & (* tmp_return->data_json_object)[JsonKey {index}];
             }
         }
         return * tmp_return;
