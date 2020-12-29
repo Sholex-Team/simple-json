@@ -32,6 +32,11 @@ namespace simple_json::types {
         void copy(const Json &);
         void create_object();
         void check_type(DataType) const;
+        inline void can_iterate() {
+            if (used_type != DataType::array_type || used_type != DataType::json_object_type) {
+                throw exceptions::InvalidOperation {};
+            }
+        }
     public:
         // Iterators
         class iterator : public iterators::JsonIterator {
