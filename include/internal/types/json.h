@@ -5,8 +5,8 @@
 #include "enum_types.h"
 #include "json_object.h"
 #include "array_type.h"
-#include "base_iterator.h"
-#include "invalid_operation.h"
+#include "types/exceptions/base_iterator.h"
+#include "types/exceptions/invalid_operation.h"
 #include <string>
 #include "json_pointer.h"
 

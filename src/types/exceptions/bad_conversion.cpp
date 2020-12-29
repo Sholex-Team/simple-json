@@ -1,4 +1,4 @@
-#include "bad_conversion.h"
+#include "types/exceptions/bad_conversion.h"
 
 namespace simple_json::types::exceptions {
     #pragma region Constructors

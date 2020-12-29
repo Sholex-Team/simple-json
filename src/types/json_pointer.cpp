@@ -1,4 +1,4 @@
-#include "json_pointer.h"
+#include "types/json_pointer.h"
 #include "json_utils.h"
 
 namespace simple_json::types {

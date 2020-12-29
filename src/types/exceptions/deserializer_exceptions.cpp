@@ -1,4 +1,4 @@
-#include "deserializer_exceptions.h"
+#include "types/exceptions/deserializer_exceptions.h"
 
 namespace simple_json::deserializer::exceptions {
     const char * ParsingException::what() const noexcept {

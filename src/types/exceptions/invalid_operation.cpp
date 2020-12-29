@@ -1,4 +1,4 @@
-#include "invalid_operation.h"
+#include "types/exceptions/invalid_operation.h"
 
 namespace simple_json::types::exceptions {
     #pragma region Constructors

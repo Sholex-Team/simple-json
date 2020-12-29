@@ -2,12 +2,12 @@
 #define SIMPLE_Json_SERIALIZER_H
 
 #include <string>
-#include "json.h"
+#include "types/json.h"
 #include <sstream>
 #include "indent.h"
 #include <utility>
 #include <fstream>
-#include "stream_exceptions.h"
+#include "types/exceptions/stream_exceptions.h"
 
 namespace simple_json::serializer {
     std::string dumps(const types::Json &, size_t = 0);

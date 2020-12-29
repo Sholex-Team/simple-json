@@ -1,5 +1,5 @@
-#include "array_type.h"
-#include "json.h"
+#include "types/array_type.h"
+#include "types/json.h"
 
 
 namespace simple_json::types {

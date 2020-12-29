@@ -1,12 +1,12 @@
-#include "json.h"
-#include "array_type.h"
-#include "enum_types.h"
-#include "bad_conversion.h"
-#include "stream_exceptions.h"
-#include "invalid_index.h"
-#include "iterator_exceptions.h"
+#include "types/json.h"
+#include "types/array_type.h"
+#include "types/enum_types.h"
+#include "types/exceptions/bad_conversion.h"
+#include "types/exceptions/stream_exceptions.h"
+#include "types/exceptions/invalid_index.h"
+#include "types/exceptions/iterator_exceptions.h"
 #include <utility>
-#include <invalid_operator.h>
+#include <types/exceptions/invalid_operator.h>
 #include "json_utils.h"
 
 namespace simple_json::types {

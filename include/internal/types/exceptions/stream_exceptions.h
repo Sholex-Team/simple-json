@@ -2,7 +2,7 @@
 #define SIMPLE_JSON_STREAM_EXCEPTIONS_H
 
 #include "base_exception.h"
-#include "array_type.h"
+#include "types/array_type.h"
 
 namespace simple_json {
     namespace serializer::exceptions {

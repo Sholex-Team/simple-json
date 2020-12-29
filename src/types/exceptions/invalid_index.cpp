@@ -1,4 +1,4 @@
-#include "invalid_index.h"
+#include "types/exceptions/invalid_index.h"
 
 namespace simple_json::types::exceptions {
     const char * InvalidIndexException::what() const noexcept {

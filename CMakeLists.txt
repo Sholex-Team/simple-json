@@ -4,20 +4,20 @@ set(CMAKE_CXX_STANDARD 17)
 add_executable(
         simple_json
         main.cpp
-        src/types/stream_exceptions.cpp
+        src/types/exceptions/stream_exceptions.cpp
         src/types/array_type.cpp
-        src/types/bad_conversion.cpp
-        src/types/invalid_index.cpp
+        src/types/exceptions/bad_conversion.cpp
+        src/types/exceptions/invalid_index.cpp
         src/types/json.cpp
         src/types/json_key.cpp
         src/types/json_object.cpp
         src/types/indent.cpp
         src/serializer.cpp
         src/deserializer.cpp
-        src/types/iterator_exceptions.cpp
+        src/types/exceptions/iterator_exceptions.cpp
         src/types/base_iterator.cpp
-        src/types/deserializer_exceptions.cpp
-        src/types/invalid_operation.cpp
+        src/types/exceptions/deserializer_exceptions.cpp
+        src/types/exceptions/invalid_operation.cpp
         src/json_utils.cpp
         src/types/json_pointer.cpp)
 target_include_directories(simple_json PUBLIC include/external)

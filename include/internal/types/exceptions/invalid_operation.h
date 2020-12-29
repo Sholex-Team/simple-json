@@ -2,7 +2,7 @@
 #define SIMPLE_JSON_INVALID_OPERATION_H
 
 #include "base_exception.h"
-#include "enum_types.h"
+#include "types/enum_types.h"
 
 namespace simple_json::types::exceptions {
     class InvalidOperation : public base_exceptions::JsonException {

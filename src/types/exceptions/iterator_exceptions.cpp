@@ -1,4 +1,4 @@
-#include "iterator_exceptions.h"
+#include "types/exceptions/iterator_exceptions.h"
 
 namespace simple_json::iterators::exceptions {
     #pragma region Constructors

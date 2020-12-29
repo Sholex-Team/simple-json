@@ -1,6 +1,6 @@
 #include <stdexcept>
-#include "json_object.h"
-#include "json.h"
+#include "types/json_object.h"
+#include "types/json.h"
 #include "indent.h"
 
 namespace simple_json::types {

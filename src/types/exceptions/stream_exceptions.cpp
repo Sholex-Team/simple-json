@@ -1,4 +1,4 @@
-#include "stream_exceptions.h"
+#include "types/exceptions/stream_exceptions.h"
 
 namespace simple_json {
     namespace serializer::exceptions {
