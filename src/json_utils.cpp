@@ -10,7 +10,7 @@ namespace simple_json::utils {
         return true;
     }
 
-    std::vector<std::string> split(std::string base, std::string target) {
+    std::vector<std::string> split(std::string base, const std::string & target) {
         std::vector<std::string> tmp_vector;
         int index;
         while ((index = base.find(target)) != std::string::npos) {
