@@ -19,6 +19,6 @@ add_executable(
         src/types/deserializer_exceptions.cpp
         src/types/invalid_operation.cpp
         src/json_utils.cpp
-)
+        src/types/json_pointer.cpp)
 target_include_directories(simple_json PUBLIC include/external)
 target_include_directories(simple_json PRIVATE include/internal)
