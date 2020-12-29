@@ -31,7 +31,7 @@ namespace simple_json::types {
 
     // Operator Overloading
     JsonPointer operator""_json_ptr(const char *, size_t);
-    std::ostream & operator<<(std::ostream &, const JsonPointer &)
+    std::ostream & operator<<(std::ostream &, const JsonPointer &);
 }
 
 #endif //SIMPLE_JSON_JSON_POINTER_H
