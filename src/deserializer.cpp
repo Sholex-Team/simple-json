@@ -63,6 +63,13 @@ namespace simple_json::deserializer {
                             if (primary_stack.empty()) {
                                 finished = true;
                             }
+                            if (array_split) {
+                                if (primary_stack.top()->empty()) {
+                                    array_split = false;
+                                } else {
+                                    throw exceptions::ParsingException {};
+                                }
+                            }
                             continue;
                         }
                         throw exceptions::ParsingException{};
@@ -72,7 +79,11 @@ namespace simple_json::deserializer {
                             if (primary_stack.empty()) {
                                 finished = true;
                             }
-                            array_split = false;
+                            if (primary_stack.top()->empty()) {
+                                array_split = false;
+                            } else {
+                                throw exceptions::ParsingException {};
+                            }
                             continue;
                         }
                         throw exceptions::ParsingException{};
@@ -131,7 +142,7 @@ namespace simple_json::deserializer {
                                             JsonKey{last_key},
                                             Json(DataType::json_object_type)
                                         });
-                                        primary_stack.push(&primary_stack.top()->at(last_key.c_str()));
+                                        primary_stack.push(&primary_stack.top()->at(last_key));
                                         last_key.clear();
                                         continue;
                                     }
@@ -164,7 +175,7 @@ namespace simple_json::deserializer {
                                         JsonKey{last_key},
                                         Json(DataType::array_type)
                                     });
-                                    primary_stack.push(&primary_stack.top()->at(last_key.c_str()));
+                                    primary_stack.push(&primary_stack.top()->at(last_key));
                                     last_key.clear();
                                     key_split = false;
                                     array_split = true;

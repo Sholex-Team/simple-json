@@ -1,13 +1,4 @@
 #include "types/json.h"
-#include "types/array_type.h"
-#include "types/enum_types.h"
-#include "types/exceptions/bad_conversion.h"
-#include "types/exceptions/stream_exceptions.h"
-#include "types/exceptions/invalid_index.h"
-#include "types/exceptions/iterator_exceptions.h"
-#include <utility>
-#include <types/exceptions/invalid_operator.h>
-#include "json_utils.h"
 
 namespace simple_json::types {
     #pragma region Constructors
@@ -332,6 +323,17 @@ namespace simple_json::types {
 
     #pragma region Public Methods
 
+    bool Json::empty() const {
+        switch (used_type) {
+            case DataType::array_type:
+                return data_array->empty();
+            case DataType::json_object_type:
+                return data_json_object->empty();
+            default:
+                throw exceptions::InvalidOperation {};
+        }
+    }
+
     Json & Json::at(const size_t index) {
         check_type(DataType::array_type);
         return data_array->at(index);
@@ -588,7 +590,7 @@ namespace simple_json::types {
     Json::const_iterator Json::const_iterator::operator++(int) {
         Json::const_iterator temp {* this};
         add_to_iterator();
-        return std::move(temp);
+        return temp;
     }
 
     Json::const_iterator & Json::const_iterator::operator++() {

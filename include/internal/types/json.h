@@ -8,6 +8,14 @@
 #include "types/exceptions/base_iterator.h"
 #include "types/exceptions/invalid_operation.h"
 #include <string>
+#include "types/array_type.h"
+#include "types/enum_types.h"
+#include "types/exceptions/bad_conversion.h"
+#include "types/exceptions/stream_exceptions.h"
+#include "types/exceptions/iterator_exceptions.h"
+#include <utility>
+#include <types/exceptions/invalid_operator.h>
+#include "json_utils.h"
 #include "json_pointer.h"
 
 namespace simple_json::types {
@@ -32,7 +40,7 @@ namespace simple_json::types {
         void copy(const Json &);
         void create_object();
         void check_type(DataType) const;
-        inline void can_iterate() {
+        inline void can_iterate() const {
             if (!(used_type == DataType::array_type || used_type == DataType::json_object_type)) {
                 throw exceptions::InvalidOperation {};
             }
@@ -165,6 +173,7 @@ namespace simple_json::types {
         void insert(pair_type &&);
         Json & back() const noexcept;
         inline DataType type() const noexcept {return used_type;}
+        bool empty() const;
 
         // Destructors
         ~Json();
