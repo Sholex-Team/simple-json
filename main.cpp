@@ -11,10 +11,10 @@ int main() {
             {
                 "test"_json_key, {
                     {"mosi"_json_key, "mmm"},
-                    {"sadi"_json_key, "sss"}
+                    {"sadi"_json_key, {"sss", "sss 1", "sss 2"}}
                 }
             }
     };
-    std::cout << json.at("test/sadi"_json_ptr);
+    std::cout << json.at("test/sadi/1"_json_ptr);
     return 0;
 }

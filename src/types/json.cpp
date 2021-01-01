@@ -151,7 +151,7 @@ namespace simple_json::types {
         Json * tmp_return {this};
         can_iterate();
         for (const std::string & index: * json_pointer.pointer_list) {
-            if (used_type == DataType::array_type) {
+            if (tmp_return->used_type == DataType::array_type) {
                 if (utils::is_digit(index)) {
                     tmp_return = & (* tmp_return->data_array)[strtol(index.c_str(), nullptr, 10)];
                 } else {
@@ -346,7 +346,7 @@ namespace simple_json::types {
         Json * tmp_return {this};
         can_iterate();
         for (const std::string & index: * json_pointer.pointer_list) {
-            if (used_type == DataType::array_type) {
+            if (tmp_return->used_type == DataType::array_type) {
                 if (utils::is_digit(index)) {
                     tmp_return = & tmp_return->at(strtol(index.c_str(), nullptr, 10));
                 } else {
