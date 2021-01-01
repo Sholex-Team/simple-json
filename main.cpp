@@ -4,6 +4,7 @@
 
 using namespace simple_json;
 using namespace types;
+using namespace indent;
 
 int main() {
     Json json {
@@ -15,6 +16,8 @@ int main() {
                 }
             }
     };
-    std::cout << json.at("test/sadi/1"_json_ptr);
+    Json & j{json["aaaa"_json_ptr]};
+    j = "123";
+    std::cout << set_indent() << json;
     return 0;
 }

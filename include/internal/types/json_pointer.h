@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include "json_patch.h"
 
 namespace simple_json::types {
     class Json;
@@ -26,6 +27,7 @@ namespace simple_json::types {
         // Friends
         friend std::ostream & operator<<(std::ostream &, const JsonPointer &);
         friend Json;
+        friend JsonPatch;
     };
 
     // Operator Overloading

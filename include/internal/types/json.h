@@ -5,6 +5,7 @@
 #include "enum_types.h"
 #include "json_object.h"
 #include "array_type.h"
+#include "json_patch.h"
 #include "types/exceptions/base_iterator.h"
 #include "types/exceptions/invalid_operation.h"
 #include <string>
@@ -22,6 +23,7 @@ namespace simple_json::types {
     class JsonKey;
     class JsonObject;
     class Array;
+    class JsonPatch;
 
     class Json {
     private:
@@ -155,6 +157,7 @@ namespace simple_json::types {
         friend std::ostream & operator<<(std::ostream &, const Json &);
         friend JsonObject;
         friend Array;
+        friend JsonPatch;
 
         // Operator Overloading
         Json & operator[](const int &);
