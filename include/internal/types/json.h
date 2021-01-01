@@ -33,7 +33,7 @@ namespace simple_json::types {
         void create_object();
         void check_type(DataType) const;
         inline void can_iterate() {
-            if (used_type != DataType::array_type || used_type != DataType::json_object_type) {
+            if (!(used_type == DataType::array_type || used_type == DataType::json_object_type)) {
                 throw exceptions::InvalidOperation {};
             }
         }

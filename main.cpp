@@ -3,13 +3,18 @@
 
 
 using namespace simple_json;
-using namespace utils;
+using namespace types;
 
 int main() {
-    std::string s = "reza__mosi__";
-    auto splitted = split(s, "__");
-    for (auto slice: splitted) {
-        std::cout << slice << std::endl;
-    }
+    Json json {
+            {"reza"_json_key, "rrr"},
+            {
+                "test"_json_key, {
+                    {"mosi"_json_key, "mmm"},
+                    {"sadi"_json_key, "sss"}
+                }
+            }
+    };
+    std::cout << json.at("test/sadi"_json_ptr);
     return 0;
 }
