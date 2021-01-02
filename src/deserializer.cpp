@@ -317,7 +317,16 @@ namespace simple_json::deserializer {
                         }
                 }
             }
-            if (!primary_stack.empty() || last_type != DataType::unknown) {
+            if (main_object.type() == DataType::unknown &&
+            (last_type == DataType::integer_type || last_type == DataType::double_type)) {
+                if (last_type == DataType::integer_type) {
+                    main_object = strtol(last_value.c_str(), nullptr, 10);
+                } else {
+                    main_object = strtod(last_value.c_str(), nullptr);
+                }
+                finished = true;
+            }
+            if (!finished) {
                 throw exceptions::ParsingException{};
             }
             return std::move(main_object);
