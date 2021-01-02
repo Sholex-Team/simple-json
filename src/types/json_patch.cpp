@@ -19,7 +19,7 @@ namespace simple_json::types {
             if (patch_object.at("op") == "add") {
                 std::string path {static_cast<std::string>(patch_object.at("path"))};
                 size_t pos {path.rfind('/')};
-                JsonPointer target_pointer {path.substr(0, path.size() - pos)};
+                JsonPointer target_pointer {path.substr(0, path.size() - pos - 1)};
                 std::string last_index {path.substr(pos)};
                 Json & target_json {json[target_pointer]};
                 if (target_json.used_type == DataType::array_type) {
@@ -35,7 +35,27 @@ namespace simple_json::types {
                         throw; // TODO
                     }
                 } else if (target_json.used_type == DataType::json_object_type){
-                    target_json[last_index] = patch_object.at("value");
+                    target_json.data_json_object->emplace(JsonKey {last_index}, patch_object.at("value"));
+                } else {
+                    throw; // TODO
+                }
+            } else if (patch_object.at("op") == "remove")  {
+                std::string path {static_cast<std::string>(patch_object.at("path"))};
+                size_t pos {path.rfind('/')};
+                JsonPointer target_pointer {path.substr(0, path.size() - pos - 1)};
+                std::string last_index {path.substr(pos)};
+                Json & target_json {json[target_pointer]};
+                if (target_json.used_type == DataType::array_type) {
+                    if (utils::is_digit(last_index)) {
+                        target_json.data_array->erase(
+                                target_json.data_array->begin() + strtol(last_index.c_str(), nullptr, 10)
+                        );
+
+                    } else {
+                        throw; // TODO
+                    }
+                } else if (target_json.used_type == DataType::json_object_type){
+                    target_json.data_json_object->erase(JsonKey {last_index});
                 } else {
                     throw; // TODO
                 }
