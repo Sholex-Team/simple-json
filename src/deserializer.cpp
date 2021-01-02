@@ -28,32 +28,31 @@ namespace simple_json::deserializer {
                 if (finished) {
                     throw exceptions::ParsingException {};
                 }
-                if (ch == '}' || ch == ']' || ch == ',') {
-                    if (last_type == DataType::integer_type || last_type == DataType::double_type) {
-                        if (last_type == DataType::integer_type) {
-                            long int integer_value{strtol(last_value.c_str(), nullptr, 10)};
-                            if (primary_stack.top()->type() == DataType::array_type) {
-                                primary_stack.top()->push_back(integer_value);
-                                array_split = false;
-                            } else {
-                                primary_stack.top()->insert({JsonKey{last_key}, integer_value});
-                                last_key.clear();
-                                key_split = false;
-                            }
+                if ((ch == '}' || ch == ']' || ch == ',') &&
+                (last_type == DataType::integer_type || last_type == DataType::double_type)) {
+                    if (last_type == DataType::integer_type) {
+                        long int integer_value{strtol(last_value.c_str(), nullptr, 10)};
+                        if (primary_stack.top()->type() == DataType::array_type) {
+                            primary_stack.top()->push_back(integer_value);
+                            array_split = false;
                         } else {
-                            double double_value{strtod(last_value.c_str(), nullptr)};
-                            if (primary_stack.top()->type() == DataType::array_type) {
-                                primary_stack.top()->push_back(double_value);
-                                array_split = false;
-                            } else {
-                                primary_stack.top()->insert({JsonKey{last_key}, double_value});
-                                last_key.clear();
-                                key_split = false;
-                            }
+                            primary_stack.top()->insert({JsonKey{last_key}, integer_value});
+                            last_key.clear();
+                            key_split = false;
                         }
-                        last_type = DataType::unknown;
-                        last_value.clear();
+                    } else {
+                        double double_value{strtod(last_value.c_str(), nullptr)};
+                        if (primary_stack.top()->type() == DataType::array_type) {
+                            primary_stack.top()->push_back(double_value);
+                            array_split = false;
+                        } else {
+                            primary_stack.top()->insert({JsonKey{last_key}, double_value});
+                            last_key.clear();
+                            key_split = false;
+                        }
                     }
+                    last_type = DataType::unknown;
+                    last_value.clear();
                 }
                 switch (ch) {
                     case '}':
