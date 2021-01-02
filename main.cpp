@@ -7,17 +7,7 @@ using namespace types;
 using namespace indent;
 
 int main() {
-    Json json {
-            {"reza"_json_key, "rrr"},
-            {
-                "test"_json_key, {
-                    {"mosi"_json_key, "mmm"},
-                    {"sadi"_json_key, {"sss", "sss 1", "sss 2"}}
-                }
-            }
-    };
-    Json & j{json["aaaa"_json_ptr]};
-    j = "123";
-    std::cout << set_indent() << json;
+    JsonPointer p {"/123/1"};
+    std::cout << p;
     return 0;
 }
