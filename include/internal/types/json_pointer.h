@@ -3,10 +3,10 @@
 
 #include <string>
 #include <vector>
-#include "json_patch.h"
 
 namespace simple_json::types {
     class Json;
+    class JsonPatch;
 
     class JsonPointer {
     private:

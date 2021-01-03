@@ -8,6 +8,6 @@ using namespace indent;
 
 int main() {
     JsonPointer p {"/123/1"};
-    std::cout << p;
+    double test {Json(10.5)};
     return 0;
 }

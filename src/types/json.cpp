@@ -182,10 +182,6 @@ namespace simple_json::types {
         }
     }
 
-    bool Json::operator==(const Json && json_item) const {
-        return * this == json_item;
-    }
-
     #pragma endregion
 
     #pragma region Destructor
