@@ -102,6 +102,11 @@ namespace simple_json::types {
         throw exceptions::BadConversion {DataType::string_type};
     }
 
+    Json::operator const char *() const {
+        check_type(DataType::string_type);
+        return data_string->c_str();
+    }
+
     Json::operator Array() const {
         if (used_type == DataType::array_type) {
             return * data_array;

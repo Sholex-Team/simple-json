@@ -145,6 +145,7 @@ namespace simple_json::types {
         operator Array() const;
         operator std::string() const;
         operator JsonObject() const;
+        operator const char *() const;
 
         // Assignment Operator Overloading
         Json & operator=(const Json &);
