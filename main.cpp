@@ -6,9 +6,12 @@ using namespace simple_json;
 using namespace types;
 using namespace indent;
 
+void test(double test_arg) {
+    std::cout << test_arg << std::endl;
+}
+
 int main() {
     JsonPointer p {"/123/1"};
-    double test {Json(10.5)};
-    std::cout << test;
+    test(Json(10));
     return 0;
 }
