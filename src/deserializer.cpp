@@ -77,6 +77,19 @@ namespace simple_json::deserializer {
             last_value.clear();
         }
 
+        void Deserializer::string_push_or_exception() {
+            switch (last_type) {
+                case DataType::string_type:
+                    last_value.push_back(ch);
+                    return;
+                case DataType::string_key_type:
+                    last_key.push_back(ch);
+                    return;
+                default:
+                    throw exceptions::ParsingException {};
+            }
+        }
+
         #pragma endregion
 
         #pragma region Public Methods
@@ -114,38 +127,24 @@ namespace simple_json::deserializer {
                         }
                         strings_or_exception();
                     case ',':
-                        switch (last_type) {
-                            case DataType::unknown:
-                                if (key_split || array_split) {
-                                    throw exceptions::ParsingException {};
-                                }
-                                array_split = true;
-                                continue;
-                            case DataType::string_type:
-                                last_value.push_back(ch);
-                                continue;
-                            case DataType::string_key_type:
-                                last_key.push_back(ch);
-                                continue;
-                            default:
+                        if (last_type == DataType::unknown) {
+                            if (key_split || array_split) {
                                 throw exceptions::ParsingException {};
+                            }
+                            array_split = true;
+                            continue;
+                        } else {
+                            string_push_or_exception();
                         }
                     case ':':
-                        switch (last_type) {
-                            case DataType::unknown:
-                                if (key_split || array_split) {
-                                    throw exceptions::ParsingException {};
-                                }
-                                key_split = true;
-                                continue;
-                            case DataType::string_key_type:
-                                last_key.push_back(ch);
-                                continue;
-                            case DataType::string_type:
-                                last_value.push_back(ch);
-                                continue;
-                            default:
+                        if (last_type == DataType::unknown) {
+                            if (key_split || array_split) {
                                 throw exceptions::ParsingException {};
+                            }
+                            key_split = true;
+                            continue;
+                        } else {
+                            string_push_or_exception();
                         }
                     case '\\':
                         if (last_type == DataType::string_key_type || last_type == DataType::string_type) {
@@ -165,9 +164,9 @@ namespace simple_json::deserializer {
                                 if (primary_stack.top()->type() == DataType::json_object_type) {
                                     if (!last_key.empty()) {
                                         primary_stack.top()->insert({
-                                                                            JsonKey{last_key},
-                                                                            Json(DataType::json_object_type)
-                                                                    });
+                                            JsonKey{last_key},
+                                            Json(DataType::json_object_type)
+                                        });
                                         primary_stack.push(&primary_stack.top()->at(last_key));
                                         last_key.clear();
                                         array_split = true;
