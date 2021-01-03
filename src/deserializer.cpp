@@ -58,16 +58,16 @@ namespace simple_json::deserializer {
                     case '}': // TODO duplicate
                         if (primary_stack.top()->type() == DataType::json_object_type &&
                             last_type == DataType::unknown) {
-                            primary_stack.pop();
-                            if (primary_stack.empty()) {
-                                finished = true;
-                            }
                             if (array_split) {
                                 if (primary_stack.top()->empty()) {
                                     array_split = false;
                                 } else {
                                     throw exceptions::ParsingException {};
                                 }
+                            }
+                            primary_stack.pop();
+                            if (primary_stack.empty()) {
+                                finished = true;
                             }
                             continue;
                         }
@@ -76,16 +76,16 @@ namespace simple_json::deserializer {
                         }
                     case ']': // TODO duplicate
                         if (primary_stack.top()->type() == DataType::array_type && last_type == DataType::unknown) {
-                            primary_stack.pop();
-                            if (primary_stack.empty()) {
-                                finished = true;
-                            }
                             if (array_split) {
                                 if (primary_stack.top()->empty()) {
                                     array_split = false;
                                 } else {
                                     throw exceptions::ParsingException{};
                                 }
+                            }
+                            primary_stack.pop();
+                            if (primary_stack.empty()) {
+                                finished = true;
                             }
                             continue;
                         }
