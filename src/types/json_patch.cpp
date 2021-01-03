@@ -15,7 +15,7 @@ namespace simple_json::types {
     }
 
     void JsonPatch::action(Json & json) {
-        for (Json patch_object: * patch) {
+        for (Json & patch_object: * patch) {
             if (patch_object.at("op") == "add") {
                 std::string path {static_cast<std::string>(patch_object.at("path"))};
                 size_t pos {path.rfind('/')};
