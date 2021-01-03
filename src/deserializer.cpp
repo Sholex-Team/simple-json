@@ -55,7 +55,7 @@ namespace simple_json::deserializer {
                     last_value.clear();
                 }
                 switch (ch) {
-                    case '}':
+                    case '}': // TODO duplicate
                         if (primary_stack.top()->type() == DataType::json_object_type &&
                             last_type == DataType::unknown) {
                             primary_stack.pop();
@@ -74,7 +74,7 @@ namespace simple_json::deserializer {
                         if (!(last_type == DataType::string_type || last_type == DataType::string_key_type)) {
                             throw exceptions::ParsingException{};
                         }
-                    case ']':
+                    case ']': // TODO duplicate
                         if (primary_stack.top()->type() == DataType::array_type && last_type == DataType::unknown) {
                             primary_stack.pop();
                             if (primary_stack.empty()) {
