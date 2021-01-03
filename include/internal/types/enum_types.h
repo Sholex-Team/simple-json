@@ -14,6 +14,7 @@ namespace simple_json::types {
         json_object_type,
         null_type,
         string_key_type,
+        special_type,
         unknown
     };
 

@@ -2,15 +2,6 @@
 #include <algorithm>
 
 namespace simple_json::utils {
-    bool startswith(const char *base, const char *target) {
-        for (size_t i{0}; target[i] != '\0' || base[i] != '\0'; ++i) {
-            if (target[i] != base[i]) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     std::vector<std::string> split(std::string base, const std::string & target) {
         std::vector<std::string> tmp_vector;
         size_t index;

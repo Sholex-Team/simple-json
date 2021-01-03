@@ -11,6 +11,7 @@
 #include <cstdlib>
 #include <iostream>
 #include "types/exceptions/stream_exceptions.h"
+#include "json_utils.h"
 
 namespace simple_json::deserializer {
     types::Json loads(const std::string &);
@@ -18,6 +19,34 @@ namespace simple_json::deserializer {
     types::Json load(std::ifstream &);
 
     namespace {
+        class Deserializer {
+        private:
+            // Properties
+            types::Json main_object {};
+            std::stack<types::Json *> primary_stack {};
+            std::string last_value {};
+            std::string last_key {};
+            types::DataType last_type {types::DataType::unknown};
+            bool escaped {false};
+            bool finished {false};
+            bool key_split {false};
+            bool array_split {false};
+            char false_str [6] {"false"};
+            char true_str [5] {"true"};
+            char null_str [5] {"null"};
+            char ch;
+            long int integer_value {};
+            double double_value {};
+
+            // Private Methods
+            void add_to_top();
+            void pop_stack();
+            void strings_or_exception();
+        public:
+            types::Json deserializer(std::istream &);
+            types::Json deserializer(std::istream &&);
+        };
+
         types::Json deserializer(std::istream &&);
         types::Json deserializer(std::istream &);
 
