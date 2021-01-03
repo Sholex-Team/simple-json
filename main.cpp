@@ -12,6 +12,5 @@ void test(double test_arg) {
 
 int main() {
     JsonPointer p {"/123/1"};
-    test(Json(10));
     return 0;
 }
