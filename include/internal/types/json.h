@@ -140,12 +140,12 @@ namespace simple_json::types {
         explicit Json(DataType);
 
         // Conversion operators for implicit & explicit conversions
-        operator long int() const;
-        operator double() const;
-        operator Array() const;
-        operator std::string() const;
-        operator JsonObject() const;
-        operator const char *() const;
+        explicit operator long int() const;
+        explicit operator double() const;
+        explicit operator Array() const;
+        explicit operator std::string() const;
+        explicit operator JsonObject() const;
+        explicit operator const char *() const;
 
         // Assignment Operator Overloading
         Json & operator=(const Json &);
@@ -165,7 +165,6 @@ namespace simple_json::types {
         Json & operator[](const char * &);
         Json & operator[](const JsonPointer &);
         bool operator==(const Json &) const;
-        bool operator==(const Json &&) const;
 
         // Public Method
         Json & at(size_t);
