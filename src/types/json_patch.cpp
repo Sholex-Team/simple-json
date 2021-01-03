@@ -1,7 +1,6 @@
-#include "types/json.h" // TODO
+#include "types/json_patch.h"
 
 namespace simple_json::types {
-
     JsonPatch::JsonPatch(const Json & json_patch) : patch {new Json {json_patch}} {}
 
     JsonPatch::JsonPatch(const JsonPatch & json_patch) : patch {new Json {*json_patch.patch}} {}
