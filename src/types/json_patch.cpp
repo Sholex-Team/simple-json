@@ -16,10 +16,10 @@ namespace simple_json::types {
     void JsonPatch::action(Json & json) {
         for (Json & patch_object: * patch) {
             if (patch_object.at("op") == "add") {
-                std::string && path {patch_object.at("path")};
+                std::string path {patch_object.at("path")};
                 size_t pos {path.rfind('/')};
-                JsonPointer target_pointer {path.substr(0, path.size() - pos - 1)};
-                std::string last_index {path.substr(pos)};
+                JsonPointer target_pointer {path.substr(0, pos)};
+                std::string last_index {path.substr(pos + 1)};
                 Json & target_json {json[target_pointer]};
                 if (target_json.used_type == DataType::array_type) {
                     if (last_index == "-") {
@@ -39,7 +39,7 @@ namespace simple_json::types {
                     throw; // TODO
                 }
             } else if (patch_object.at("op") == "remove")  {
-                std::string && path {patch_object.at("path")};
+                std::string path {patch_object.at("path")};
                 size_t pos {path.rfind('/')};
                 JsonPointer target_pointer {path.substr(0, path.size() - pos - 1)};
                 std::string last_index {path.substr(pos)};

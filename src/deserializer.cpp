@@ -71,21 +71,27 @@ namespace simple_json::deserializer {
                             }
                             continue;
                         }
-                        throw exceptions::ParsingException{};
+                        if (!(last_type == DataType::string_type || last_type == DataType::string_key_type)) {
+                            throw exceptions::ParsingException{};
+                        }
                     case ']':
                         if (primary_stack.top()->type() == DataType::array_type && last_type == DataType::unknown) {
                             primary_stack.pop();
                             if (primary_stack.empty()) {
                                 finished = true;
                             }
-                            if (primary_stack.top()->empty()) {
-                                array_split = false;
-                            } else {
-                                throw exceptions::ParsingException {};
+                            if (array_split) {
+                                if (primary_stack.top()->empty()) {
+                                    array_split = false;
+                                } else {
+                                    throw exceptions::ParsingException{};
+                                }
                             }
                             continue;
                         }
-                        throw exceptions::ParsingException{};
+                        if (!(last_type == DataType::string_type || last_type == DataType::string_key_type)) {
+                            throw exceptions::ParsingException{};
+                        }
                     case ',':
                         switch (last_type) {
                             case DataType::unknown:
@@ -127,12 +133,12 @@ namespace simple_json::deserializer {
                         }
                         throw exceptions::ParsingException {};
                     case '{':
-                        array_split = true;
                         switch (last_type) {
                             case DataType::unknown:
                                 if (primary_stack.empty()) {
                                     main_object = DataType::json_object_type;
                                     primary_stack.push(&main_object);
+                                    array_split = true;
                                     continue;
                                 }
                                 if (primary_stack.top()->type() == DataType::json_object_type) {
@@ -143,6 +149,7 @@ namespace simple_json::deserializer {
                                         });
                                         primary_stack.push(&primary_stack.top()->at(last_key));
                                         last_key.clear();
+                                        array_split = true;
                                         continue;
                                     }
                                     throw exceptions::ParsingException{};

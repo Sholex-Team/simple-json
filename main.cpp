@@ -3,14 +3,12 @@
 
 
 using namespace simple_json;
+using namespace deserializer;
 using namespace types;
 using namespace indent;
 
-void test(double test_arg) {
-    std::cout << test_arg << std::endl;
-}
-
 int main() {
-    JsonPointer p {"/123/1"};
+    Json p {loads(R"({"op": "{}", "value": [2, 1]})")};
+    std::cout << set_indent() << p;
     return 0;
 }
