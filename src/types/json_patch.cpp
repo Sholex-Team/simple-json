@@ -39,7 +39,7 @@ namespace simple_json::types {
                     throw; // TODO
                 }
             } else if (patch_object.at("op") == "remove")  {
-                std::string path {patch_object.at("path")};
+                std::string && path {patch_object.at("path")};
                 size_t pos {path.rfind('/')};
                 JsonPointer target_pointer {path.substr(0, path.size() - pos - 1)};
                 std::string last_index {path.substr(pos)};
