@@ -22,7 +22,7 @@ namespace simple_json::deserializer {
         class Deserializer {
         private:
             // Properties
-            types::Json main_object {types::DataType::unknown};
+            types::Json main_object;
             std::stack<types::Json *> primary_stack {};
             std::string last_value {};
             std::string last_key {};
@@ -31,9 +31,10 @@ namespace simple_json::deserializer {
             bool finished {false};
             bool key_split {false};
             bool array_split {false};
-            char false_str [6] {"false"};
-            char true_str [5] {"true"};
-            char null_str [5] {"null"};
+            bool is_spaced {false};
+            std::string false_str {"false"};
+            std::string true_str {"true"};
+            std::string null_str {"null"};
             char ch;
             long int integer_value {};
             double double_value {};
@@ -46,6 +47,7 @@ namespace simple_json::deserializer {
             void push_json_object_stack();
             void push_array_stack();
             void set_main_object();
+            bool is_special();
         public:
             types::Json deserialize(std::istream &);
             types::Json deserialize(std::istream &&);

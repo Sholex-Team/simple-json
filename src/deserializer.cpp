@@ -8,6 +8,12 @@ namespace simple_json::deserializer {
     namespace {
         #pragma region Private Methods
 
+        bool Deserializer::is_special() {
+            return true_str.rfind(last_value, 0) == 0 ||
+            false_str.rfind(last_value, 0) == 0 ||
+            null_str.rfind(last_value, 0) == 0;
+        }
+
         void Deserializer::set_main_object() {
             primary_stack.push(&main_object);
             array_split = true;
@@ -61,6 +67,8 @@ namespace simple_json::deserializer {
                             primary_stack.top()->push_back(false);
                         } else if (last_value == null_str) {
                             primary_stack.top()->push_back(nullptr);
+                        } else {
+                            return;
                         }
                         break;
                     default:
@@ -70,22 +78,24 @@ namespace simple_json::deserializer {
             } else {
                 switch (last_type) {
                     case DataType::double_type:
-                        primary_stack.top()->insert({JsonKey{last_key}, double_value});
+                        primary_stack.top()->insert({JsonKey {last_key}, double_value});
                         break;
                     case DataType::integer_type:
-                        primary_stack.top()->insert({JsonKey{last_key}, integer_value});
+                        primary_stack.top()->insert({JsonKey {last_key}, integer_value});
                         break;
                     case DataType::special_type:
                         if (last_value == true_str) {
-                            primary_stack.top()->insert({JsonKey{last_key}, true});
+                            primary_stack.top()->insert({JsonKey {last_key}, true});
                         } else if (last_value == false_str) {
-                            primary_stack.top()->insert({JsonKey{last_key}, false});
+                            primary_stack.top()->insert({JsonKey {last_key}, false});
                         } else if (last_value == null_str) {
-                            primary_stack.top()->insert({JsonKey{last_key}, nullptr});
+                            primary_stack.top()->insert({JsonKey {last_key}, nullptr});
+                        } else {
+                            return;
                         }
                         break;
                     default:
-                        primary_stack.top()->insert({JsonKey{last_key}, last_value});
+                        primary_stack.top()->insert({JsonKey {last_key}, last_value});
                 }
                 last_key.clear();
                 key_split = false;
@@ -116,6 +126,7 @@ namespace simple_json::deserializer {
         }
 
         Json Deserializer::deserialize(std::istream & stream) {
+            main_object = DataType::unknown;
             while (stream.get(ch)) {
                 if (finished) {
                     throw exceptions::ParsingException {};
@@ -212,6 +223,7 @@ namespace simple_json::deserializer {
                             } else if (primary_stack.top()->type() == DataType::array_type && array_split) {
                                 primary_stack.top()->push_back(Json(DataType::array_type));
                                 push_array_stack();
+                                continue;
                             } else {
                                 throw exceptions::ParsingException{};
                             }
@@ -256,29 +268,8 @@ namespace simple_json::deserializer {
                                 }
                                 throw exceptions::ParsingException {};
                             case DataType::string_type:
-                                // Closing a single item string
-                                if (primary_stack.empty()) {
-                                    finished = true;
-                                    main_object = Json {last_value};
-                                }
-                                // Closing a json object string value
-                                if (primary_stack.top()->type() == DataType::json_object_type) {
-                                    primary_stack.top()->insert({
-                                                                        JsonKey{last_key},
-                                                                        Json(last_value)
-                                                                });
-                                    last_value.clear();
-                                    last_key.clear();
-                                    last_type = DataType::unknown;
-                                    continue;
-                                    // Closing an array string value
-                                } else if (primary_stack.top()->type() == DataType::array_type) {
-                                    primary_stack.top()->push_back(Json(last_value));
-                                    last_value.clear();
-                                    last_type = DataType::unknown;
-                                    continue;
-                                }
-                                throw exceptions::ParsingException {};
+                                add_to_top();
+                                continue;
                             case DataType::string_key_type:
                                 // Closing string key
                                 if (!last_key.empty()) {
@@ -310,6 +301,9 @@ namespace simple_json::deserializer {
                     case ' ':
                         if (last_type == DataType::unknown) {
                             continue;
+                        } else if (last_type == DataType::double_type || last_type == DataType::integer_type) {
+                            is_spaced = true;
+                            continue;
                         } else if (last_type != DataType::string_key_type && last_type != DataType::string_type) {
                             throw exceptions::ParsingException {};
                         }
@@ -326,63 +320,25 @@ namespace simple_json::deserializer {
                                     (primary_stack.top()->type() == DataType::json_object_type && !key_split)) {
                                     throw exceptions::ParsingException {};
                                 }
+                                last_value.push_back(ch);
                                 if (isdigit(ch)) {
                                     last_type = DataType::integer_type;
-                                    last_value.push_back(ch);
+                                    continue;
+                                }
+                                if (is_special()) {
+                                    last_type = DataType::special_type;
                                     continue;
                                 }
                                 throw exceptions::ParsingException {};
                             case DataType::special_type:
                                 last_value.push_back(ch);
-                                if (last_value.rfind(true_str, 0) == 0 ||
-                                    last_value.rfind(false_str, 0) == 0 ||
-                                    last_value.rfind(null_str, 0)) {
-                                    if (last_value == true_str) {
-                                        if (primary_stack.empty()) {
-                                            finished = true;
-                                            main_object = Json(true);
-                                            continue;
-                                        }
-                                        if (primary_stack.top()->type() == DataType::array_type) {
-                                            primary_stack.top()->push_back(Json(true));
-                                            array_split = false;
-                                            last_type = DataType::unknown;
-                                            continue;
-                                        } else if (primary_stack.top()->type() == DataType::json_object_type) {
-                                            primary_stack.top()->insert({
-                                                                                JsonKey{last_key},
-                                                                                Json(true)
-                                                                        });
-                                            last_value.clear();
-                                            last_key.clear();
-                                            last_type = DataType::unknown;
-                                            continue;
-                                        }
-                                    } else if (last_value == false_str) {
-                                        if (primary_stack.empty()) {
-                                            finished = true;
-                                            main_object = Json(false);
-                                            continue;
-                                        }
-                                        if (primary_stack.top()->type() == DataType::array_type) {
-                                            primary_stack.top()->push_back(Json(false));
-                                            array_split = false;
-                                            last_type = DataType::unknown;
-                                            continue;
-                                        } else if (primary_stack.top()->type() == DataType::json_object_type) {
-                                            primary_stack.top()->insert({
-                                                                                JsonKey{last_key},
-                                                                                Json(false)
-                                                                        });
-                                            last_value.clear();
-                                            last_key.clear();
-                                            last_type = DataType::unknown;
-                                            continue;
-                                        }
-                                    }
+                                if (is_special()) {
+                                    add_to_top();
+                                    continue;
                                 }
+                                throw exceptions::ParsingException {};
                             default:
-                                if (isdigit(ch)) {
+                                if (isdigit(ch) && !is_spaced) {
                                     last_value.push_back(ch);
                                     continue;
                                 }

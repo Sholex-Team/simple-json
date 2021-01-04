@@ -319,7 +319,7 @@ namespace simple_json::types {
                 os << * json_item.data_json_object;
                 break;
             case DataType::null_type:
-                os << nullptr;
+                os << "null";
                 break;
             default:
                 throw serializer::exceptions::StreamInsertionException();
