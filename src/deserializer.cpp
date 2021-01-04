@@ -8,6 +8,22 @@ namespace simple_json::deserializer {
     namespace {
         #pragma region Private Methods
 
+        void Deserializer::set_main_object() {
+            primary_stack.push(&main_object);
+            array_split = true;
+        }
+
+        void Deserializer::push_array_stack() {
+            primary_stack.push(&primary_stack.top()->back());
+            array_split = true;
+        }
+
+        void Deserializer::push_json_object_stack() {
+            primary_stack.push(&primary_stack.top()->at(last_key));
+            last_key.clear();
+            array_split = true;
+        }
+
         void Deserializer::pop_stack() {
             if (array_split) {
                 if (primary_stack.top()->empty()) {
@@ -153,72 +169,54 @@ namespace simple_json::deserializer {
                         }
                         throw exceptions::ParsingException {};
                     case '{':
-                        switch (last_type) {
-                            case DataType::unknown:
-                                if (primary_stack.empty()) {
-                                    main_object = DataType::json_object_type;
-                                    primary_stack.push(&main_object);
-                                    array_split = true;
+                        if (last_type == DataType::unknown) {
+                            if (primary_stack.empty()) {
+                                main_object = DataType::json_object_type;
+                                set_main_object();
+                                continue;
+                            }
+                            if (primary_stack.top()->type() == DataType::json_object_type) {
+                                if (!last_key.empty()) {
+                                    primary_stack.top()->insert({
+                                        JsonKey{last_key},
+                                        Json(DataType::json_object_type)
+                                    });
+                                    push_json_object_stack();
                                     continue;
                                 }
-                                if (primary_stack.top()->type() == DataType::json_object_type) {
-                                    if (!last_key.empty()) {
-                                        primary_stack.top()->insert({
-                                            JsonKey{last_key},
-                                            Json(DataType::json_object_type)
-                                        });
-                                        primary_stack.push(&primary_stack.top()->at(last_key));
-                                        last_key.clear();
-                                        array_split = true;
-                                        continue;
-                                    }
-                                    throw exceptions::ParsingException {};
-                                } else if (primary_stack.top()->type() == DataType::array_type) {
-                                    primary_stack.top()->push_back(Json(DataType::json_object_type));
-                                    primary_stack.push(&primary_stack.top()->back());
-                                }
-                                continue;
-                            case DataType::string_type:
-                                last_value.push_back(ch);
-                                continue;
-                            case DataType::string_key_type:
-                                last_key.push_back(ch);
-                                continue;
-                            default:
                                 throw exceptions::ParsingException {};
+                            } else if (primary_stack.top()->type() == DataType::array_type) {
+                                primary_stack.top()->push_back(Json(DataType::json_object_type));
+                                push_array_stack();
+                            }
+                            continue;
                         }
+                        string_push_or_exception();
+                        break;
                     case '[':
                         if (last_type == DataType::unknown) {
                             if (primary_stack.empty()) {
                                 main_object = DataType::array_type;
-                                primary_stack.push(&main_object);
-                                array_split = true;
+                                set_main_object();
                                 continue;
                             }
                             if (primary_stack.top()->type() == DataType::json_object_type) {
                                 if (!last_key.empty() && key_split) {
                                     primary_stack.top()->insert({
-                                                                        JsonKey{last_key},
-                                                                        Json(DataType::array_type)
-                                                                });
-                                    primary_stack.push(&primary_stack.top()->at(last_key));
-                                    last_key.clear();
-                                    key_split = false;
-                                    array_split = true;
-                                    continue;
+                                        JsonKey{last_key},
+                                        Json(DataType::array_type)
+                                    });
+                                    push_json_object_stack();
                                 }
-                                throw exceptions::ParsingException {};
+                                throw exceptions::ParsingException{};
                             } else if (primary_stack.top()->type() == DataType::array_type && array_split) {
                                 primary_stack.top()->push_back(Json(DataType::array_type));
-                                primary_stack.push(&primary_stack.top()->back());
+                                push_array_stack();
                             } else {
-                                throw exceptions::ParsingException {};
+                                throw exceptions::ParsingException{};
                             }
-                        } else if (last_type == DataType::string_type) {
-                            last_value.push_back(ch);
-                        } else if (last_type == DataType::string_key_type) {
-                            last_key.push_back(ch);
                         }
+                        string_push_or_exception();
                         break;
                     case '"':
                         if (escaped) {

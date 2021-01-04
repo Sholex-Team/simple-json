@@ -43,6 +43,9 @@ namespace simple_json::deserializer {
             void pop_stack();
             void strings_or_exception();
             void string_push_or_exception();
+            void push_json_object_stack();
+            void push_array_stack();
+            void set_main_object();
         public:
             types::Json deserializer(std::istream &);
             types::Json deserializer(std::istream &&);
