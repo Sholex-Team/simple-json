@@ -125,12 +125,14 @@ namespace simple_json::types {
     }
 
     Json & Json::operator=(const Json & json_item) {
+        clean_memory();
         used_type = json_item.used_type;
         copy(json_item);
         return * this;
     }
 
     Json & Json::operator=(Json && json_item) noexcept {
+        clean_memory();
         used_type = json_item.used_type;
         move(json_item);
         return * this;
