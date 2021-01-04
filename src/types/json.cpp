@@ -312,7 +312,7 @@ namespace simple_json::types {
                 os << json_item.data_double;
                 break;
             case DataType::boolean_type:
-                os << json_item.data_boolean;
+                os << std::boolalpha << json_item.data_boolean << std::noboolalpha;
                 break;
             case DataType::array_type:
                 os << * json_item.data_array;
