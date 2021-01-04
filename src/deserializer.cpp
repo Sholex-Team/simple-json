@@ -22,6 +22,7 @@ namespace simple_json::deserializer {
             primary_stack.push(&primary_stack.top()->at(last_key));
             last_key.clear();
             array_split = true;
+            key_split = false;
         }
 
         void Deserializer::pop_stack() {
@@ -205,6 +206,7 @@ namespace simple_json::deserializer {
                                         Json(DataType::array_type)
                                     });
                                     push_json_object_stack();
+                                    continue;
                                 }
                                 throw exceptions::ParsingException{};
                             } else if (primary_stack.top()->type() == DataType::array_type && array_split) {
