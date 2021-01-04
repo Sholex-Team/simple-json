@@ -47,12 +47,9 @@ namespace simple_json::deserializer {
             void push_array_stack();
             void set_main_object();
         public:
-            types::Json deserializer(std::istream &);
-            types::Json deserializer(std::istream &&);
+            types::Json deserialize(std::istream &);
+            types::Json deserialize(std::istream &&);
         };
-
-        types::Json deserializer(std::istream &&);
-        types::Json deserializer(std::istream &);
 
         class Load {
         private:

@@ -110,11 +110,11 @@ namespace simple_json::deserializer {
 
         #pragma region Public Methods
 
-        Json Deserializer::deserializer(std::istream && stream) {
-            return deserializer(stream);
+        Json Deserializer::deserialize(std::istream && stream) {
+            return deserialize(stream);
         }
 
-        Json Deserializer::deserializer(std::istream & stream) {
+        Json Deserializer::deserialize(std::istream & stream) {
             while (stream.get(ch)) {
                 if (finished) {
                     throw exceptions::ParsingException {};
@@ -149,9 +149,8 @@ namespace simple_json::deserializer {
                             }
                             array_split = true;
                             continue;
-                        } else {
-                            string_push_or_exception();
                         }
+                        string_push_or_exception();
                     case ':':
                         if (last_type == DataType::unknown) {
                             if (key_split || array_split) {
@@ -159,9 +158,8 @@ namespace simple_json::deserializer {
                             }
                             key_split = true;
                             continue;
-                        } else {
-                            string_push_or_exception();
                         }
+                        string_push_or_exception();
                     case '\\':
                         if (last_type == DataType::string_key_type || last_type == DataType::string_type) {
                             escaped = true;
@@ -420,12 +418,12 @@ namespace simple_json::deserializer {
         }
 
         simple_json::types::Json simple_json::deserializer::Load::load() {
-            return deserializer(file_stream);
+            return Deserializer {}.deserialize(file_stream);
         }
     }
 
     simple_json::types::Json loads(const std::string & json_text) {
-        return deserializer(std::stringstream {json_text});
+        return Deserializer {}.deserialize(std::stringstream {json_text});
     }
 
     simple_json::types::Json load(const std::string & file_path) {
@@ -436,6 +434,6 @@ namespace simple_json::deserializer {
         if (!file_stream) {
             throw exceptions::ReadingFromFileException {};
         }
-        return deserializer(file_stream);
+        return Deserializer {}.deserialize(file_stream);
     }
 }
