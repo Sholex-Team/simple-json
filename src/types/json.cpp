@@ -21,7 +21,7 @@ namespace simple_json::types {
     Json::Json(array_list_type & list_initial) : data_array {new Array{list_initial}},
     used_type(DataType::array_type) {}
 
-    Json::Json(array_list_type && list_initial) : data_array {new Array{list_initial}},
+    Json::Json(array_list_type && list_initial) : data_array {new Array {list_initial}},
     used_type(DataType::array_type) {}
 
     Json::Json(std::string & data) : data_string {new std::string {data}},
@@ -64,18 +64,21 @@ namespace simple_json::types {
     #pragma region Operator Overloading
 
     Json & Json::operator=(array_list_type & array_list) {
+        clean_memory();
         used_type = DataType::array_type;
         data_array = new Array(array_list);
         return * this;
     }
 
     Json & Json::operator=(json_list_type & json_list) {
+        clean_memory();
         used_type = DataType::json_object_type;
         data_json_object = new JsonObject(json_list);
         return * this;
     }
 
     Json & Json::operator=(DataType object_type) {
+        clean_memory();
         used_type = object_type;
         create_object();
         return * this;
@@ -186,6 +189,13 @@ namespace simple_json::types {
 
     #pragma region Destructor
     Json::~Json() {
+        clean_memory();
+    }
+
+    #pragma endregion Destructor
+
+    #pragma region Private Methods
+    void Json::clean_memory() noexcept {
         switch (used_type) {
             case DataType::array_type:
                 delete data_array;
@@ -201,9 +211,6 @@ namespace simple_json::types {
         }
     }
 
-    #pragma endregion Destructor
-
-    #pragma region Private Methods
     void Json::move(Json & json_item) noexcept {
         switch (json_item.used_type) {
             case DataType::integer_type:

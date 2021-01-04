@@ -47,6 +47,7 @@ namespace simple_json::types {
                 throw exceptions::InvalidOperation {};
             }
         }
+        void clean_memory() noexcept;
     public:
         // Iterators
         class iterator : public iterators::JsonIterator {

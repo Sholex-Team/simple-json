@@ -22,7 +22,7 @@ namespace simple_json::deserializer {
         class Deserializer {
         private:
             // Properties
-            types::Json main_object {};
+            types::Json main_object {types::DataType::unknown};
             std::stack<types::Json *> primary_stack {};
             std::string last_value {};
             std::string last_key {};
