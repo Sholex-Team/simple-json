@@ -148,12 +148,14 @@ namespace simple_json::deserializer {
                             continue;
                         }
                         strings_or_exception();
+                        continue;
                     case ']':
                         if (primary_stack.top()->type() == DataType::array_type && last_type == DataType::unknown) {
                             pop_stack();
                             continue;
                         }
                         strings_or_exception();
+                        continue;
                     case ',':
                         if (last_type == DataType::unknown) {
                             if (key_split || array_split) {
@@ -163,6 +165,7 @@ namespace simple_json::deserializer {
                             continue;
                         }
                         string_push_or_exception();
+                        continue;
                     case ':':
                         if (last_type == DataType::unknown) {
                             if (key_split || array_split) {
@@ -172,6 +175,7 @@ namespace simple_json::deserializer {
                             continue;
                         }
                         string_push_or_exception();
+                        continue;
                     case '\\':
                         if (last_type == DataType::string_key_type || last_type == DataType::string_type) {
                             escaped = true;
@@ -202,7 +206,7 @@ namespace simple_json::deserializer {
                             continue;
                         }
                         string_push_or_exception();
-                        break;
+                        continue;
                     case '[':
                         if (last_type == DataType::unknown) {
                             if (primary_stack.empty()) {
