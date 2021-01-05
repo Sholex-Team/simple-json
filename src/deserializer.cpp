@@ -316,8 +316,10 @@ namespace simple_json::deserializer {
                                 last_key.push_back(ch);
                                 continue;
                             case DataType::unknown:
-                                if ((primary_stack.top()->type() == DataType::array_type && !array_split) ||
-                                    (primary_stack.top()->type() == DataType::json_object_type && !key_split)) {
+                                if (!primary_stack.empty() && (
+                                        (primary_stack.top()->type() == DataType::array_type && !array_split) ||
+                                        (primary_stack.top()->type() == DataType::json_object_type && !key_split)
+                                    )) {
                                     throw exceptions::ParsingException {};
                                 }
                                 last_value.push_back(ch);
