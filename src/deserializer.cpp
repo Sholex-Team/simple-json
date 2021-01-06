@@ -139,6 +139,7 @@ namespace simple_json::deserializer {
                     } else {
                         double_value = strtod(last_value.c_str(), nullptr);
                     }
+                    is_spaced = false;
                     add_to_top();
                 }
                 switch (ch) {
@@ -345,7 +346,10 @@ namespace simple_json::deserializer {
                                 }
                                 throw exceptions::ParsingException {};
                             default:
-                                if (isdigit(ch) && !is_spaced) {
+                                if (isdigit(ch)) {
+                                    if (is_spaced) {
+                                        throw exceptions::ParsingException {Errors::illegal_space};
+                                    }
                                     last_value.push_back(ch);
                                     continue;
                                 }
