@@ -4,6 +4,7 @@ namespace simple_json::deserializer {
     using Json = types::Json;
     using DataType = types::DataType;
     using JsonKey = types::JsonKey;
+    using Errors = exceptions::ParsingException::Errors;
 
     namespace {
         #pragma region Private Methods
@@ -159,7 +160,7 @@ namespace simple_json::deserializer {
                     case ',':
                         if (last_type == DataType::unknown) {
                             if (key_split || array_split) {
-                                throw exceptions::ParsingException {};
+                                throw exceptions::ParsingException {Errors::illegal_array_split};
                             }
                             array_split = true;
                             continue;
@@ -169,7 +170,7 @@ namespace simple_json::deserializer {
                     case ':':
                         if (last_type == DataType::unknown) {
                             if (key_split || array_split) {
-                                throw exceptions::ParsingException {};
+                                throw exceptions::ParsingException {Errors::illegal_key_split};
                             }
                             key_split = true;
                             continue;
@@ -181,7 +182,7 @@ namespace simple_json::deserializer {
                             escaped = true;
                             continue;
                         }
-                        throw exceptions::ParsingException {};
+                        throw exceptions::ParsingException {Errors::illegal_escape};
                     case '{':
                         if (last_type == DataType::unknown) {
                             if (primary_stack.empty()) {
@@ -198,7 +199,7 @@ namespace simple_json::deserializer {
                                     push_json_object_stack();
                                     continue;
                                 }
-                                throw exceptions::ParsingException {};
+                                throw exceptions::ParsingException {Errors::empty_key};
                             } else if (primary_stack.top()->type() == DataType::array_type) {
                                 primary_stack.top()->push_back(Json(DataType::json_object_type));
                                 push_array_stack();
@@ -223,13 +224,13 @@ namespace simple_json::deserializer {
                                     push_json_object_stack();
                                     continue;
                                 }
-                                throw exceptions::ParsingException{};
+                                throw exceptions::ParsingException {Errors::invalid_key};
                             } else if (primary_stack.top()->type() == DataType::array_type && array_split) {
                                 primary_stack.top()->push_back(Json(DataType::array_type));
                                 push_array_stack();
                                 continue;
                             } else {
-                                throw exceptions::ParsingException{};
+                                throw exceptions::ParsingException {Errors::invalid_array};
                             }
                         }
                         string_push_or_exception();
@@ -262,15 +263,15 @@ namespace simple_json::deserializer {
                                         last_type = DataType::string_key_type;
                                         continue;
                                     }
-                                } else if (primary_stack.top()->type() == DataType::array_type) {
+                                } else if (primary_stack.top()->type() == DataType::array_type && array_split) {
                                     // Creating  a string as array value
-                                    if (last_key.empty() && array_split) {
+                                    if (last_key.empty()) {
                                         array_split = false;
                                         last_type = DataType::string_type;
                                         continue;
                                     }
                                 }
-                                throw exceptions::ParsingException {};
+                                throw exceptions::ParsingException {Errors::invalid_string};
                             case DataType::string_type:
                                 add_to_top();
                                 continue;
@@ -280,9 +281,9 @@ namespace simple_json::deserializer {
                                     last_type = DataType::unknown;
                                     continue;
                                 }
-                                throw exceptions::ParsingException {};
+                                throw exceptions::ParsingException {Errors::empty_key};
                             default:
-                                throw exceptions::ParsingException {};
+                                throw exceptions::ParsingException {Errors::invalid_string};
                         }
                     case '-':
                         if (last_type == DataType::unknown) {
