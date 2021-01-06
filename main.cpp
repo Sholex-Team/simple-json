@@ -9,14 +9,7 @@ using namespace types;
 using namespace indent;
 
 int main() {
-    Json p(loads(R"([
-  {
-      "voters": [],
-      "accept_vote": [
-        405154
-        ]
-    }
-  ])"));
+    Json p(loads(R"({"name":"re\nf"})"));
     std::cout << set_indent() << p;
     return 0;
 }
