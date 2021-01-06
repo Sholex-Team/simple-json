@@ -36,7 +36,9 @@ namespace simple_json::types {
         os << '[';
         for (const Json & item: * this) {
             os << std::endl;
-            os << std::setw(local_indent);
+            for (int i {0}; i < local_indent; ++i) {
+                os << ' ';
+            }
             switch (item.used_type) {
                 case DataType::json_object_type:
                     item.data_json_object->stream_with_indent(os, local_indent + indent_length);
@@ -49,7 +51,7 @@ namespace simple_json::types {
             }
             os << ( item == *std::prev(end()) ? "" : ",");
         }
-        os << '\n' << std::setw(local_indent - indent_length) << ']';
+        os << '\n' << std::setw(local_indent - indent_length + 1) << ']';
         return os;
     }
 

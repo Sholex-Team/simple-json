@@ -8,7 +8,7 @@ namespace simple_json::indent {
 
     extern size_t indent_length;
 
-    inline SetIndent set_indent(size_t length = 4)  {
+    inline SetIndent set_indent(size_t length = 2)  {
         indent_length = length;
         return {};
     }
