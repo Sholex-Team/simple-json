@@ -303,6 +303,9 @@ namespace simple_json::deserializer {
                             throw exceptions::ParsingException {};
                         }
                     case '\n':
+                        if (last_type == DataType::string_key_type || last_type == DataType::string_type) {
+                            throw exceptions::ParsingException {};
+                        }
                     case '\t':
                     case ' ':
                         if (last_type == DataType::unknown) {
@@ -312,6 +315,19 @@ namespace simple_json::deserializer {
                             continue;
                         } else if (last_type != DataType::string_key_type && last_type != DataType::string_type) {
                             throw exceptions::ParsingException {};
+                        }
+                    case 'n':
+                    case 't':
+                        if (escaped) {
+                            if (last_type == DataType::string_type) {
+                                last_value.push_back('\\');
+                                last_value.push_back(ch);
+                            } else {
+                                last_key.push_back('\\');
+                                last_key.push_back(ch);
+                            }
+                            escaped = false;
+                            continue;
                         }
                     default:
                         switch (last_type) {

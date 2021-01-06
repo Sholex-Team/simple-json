@@ -4,12 +4,13 @@
 
 using namespace simple_json;
 using namespace deserializer;
-using namespace serializer;
 using namespace types;
 using namespace indent;
 
 int main() {
-    Json p(loads(R"({"name":"re\nf"})"));
+    Json p(loads(R"({
+    "n": "5"
+    })"));
     std::cout << set_indent() << p;
     return 0;
 }
