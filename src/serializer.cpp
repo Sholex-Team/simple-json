@@ -42,7 +42,7 @@ namespace simple_json::serializer {
 
     void Dump::dump(const types::Json & json) {
             serializer(file_stream, json, local_indent);
-        }
+    }
 
     #pragma endregion
 
