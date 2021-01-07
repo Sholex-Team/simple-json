@@ -26,7 +26,8 @@ namespace simple_json::types {
     std::ostream & Array::stream_without_indent(std::ostream & os) const {
         os << '[';
         for (const Json & item: * this) {
-            os << item << ( item == *std::prev(end()) ? "" : ", ");
+            os << ((item.type() == DataType::string_type) ? item.serialize() : item)
+            << ( item == *std::prev(end()) ? "" : ", ");
         }
         os << ']';
         return os;
@@ -46,6 +47,9 @@ namespace simple_json::types {
                 case DataType::array_type:
                     item.data_array->stream_with_indent(os, local_indent + indent_length);
                     break;
+                case DataType::string_type:
+                    os << item.serialize();
+                    continue;
                 default:
                     os << item;
             }

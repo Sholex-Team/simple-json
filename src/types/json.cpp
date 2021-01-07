@@ -458,6 +458,7 @@ namespace simple_json::types {
 
     // Public Methods
     std::string Json::serialize() const {
+        check_type(DataType::string_type);
         std::string serialized(* data_string);
         utils::replace_str(serialized, "\n", "\\n");
         utils::replace_str(serialized, "\t", "\\t");
