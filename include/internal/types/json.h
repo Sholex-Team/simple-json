@@ -178,6 +178,7 @@ namespace simple_json::types {
         Json & back() const noexcept;
         inline DataType type() const noexcept {return used_type;}
         bool empty() const;
+        std::string serialize() const;
 
         // Destructors
         ~Json();

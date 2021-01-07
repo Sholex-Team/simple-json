@@ -332,7 +332,6 @@ namespace simple_json::types {
     #pragma endregion
 
     #pragma region Public Methods
-
     bool Json::empty() const {
         switch (used_type) {
             case DataType::array_type:
@@ -458,6 +457,15 @@ namespace simple_json::types {
     }
 
     // Public Methods
+    std::string Json::serialize() const {
+        std::string serialized(* data_string);
+        utils::replace_str(serialized, "\n", "\\n");
+        utils::replace_str(serialized, "\t", "\\t");
+        utils::replace_str(serialized, std::string {'\0'}, "\\0");
+        utils::replace_str(serialized, "\b", "\\b");
+        return serialized;
+    }
+
     Json::iterator Json::begin() {
         switch (used_type) {
             case DataType::array_type:
