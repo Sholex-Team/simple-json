@@ -302,37 +302,41 @@ namespace simple_json::deserializer {
                         } else if (last_type != DataType::string_type && last_type != DataType::string_key_type) {
                             throw exceptions::ParsingException {};
                         }
+                    case '\b':
+                    case '\t':
                     case '\n':
                         if (last_type == DataType::string_key_type || last_type == DataType::string_type) {
                             throw exceptions::ParsingException {};
                         }
-                    case '\t':
+                        is_spaced = true;
+                        continue;
+                    case 'n':
+                        if (escaped) {
+                            escaped = false;
+                            ch = '\n';
+                            string_push_or_exception();
+                        }
+                    case 't':
+                        if (escaped) {
+                            escaped = false;
+                            ch = '\t';
+                            string_push_or_exception();
+                        }
+                    case 'b':
+                        if (escaped) {
+                            escaped = false;
+                            ch = '\b';
+                            string_push_or_exception();
+                        }
                     case ' ':
                         if (last_type == DataType::unknown) {
                             continue;
                         } else if (last_type == DataType::double_type || last_type == DataType::integer_type) {
                             is_spaced = true;
                             continue;
-                        } else if (last_type != DataType::string_key_type && last_type != DataType::string_type) {
-                            throw exceptions::ParsingException {};
                         }
-                    case 'n':
-                    case 't':
-                        if (escaped) {
-                            escaped = false;
-                            switch (ch) {
-                                case 't':
-                                    ch = '\t';
-                                    string_push_or_exception();
-                                    continue;
-                                case 'n':
-                                    ch = '\n';
-                                    string_push_or_exception();
-                                    continue;
-                                default:
-                                    continue;
-                            }
-                        }
+                        strings_or_exception();
+                        continue;
                     default:
                         switch (last_type) {
                             case DataType::string_type:
