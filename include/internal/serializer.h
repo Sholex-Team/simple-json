@@ -8,6 +8,7 @@
 #include <utility>
 #include <fstream>
 #include "types/exceptions/stream_exceptions.h"
+#include "types/enum_types.h"
 
 namespace simple_json::serializer {
     std::string dumps(const types::Json &, size_t = 0);

@@ -8,9 +8,7 @@ using namespace types;
 using namespace indent;
 
 int main() {
-    Json p(loads(R"({
-    "n": "5"
-    })"));
+    Json p(loads(R"({"n": "\nhello"})"));
     std::cout << set_indent() << p;
     return 0;
 }

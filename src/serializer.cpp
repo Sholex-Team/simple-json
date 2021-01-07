@@ -6,9 +6,13 @@ namespace simple_json::serializer {
     std::string dumps(const types::Json & json, size_t local_indent) {
         std::stringstream stream;
         size_t old_indent = indent::switch_indent(local_indent);
-        stream << json;
+        if (json.type() == types::DataType::string_type) {
+            stream << json.serialize();
+        } else {
+            stream << json;
+        }
         indent::indent_length = old_indent;
-        return std::move(stream.str());
+        return stream.str();
     }
 
     void dump(types::Json & json, const std::string & file_name, size_t local_indent) {
@@ -23,13 +27,18 @@ namespace simple_json::serializer {
             throw exceptions::WritingToFileException {};
         }
         size_t old_indent = indent::switch_indent(local_indent);
-        file_stream << json;
+        if (json.type() == types::DataType::string_type) {
+            file_stream << json.serialize();
+        } else {
+            file_stream << json;
+        }
         indent::indent_length = old_indent;
     }
 
     namespace {
         Dump::Dump(const types::Json &json, const std::string &file_name, size_t local_indent) :
                 file_stream {file_name} {
+            // TODO: Move constructor instructions to a public method.
             if (!file_stream) {
                 if (file_stream.is_open()) {
                     file_stream.close();

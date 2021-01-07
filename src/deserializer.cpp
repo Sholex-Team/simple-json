@@ -314,20 +314,23 @@ namespace simple_json::deserializer {
                         if (escaped) {
                             escaped = false;
                             ch = '\n';
-                            string_push_or_exception();
                         }
+                        string_push_or_exception();
+                        continue;
                     case 't':
                         if (escaped) {
                             escaped = false;
                             ch = '\t';
-                            string_push_or_exception();
                         }
+                        string_push_or_exception();
+                        continue;
                     case 'b':
                         if (escaped) {
                             escaped = false;
                             ch = '\b';
-                            string_push_or_exception();
                         }
+                        string_push_or_exception();
+                        continue;
                     case ' ':
                         if (last_type == DataType::unknown) {
                             continue;

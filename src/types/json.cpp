@@ -464,7 +464,7 @@ namespace simple_json::types {
         utils::replace_str(serialized, "\t", "\\t");
         utils::replace_str(serialized, std::string {'\0'}, "\\0");
         utils::replace_str(serialized, "\b", "\\b");
-        return serialized;
+        return '"' + serialized + '"';
     }
 
     Json::iterator Json::begin() {
