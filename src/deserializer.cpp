@@ -319,15 +319,19 @@ namespace simple_json::deserializer {
                     case 'n':
                     case 't':
                         if (escaped) {
-                            if (last_type == DataType::string_type) {
-                                last_value.push_back('\\');
-                                last_value.push_back(ch);
-                            } else {
-                                last_key.push_back('\\');
-                                last_key.push_back(ch);
-                            }
                             escaped = false;
-                            continue;
+                            switch (ch) {
+                                case 't':
+                                    ch = '\t';
+                                    string_push_or_exception();
+                                    continue;
+                                case 'n':
+                                    ch = '\n';
+                                    string_push_or_exception();
+                                    continue;
+                                default:
+                                    continue;
+                            }
                         }
                     default:
                         switch (last_type) {
