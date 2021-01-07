@@ -9,6 +9,6 @@ using namespace indent;
 
 int main() {
     Json p(loads(R"({"n": "\nhello"})"));
-    std::cout << set_indent() << p;
+    std::cout << set_indent() << p << '\n' << p.at("n");
     return 0;
 }

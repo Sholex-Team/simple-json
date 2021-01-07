@@ -306,7 +306,7 @@ namespace simple_json::types {
                 os << json_item.data_int;
                 break;
             case DataType::string_type:
-                os << '"' << * (json_item.data_string) << '"';
+                os << * (json_item.data_string);
                 break;
             case DataType::double_type:
                 os << json_item.data_double;
