@@ -7,6 +7,7 @@
 #include "indent.h"
 #include <utility>
 #include <fstream>
+#include <iostream>
 #include "types/exceptions/stream_exceptions.h"
 #include "types/enum_types.h"
 
@@ -19,12 +20,19 @@ namespace simple_json::serializer {
         class Dump {
         private:
             std::ofstream file_stream;
+            size_t local_indent;
         public:
             // Constructor
-            Dump(const types::Json &, const std::string &, size_t);
+            Dump(const std::string &, size_t);
 
+            // Public Methods
+            void dump(const types::Json &);
+
+            // Destructors
             ~Dump();
         };
+
+        void serializer(std::ostream &, const types::Json & json, size_t local_indent);
     }
 }
 
