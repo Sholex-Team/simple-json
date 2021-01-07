@@ -26,13 +26,7 @@ namespace simple_json::serializer {
         if (!file_stream.is_open()) {
             throw exceptions::WritingToFileException {};
         }
-        size_t old_indent = indent::switch_indent(local_indent);
-        if (json.type() == types::DataType::string_type) {
-            file_stream << json.serialize();
-        } else {
-            file_stream << json;
-        }
-        indent::indent_length = old_indent;
+        file_stream << dumps(json, local_indent);
     }
 
     namespace {
