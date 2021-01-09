@@ -1,20 +1,20 @@
 #include "types/json_patch.h"
 
 namespace simple_json::types {
-    JsonPatch::JsonPatch(const Json & json_patch) : patch {new Json {json_patch}} {}
+    JsonPatch::JsonPatch(const Json & json_patch) : patch_data {new Json {json_patch}} {}
 
-    JsonPatch::JsonPatch(const JsonPatch & json_patch) : patch {new Json {*json_patch.patch}} {}
+    JsonPatch::JsonPatch(const JsonPatch & json_patch) : patch_data {new Json {* json_patch.patch_data}} {}
 
-    JsonPatch::JsonPatch(JsonPatch && json_patch) noexcept : patch {json_patch.patch} {
-        json_patch.patch = nullptr;
+    JsonPatch::JsonPatch(JsonPatch && json_patch) noexcept : patch_data {json_patch.patch_data} {
+        json_patch.patch_data = nullptr;
     }
 
     JsonPatch::~JsonPatch() {
-        delete patch;
+        delete patch_data;
     }
 
-    void JsonPatch::action(Json & json) {
-        for (Json & patch_object: * patch) {
+    void JsonPatch::patch(Json & json) {
+        for (Json & patch_object: * patch_data) {
             if (patch_object.at("op") == "add") {
                 std::string path {patch_object.at("path")};
                 size_t pos {path.rfind('/')};
@@ -47,7 +47,8 @@ namespace simple_json::types {
                 if (target_json.used_type == DataType::array_type) {
                     if (utils::is_digit(last_index)) {
                         target_json.data_array->erase(
-                                target_json.data_array->begin() + strtol(last_index.c_str(), nullptr, 10)
+                                target_json.data_array->begin() +
+                                strtol(last_index.c_str(), nullptr, 10)
                         );
 
                     } else {

@@ -12,7 +12,7 @@ namespace simple_json::types {
 
     class JsonPatch {
     private:
-        Json * patch;
+        Json * patch_data;
     public:
 
         // Constructors
@@ -24,7 +24,7 @@ namespace simple_json::types {
         ~JsonPatch();
 
         // Public Method
-        void action(Json &);
+        void patch(Json &);
     };
 }
 
