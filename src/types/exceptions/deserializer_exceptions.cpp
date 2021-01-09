@@ -27,10 +27,16 @@ namespace simple_json::deserializer::exceptions {
                 return "Invalid use of [ character !";
             case Errors::invalid_string:
                 return "Invalid use of \" character !";
-            case Errors::invalid_negative:
-                return "Invalid use of character - !";
             case Errors::illegal_space:
                 return "Illegal use of space !";
+            case Errors::invalid_character:
+                return "Invalid character out of \"\" !";
+            case Errors::extra_character:
+                return "Extra characters after parsing is finished !";
+            case Errors::illegal_escape_sequences:
+                return "Illegal use of sequences in a string !";
+            case Errors::unfinished_json:
+                return "Serialized JSON is not complete !";
             default:
                 return "String is not JSON serialized !";
         }

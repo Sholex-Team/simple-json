@@ -15,8 +15,11 @@ namespace simple_json::deserializer::exceptions {
             invalid_key,
             invalid_array,
             invalid_string,
-            invalid_negative,
             illegal_space,
+            invalid_character,
+            extra_character,
+            illegal_escape_sequences,
+            unfinished_json,
             unknown
         };
 

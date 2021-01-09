@@ -37,7 +37,7 @@ namespace simple_json::deserializer {
                 if (primary_stack.top()->empty()) {
                     array_split = false;
                 } else {
-                    throw exceptions::ParsingException {};
+                    throw exceptions::ParsingException {Errors::illegal_array_split};
                 }
             }
             primary_stack.pop();
@@ -48,7 +48,7 @@ namespace simple_json::deserializer {
 
         void Deserializer::strings_or_exception() {
             if (!(last_type == DataType::string_type || last_type == DataType::string_key_type)) {
-                throw exceptions::ParsingException {};
+                throw exceptions::ParsingException {Errors::invalid_character};
             }
         }
 
@@ -114,7 +114,7 @@ namespace simple_json::deserializer {
                     last_key.push_back(ch);
                     return;
                 default:
-                    throw exceptions::ParsingException {};
+                    throw exceptions::ParsingException {Errors::invalid_character};
             }
         }
 
@@ -130,7 +130,7 @@ namespace simple_json::deserializer {
             main_object = DataType::unknown;
             while (stream.get(ch)) {
                 if (finished) {
-                    throw exceptions::ParsingException {};
+                    throw exceptions::ParsingException {Errors::extra_character};
                 }
                 if ((ch == '}' || ch == ']' || ch == ',') &&
                     (last_type == DataType::integer_type || last_type == DataType::double_type)) {
@@ -291,22 +291,22 @@ namespace simple_json::deserializer {
                             last_type = DataType::integer_type;
                             last_value.push_back(ch);
                             continue;
-                        } else if (last_type != DataType::string_type && last_type != DataType::string_key_type) {
-                            throw exceptions::ParsingException {};
                         }
+                        string_push_or_exception();
+                        continue;
                     case '.':
                         if (last_type == DataType::unknown || last_type == DataType::integer_type) {
                             last_type = DataType::double_type;
                             last_value.push_back(ch);
                             continue;
-                        } else if (last_type != DataType::string_type && last_type != DataType::string_key_type) {
-                            throw exceptions::ParsingException {};
                         }
+                        string_push_or_exception();
+                        continue;
                     case '\b':
                     case '\t':
                     case '\n':
                         if (last_type == DataType::string_key_type || last_type == DataType::string_type) {
-                            throw exceptions::ParsingException {};
+                            throw exceptions::ParsingException {Errors::illegal_escape_sequences};
                         }
                         is_spaced = true;
                         continue;
@@ -353,7 +353,7 @@ namespace simple_json::deserializer {
                                         (primary_stack.top()->type() == DataType::array_type && !array_split) ||
                                         (primary_stack.top()->type() == DataType::json_object_type && !key_split)
                                     )) {
-                                    throw exceptions::ParsingException {};
+                                    throw exceptions::ParsingException {Errors::invalid_character};
                                 }
                                 last_value.push_back(ch);
                                 if (isdigit(ch)) {
@@ -364,14 +364,14 @@ namespace simple_json::deserializer {
                                     last_type = DataType::special_type;
                                     continue;
                                 }
-                                throw exceptions::ParsingException {};
+                                throw exceptions::ParsingException {Errors::invalid_character};
                             case DataType::special_type:
                                 last_value.push_back(ch);
                                 if (is_special()) {
                                     add_to_top();
                                     continue;
                                 }
-                                throw exceptions::ParsingException {};
+                                throw exceptions::ParsingException {Errors::invalid_character};
                             default:
                                 if (isdigit(ch)) {
                                     if (is_spaced) {
@@ -380,7 +380,7 @@ namespace simple_json::deserializer {
                                     last_value.push_back(ch);
                                     continue;
                                 }
-                                throw exceptions::ParsingException {};
+                                throw exceptions::ParsingException {Errors::invalid_character};
                         }
                 }
             }
@@ -394,7 +394,7 @@ namespace simple_json::deserializer {
                 finished = true;
             }
             if (!finished) {
-                throw exceptions::ParsingException {};
+                throw exceptions::ParsingException {Errors::unfinished_json};
             }
             return std::move(main_object);
         }
