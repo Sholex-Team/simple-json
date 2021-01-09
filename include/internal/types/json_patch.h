@@ -6,6 +6,8 @@
 #include "json_pointer.h"
 #include "json_utils.h"
 #include "json.h"
+#include "exceptions/invalid_index.h"
+#include "exceptions/invalid_operation.h"
 
 namespace simple_json::types {
     class Json;

@@ -24,20 +24,19 @@ namespace simple_json::types {
                 if (target_json.used_type == DataType::array_type) {
                     if (last_index == "-") {
                         target_json.push_back(patch_object.at("value"));
+                        continue;
                     } else if (utils::is_digit(last_index)) {
-                        target_json.data_array->insert(
-                                target_json.data_array->begin() + strtol(last_index.c_str(), nullptr, 10),
-                                patch_object.at("value")
-                                );
-
-                    } else {
-                        throw; // TODO
+                        target_json.data_array->insert(target_json.data_array->begin() + strtol(
+                                last_index.c_str(), nullptr, 10
+                                ),patch_object.at("value"));
+                        continue;
                     }
+                    throw exceptions::InvalidIndexException {};
                 } else if (target_json.used_type == DataType::json_object_type){
                     target_json.data_json_object->emplace(JsonKey {last_index}, patch_object.at("value"));
-                } else {
-                    throw; // TODO
+                    continue;
                 }
+                throw exceptions::InvalidOperation {};
             } else if (patch_object.at("op") == "remove")  {
                 std::string path {patch_object.at("path")};
                 size_t pos {path.rfind('/')};
@@ -50,15 +49,14 @@ namespace simple_json::types {
                                 target_json.data_array->begin() +
                                 strtol(last_index.c_str(), nullptr, 10)
                         );
-
-                    } else {
-                        throw; // TODO
+                        continue;
                     }
+                    throw exceptions::InvalidIndexException {target_json.used_type};
                 } else if (target_json.used_type == DataType::json_object_type){
                     target_json.data_json_object->erase(JsonKey {last_index});
-                } else {
-                    throw; // TODO
+                    continue;
                 }
+                throw exceptions::InvalidOperation {};
             }
         }
     }
