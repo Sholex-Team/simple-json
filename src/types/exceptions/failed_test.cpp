@@ -3,6 +3,6 @@
 namespace simple_json::types::exceptions {
 
     const char * FailedTest::what() const noexcept {
-        return exception::what(); // TODO change text
+        return "JSON Patch test failed !";
     }
 }
