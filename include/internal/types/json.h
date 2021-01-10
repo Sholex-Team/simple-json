@@ -164,6 +164,7 @@ namespace simple_json::types {
         // Operator Overloading
         Json & operator[](const int &);
         Json & operator[](const char * &);
+        Json & operator[](const JsonKey &);
         Json & operator[](const JsonPointer &);
         bool operator==(const Json &) const;
 
@@ -171,6 +172,10 @@ namespace simple_json::types {
         Json & at(size_t);
         Json & at(const std::string &);
         Json & at(const JsonPointer &);
+        void erase(size_t);
+        void erase(const std::string &);
+        void erase(const JsonKey &);
+        void erase(const JsonPointer &);
         void push_back(const Json &);
         void insert(const pair_type &);
         void push_back(Json &&);
