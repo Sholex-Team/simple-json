@@ -50,5 +50,9 @@ namespace simple_json::types {
         return os;
     }
 
-    #pragma endregion
+    JsonPointer::operator std::string() const {
+        return *pointer_text;
+    }
+
+#pragma endregion
 }

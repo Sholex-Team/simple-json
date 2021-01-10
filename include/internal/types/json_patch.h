@@ -8,6 +8,7 @@
 #include "json.h"
 #include "exceptions/invalid_index.h"
 #include "exceptions/invalid_operation.h"
+#include "exceptions/failed_test.h"
 
 namespace simple_json::types {
     class Json;
