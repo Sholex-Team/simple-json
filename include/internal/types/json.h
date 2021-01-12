@@ -188,7 +188,10 @@ namespace simple_json::types {
         bool empty() const;
         std::string serialize() const;
         size_t count(const JsonKey & key) const;
-        bool contains(const JsonKey& key) const;
+        bool contains(const JsonKey & key) const;
+        iterator find(const JsonKey & key);
+        const_iterator find(const JsonKey & key) const;
+        size_t size() const noexcept;
 
         // Destructors
         ~Json();

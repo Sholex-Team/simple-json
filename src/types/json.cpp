@@ -337,6 +337,31 @@ namespace simple_json::types {
     #pragma endregion
 
     #pragma region Public Methods
+    size_t Json::size() const noexcept {
+        switch (used_type) {
+            case DataType::string_type:
+            case DataType::integer_type:
+            case DataType::double_type:
+                return 1;
+            case DataType::array_type:
+                return data_array->size();
+            case DataType::json_object_type:
+                return data_json_object->size();
+            default:
+                return 0;
+        }
+    }
+
+    Json::iterator Json::find(const JsonKey & key) {
+        check_type(DataType::json_object_type);
+        return iterator {data_json_object->find(key)};
+    }
+
+    Json::const_iterator Json::find(const JsonKey & key) const {
+        check_type(DataType::json_object_type);
+        return const_iterator {data_json_object->find(key)};
+    }
+
     size_t Json::count(const JsonKey & key) const {
         check_type(DataType::json_object_type);
         return data_json_object->count(key);
