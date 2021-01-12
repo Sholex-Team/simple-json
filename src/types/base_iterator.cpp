@@ -1,4 +1,4 @@
-#include "types/exceptions/base_iterator.h"
+#include "types/base_iterator.h"
 
 namespace simple_json::iterators {
     #pragma region Constructors
@@ -12,6 +12,12 @@ namespace simple_json::iterators {
     void JsonIterator::check_json_object() const {
         if (used_type != types::IteratorTypes::json_object_iterator_type) {
             throw exceptions::InvalidType {};
+        }
+    }
+
+    void JsonIterator::check_array_type() const {
+        if (used_type != types::IteratorTypes::array_iterator_type) {
+            throw simple_json::types::exceptions::InvalidOperator {};
         }
     }
 

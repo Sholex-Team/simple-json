@@ -3,7 +3,8 @@
 
 #include "types/json_key.h"
 #include "types/enum_types.h"
-#include "iterator_exceptions.h"
+#include "exceptions/iterator_exceptions.h"
+#include "exceptions/invalid_operator.h"
 
 namespace simple_json::iterators {
     class JsonIterator {
@@ -11,6 +12,7 @@ namespace simple_json::iterators {
         types::IteratorTypes used_type;
         virtual void add_to_iterator() = 0;
         void check_json_object() const;
+        void check_array_type() const;
     public:
         // Constructors
         explicit JsonIterator(types::IteratorTypes);

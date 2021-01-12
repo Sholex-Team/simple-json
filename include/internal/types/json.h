@@ -6,16 +6,15 @@
 #include "json_object.h"
 #include "array_type.h"
 #include "json_patch.h"
-#include "types/exceptions/base_iterator.h"
-#include "types/exceptions/invalid_operation.h"
+#include "base_iterator.h"
+#include "exceptions/invalid_operation.h"
 #include <string>
-#include "types/array_type.h"
-#include "types/enum_types.h"
-#include "types/exceptions/bad_conversion.h"
-#include "types/exceptions/stream_exceptions.h"
-#include "types/exceptions/iterator_exceptions.h"
+#include "enum_types.h"
+#include "exceptions/bad_conversion.h"
+#include "exceptions/stream_exceptions.h"
+#include "exceptions/iterator_exceptions.h"
 #include <utility>
-#include <types/exceptions/invalid_operator.h>
+#include "exceptions/invalid_operator.h"
 #include "json_utils.h"
 #include "json_pointer.h"
 
@@ -69,10 +68,10 @@ namespace simple_json::types {
             Json & operator*() const;
             const iterator operator++(int);
             iterator & operator++();
-            iterator operator+(int) const;
-            iterator operator-(int) const;
-            iterator operator+=(int);
-            iterator operator-=(int);
+            iterator operator+(size_t) const;
+            iterator operator-(size_t) const;
+            iterator operator+=(size_t);
+            iterator operator-=(size_t);
             bool operator!=(const iterator &) const;
 
             // Public Methods
@@ -102,6 +101,10 @@ namespace simple_json::types {
             const Json & operator*() const;
             const_iterator operator++(int);
             const_iterator & operator++();
+            const_iterator operator+(size_t) const;
+            const_iterator operator-(size_t) const;
+            const_iterator operator+=(size_t);
+            const_iterator operator-=(size_t);
             bool operator!=(const const_iterator &) const;
 
             // Public Methods
@@ -184,6 +187,8 @@ namespace simple_json::types {
         inline DataType type() const noexcept {return used_type;}
         bool empty() const;
         std::string serialize() const;
+        size_t count(const JsonKey & key) const;
+        bool contains(const JsonKey& key) const;
 
         // Destructors
         ~Json();

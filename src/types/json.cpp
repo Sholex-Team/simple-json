@@ -337,6 +337,16 @@ namespace simple_json::types {
     #pragma endregion
 
     #pragma region Public Methods
+    size_t Json::count(const JsonKey & key) const {
+        check_type(DataType::json_object_type);
+        return data_json_object->count(key);
+    }
+
+    bool Json::contains(const JsonKey & key) const {
+        check_type(DataType::json_object_type);
+        return data_json_object->count(key) > 0;
+    }
+
     bool Json::empty() const {
         switch (used_type) {
             case DataType::array_type:
@@ -582,10 +592,10 @@ namespace simple_json::types {
 
     // Operator Overloading
     Json & Json::iterator::operator*() const {
-        if (used_type == IteratorTypes::array_iterator_type) {
-            return * * array_iterator;
+        if (used_type != IteratorTypes::array_iterator_type) {
+            throw iterators::exceptions::InvalidDereference {};
         }
-        throw iterators::exceptions::InvalidDereference {};
+        return * * array_iterator;
     }
 
     const Json::iterator Json::iterator::operator++(int) {
@@ -599,38 +609,26 @@ namespace simple_json::types {
         return * this;
     }
 
-    Json::iterator Json::iterator::operator+(int i) const {
-        if (used_type == IteratorTypes::array_iterator_type) {
-            return Json::iterator{* array_iterator + i};
-        } else {
-            throw exceptions::InvalidOperator {};
-        }
+    Json::iterator Json::iterator::operator+(size_t i) const {
+        check_array_type();
+        return Json::iterator{* array_iterator + i};
     }
 
-    Json::iterator Json::iterator::operator-(int i) const {
-        if (used_type == IteratorTypes::array_iterator_type) {
-            return Json::iterator{* array_iterator - i};
-        } else {
-            throw exceptions::InvalidOperator {};
-        }
+    Json::iterator Json::iterator::operator-(size_t i) const {
+        check_array_type();
+        return Json::iterator{* array_iterator - i};
     }
 
-    Json::iterator Json::iterator::operator+=(int i) {
-        if (used_type == IteratorTypes::array_iterator_type) {
-            * array_iterator += i;
-            return * this;
-        } else {
-            throw exceptions::InvalidOperator {};
-        }
+    Json::iterator Json::iterator::operator+=(size_t i) {
+        check_array_type();
+        * array_iterator += i;
+        return * this;
     }
 
-    Json::iterator Json::iterator::operator-=(int i) {
-        if (used_type == IteratorTypes::array_iterator_type) {
-            * array_iterator -= i;
-            return * this;
-        } else {
-            throw exceptions::InvalidOperator {};
-        }
+    Json::iterator Json::iterator::operator-=(size_t i) {
+        check_array_type();
+        * array_iterator -= i;
+        return * this;
     }
 
     bool Json::iterator::operator!=(const iterator & r_iterator) const {
@@ -656,6 +654,28 @@ namespace simple_json::types {
 
     Json::const_iterator & Json::const_iterator::operator++() {
         add_to_iterator();
+        return * this;
+    }
+
+    Json::const_iterator Json::const_iterator::operator+(size_t i) const {
+        check_array_type();
+        return Json::const_iterator {* array_iterator + i};
+    }
+
+    Json::const_iterator Json::const_iterator::operator-(size_t i) const {
+        check_array_type();
+        return Json::const_iterator {* array_iterator - i};
+    }
+
+    Json::const_iterator Json::const_iterator::operator+=(size_t i) {
+        check_array_type();
+        * array_iterator += i;
+        return * this;
+    }
+
+    Json::const_iterator Json::const_iterator::operator-=(size_t i) {
+        check_array_type();
+        * array_iterator -= i;
         return * this;
     }
 
