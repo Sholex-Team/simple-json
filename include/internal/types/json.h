@@ -175,6 +175,7 @@ namespace simple_json::types {
         Json & at(size_t);
         Json & at(const std::string &);
         Json & at(const JsonPointer &);
+        Json & at(const JsonKey &);
         void erase(size_t);
         void erase(const std::string &);
         void erase(const JsonKey &);
@@ -192,6 +193,7 @@ namespace simple_json::types {
         iterator find(const JsonKey & key);
         const_iterator find(const JsonKey & key) const;
         size_t size() const noexcept;
+        void update(const Json & target);
 
         // Destructors
         ~Json();

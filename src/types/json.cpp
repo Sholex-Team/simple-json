@@ -337,6 +337,12 @@ namespace simple_json::types {
     #pragma endregion
 
     #pragma region Public Methods
+    void Json::update(const Json & target) {
+        check_type(DataType::json_object_type);
+        for (const pair_type & item: target.items()) {
+            this->at(item.first) = item.second;
+        }
+    }
     size_t Json::size() const noexcept {
         switch (used_type) {
             case DataType::string_type:
@@ -391,6 +397,11 @@ namespace simple_json::types {
     Json & Json::at(const std::string & index) {
         check_type(DataType::json_object_type);
         return data_json_object->at(JsonKey {index});
+    }
+
+    Json & Json::at(const JsonKey & key) {
+        check_type(DataType::json_object_type);
+        return data_json_object->at(key);
     }
 
     Json & Json::at(const JsonPointer & json_pointer) {
