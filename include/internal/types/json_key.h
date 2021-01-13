@@ -12,21 +12,21 @@ namespace simple_json::types {
         std::string * key;
     public:
         // Constructors
-        explicit JsonKey(const std::string &);
-        JsonKey(const JsonKey &);
-        JsonKey(JsonKey &&) noexcept;
+        explicit JsonKey(const std::string & key);
+        JsonKey(const JsonKey & json_key);
+        JsonKey(JsonKey && json_key) noexcept;
 
         // Destructors
         ~JsonKey();
 
         // Operators
-        bool operator<(const JsonKey &) const;
-        bool operator>(const JsonKey &) const;
-        bool operator==(const JsonKey &) const;
+        bool operator<(const JsonKey & r_json_key) const;
+        bool operator>(const JsonKey & r_json_key) const;
+        bool operator==(const JsonKey & r_json_key) const;
 
         // Operator OStream
-        friend std::ostream & operator<<(std::ostream &, const JsonKey &&);
-        friend std::ostream & operator<<(std::ostream &, const JsonKey &);
+        friend std::ostream & operator<<(std::ostream & os, const JsonKey && json_key);
+        friend std::ostream & operator<<(std::ostream & os, const JsonKey & json_key);
         friend JsonObject;
 
         // Public Methods
@@ -34,9 +34,9 @@ namespace simple_json::types {
     };
 
     // Operator Overloading
-    JsonKey operator""_json_key(const char *, size_t);
-    std::ostream & operator<<(std::ostream &, const JsonKey &&);
-    std::ostream & operator<<(std::ostream &, const JsonKey &);
+    JsonKey operator""_json_key(const char * key_ptr, size_t);
+    std::ostream & operator<<(std::ostream & os, const JsonKey && json_key);
+    std::ostream & operator<<(std::ostream & os, const JsonKey & json_key);
 }
 
 #endif //SIMPLE_JSON_JSON_KEY_H

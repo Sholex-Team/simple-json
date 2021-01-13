@@ -33,16 +33,16 @@ namespace simple_json::types {
         return os;
     }
 
-    bool JsonKey::operator<(const JsonKey & right_json_key) const {
-        return * key < * right_json_key.key;
+    bool JsonKey::operator<(const JsonKey & r_json_key) const {
+        return * key < * r_json_key.key;
     }
 
-    bool JsonKey::operator>(const JsonKey & right_json_key) const {
-        return * key > * right_json_key.key;
+    bool JsonKey::operator>(const JsonKey & r_json_key) const {
+        return * key > * r_json_key.key;
     }
 
-    bool JsonKey::operator==(const JsonKey & right_json_key) const {
-        return * key == * right_json_key.key;
+    bool JsonKey::operator==(const JsonKey & r_json_key) const {
+        return * key == * r_json_key.key;
     }
 
     JsonKey operator""_json_key(const char * key_ptr, size_t) {

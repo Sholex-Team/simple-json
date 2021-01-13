@@ -20,25 +20,25 @@ namespace simple_json::types {
 
     class JsonObject : public map_type {
         private:
-            std::ostream & stream_without_indent(std::ostream &) const;
-            std::ostream & stream_with_indent(std::ostream &, size_t) const;
+            std::ostream & stream_without_indent(std::ostream & os) const;
+            std::ostream & stream_with_indent(std::ostream & os, size_t local_indent) const;
         public:
             // Constructors
             JsonObject() = default;
-            JsonObject(const json_list_type &);
-            JsonObject(JsonObject &&) noexcept = default;
-            JsonObject(JsonObject &) = default;
+            JsonObject(const json_list_type & initializer_list);
+            JsonObject(JsonObject && json_object) noexcept = default;
+            JsonObject(JsonObject & json_object) = default;
 
             // Friends
-            friend std::ostream & operator<<(std::ostream &, const JsonObject &);
+            friend std::ostream & operator<<(std::ostream & os, const JsonObject & json_object);
             friend Array;
 
             // Public Methods
-            Json get(const char *, const Json &) const;
-            Json get(const char *, Json &&) const;
+            Json get(const std::string & key, const Json & default_return) const;
+            Json get(const std::string & key, Json && default_return) const;
         };
 
-    std::ostream & operator<<(std::ostream &, const JsonObject &);
+    std::ostream & operator<<(std::ostream & os, const JsonObject & json_object);
 }
 
 #endif //SIMPLE_JSON_JSON_OBJECT_H

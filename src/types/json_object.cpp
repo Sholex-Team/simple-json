@@ -12,7 +12,7 @@ namespace simple_json::types {
 
     #pragma region Methods
 
-    Json JsonObject::get(const char *key, const Json & default_return) const {
+    Json JsonObject::get(const std::string & key, const Json & default_return) const {
         try {
             return at(JsonKey{key});
         } catch (std::out_of_range &e) {
@@ -20,7 +20,7 @@ namespace simple_json::types {
         }
     }
 
-    Json JsonObject::get(const char *key, Json && default_return) const {
+    Json JsonObject::get(const std::string & key, Json && default_return) const {
         try {
             return at(JsonKey{key});
         } catch (std::out_of_range &e) {
@@ -32,7 +32,7 @@ namespace simple_json::types {
 
     #pragma region Operator Overloading OStream
 
-    std::ostream & operator<<(std::ostream &os, const JsonObject &json_object) {
+    std::ostream & operator<<(std::ostream & os, const JsonObject & json_object) {
         if (indent::indent_length == 0) {
             return json_object.stream_without_indent(os);
         }
@@ -43,7 +43,7 @@ namespace simple_json::types {
 
     #pragma region Private Method
 
-    std::ostream & JsonObject::stream_without_indent(std::ostream &os) const {
+    std::ostream & JsonObject::stream_without_indent(std::ostream & os) const {
         os << '{';
         for (const auto &p: *this) {
             os << p.first << ": " << ((p.second.type() == DataType::string_type) ? p.second.serialize() : p.second)
@@ -53,7 +53,7 @@ namespace simple_json::types {
         return os;
     }
 
-    std::ostream &JsonObject::stream_with_indent(std::ostream &os, size_t local_indent) const {
+    std::ostream & JsonObject::stream_with_indent(std::ostream & os, size_t local_indent) const {
         os << '{';
         for (const auto &p: *this) {
             os << std::endl;
