@@ -3,17 +3,17 @@
 namespace simple_json::serializer {
     #pragma region Serializer Functions
 
-    std::string dumps(const types::Json & json, size_t local_indent) {
+    std::string dumps(const types::Json & json, const size_t local_indent) {
         std::stringstream stream;
         serializer(stream, json, local_indent);
         return stream.str();
     }
 
-    void dump(types::Json & json, const std::string & file_name, size_t local_indent) {
-        Dump {file_name, local_indent}.dump(json);
+    void dump(types::Json & json, const std::string & file_path, const size_t local_indent) {
+        Dump {file_path, local_indent}.dump(json);
     }
 
-    void dump(types::Json & json, std::ofstream & file_stream, size_t local_indent) {
+    void dump(types::Json & json, std::ofstream & file_stream, const size_t local_indent) {
         if (!file_stream.is_open()) {
             throw exceptions::WritingToFileException {};
         }
@@ -26,8 +26,8 @@ namespace simple_json::serializer {
     namespace {
     #pragma region Constructors
 
-        Dump::Dump(const std::string & file_name, const size_t local_indent) :
-        file_stream {file_name}, local_indent {local_indent} {
+        Dump::Dump(const std::string & file_path, const size_t local_indent) :
+        file_stream {file_path}, local_indent {local_indent} {
             if (!file_stream) {
                 if (file_stream.is_open()) {
                     file_stream.close();
@@ -56,12 +56,12 @@ namespace simple_json::serializer {
 
     #pragma endregion
 
-    void serializer(std::ostream & stream, const types::Json & json, size_t local_indent) {
+    void serializer(std::ostream & os, const types::Json & json, const size_t local_indent) {
             size_t old_indent = indent::switch_indent(local_indent);
             if (json.type() == types::DataType::string_type) {
-                stream << json.serialize();
+                os << json.serialize();
             } else {
-                stream << json;
+                os << json;
             }
             indent::indent_length = old_indent;
         }

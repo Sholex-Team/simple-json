@@ -17,10 +17,10 @@ namespace simple_json::utils {
         return std::all_of(str.begin(), str.end(), [](char ch) { return isdigit(ch); });
     }
 
-    void replace_str(std::string & target, const std::string & old_value, const std::string & new_value) {
+    void replace_str(std::string & base, const std::string & old_value, const std::string & new_value) {
         size_t index;
-        while ((index = target.find(old_value)) != std::string::npos) {
-            target.replace(index, old_value.length(), new_value);
+        while ((index = base.find(old_value)) != std::string::npos) {
+            base.replace(index, old_value.length(), new_value);
         }
     }
 }

@@ -14,9 +14,9 @@
 #include "json_utils.h"
 
 namespace simple_json::deserializer {
-    types::Json loads(const std::string &);
-    types::Json load(const std::string &);
-    types::Json load(std::ifstream &);
+    types::Json loads(const std::string & json_text);
+    types::Json load(const std::string & file_path);
+    types::Json load(std::ifstream & fs);
 
     namespace {
         class Deserializer {
@@ -49,8 +49,8 @@ namespace simple_json::deserializer {
             void set_main_object();
             bool is_special();
         public:
-            types::Json deserialize(std::istream &);
-            types::Json deserialize(std::istream &&);
+            types::Json deserialize(std::istream & steam);
+            types::Json deserialize(std::istream && stream);
         };
 
         class Load {
@@ -58,7 +58,7 @@ namespace simple_json::deserializer {
             std::ifstream file_stream;
         public:
             types::Json load();
-            explicit Load(const std::string &);
+            explicit Load(const std::string & file_path);
             ~Load();
         };
     }

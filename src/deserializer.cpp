@@ -431,10 +431,10 @@ namespace simple_json::deserializer {
         return Load {file_path}.load();
     }
 
-    simple_json::types::Json load(std::ifstream & file_stream) {
-        if (!file_stream) {
+    simple_json::types::Json load(std::ifstream & fs) {
+        if (!fs) {
             throw exceptions::ReadingFromFileException {};
         }
-        return Deserializer {}.deserialize(file_stream);
+        return Deserializer {}.deserialize(fs);
     }
 }
