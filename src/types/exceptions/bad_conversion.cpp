@@ -3,7 +3,7 @@
 namespace simple_json::types::exceptions {
     #pragma region Constructors
 
-    BadConversion::BadConversion(DataType to) noexcept : JsonException(), to {to} {}
+    BadConversion::BadConversion(const DataType to) noexcept : JsonException(), to {to} {}
 
     #pragma endregion
 

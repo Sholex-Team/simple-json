@@ -7,11 +7,10 @@
 namespace simple_json::types::exceptions {
         class InvalidIndexException : public base_exceptions::JsonException {
         private:
-            DataType to;
+            DataType used_type;
         public:
             const char * what() const noexcept override;
-            explicit InvalidIndexException(DataType) noexcept;
-            InvalidIndexException() noexcept : JsonException(), to {DataType::unknown} {}
+            explicit InvalidIndexException(DataType used_type = DataType::unknown);
         };
     }
 

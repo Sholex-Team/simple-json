@@ -2,26 +2,23 @@
 
 namespace simple_json::types {
     #pragma region Constructors
-    Json::Json(double data) : data_double {data}, used_type {DataType::double_type} {}
+    Json::Json(const double data) : data_double {data}, used_type {DataType::double_type} {}
 
-    Json::Json(long int data) : data_int {data}, used_type {DataType::integer_type} {}
+    Json::Json(const long int data) : data_int {data}, used_type {DataType::integer_type} {}
 
-    Json::Json(int data) : data_int {data}, used_type {DataType::integer_type} {}
+    Json::Json(const int data) : data_int {data}, used_type {DataType::integer_type} {}
 
-    Json::Json(bool data) : data_boolean {data}, used_type {DataType::boolean_type} {}
+    Json::Json(const bool data) : data_boolean {data}, used_type {DataType::boolean_type} {}
 
-    Json::Json(std::nullptr_t) : used_type(DataType::null_type) {}
+    Json::Json(const std::nullptr_t) : used_type(DataType::null_type) {}
 
-    Json::Json(Array data) : data_array {new Array(std::move(data))},
+    Json::Json(const Array & data) : data_array {new Array(data)},
     used_type {DataType::array_type} {}
 
     Json::Json(Array && data) : data_array {new Array(std::move(data))},
     used_type {DataType::array_type} {}
 
-    Json::Json(array_list_type & list_initial) : data_array {new Array{list_initial}},
-    used_type(DataType::array_type) {}
-
-    Json::Json(array_list_type && list_initial) : data_array {new Array {list_initial}},
+    Json::Json(const array_list_type & list_initial) : data_array {new Array {list_initial}},
     used_type(DataType::array_type) {}
 
     Json::Json(std::string & data) : data_string {new std::string {data}},
@@ -38,11 +35,8 @@ namespace simple_json::types {
     Json::Json(JsonObject && data) : data_json_object {new JsonObject {std::move(data)}},
     used_type {DataType::json_object_type} {}
 
-    Json::Json(json_list_type & initializer_list) : data_json_object {new JsonObject {initializer_list}},
-                                                    used_type {DataType::json_object_type} {}
-
-    Json::Json(json_list_type && initializer_list) : data_json_object {new JsonObject {initializer_list}},
-                                                     used_type {DataType::json_object_type} {}
+    Json::Json(const json_list_type & initializer_list) : data_json_object {new JsonObject {initializer_list}},
+    used_type {DataType::json_object_type} {}
 
     Json::Json(const Json & json_item) : used_type {json_item.used_type} {
         copy(json_item);
@@ -63,21 +57,21 @@ namespace simple_json::types {
 
     #pragma region Operator Overloading
 
-    Json & Json::operator=(array_list_type & array_list) {
+    Json & Json::operator=(const array_list_type & array_list) {
         clean_memory();
         used_type = DataType::array_type;
         data_array = new Array(array_list);
         return * this;
     }
 
-    Json & Json::operator=(json_list_type & json_list) {
+    Json & Json::operator=(const json_list_type & json_object_list) {
         clean_memory();
         used_type = DataType::json_object_type;
-        data_json_object = new JsonObject(json_list);
+        data_json_object = new JsonObject(json_object_list);
         return * this;
     }
 
-    Json & Json::operator=(DataType object_type) {
+    Json & Json::operator=(const DataType object_type) {
         clean_memory();
         used_type = object_type;
         create_object();
@@ -138,7 +132,7 @@ namespace simple_json::types {
         return * this;
     }
 
-    Json & Json::operator[](const int & index) {
+    Json & Json::operator[](const size_t & index) {
         check_type(DataType::array_type);
         return (* data_array)[index];
     }
@@ -296,7 +290,7 @@ namespace simple_json::types {
         }
     }
 
-    void Json::check_type(DataType target_type) const {
+    void Json::check_type(const DataType target_type) const {
         if (used_type != target_type) {
             throw exceptions::InvalidOperation {target_type};
         }

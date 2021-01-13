@@ -5,7 +5,7 @@ namespace simple_json::deserializer::exceptions {
 
     ParsingException::ParsingException() : error {Errors::unknown} {}
 
-    ParsingException::ParsingException(Errors error) : error {error} {}
+    ParsingException::ParsingException(const Errors error) : error {error} {}
 
     #pragma endregion
 

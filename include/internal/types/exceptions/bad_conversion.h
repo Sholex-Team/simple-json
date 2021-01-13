@@ -10,7 +10,7 @@ namespace simple_json::types::exceptions {
             DataType to;
         public:
             const char * what() const noexcept override;
-            explicit BadConversion(DataType) noexcept;
+            explicit BadConversion(DataType to) noexcept;
             BadConversion() noexcept : JsonException(), to {DataType::unknown} {}
         };
     }

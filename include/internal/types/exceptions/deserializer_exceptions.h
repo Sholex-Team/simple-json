@@ -25,7 +25,7 @@ namespace simple_json::deserializer::exceptions {
 
         // Constructors
         ParsingException();
-        ParsingException(Errors);
+        explicit ParsingException(Errors error);
 
         // Public Methods
         const char * what() const noexcept override;

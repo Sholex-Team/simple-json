@@ -15,7 +15,7 @@ namespace simple_json::iterators {
         void check_array_type() const;
     public:
         // Constructors
-        explicit JsonIterator(types::IteratorTypes);
+        explicit JsonIterator(types::IteratorTypes used_type);
         JsonIterator(JsonIterator &) = default;
 
         // Public Methods

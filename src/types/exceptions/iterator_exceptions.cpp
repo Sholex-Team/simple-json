@@ -3,9 +3,8 @@
 namespace simple_json::iterators::exceptions {
     #pragma region Constructors
 
-    InvalidIteration::InvalidIteration() : from {types::DataType::unknown} {}
 
-    InvalidIteration::InvalidIteration(types::DataType from_type) : from {from_type} {}
+    InvalidIteration::InvalidIteration(const types::DataType used_type) : used_type {used_type} {}
 
     #pragma endregion
 
@@ -16,7 +15,7 @@ namespace simple_json::iterators::exceptions {
     }
 
     const char * InvalidIteration::what() const noexcept {
-        switch (from) {
+        switch (used_type) {
             case types::DataType::integer_type:
                 return "Invalid Iteration on integer type";
             case types::DataType::double_type:

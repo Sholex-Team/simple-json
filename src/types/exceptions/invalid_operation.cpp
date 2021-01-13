@@ -3,7 +3,7 @@
 namespace simple_json::types::exceptions {
     #pragma region Constructors
 
-    InvalidOperation::InvalidOperation(DataType used_type) : used_type {used_type} {}
+    InvalidOperation::InvalidOperation(const DataType used_type) : used_type {used_type} {}
 
     #pragma endregion
 

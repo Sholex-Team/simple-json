@@ -38,9 +38,9 @@ namespace simple_json::types {
 
         // Private Method
         void move(Json &) noexcept;
-        void copy(const Json &);
+        void copy(const Json & json_item);
         void create_object();
-        void check_type(DataType) const;
+        void check_type(const DataType target_type) const;
         inline void can_iterate() const {
             if (!(used_type == DataType::array_type || used_type == DataType::json_object_type)) {
                 throw exceptions::InvalidOperation {};
@@ -59,20 +59,20 @@ namespace simple_json::types {
             void add_to_iterator() override;
         public:
             // Constructors
-            iterator(const iterator &);
-            iterator(iterator &&) noexcept;
-            explicit iterator(const Array::iterator &);
-            explicit iterator(const JsonObject::iterator &);
+            iterator(const iterator & r_iterator);
+            iterator(iterator && r_iterator) noexcept;
+            explicit iterator(const Array::iterator & array_iterator);
+            explicit iterator(const JsonObject::iterator & json_object_iterator);
 
             // Operator Overloading
             Json & operator*() const;
             const iterator operator++(int);
             iterator & operator++();
-            iterator operator+(size_t) const;
-            iterator operator-(size_t) const;
-            iterator operator+=(size_t);
-            iterator operator-=(size_t);
-            bool operator!=(const iterator &) const;
+            iterator operator+(size_t i) const;
+            iterator operator-(size_t i) const;
+            iterator operator+=(size_t i);
+            iterator operator-=(size_t i);
+            bool operator!=(const iterator & r_iterator) const;
 
             // Public Methods
             const JsonKey & key() const override;
@@ -92,20 +92,20 @@ namespace simple_json::types {
             void add_to_iterator() override;
         public:
             // Constructors
-            const_iterator(const const_iterator &);
-            const_iterator(const_iterator &&) noexcept;
-            explicit const_iterator(const JsonObject::const_iterator &);
-            explicit const_iterator(const Array::const_iterator &);
+            const_iterator(const const_iterator & r_iterator);
+            const_iterator(const_iterator && r_iterator) noexcept;
+            explicit const_iterator(const JsonObject::const_iterator & json_object_iterator);
+            explicit const_iterator(const Array::const_iterator & array_iterator);
 
             // Operators
             const Json & operator*() const;
             const_iterator operator++(int);
             const_iterator & operator++();
-            const_iterator operator+(size_t) const;
-            const_iterator operator-(size_t) const;
-            const_iterator operator+=(size_t);
-            const_iterator operator-=(size_t);
-            bool operator!=(const const_iterator &) const;
+            const_iterator operator+(size_t i) const;
+            const_iterator operator-(size_t i) const;
+            const_iterator operator+=(size_t i);
+            const_iterator operator-=(size_t i);
+            bool operator!=(const const_iterator & r_iterator) const;
 
             // Public Methods
             const JsonKey & key() const override;
@@ -123,25 +123,23 @@ namespace simple_json::types {
 
         // Constructors
         Json();
-        Json(double);
-        Json(long int);
-        Json(bool);
-        Json(int);
-        Json(std::nullptr_t t);
-        explicit Json(Array);
-        Json(Array &&);
-        Json(array_list_type &);
-        Json(array_list_type &&);
+        Json(double data);
+        Json(long int data);
+        Json(bool data);
+        Json(int data);
+        Json(std::nullptr_t data);
+        explicit Json(const Array & data);
+        Json(Array && data);
+        Json(const array_list_type & list_initial);
         Json(std::string &);
         Json(std::string &&);
         Json(const char *);
         explicit Json(JsonObject);
         Json(JsonObject &&);
-        Json(json_list_type &);
-        Json(json_list_type &&);
-        Json(const Json &);
-        Json(Json &&) noexcept;
-        explicit Json(DataType);
+        Json(const json_list_type & initializer_list);
+        Json(const Json & json_item);
+        Json(Json && json_item) noexcept;
+        explicit Json(DataType object_type);
 
         // Conversion operators for implicit & explicit conversions
         explicit operator long int() const;
@@ -154,22 +152,22 @@ namespace simple_json::types {
         // Assignment Operator Overloading
         Json & operator=(const Json &);
         Json & operator=(Json &&) noexcept;
-        Json & operator=(json_list_type &);
-        Json & operator=(array_list_type &);
-        Json & operator=(DataType);
+        Json & operator=(const json_list_type & json_object_list);
+        Json & operator=(const array_list_type & array_list);
+        Json & operator=(DataType object_type);
 
         // Friends
-        friend std::ostream & operator<<(std::ostream &, const Json &);
+        friend std::ostream & operator<<(std::ostream & os, const Json & json_item);
         friend JsonObject;
         friend Array;
         friend JsonPatch;
 
         // Operator Overloading
-        Json & operator[](const int &);
-        Json & operator[](const char * &);
-        Json & operator[](const JsonKey &);
-        Json & operator[](const JsonPointer &);
-        bool operator==(const Json &) const;
+        Json & operator[](const size_t & index);
+        Json & operator[](const char * & index);
+        Json & operator[](const JsonKey & index);
+        Json & operator[](const JsonPointer & json_pointer);
+        bool operator==(const Json & json_item) const;
 
         // Public Method
         Json & at(size_t);
@@ -199,7 +197,7 @@ namespace simple_json::types {
         ~Json();
     };
 
-    std::ostream & operator<<(std::ostream &, const Json &);
+    std::ostream & operator<<(std::ostream & os, const Json & json_item);
 }
 
 #endif

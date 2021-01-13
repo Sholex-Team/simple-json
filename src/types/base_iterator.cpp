@@ -3,7 +3,7 @@
 namespace simple_json::iterators {
     #pragma region Constructors
 
-    JsonIterator::JsonIterator(types::IteratorTypes used_type) : used_type {used_type} {}
+    JsonIterator::JsonIterator(const types::IteratorTypes used_type) : used_type {used_type} {}
 
     #pragma endregion
 

@@ -11,7 +11,7 @@ add_executable(
         src/types/json.cpp
         src/types/json_key.cpp
         src/types/json_object.cpp
-        src/types/indent.cpp
+        src/indent.cpp
         src/serializer.cpp
         src/deserializer.cpp
         src/types/exceptions/iterator_exceptions.cpp
