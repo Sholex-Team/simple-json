@@ -148,8 +148,8 @@ namespace simple_json::types {
     }
 
     Json & Json::operator[](const JsonPointer & json_pointer) {
-        Json * tmp_return {this};
         can_iterate();
+        Json * tmp_return {this};
         for (const std::string & index: * json_pointer.pointer_list) {
             if (tmp_return->used_type == DataType::array_type) {
                 if (utils::is_digit(index)) {

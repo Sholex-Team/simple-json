@@ -10,6 +10,10 @@ namespace simple_json::types {
             throw; // TODO
         }
         pointer_list->erase(pointer_list->begin());
+        for (std::string & pointer_item: * pointer_list) {
+            utils::replace_str(pointer_item, "~1", "/");
+            utils::replace_str(pointer_item, "~0", "~");
+        }
     }
 
     JsonPointer::JsonPointer(std::string && pointer_text) : JsonPointer(pointer_text) {}
@@ -30,6 +34,7 @@ namespace simple_json::types {
 
     JsonPointer::~JsonPointer() {
         delete pointer_text;
+        delete pointer_list;
     }
 
     #pragma endregion
