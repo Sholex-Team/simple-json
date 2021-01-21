@@ -26,15 +26,17 @@ namespace simple_json::types {
 
         // Public Methods
         void add_to_path(std::string path);
+        void add_to_path(size_t index);
 
         // Operator Overloading
         bool operator==(const JsonPointer &) const;
+        JsonPointer operator+(const std::string & r_path) const;
+        JsonPointer operator+(size_t r_index) const;
         explicit operator std::string() const;
 
         // Friends
         friend std::ostream & operator<<(std::ostream &, const JsonPointer &);
         friend Json;
-        friend JsonPatch;
     };
 
     // Operator Overloading

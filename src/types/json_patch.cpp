@@ -103,30 +103,44 @@ namespace simple_json::types {
         if ((src->type() != DataType::json_object_type && src->type() != DataType::array_type) ||
         (dst->type() != DataType::json_object_type && dst->type() != DataType::array_type) ||
         (src->type() != dst->type())) {
-            (* new_patch->patch_data).push_back({
+            new_patch->patch_data->push_back({
                 {"op"_json_key, "replace"},
                 {"path"_json_key, "/"},
                 {"value"_json_key, * dst}
             });
             return * new_patch;
         }
+        if (src->type() == DataType::array_type) {
+            compare_array(JsonPointer {"/"});
+        } else {
+            compare_json_object(JsonPointer {"/"});
+        }
+        return * new_patch;
     }
 
     #pragma endregion
 
     #pragma region Private Methods
 
-    void JsonPatch::PatchBuilder::compare_array() {
+    void JsonPatch::PatchBuilder::compare_array(const JsonPointer & path) {
         if (current_src->size() == current_dst->size() && * current_src == * current_dst) {
             return;
         }
         for (size_t i {0}; i < current_src->size(); ++i) {
             if (current_dst->find(current_src->at(i)) == current_dst->end()) {
                 if (current_src->at(i).type() != current_dst->at(i).type()) {
-                    current_src->erase(i);
+                    remove_item(JsonPointer {path + i});
                 }
             }
         }
+    }
+
+    void JsonPatch::PatchBuilder::remove_item(const JsonPointer & path) {
+        current_src->erase(path);
+        new_patch->patch_data->push_back({
+            {"op"_json_key, "remove"},
+            {"path"_json_key, std::string {path}}
+        });
     }
 
     #pragma endregion

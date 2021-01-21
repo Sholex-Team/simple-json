@@ -41,8 +41,9 @@ namespace simple_json::types {
             Json * current_dst;
 
             // Private Methods
-            void compare_array();
-            void compare_json_object();
+            void compare_array(const JsonPointer & path);
+            void compare_json_object(const JsonPointer & path);
+            void remove_item(const JsonPointer & path);
         public:
             // Constructor
             PatchBuilder(const Json & src, const Json & dst);

@@ -57,6 +57,14 @@ namespace simple_json::types {
         return * pointer_text;
     }
 
+    JsonPointer JsonPointer::operator+(const std::string & r_path) const {
+        return JsonPointer {(* pointer_text + '/').append(r_path)};
+    }
+
+    JsonPointer  JsonPointer::operator+(const size_t r_index) const {
+        return * this + std::to_string(r_index);
+    }
+
     #pragma endregion
 
     #pragma region Public Methods
@@ -65,6 +73,8 @@ namespace simple_json::types {
         utils::replace_str(path, "~1", "/");
         utils::replace_str(path, "~0", "~");
         pointer_list->push_back(path);
+        pointer_text->push_back('/');
+        pointer_text->append(path);
     }
 
     #pragma endregion
