@@ -1,13 +1,12 @@
 #include "types/json_pointer.h"
-#include "json_utils.h"
 
 namespace simple_json::types {
     #pragma region Constructors
 
     JsonPointer::JsonPointer(std::string & pointer_text) : pointer_text {new std::string {pointer_text}},
     pointer_list {new std::vector<std::string> {utils::split(pointer_text, "/")}} {
-        if (! pointer_list->begin()->empty()) {
-            throw; // TODO
+        if (!pointer_list->begin()->empty()) {
+            throw exceptions::InvalidPointer {};
         }
         pointer_list->erase(pointer_list->begin());
         for (std::string & pointer_item: * pointer_list) {
@@ -55,8 +54,18 @@ namespace simple_json::types {
     }
 
     JsonPointer::operator std::string() const {
-        return *pointer_text;
+        return * pointer_text;
     }
 
-#pragma endregion
+    #pragma endregion
+
+    #pragma region Public Methods
+
+    void JsonPointer::add_to_path(std::string path) {
+        utils::replace_str(path, "~1", "/");
+        utils::replace_str(path, "~0", "~");
+        pointer_list->push_back(path);
+    }
+
+    #pragma endregion
 }

@@ -193,6 +193,7 @@ namespace simple_json::types {
         clean_memory();
     }
 
+
     #pragma endregion Destructor
 
     #pragma region Private Methods
@@ -355,6 +356,11 @@ namespace simple_json::types {
     Json::iterator Json::find(const JsonKey & key) {
         check_type(DataType::json_object_type);
         return iterator {data_json_object->find(key)};
+    }
+
+    Json::iterator Json::find(const Json & item) {
+        check_type(DataType::array_type);
+        return iterator {std::find(data_array->begin(), data_array->end(), item)};
     }
 
     Json::const_iterator Json::find(const JsonKey & key) const {
@@ -664,9 +670,15 @@ namespace simple_json::types {
     bool Json::iterator::operator!=(const iterator & r_iterator) const {
         if (used_type == IteratorTypes::array_iterator_type) {
             return * array_iterator != * r_iterator.array_iterator;
-        } else {
-            return * json_object_iterator != * r_iterator.json_object_iterator;
         }
+        return * json_object_iterator != * r_iterator.json_object_iterator;
+    }
+
+    bool Json::iterator::operator==(const Json::iterator & r_iterator) const {
+        if (used_type == IteratorTypes::array_iterator_type) {
+            return * array_iterator == * r_iterator.array_iterator;
+        }
+        return * json_object_iterator == * r_iterator.json_object_iterator;
     }
 
     const Json & Json::const_iterator::operator*() const {
@@ -710,6 +722,13 @@ namespace simple_json::types {
     }
 
     bool Json::const_iterator::operator!=(const const_iterator & r_iterator) const {
+        if (used_type == IteratorTypes::array_iterator_type) {
+            return * array_iterator != * r_iterator.array_iterator;
+        }
+        return * json_object_iterator != * r_iterator.json_object_iterator;
+    }
+
+    bool Json::const_iterator::operator==(const const_iterator & r_iterator) const {
         if (used_type == IteratorTypes::array_iterator_type) {
             return * array_iterator == * r_iterator.array_iterator;
         }

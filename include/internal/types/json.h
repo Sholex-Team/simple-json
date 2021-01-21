@@ -17,6 +17,7 @@
 #include "exceptions/invalid_operator.h"
 #include "json_utils.h"
 #include "json_pointer.h"
+#include <algorithm>
 
 namespace simple_json::types {
     class JsonKey;
@@ -73,6 +74,7 @@ namespace simple_json::types {
             iterator operator+=(size_t i);
             iterator operator-=(size_t i);
             bool operator!=(const iterator & r_iterator) const;
+            bool operator==(const iterator & r_iterator) const;
 
             // Public Methods
             const JsonKey & key() const override;
@@ -106,6 +108,7 @@ namespace simple_json::types {
             const_iterator operator+=(size_t i);
             const_iterator operator-=(size_t i);
             bool operator!=(const const_iterator & r_iterator) const;
+            bool operator==(const const_iterator & r_iterator) const;
 
             // Public Methods
             const JsonKey & key() const override;
@@ -189,7 +192,9 @@ namespace simple_json::types {
         size_t count(const JsonKey & key) const;
         bool contains(const JsonKey & key) const;
         iterator find(const JsonKey & key);
+        iterator find(const Json & item);
         const_iterator find(const JsonKey & key) const;
+        const_iterator find(const Json & item) const;
         size_t size() const noexcept;
         void update(const Json & target);
 

@@ -1,6 +1,11 @@
 #include "types/json_patch.h"
 
 namespace simple_json::types {
+
+    #pragma region Constructors
+
+    JsonPatch::JsonPatch() : patch_data {new Json {}} {};
+
     JsonPatch::JsonPatch(const Json & json_patch) : patch_data {new Json {json_patch}} {}
 
     JsonPatch::JsonPatch(const JsonPatch & json_patch) : patch_data {new Json {* json_patch.patch_data}} {}
@@ -9,9 +14,26 @@ namespace simple_json::types {
         json_patch.patch_data = nullptr;
     }
 
+    JsonPatch::PatchBuilder::PatchBuilder(const Json & src, const Json & dst) : src {new Json(src)},
+    dst {new Json(dst)}, current_src {this->src}, current_dst {this->dst} {}
+
+    #pragma endregion
+
+    #pragma region Destructors
+
     JsonPatch::~JsonPatch() {
         delete patch_data;
     }
+
+    JsonPatch::PatchBuilder::~PatchBuilder() {
+        delete new_patch;
+        delete src;
+        delete dst;
+    }
+
+    #pragma endregion
+
+    #pragma region Public Methods
 
     void JsonPatch::patch(Json & json) {
         for (Json & patch_object: * patch_data) {
@@ -76,4 +98,36 @@ namespace simple_json::types {
             }
         }
     }
+
+    JsonPatch JsonPatch::PatchBuilder::create_patch() {
+        if ((src->type() != DataType::json_object_type && src->type() != DataType::array_type) ||
+        (dst->type() != DataType::json_object_type && dst->type() != DataType::array_type) ||
+        (src->type() != dst->type())) {
+            (* new_patch->patch_data).push_back({
+                {"op"_json_key, "replace"},
+                {"path"_json_key, "/"},
+                {"value"_json_key, * dst}
+            });
+            return * new_patch;
+        }
+    }
+
+    #pragma endregion
+
+    #pragma region Private Methods
+
+    void JsonPatch::PatchBuilder::compare_array() {
+        if (current_src->size() == current_dst->size() && * current_src == * current_dst) {
+            return;
+        }
+        for (size_t i {0}; i < current_src->size(); ++i) {
+            if (current_dst->find(current_src->at(i)) == current_dst->end()) {
+                if (current_src->at(i).type() != current_dst->at(i).type()) {
+                    current_src->erase(i);
+                }
+            }
+        }
+    }
+
+    #pragma endregion
 }
