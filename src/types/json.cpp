@@ -186,6 +186,28 @@ namespace simple_json::types {
         }
     }
 
+    bool Json::operator!=(const Json & json_item) const {
+        if (json_item.used_type != used_type) {
+            return true;
+        }
+        switch (used_type) {
+            case DataType::integer_type:
+                return data_int != json_item.data_int;
+            case DataType::string_type:
+                return data_string != json_item.data_string;;
+            case DataType::double_type:
+                return data_double != json_item.data_double;
+            case DataType::boolean_type:
+                return data_boolean != json_item.data_boolean;
+            case DataType::array_type:
+                return data_array != json_item.data_array;
+            case DataType::json_object_type:
+                return data_json_object != json_item.data_json_object;
+            default:
+                return false;
+        }
+    }
+
     #pragma endregion
 
     #pragma region Destructor

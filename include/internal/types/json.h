@@ -171,6 +171,7 @@ namespace simple_json::types {
         Json & operator[](const JsonKey & index);
         Json & operator[](const JsonPointer & json_pointer);
         bool operator==(const Json & json_item) const;
+        bool operator!=(const Json & json_item) const;
 
         // Public Method
         Json & at(size_t);
