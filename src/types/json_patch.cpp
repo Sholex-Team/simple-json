@@ -103,11 +103,7 @@ namespace simple_json::types {
         if ((src->type() != DataType::json_object_type && src->type() != DataType::array_type) ||
         (dst->type() != DataType::json_object_type && dst->type() != DataType::array_type) ||
         (src->type() != dst->type())) {
-            new_patch->patch_data->push_back({
-                {"op"_json_key, "replace"},
-                {"path"_json_key, "/"},
-                {"value"_json_key, * dst}
-            });
+            replace_item(JsonPointer {"/"}, * dst);
             return * new_patch;
         }
         if (src->type() == DataType::array_type) {
@@ -136,6 +132,20 @@ namespace simple_json::types {
                 add_item(path + i, current_dst->at(i));
             }
         }
+        for (size_t i {0}; i < current_src->size(); ++i) {
+            if (current_src->at(i) == current_dst->at(i)) {
+                continue;
+            }
+            if (current_dst->find(current_src->at(i)) == current_dst->end()) {
+                if (current_dst->at(i).type() == current_src->at(i).type()) {
+                    compare_array(path + i);
+                    continue;
+                }
+                replace_item(path + i, current_dst->at(i));
+                continue;
+            }
+            move_item(path + i, current_dst->find())
+        }
     }
 
     void JsonPatch::PatchBuilder::remove_item(const JsonPointer & path) {
@@ -156,6 +166,30 @@ namespace simple_json::types {
             {"op"_json_key, "add"},
             {"path"_json_key, std::string {path}},
             {"value"_json_key, item}
+        });
+    }
+
+    void JsonPatch::PatchBuilder::replace_item(const JsonPointer & path, const Json & item) {
+        current_src->at(path) = item;
+        new_patch->patch_data->push_back({
+            {"op"_json_key, "replace"},
+            {"path"_json_key, std::string {path}},
+            {"value"_json_key, item}
+        });
+    }
+
+    void JsonPatch::PatchBuilder::move_item(const JsonPointer & old_path, const JsonPointer & new_path) {
+        if (current_src->type() == DataType::array_type) {
+            Json::const_iterator from {current_src->get_item(old_path.get_index())};
+            std::rotate(from, from + 1, current_src->get_item(new_path.get_index()) + 1);
+        } else {
+            current_src->at(new_path) = std::move(current_src->at(old_path));
+            current_src->erase(old_path);
+        }
+        new_patch->patch_data->push_back({
+            {"op"_json_key, "move"},
+            {"from"_json_key, std::string {old_path}},
+            {"path"_json_key, std::string {new_path}}
         });
     }
 

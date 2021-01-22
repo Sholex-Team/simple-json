@@ -10,6 +10,7 @@
 #include "exceptions/invalid_operation.h"
 #include "exceptions/failed_test.h"
 #include "json_key.h"
+#include <algorithm>
 
 namespace simple_json::types {
     class Json;
@@ -45,6 +46,8 @@ namespace simple_json::types {
             void compare_json_object(const JsonPointer & path);
             void remove_item(const JsonPointer & path);
             void add_item(const JsonPointer & path, const Json & item);
+            void replace_item(const JsonPointer & path, const Json & item);
+            void move_item(const JsonPointer & old_path, const JsonPointer & new_path);
         public:
             // Constructor
             PatchBuilder(const Json & src, const Json & dst);
