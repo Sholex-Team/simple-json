@@ -144,7 +144,7 @@ namespace simple_json::types {
                 replace_item(path + i, current_dst->at(i));
                 continue;
             }
-            move_item(path + i, current_dst->find())
+            move_item(path + i, path + current_dst->find_index(current_dst->at(i)));
         }
     }
 

@@ -385,9 +385,20 @@ namespace simple_json::types {
         return iterator {std::find(data_array->begin(), data_array->end(), item)};
     }
 
+    Json::const_iterator Json::find(const Json & item) const {
+        check_type(DataType::array_type);
+        return const_iterator {std::find(data_array->cbegin(), data_array->cend(), item)};
+    }
+
     Json::const_iterator Json::find(const JsonKey & key) const {
         check_type(DataType::json_object_type);
         return const_iterator {data_json_object->find(key)};
+    }
+
+    size_t Json::find_index(const Json & item) const {
+        return std::distance(
+                data_array->cbegin(), std::find(data_array->cbegin(), data_array->cend(), item)
+            );
     }
 
     size_t Json::count(const JsonKey & key) const {
@@ -477,7 +488,7 @@ namespace simple_json::types {
             target_json.data_json_object->erase(JsonKey {last_index});
             return;
         }
-        throw exceptions::InvalidIndexException {}; // TODO
+        throw exceptions::InvalidIndexException {};
     }
 
     void Json::push_back(const Json & new_item) {
@@ -505,14 +516,9 @@ namespace simple_json::types {
         data_array->insert(* position.array_iterator, std::move(item));
     }
 
-    Json::iterator Json::get_item(const size_t index) {
-        check_type(DataType::array_type);
-        return Json::iterator {data_array->begin() + index};
-    }
-
     Json::const_iterator Json::get_item(const size_t index) const {
         check_type(DataType::array_type);
-        return Json::const_iterator {data_array->cbegin() + index};
+        return const_iterator {data_array->cbegin() + index};
     }
 
     void Json::push_back(Json && new_item) {
@@ -619,18 +625,18 @@ namespace simple_json::types {
         }
     }
 
-    Json::const_iterator Json::cbegin() {
+    Json::const_iterator Json::cbegin() const {
         switch (used_type) {
             case DataType::array_type:
-                return Json::const_iterator {data_array->cbegin()};
+                return const_iterator {data_array->cbegin()};
             case DataType::json_object_type:
-                return Json::const_iterator {data_json_object->cbegin()};
+                return const_iterator {data_json_object->cbegin()};
             default:
                 throw iterators::exceptions::InvalidIteration {used_type};
         }
     }
 
-    Json::const_iterator Json::cend() {
+    Json::const_iterator Json::cend() const {
         switch (used_type) {
             case DataType::array_type:
                 return Json::const_iterator {data_array->cend()};

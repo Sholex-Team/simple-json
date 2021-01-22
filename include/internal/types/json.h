@@ -126,8 +126,8 @@ namespace simple_json::types {
 
         iterator begin();
         iterator end();
-        const_iterator cbegin();
-        const_iterator cend();
+        const_iterator cbegin() const;
+        const_iterator cend() const;
         JsonObject & items() const;
 
         // Constructors
@@ -205,6 +205,7 @@ namespace simple_json::types {
         iterator find(const Json & item);
         const_iterator find(const JsonKey & key) const;
         const_iterator find(const Json & item) const;
+        size_t find_index(const Json & item) const;
         size_t size() const noexcept;
         void update(const Json & target);
 
