@@ -82,6 +82,9 @@ namespace simple_json::types {
 
             // Destructor
             ~iterator() noexcept override;
+
+            // Friends
+            friend Json;
         };
 
         class const_iterator : public iterators::JsonIterator {
@@ -116,6 +119,9 @@ namespace simple_json::types {
 
             // Destructor
             ~const_iterator() noexcept override;
+
+            // Friends
+            friend Json;
         };
 
         iterator begin();
@@ -178,14 +184,17 @@ namespace simple_json::types {
         Json & at(const std::string &);
         Json & at(const JsonPointer &);
         Json & at(const JsonKey &);
+        const_iterator get_item(size_t index) const;
         void erase(size_t);
         void erase(const std::string &);
         void erase(const JsonKey &);
         void erase(const JsonPointer &);
         void push_back(const Json &);
         void insert(const pair_type &);
-        void push_back(Json &&);
         void insert(pair_type &&);
+        void insert(const const_iterator & position, const Json & item);
+        void insert(const const_iterator & position, Json && item);
+        void push_back(Json &&);
         Json & back() const noexcept;
         inline DataType type() const noexcept {return used_type;}
         bool empty() const;

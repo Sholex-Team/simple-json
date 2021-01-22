@@ -5,6 +5,7 @@
 #include <vector>
 #include "json_utils.h"
 #include "types/exceptions/invalid_pointer.h"
+#include <cstdlib>
 
 namespace simple_json::types {
     class Json;
@@ -27,6 +28,7 @@ namespace simple_json::types {
         // Public Methods
         void add_to_path(std::string path);
         void add_to_path(size_t index);
+        size_t get_index() const;
 
         // Operator Overloading
         bool operator==(const JsonPointer &) const;

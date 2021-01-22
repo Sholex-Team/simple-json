@@ -77,5 +77,21 @@ namespace simple_json::types {
         pointer_text->append(path);
     }
 
+    void JsonPointer::add_to_path(const size_t index) {
+        pointer_list->push_back(std::to_string(index));
+        pointer_text->push_back('/');
+        pointer_text->append(std::to_string(index));
+    }
+
+    size_t JsonPointer::get_index() const {
+        if (pointer_list->empty()) {
+            throw exceptions::InvalidPointer {};
+        }
+        if (!utils::is_digit(pointer_list->back())) {
+            throw exceptions::InvalidPointer {};
+        }
+        return std::strtoul(pointer_list->back().c_str(), nullptr, 10);
+    }
+
     #pragma endregion
 }

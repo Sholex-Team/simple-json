@@ -490,14 +490,34 @@ namespace simple_json::types {
         data_json_object->insert(new_item);
     }
 
-    void Json::push_back(Json && new_item) {
-        check_type(DataType::array_type);
-        data_array->push_back(std::move(new_item));
-    }
-
     void Json::insert(pair_type && new_item) {
         check_type(DataType::json_object_type);
         data_json_object->insert(std::move(new_item));
+    }
+
+    void Json::insert(const Json::const_iterator & position, const Json & item) {
+        check_type(DataType::array_type);
+        data_array->insert(* position.array_iterator, item);
+    }
+
+    void Json::insert(const Json::const_iterator & position, Json && item) {
+        check_type(DataType::array_type);
+        data_array->insert(* position.array_iterator, std::move(item));
+    }
+
+    Json::iterator Json::get_item(const size_t index) {
+        check_type(DataType::array_type);
+        return Json::iterator {data_array->begin() + index};
+    }
+
+    Json::const_iterator Json::get_item(const size_t index) const {
+        check_type(DataType::array_type);
+        return Json::const_iterator {data_array->cbegin() + index};
+    }
+
+    void Json::push_back(Json && new_item) {
+        check_type(DataType::array_type);
+        data_array->push_back(std::move(new_item));
     }
 
     Json & Json::back() const noexcept {

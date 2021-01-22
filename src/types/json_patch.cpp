@@ -126,11 +126,14 @@ namespace simple_json::types {
         if (current_src->size() == current_dst->size() && * current_src == * current_dst) {
             return;
         }
-        for (size_t i {0}; i < current_src->size(); ++i) {
-            if (current_dst->find(current_src->at(i)) == current_dst->end()) {
-                if (current_src->at(i).type() != current_dst->at(i).type()) {
-                    remove_item(JsonPointer {path + i});
-                }
+        for (size_t i {current_dst->size()}; i < current_src->size(); ++i) {
+            if (current_dst->find(current_src->at(i)) == current_src->end()) {
+                remove_item(path + i);
+            }
+        }
+        for (size_t i {current_src->size()}; i < current_dst->size(); ++i) {
+            if (current_src->find(current_dst->at(i)) == current_dst->end()) {
+                add_item(path + i, current_dst->at(i));
             }
         }
     }
@@ -140,6 +143,19 @@ namespace simple_json::types {
         new_patch->patch_data->push_back({
             {"op"_json_key, "remove"},
             {"path"_json_key, std::string {path}}
+        });
+    }
+
+    void JsonPatch::PatchBuilder::add_item(const JsonPointer & path, const Json & item) {
+        if (current_src->type() == DataType::array_type) {
+            current_src->insert(current_src->get_item(path.get_index()), item);
+        } else {
+            current_src->at(path) = item;
+        }
+        new_patch->patch_data->push_back({
+            {"op"_json_key, "add"},
+            {"path"_json_key, std::string {path}},
+            {"value"_json_key, item}
         });
     }
 
