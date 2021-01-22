@@ -147,6 +147,7 @@ namespace simple_json::types {
                 continue;
             }
             move_item(path + i, path + current_dst->find_index(current_src->at(i)));
+            --i;
         }
     }
 
@@ -184,7 +185,7 @@ namespace simple_json::types {
         if (current_src->type() == DataType::array_type) {
             Json temp(std::move(current_src->at(old_path)));
             current_src->erase(old_path.get_index());
-            current_src->insert(current_src->get_item(new_path.get_index() - 1), std::move(temp));
+            current_src->insert(current_src->get_item(new_path.get_index()), std::move(temp));
         } else {
             current_src->at(new_path) = std::move(current_src->at(old_path));
             current_src->erase(old_path);
