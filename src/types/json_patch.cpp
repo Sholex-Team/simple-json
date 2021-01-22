@@ -6,9 +6,9 @@ namespace simple_json::types {
 
     JsonPatch::JsonPatch() : patch_data {new Json(DataType::array_type)} {};
 
-    JsonPatch::JsonPatch(const Json & json_patch) : patch_data {new Json {json_patch}} {}
+    JsonPatch::JsonPatch(const Json & json_patch) : patch_data {new Json(json_patch)} {}
 
-    JsonPatch::JsonPatch(const JsonPatch & json_patch) : patch_data {new Json {* json_patch.patch_data}} {}
+    JsonPatch::JsonPatch(const JsonPatch & json_patch) : patch_data {new Json(* json_patch.patch_data)} {}
 
     JsonPatch::JsonPatch(JsonPatch && json_patch) noexcept : patch_data {json_patch.patch_data} {
         json_patch.patch_data = nullptr;
@@ -34,6 +34,10 @@ namespace simple_json::types {
     #pragma endregion
 
     #pragma region Public Methods
+
+    const Json & JsonPatch::get_json() const {
+        return * patch_data;
+    }
 
     void JsonPatch::patch(Json & json) {
         for (Json & patch_object: * patch_data) {
@@ -142,7 +146,7 @@ namespace simple_json::types {
                 replace_item(path + i, current_dst->at(i));
                 continue;
             }
-            move_item(path + i, path + current_dst->find_index(current_dst->at(i)));
+            move_item(path + i, path + current_dst->find_index(current_src->at(i)));
         }
     }
 
@@ -178,9 +182,9 @@ namespace simple_json::types {
 
     void JsonPatch::PatchBuilder::move_item(const JsonPointer & old_path, const JsonPointer & new_path) {
         if (current_src->type() == DataType::array_type) {
-            Json temp {std::move(current_src->at(old_path))};
-            current_src->erase(old_path);
-            current_src->insert(current_src->get_item(new_path.get_index()), std::move(temp));
+            Json temp(std::move(current_src->at(old_path)));
+            current_src->erase(old_path.get_index());
+            current_src->insert(current_src->get_item(new_path.get_index() - 1), std::move(temp));
         } else {
             current_src->at(new_path) = std::move(current_src->at(old_path));
             current_src->erase(old_path);
@@ -192,5 +196,5 @@ namespace simple_json::types {
         });
     }
 
-    #pragma endregion
+#pragma endregion
 }

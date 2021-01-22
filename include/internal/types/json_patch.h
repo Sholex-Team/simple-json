@@ -30,6 +30,7 @@ namespace simple_json::types {
 
         // Public Method
         void patch(Json &);
+        const Json & get_json() const;
 
         // Builders
         class PatchBuilder {
