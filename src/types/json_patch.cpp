@@ -139,7 +139,8 @@ namespace simple_json::types {
                 continue;
             }
             if (current_dst->find(current_src->at(i)) == current_dst->end()) {
-                if (current_dst->at(i).type() == current_src->at(i).type()) {
+                if (current_dst->at(i).type() == DataType::array_type &&
+                current_src->at(i).type() == DataType::array_type) {
                     compare_array(path + i);
                     continue;
                 }
