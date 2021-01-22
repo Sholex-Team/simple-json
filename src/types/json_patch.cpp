@@ -4,7 +4,7 @@ namespace simple_json::types {
 
     #pragma region Constructors
 
-    JsonPatch::JsonPatch() : patch_data {new Json {}} {};
+    JsonPatch::JsonPatch() : patch_data {new Json(DataType::array_type)} {};
 
     JsonPatch::JsonPatch(const Json & json_patch) : patch_data {new Json {json_patch}} {}
 
@@ -14,8 +14,8 @@ namespace simple_json::types {
         json_patch.patch_data = nullptr;
     }
 
-    JsonPatch::PatchBuilder::PatchBuilder(const Json & src, const Json & dst) : src {new Json(src)},
-    dst {new Json(dst)}, current_src {this->src}, current_dst {this->dst} {}
+    JsonPatch::PatchBuilder::PatchBuilder(const Json & src, const Json & dst) : new_patch {new JsonPatch {}},
+    src {new Json(src)}, dst {new Json(dst)}, current_src {this->src}, current_dst {this->dst} {}
 
     #pragma endregion
 
