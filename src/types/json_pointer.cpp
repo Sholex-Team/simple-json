@@ -58,7 +58,9 @@ namespace simple_json::types {
     }
 
     JsonPointer JsonPointer::operator+(const std::string & r_path) const {
-        return JsonPointer {(* pointer_text + '/').append(r_path)};
+        std::string new_pointer {* pointer_text};
+        return JsonPointer {(new_pointer.back() == '/') ?
+        new_pointer.append(r_path) : (new_pointer + '/').append(r_path)};
     }
 
     JsonPointer  JsonPointer::operator+(const size_t r_index) const {
@@ -84,13 +86,42 @@ namespace simple_json::types {
     }
 
     size_t JsonPointer::get_index() const {
+        check_pointer(array_type);
+        return std::strtoul(pointer_list->back().c_str(), nullptr, 10);
+    }
+
+    JsonKey JsonPointer::get_key() const {
+        check_pointer(DataType::json_object_type);
+        return JsonKey {pointer_list->back()};
+    }
+
+    JsonPointer JsonPointer::get_parent() const {
         if (pointer_list->empty()) {
             throw exceptions::InvalidPointer {};
         }
-        if (!utils::is_digit(pointer_list->back())) {
+        std::string tmp {* pointer_text};
+        utils::replace_str(tmp, '/' + pointer_list->back(), "");
+        return JsonPointer {tmp};
+    }
+
+    #pragma endregion
+
+    #pragma region Private Methods
+
+    void JsonPointer::check_pointer(DataType used_type) const {
+        if (pointer_list->empty()) {
             throw exceptions::InvalidPointer {};
         }
-        return std::strtoul(pointer_list->back().c_str(), nullptr, 10);
+        bool is_digit {utils::is_digit(pointer_list->back())};
+        if (used_type == DataType::array_type) {
+            if (!is_digit) {
+                throw exceptions::InvalidPointer {};
+            }
+            return;
+        }
+        if (is_digit) {
+            throw exceptions::InvalidPointer {};
+        }
     }
 
     #pragma endregion

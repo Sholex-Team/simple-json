@@ -10,6 +10,9 @@ namespace simple_json::utils {
             base = base.substr(index + target.length(), base.length() - index - target.length());
         }
         tmp_vector.push_back(base);
+        if (tmp_vector.back().empty()) {
+            tmp_vector.erase(tmp_vector.end() - 1);
+        }
         return tmp_vector;
     }
 

@@ -4,7 +4,9 @@
 #include <string>
 #include <vector>
 #include "json_utils.h"
+#include "json_key.h"
 #include "exceptions/invalid_pointer.h"
+#include "enum_types.h"
 #include <cstdlib>
 
 namespace simple_json::types {
@@ -13,8 +15,12 @@ namespace simple_json::types {
 
     class JsonPointer {
     private:
+        // Properties
         std::string * pointer_text;
         std::vector<std::string> * pointer_list;
+
+        // Private Methods
+        void check_pointer(DataType used_type) const;
     public:
         // Constructors
         explicit JsonPointer(std::string &);
@@ -29,6 +35,8 @@ namespace simple_json::types {
         void add_to_path(std::string path);
         void add_to_path(size_t index);
         size_t get_index() const;
+        JsonKey get_key() const;
+        JsonPointer get_parent() const;
 
         // Operator Overloading
         bool operator==(const JsonPointer &) const;

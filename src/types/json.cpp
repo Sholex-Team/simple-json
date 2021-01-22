@@ -459,7 +459,7 @@ namespace simple_json::types {
 
     void Json::erase(size_t index) {
         check_type(DataType::array_type);
-        data_array->erase(data_array->begin() + index);
+        data_array->erase(data_array->cbegin() + index);
     }
 
     void Json::erase(const std::string & index) {
@@ -473,25 +473,14 @@ namespace simple_json::types {
     }
 
     void Json::erase(const JsonPointer & json_pointer) {
-        std::string path {static_cast<std::string>(json_pointer)};
-        size_t pos {path.rfind('/')};
-        JsonPointer target_pointer {path.substr(0, path.size() - pos - 1)};
-        std::string last_index {path.substr(pos)};
-        Json & target_json {operator[](JsonKey {last_index})};
-        if (target_json.used_type == DataType::array_type) {
-            if (utils::is_digit(last_index)) {
-                target_json.data_array->erase(
-                        target_json.data_array->begin() +
-                        strtol(last_index.c_str(), nullptr, 10)
-                );
-                return;
-            }
-            throw exceptions::InvalidIndexException {target_json.used_type};
-        } else if (target_json.used_type == DataType::json_object_type){
-            target_json.data_json_object->erase(JsonKey {last_index});
-            return;
+        Json & target {at(json_pointer.get_parent())};
+        if (target.used_type == DataType::array_type) {
+            target.erase(json_pointer.get_index());
+        } else if (target.used_type == DataType::json_object_type){
+            target.data_json_object->erase(json_pointer.get_key());
+        } else {
+            throw exceptions::InvalidIndexException {};
         }
-        throw exceptions::InvalidIndexException {};
     }
 
     void Json::push_back(const Json & new_item) {
