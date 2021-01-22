@@ -101,6 +101,9 @@ namespace simple_json::types {
         }
         std::string tmp {* pointer_text};
         utils::replace_str(tmp, '/' + pointer_list->back(), "");
+        if (tmp.empty()) {
+            tmp.push_back('/');
+        }
         return JsonPointer {tmp};
     }
 
