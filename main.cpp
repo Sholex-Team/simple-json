@@ -8,7 +8,8 @@ using namespace types;
 using namespace indent;
 
 int main() {
-    Json p(loads(R"({"n": "\nhello"})"));
-    std::cout << p << '\n' << p.at("n");
+    Json src(loads(R"([1, 2, 3])"));
+    Json dst(loads(R"([1, 3, 2])"));
+    JsonPatch patch {src.get_diff(dst)};
     return 0;
 }

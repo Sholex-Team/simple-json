@@ -185,6 +185,7 @@ namespace simple_json::types {
         Json & at(const JsonPointer &);
         Json & at(const JsonKey &);
         const_iterator get_item(size_t index) const;
+        JsonPatch get_diff(const Json & dst) const;
         void erase(size_t);
         void erase(const std::string &);
         void erase(const JsonKey &);

@@ -1,6 +1,3 @@
-//
-// Created by rez on 12/13/20.
-//
 
 #ifndef SIMPLE_JSON_INVALID_OPERATOR_H
 #define SIMPLE_JSON_INVALID_OPERATOR_H

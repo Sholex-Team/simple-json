@@ -108,8 +108,6 @@ namespace simple_json::types {
         }
         if (src->type() == DataType::array_type) {
             compare_array(JsonPointer {"/"});
-        } else {
-            compare_json_object(JsonPointer {"/"});
         }
         return * new_patch;
     }
@@ -180,8 +178,9 @@ namespace simple_json::types {
 
     void JsonPatch::PatchBuilder::move_item(const JsonPointer & old_path, const JsonPointer & new_path) {
         if (current_src->type() == DataType::array_type) {
-            Json::const_iterator from {current_src->get_item(old_path.get_index())};
-            std::rotate(from, from + 1, current_src->get_item(new_path.get_index()) + 1);
+            Json temp {std::move(current_src->at(old_path))};
+            current_src->erase(old_path);
+            current_src->insert(current_src->get_item(new_path.get_index()), std::move(temp));
         } else {
             current_src->at(new_path) = std::move(current_src->at(old_path));
             current_src->erase(old_path);

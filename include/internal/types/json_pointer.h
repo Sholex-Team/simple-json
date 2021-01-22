@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 #include "json_utils.h"
-#include "types/exceptions/invalid_pointer.h"
+#include "exceptions/invalid_pointer.h"
 #include <cstdlib>
 
 namespace simple_json::types {

@@ -3,7 +3,7 @@
 namespace simple_json::types::exceptions {
     #pragma region Public Methods
 
-    InvalidPointer::what() const noexcept {
+    const char * InvalidPointer::what() const noexcept {
         return "JSON pointer is not valid !";
     }
 

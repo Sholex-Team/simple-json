@@ -354,6 +354,9 @@ namespace simple_json::types {
     #pragma endregion
 
     #pragma region Public Methods
+    JsonPatch Json::get_diff(const Json & dst) const {
+        return JsonPatch::PatchBuilder {* this, dst}.create_patch();
+    }
     void Json::update(const Json & target) {
         check_type(DataType::json_object_type);
         for (const pair_type & item: target.items()) {

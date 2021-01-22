@@ -8,6 +8,7 @@ add_executable(
         src/types/array_type.cpp
         src/types/exceptions/bad_conversion.cpp
         src/types/exceptions/invalid_index.cpp
+        src/types/exceptions/invalid_pointer.cpp
         src/types/json.cpp
         src/types/json_key.cpp
         src/types/json_object.cpp

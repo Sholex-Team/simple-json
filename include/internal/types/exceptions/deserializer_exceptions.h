@@ -1,10 +1,11 @@
+#ifndef SIMPLE_JSON_DESERIALIZER_EXCEPTIONS_H
+#define SIMPLE_JSON_DESERIALIZER_EXCEPTIONS_H
+
 #include "base_exception.h"
 #include <cinttypes>
 
-#ifndef SIMPLE_JSON_DESERIALIZER_EXCEPTIONS_H
-#define SIMPLE_JSON_DESERIALIZER_EXCEPTIONS_H
 namespace simple_json::deserializer::exceptions {
-    class ParsingException : public simple_json::base_exceptions::JsonException {
+    class ParsingException : public base_exceptions::JsonException {
     public:
         // Errors
         enum Errors : std::uint8_t {
