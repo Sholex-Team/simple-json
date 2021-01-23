@@ -125,12 +125,12 @@ namespace simple_json::types {
             return;
         }
         for (size_t i {current_dst->size()}; i < current_src->size(); ++i) {
-            if (current_dst->find(current_src->at(i)) == current_src->end()) {
+            if (current_dst->find(current_src->at(i)) == current_dst->end()) {
                 remove_item(path + i);
             }
         }
         for (size_t i {current_src->size()}; i < current_dst->size(); ++i) {
-            if (current_src->find(current_dst->at(i)) == current_dst->end()) {
+            if (current_src->find(current_dst->at(i)) == current_src->end()) {
                 add_item(path + i, current_dst->at(i));
             }
         }
