@@ -141,6 +141,8 @@ namespace simple_json::types {
             if (current_dst->find(current_src->at(i)) == current_dst->end()) {
                 if (current_dst->at(i).type() == DataType::array_type &&
                 current_src->at(i).type() == DataType::array_type) {
+                    current_src = & current_src->at(i);
+                    current_dst = & current_dst->at(i);
                     compare_array(path + i);
                     continue;
                 }
@@ -174,7 +176,11 @@ namespace simple_json::types {
     }
 
     void JsonPatch::PatchBuilder::replace_item(const JsonPointer & path, const Json & item) {
-        current_src->at(path) = item;
+        if (current_src->type() == DataType::array_type) {
+            current_src->at(path.get_index()) = item;
+        } else {
+            current_src->at(path.get_key()) = item;
+        }
         new_patch->patch_data->push_back({
             {"op"_json_key, "replace"},
             {"path"_json_key, std::string {path}},
