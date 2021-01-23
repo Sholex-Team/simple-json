@@ -398,10 +398,42 @@ namespace simple_json::types {
         return const_iterator {data_json_object->find(key)};
     }
 
+    Json::iterator Json::find_if(bool test_func(const Json & item)) {
+        check_type(DataType::array_type);
+        return iterator {std::find_if(data_array->begin(), data_array->end(), test_func)};
+    }
+
+    Json::const_iterator Json::find_if(bool test_func(const Json & item)) const {
+        check_type(DataType::array_type);
+        return const_iterator {std::find_if(data_array->cbegin(), data_array->cend(), test_func)};
+    }
+
+    Json::iterator Json::find_if(bool test_func(const pair_type & item)) {
+        check_type(DataType::json_object_type);
+        return iterator {std::find_if(
+                data_json_object->begin(), data_json_object->end(), test_func
+                )};
+    }
+
+    Json::const_iterator Json::find_if(bool test_func(const pair_type & item)) const {
+        check_type(DataType::json_object_type);
+        return const_iterator {std::find_if(
+                data_json_object->cbegin(), data_json_object->cend(), test_func
+                )};
+    }
+
     size_t Json::find_index(const Json & item) const {
         return std::distance(
                 data_array->cbegin(), std::find(data_array->cbegin(), data_array->cend(), item)
             );
+    }
+
+    size_t Json::find_index(const const_iterator & it) const {
+        check_type(DataType::array_type);
+        if (it.used_type != IteratorTypes::array_iterator_type) {
+            throw iterators::exceptions::InvalidType{};
+        }
+        return std::distance(data_array->cbegin(), *it.array_iterator);
     }
 
     size_t Json::count(const JsonKey & key) const {

@@ -207,7 +207,12 @@ namespace simple_json::types {
         iterator find(const Json & item);
         const_iterator find(const JsonKey & key) const;
         const_iterator find(const Json & item) const;
+        iterator find_if(bool test_func(const Json & item));
+        const_iteraotor find_if(bool test_func(const Json & item)) const;
+        iterator find_if(bool test_func(const pair_type & item));
+        const_iterator find_if(bool test_func(const pair_type & item)) const;
         size_t find_index(const Json & item) const;
+        size_t find_index(const const_iterator & it) const;
         size_t size() const noexcept;
         void update(const Json & target);
 

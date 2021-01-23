@@ -22,4 +22,14 @@ namespace simple_json::iterators {
     }
 
     #pragma endregion
+
+    #pragma region Public Methods
+
+    void JsonIterator::check_type(types::IteratorTypes target_type) const {
+        if (used_type != target_type) {
+            throw exceptions::InvalidIterator {target_type};
+        }
+    }
+
+    #pragma endregion
 }

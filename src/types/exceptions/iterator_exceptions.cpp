@@ -3,8 +3,9 @@
 namespace simple_json::iterators::exceptions {
     #pragma region Constructors
 
-
     InvalidIteration::InvalidIteration(const types::DataType used_type) : used_type {used_type} {}
+
+    InvalidIterator::InvalidIterator(types::IteratorTypes used_type) : used_type {used_type} {}
 
     #pragma endregion
 
@@ -29,6 +30,13 @@ namespace simple_json::iterators::exceptions {
 
     const char * InvalidType::what() const noexcept {
         return "Invalid call of key-value methods on non-JsonObject type !";
+    }
+
+    const char * InvalidIterator::what() const noexcept {
+        if (used_type == types::IteratorTypes::array_iterator_type) {
+            return "Iterator is not an array iterator !";
+        }
+        return "Iterator is not a JSON object iterator !";
     }
 
     #pragma endregion

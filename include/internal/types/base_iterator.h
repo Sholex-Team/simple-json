@@ -20,6 +20,7 @@ namespace simple_json::iterators {
 
         // Public Methods
         virtual const simple_json::types::JsonKey & key() const = 0;
+        void check_type(types::IteratorTypes target_type) const;
 
         // Destructor
         virtual ~JsonIterator() noexcept = default;

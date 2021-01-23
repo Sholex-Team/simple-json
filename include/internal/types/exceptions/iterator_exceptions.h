@@ -22,6 +22,14 @@ namespace simple_json::iterators::exceptions {
     public:
         const char * what() const noexcept override;
     };
+
+    class InvalidIterator : public base_exceptions::JsonException {
+    private:
+        types::IteratorTypes used_type;
+    public:
+        InvalidIterator(types::IteratorTypes used_type);
+        const char * what() const noexcept override;
+    };
 }
 
 #endif //SIMPLE_JSON_ITERATOR_EXCEPTIONS_H
