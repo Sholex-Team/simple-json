@@ -409,6 +409,11 @@ namespace simple_json::types {
         return data_json_object->count(key);
     }
 
+    size_t Json::count(const Json & item) const {
+        check_type(DataType::array_type);
+        return std::count(data_array->cbegin(), data_array->cend(), item);
+    }
+
     bool Json::contains(const JsonKey & key) const {
         check_type(DataType::json_object_type);
         return data_json_object->count(key) > 0;
