@@ -141,7 +141,7 @@ namespace simple_json::types {
             if (current_item == current_dst->at(i)) {
                 continue;
             }
-            Json::const_iterator current_target {current_dst->cbegin()};
+            Json::const_iterator current_target {current_dst->cbegin() + i};
             for (Json::const_iterator it {current_src->cbegin()};
             current_target != current_dst->cend();
             ++it, ++current_target) {
