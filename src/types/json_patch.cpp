@@ -126,7 +126,7 @@ namespace simple_json::types {
         }
         for (size_t i {current_dst->size()}; i < current_src->size(); ++i) {
             Json & current_item {current_src->at(i)};
-            if (current_dst->count(current_item) > current_src->count(current_item)) {
+            if (current_dst->count(current_item) < current_src->count(current_item)) {
                 remove_item(path + i);
             }
         }
