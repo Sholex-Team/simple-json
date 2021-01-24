@@ -1,6 +1,5 @@
 #include "simple_json.h"
 #include <iostream>
-#include <string>
 
 
 using namespace simple_json;
@@ -8,11 +7,10 @@ using namespace deserializer;
 using namespace types;
 using namespace indent;
 
-void test_func(std::string my_func(char ch)) {
-    std::cout << my_func('h') << std::endl;
-}
-
 int main() {
-    test_func([] (char ch) {return std::string {"hello there"} + ch;});
+    Json src(loads(R"([1, 2, 3, [4, 6]])"));
+    Json dst(loads(R"([1, 3, 3, [1, 2, 3]])"));
+    JsonPatch patch {src.get_diff(dst)};
+    std::cout << patch.get_json() << std::endl;
     return 0;
 }

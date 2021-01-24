@@ -125,20 +125,31 @@ namespace simple_json::types {
             return;
         }
         for (size_t i {current_dst->size()}; i < current_src->size(); ++i) {
-            if (current_dst->count(current_src->at(i)) > current_src->count(current_src->at(i))) {
+            Json & current_item {current_src->at(i)};
+            if (current_dst->count(current_item) > current_src->count(current_item)) {
                 remove_item(path + i);
             }
         }
         for (size_t i {current_src->size()}; i < current_dst->size(); ++i) {
-            if (current_src->count(current_dst->at(i)) < current_dst->count(current_dst->at(i))) {
-                add_item(path + i, current_dst->at(i));
+            Json & current_item {current_dst->at(i)};
+            if (current_src->count(current_item) < current_dst->count(current_item)) {
+                add_item(path + i, current_item);
             }
         }
         for (size_t i {0}; i < current_src->size(); ++i) {
-            if (current_src->at(i) == current_dst->at(i)) {
+            Json & current_item {current_src->at(i)};
+            if (current_item == current_dst->at(i)) {
                 continue;
             }
-            if (current_dst->count(current_src->at(i)) == current_dst->count(current_src->at(i))) {
+            Json::const_iterator current_target {current_dst->cbegin()};
+            for (Json::const_iterator it {current_src->cbegin()};
+            current_target != current_dst->cend();
+            ++it, ++current_target) {
+                if (current_item == * current_target && * current_target != * it) {
+                    break;
+                }
+            }
+            if (current_target == current_dst->cend()) {
                 if (current_dst->at(i).type() == DataType::array_type &&
                 current_src->at(i).type() == DataType::array_type) {
                     current_src = & current_src->at(i);
@@ -149,7 +160,7 @@ namespace simple_json::types {
                 replace_item(path + i, current_dst->at(i));
                 continue;
             }
-            move_item(path + i, path + current_dst->find_index(current_src->at(i)));
+            move_item(path + i, path + current_dst->find_index(current_target));
             --i;
         }
     }
