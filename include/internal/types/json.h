@@ -18,6 +18,7 @@
 #include "json_utils.h"
 #include "json_pointer.h"
 #include <algorithm>
+#include <functional>
 
 namespace simple_json::types {
     class JsonKey;
@@ -207,10 +208,10 @@ namespace simple_json::types {
         iterator find(const Json & item);
         const_iterator find(const JsonKey & key) const;
         const_iterator find(const Json & item) const;
-        iterator find_if(bool test_func(const Json & item));
-        const_iteraotor find_if(bool test_func(const Json & item)) const;
-        iterator find_if(bool test_func(const pair_type & item));
-        const_iterator find_if(bool test_func(const pair_type & item)) const;
+        iterator find_if(const std::function<bool(const Json &)> & test_func);
+        const_iteraotor find_if(const std::function<bool(const Json &)> & test_func) const;
+        iterator find_if(const std::function<bool(const pair_type &)> & test_func);
+        const_iterator find_if(const std::function<bool(const pair_type &)> & test_func) const;
         size_t find_index(const Json & item) const;
         size_t find_index(const const_iterator & it) const;
         size_t size() const noexcept;
