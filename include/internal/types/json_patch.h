@@ -44,7 +44,7 @@ namespace simple_json::types {
 
             // Private Methods
             template<typename T>
-            void JsonPatch::PatchBuilder::do_compare(T i, const JsonPointer & new_path, DataType used_type) {
+            void do_compare(T i, const JsonPointer & new_path, DataType used_type) {
                 Json * old_src {current_src};
                 Json * old_dst {current_dst};
                 current_src = & current_src->at(i);
