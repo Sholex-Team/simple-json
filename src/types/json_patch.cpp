@@ -1,4 +1,5 @@
 #include "types/json_patch.h"
+#include <stdexcept>
 
 namespace simple_json::types {
 
@@ -112,6 +113,8 @@ namespace simple_json::types {
         }
         if (src->type() == DataType::array_type) {
             compare_array(JsonPointer {"/"});
+        } else if (src->type() == DataType::json_object_type) {
+            compare_json_object(JsonPointer {"/"});
         }
         return * new_patch;
     }
@@ -165,8 +168,48 @@ namespace simple_json::types {
         }
     }
 
+    void JsonPatch::PatchBuilder::compare_json_object(const JsonPointer & path) {
+        if (* current_src == * current_dst) {
+            return;
+        }
+        for (Json::const_iterator it {current_src->cbegin()}; it != current_src->cend(); ++it) {
+            if (current_dst->find(it.key()) != current_dst->end()) {
+                if (current_dst->at(it.key()) == it.value()) {
+                    current_dst->erase(it.key());
+                    continue;
+                } else if (current_dst->at(it.key()).type() == DataType::array_type &&
+                           current_src->at(it.key()).type() == DataType::array_type) {
+                    current_src = & current_src->at(it.key());
+                    current_dst = & current_dst->at(it.key());
+                    compare_array(path + it.key());
+                    continue;
+                } else if (current_dst->at(it.key()).type() == DataType::json_object_type &&
+                           current_src->at(it.key()).type() == DataType::json_object_type) {
+                    current_src = & current_src->at(it.key());
+                    current_dst = & current_dst->at(it.key());
+                    compare_json_object(path + it.key());
+                    continue;
+                } else {
+                    replace_item(path + it.key(), current_dst->at(it.key()));
+                }
+            } else {
+                Json::iterator target_it{current_dst->find(it.value())};
+                if (target_it != current_dst->end()) {
+                    move_item(path + it.key(), path + target_it.key());
+                    continue;
+                }
+                remove_item(path + it.key());
+            }
+        }
+        for (Json::const_iterator it {current_dst->cbegin()}; it != current_dst->cend(); ++it) {
+            add_item(path + it.key(), it.value());
+        }
+    }
+
     void JsonPatch::PatchBuilder::remove_item(const JsonPointer & path) {
-        current_src->erase(path);
+        if (current_src->type() == DataType::array_type) {
+            current_src->erase(path);
+        }
         new_patch->patch_data->push_back({
             {"op"_json_key, "remove"},
             {"path"_json_key, std::string {path}}
@@ -176,8 +219,6 @@ namespace simple_json::types {
     void JsonPatch::PatchBuilder::add_item(const JsonPointer & path, const Json & item) {
         if (current_src->type() == DataType::array_type) {
             current_src->insert(current_src->get_item(path.get_index()), item);
-        } else {
-            current_src->at(path) = item;
         }
         new_patch->patch_data->push_back({
             {"op"_json_key, "add"},
@@ -190,7 +231,7 @@ namespace simple_json::types {
         if (current_src->type() == DataType::array_type) {
             current_src->at(path.get_index()) = item;
         } else {
-            current_src->at(path.get_key()) = item;
+            current_dst->erase(path);
         }
         new_patch->patch_data->push_back({
             {"op"_json_key, "replace"},
@@ -205,8 +246,7 @@ namespace simple_json::types {
             current_src->erase(old_path.get_index());
             current_src->insert(current_src->get_item(new_path.get_index()), std::move(temp));
         } else {
-            current_src->at(new_path) = std::move(current_src->at(old_path));
-            current_src->erase(old_path);
+            current_dst->erase(new_path);
         }
         new_patch->patch_data->push_back({
             {"op"_json_key, "move"},
@@ -215,5 +255,5 @@ namespace simple_json::types {
         });
     }
 
-    #pragma endregion
+#pragma endregion
 }
