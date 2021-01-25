@@ -30,7 +30,7 @@ namespace simple_json::types {
         friend JsonObject;
 
         // Public Methods
-        inline const std::string & get_key() {return * key;};
+        inline const std::string & get_key() const {return * key;};
     };
 
     // Operator Overloading

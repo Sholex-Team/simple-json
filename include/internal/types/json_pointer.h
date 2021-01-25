@@ -41,12 +41,14 @@ namespace simple_json::types {
         // Operator Overloading
         bool operator==(const JsonPointer &) const;
         JsonPointer operator+(const std::string & r_path) const;
+        JsonPointer operator+(const JsonKey & r_path) const;
         JsonPointer operator+(size_t r_index) const;
         explicit operator std::string() const;
 
         // Friends
         friend std::ostream & operator<<(std::ostream &, const JsonPointer &);
         friend Json;
+        friend JsonKey;
     };
 
     // Operator Overloading

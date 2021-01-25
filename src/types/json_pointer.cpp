@@ -63,6 +63,10 @@ namespace simple_json::types {
         new_pointer.append(r_path) : (new_pointer + '/').append(r_path)};
     }
 
+    JsonPointer JsonPointer::operator+(const JsonKey & r_path) const {
+        return operator+(r_path.get_key());
+    }
+
     JsonPointer  JsonPointer::operator+(const size_t r_index) const {
         return * this + std::to_string(r_index);
     }
@@ -127,5 +131,5 @@ namespace simple_json::types {
         }
     }
 
-    #pragma endregion
+#pragma endregion
 }
