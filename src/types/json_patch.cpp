@@ -199,7 +199,7 @@ namespace simple_json::types {
                 remove_item(path + it.key());
             }
         }
-        for (Json::const_iterator it {dst->cbegin()}; it != dst->cend(); ++it) {
+        for (Json::const_iterator it {current_dst->cbegin()}; it != current_dst->cend(); ++it) {
             add_item(path + it.key(), it.value());
         }
     }
