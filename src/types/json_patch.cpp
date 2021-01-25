@@ -27,7 +27,6 @@ namespace simple_json::types {
 
     JsonPatch::PatchBuilder::~PatchBuilder() {
         delete new_patch;
-        delete src;
         delete dst;
     }
 
@@ -106,15 +105,15 @@ namespace simple_json::types {
     }
 
     JsonPatch JsonPatch::PatchBuilder::create_patch() {
-        if ((src->type() != DataType::json_object_type && src->type() != DataType::array_type) ||
+        if ((current_src->type() != DataType::json_object_type && current_src->type() != DataType::array_type) ||
         (dst->type() != DataType::json_object_type && dst->type() != DataType::array_type) ||
-        (src->type() != dst->type())) {
+        (current_src->type() != dst->type())) {
             replace_item(JsonPointer {"/"}, * dst);
             return * new_patch;
         }
-        if (src->type() == DataType::array_type) {
+        if (current_src->type() == DataType::array_type) {
             compare_array(JsonPointer {"/"});
-        } else if (src->type() == DataType::json_object_type) {
+        } else if (current_src->type() == DataType::json_object_type) {
             compare_json_object(JsonPointer {"/"});
         }
         return * new_patch;
