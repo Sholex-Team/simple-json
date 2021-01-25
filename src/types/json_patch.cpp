@@ -27,6 +27,7 @@ namespace simple_json::types {
 
     JsonPatch::PatchBuilder::~PatchBuilder() {
         delete new_patch;
+        delete current_src;
         delete dst;
     }
 
