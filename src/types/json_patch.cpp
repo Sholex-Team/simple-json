@@ -241,7 +241,7 @@ namespace simple_json::types {
 
     void JsonPatch::PatchBuilder::move_item(const JsonPointer & old_path, const JsonPointer & new_path) {
         if (current_src->type() == DataType::array_type) {
-            Json temp(std::move(current_src->at(old_path)));
+            Json temp(std::move(current_src->at(old_path.get_index())));
             current_src->erase(old_path.get_index());
             current_src->insert(current_src->get_item(new_path.get_index()), std::move(temp));
         } else {
