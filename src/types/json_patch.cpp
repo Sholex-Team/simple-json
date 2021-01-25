@@ -168,7 +168,7 @@ namespace simple_json::types {
     }
 
     void JsonPatch::PatchBuilder::compare_json_object(const JsonPointer & path) {
-        if (* current_src == * current_dst) {
+        if (current_src->size() == current_dst->size() && * current_src == * current_dst) {
             return;
         }
         for (Json::const_iterator it {current_src->cbegin()}; it != current_src->cend(); ++it) {
