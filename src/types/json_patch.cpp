@@ -182,10 +182,12 @@ namespace simple_json::types {
                 } else if (current_dst->at(it.key()).type() == DataType::array_type &&
                            current_src->at(it.key()).type() == DataType::array_type) {
                     do_compare(it.key(), path + it.key(), DataType::array_type);
+                    dst->erase(path + it.key());
                     continue;
                 } else if (current_dst->at(it.key()).type() == DataType::json_object_type &&
                            current_src->at(it.key()).type() == DataType::json_object_type) {
                     do_compare(it.key(), path + it.key(), DataType::json_object_type);
+                    dst->erase(path + it.key());
                     continue;
                 } else {
                     replace_item(path + it.key(), current_dst->at(it.key()));
