@@ -229,7 +229,7 @@ namespace simple_json::types {
         if (current_src->type() == DataType::array_type) {
             current_src->at(path.get_index()) = item;
         } else {
-            current_dst->erase(path);
+            dst->erase(path);
         }
         new_patch->patch_data->push_back({
             {"op"_json_key, "replace"},
@@ -244,7 +244,7 @@ namespace simple_json::types {
             current_src->erase(old_path.get_index());
             current_src->insert(current_src->get_item(new_path.get_index()), std::move(temp));
         } else {
-            current_dst->erase(new_path);
+            dst->erase(new_path);
         }
         new_patch->patch_data->push_back({
             {"op"_json_key, "move"},
