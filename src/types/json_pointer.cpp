@@ -1,4 +1,5 @@
 #include "types/json_pointer.h"
+#include <iostream>
 
 namespace simple_json::types {
     #pragma region Constructors
@@ -64,7 +65,7 @@ namespace simple_json::types {
     }
 
     JsonPointer JsonPointer::operator+(const JsonKey & r_path) const {
-        std::string new_pointer {r_path.get_key()};
+        std::string new_pointer {* pointer_text};
         return JsonPointer {(new_pointer.back() == '/') ?
         new_pointer.append(r_path.get_key()) : (new_pointer + '/').append(r_path.get_key())};
     }
