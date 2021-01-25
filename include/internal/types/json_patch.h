@@ -29,7 +29,7 @@ namespace simple_json::types {
         ~JsonPatch();
 
         // Public Method
-        void patch(Json &);
+        void apply(Json &json);
         const Json & get_json() const;
 
         // Builders

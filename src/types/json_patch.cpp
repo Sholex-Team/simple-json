@@ -39,7 +39,7 @@ namespace simple_json::types {
         return * patch_data;
     }
 
-    void JsonPatch::patch(Json & json) {
+    void JsonPatch::apply(Json & json) {
         for (Json & patch_object: * patch_data) {
             if (patch_object.at("op") == "add") {
                 std::string path {patch_object.at("path")};
