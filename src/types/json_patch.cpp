@@ -4,7 +4,7 @@ namespace simple_json::types {
 
     #pragma region Constructors
 
-    JsonPatch::JsonPatch() : patch_data {new Json(DataType::array_type)} {};
+    JsonPatch::JsonPatch() : patch_data {new Json(DataType::array_type)} {}
 
     JsonPatch::JsonPatch(const Json & json_patch) : patch_data {new Json(json_patch)} {}
 
