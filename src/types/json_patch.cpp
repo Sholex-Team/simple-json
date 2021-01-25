@@ -177,15 +177,17 @@ namespace simple_json::types {
         for (Json::const_iterator it {current_src->cbegin()}; it != current_src->cend(); ++it) {
             if (current_dst->find(it.key()) != current_dst->end()) {
                 if (current_dst->at(it.key()) == it.value()) {
-                    dst->erase(it.key());
+                    dst->erase(path + it.key());
                     continue;
                 } else if (current_dst->at(it.key()).type() == DataType::array_type &&
                            current_src->at(it.key()).type() == DataType::array_type) {
                     do_compare(it.key(), path + it.key(), DataType::array_type);
+                    dst->erase(path + it.key());
                     continue;
                 } else if (current_dst->at(it.key()).type() == DataType::json_object_type &&
                            current_src->at(it.key()).type() == DataType::json_object_type) {
                     do_compare(it.key(), path + it.key(), DataType::json_object_type);
+                    dst->erase(path + it.key());
                     continue;
                 } else {
                     replace_item(path + it.key(), current_dst->at(it.key()));
