@@ -158,6 +158,9 @@ namespace simple_json::types {
                 current_src->at(i).type() == DataType::array_type) {
                     do_compare(i, path + i, DataType::array_type);
                     continue;
+                } else if (current_dst->at(i).type() == DataType::json_object_type &&
+                           current_src->at(i).type() == DataType::json_object_type) {
+                    do_compare(i, path + i, DataType::json_object_type);
                 }
                 replace_item(path + i, current_dst->at(i));
                 continue;
@@ -182,9 +185,7 @@ namespace simple_json::types {
                     continue;
                 } else if (current_dst->at(it.key()).type() == DataType::json_object_type &&
                            current_src->at(it.key()).type() == DataType::json_object_type) {
-                    current_src = & current_src->at(it.key());
-                    current_dst = & current_dst->at(it.key());
-                    compare_json_object(path + it.key());
+                    do_compare(it.key(), path + it.key(), DataType::json_object_type);
                     continue;
                 } else {
                     replace_item(path + it.key(), current_dst->at(it.key()));
