@@ -208,7 +208,7 @@ namespace simple_json::types {
 
     void JsonPatch::PatchBuilder::remove_item(const JsonPointer & path) {
         if (current_src->type() == DataType::array_type) {
-            current_src->erase(path);
+            current_src->erase(path.get_index());
         }
         new_patch->patch_data->push_back({
             {"op"_json_key, "remove"},
