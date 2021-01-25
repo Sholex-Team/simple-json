@@ -64,7 +64,9 @@ namespace simple_json::types {
     }
 
     JsonPointer JsonPointer::operator+(const JsonKey & r_path) const {
-        return operator+(r_path.get_key());
+        std::string new_pointer {r_path.get_key()};
+        return JsonPointer {(new_pointer.back() == '/') ?
+        new_pointer.append(r_path.get_key()) : (new_pointer + '/').append(r_path.get_key())};
     }
 
     JsonPointer  JsonPointer::operator+(const size_t r_index) const {
