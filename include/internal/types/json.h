@@ -217,6 +217,20 @@ namespace simple_json::types {
         size_t size() const noexcept;
         void update(const Json & target);
 
+        template<typename T>
+        T find_in_range(const T & first, const T & last, const Json & item) const {
+            first.check_type(IteratorTypes::array_iterator_type);
+            last.check_type(IteratorTypes::array_iterator_type);
+            return T {std::find(* first.array_iterator, * last.array_iterator, item)};
+        }
+
+        template<typename T>
+        size_t count_in_range(const T & first, const T & last, const Json & item) const {
+            first.check_type(IteratorTypes::array_iterator_type);
+            last.check_type(IteratorTypes::array_iterator_type);
+            return std::count(* first.array_iterator, * last.array_iterator, item);
+        }
+
         // Destructors
         ~Json();
     };

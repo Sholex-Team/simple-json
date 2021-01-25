@@ -130,14 +130,16 @@ namespace simple_json::types {
         }
         for (size_t i {current_dst->size()}; i < current_src->size(); ++i) {
             Json & current_item {current_src->at(i)};
-            if (current_dst->count(current_item) < current_src->count(current_item)) {
+            if (current_dst->count_in_range(current_dst->cbegin() + i, current_dst->cend(), current_item)
+            < current_src->count_in_range(current_src->cbegin() + i, current_src->cend(), current_item)) {
                 remove_item(path + i);
                 --i;
             }
         }
         for (size_t i {current_src->size()}; i < current_dst->size(); ++i) {
             Json & current_item {current_dst->at(i)};
-            if (current_src->count(current_item) < current_dst->count(current_item)) {
+            if (current_src->count_in_range(current_src->cbegin() + i, current_src->cend(), current_item)
+            < current_dst->count_in_range(current_dst->cbegin() + i, current_dst->cend(), current_item)) {
                 add_item(path + i, current_item);
             }
         }
