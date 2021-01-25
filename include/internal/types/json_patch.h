@@ -43,6 +43,21 @@ namespace simple_json::types {
             Json * current_dst;
 
             // Private Methods
+            template<typename T>
+            void JsonPatch::PatchBuilder::do_compare(T i, const JsonPointer & new_path, DataType used_type) {
+                Json * old_src {current_src};
+                Json * old_dst {current_dst};
+                current_src = & current_src->at(i);
+                current_dst = & current_dst->at(i);
+                if (used_type == DataType::array_type) {
+                    compare_array(new_path);
+                } else {
+                    compare_json_object(new_path);
+                }
+                current_src = old_src;
+                current_dst = old_dst;
+            }
+
             void compare_array(const JsonPointer & path);
             void compare_json_object(const JsonPointer & path);
             void remove_item(const JsonPointer & path);

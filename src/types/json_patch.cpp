@@ -74,7 +74,9 @@ namespace simple_json::types {
                 Json & target_json {json[target_pointer]};
                 if (target_json.used_type == DataType::array_type) {
                     if (utils::is_digit(last_index)) {
-                        target_json.data_array->at(strtol(last_index.c_str(), nullptr, 10)) = patch_object.at("value");
+                        target_json.data_array->at(
+                                strtol(last_index.c_str(), nullptr, 10)
+                                ) = patch_object.at("value");
                         continue;
                     }
                     throw exceptions::InvalidIndexException {patch_object.used_type};
@@ -154,9 +156,7 @@ namespace simple_json::types {
             if (current_target == current_dst->cend()) {
                 if (current_dst->at(i).type() == DataType::array_type &&
                 current_src->at(i).type() == DataType::array_type) {
-                    current_src = & current_src->at(i);
-                    current_dst = & current_dst->at(i);
-                    compare_array(path + i);
+                    do_compare(i, path + i, DataType::array_type);
                     continue;
                 }
                 replace_item(path + i, current_dst->at(i));
@@ -178,9 +178,7 @@ namespace simple_json::types {
                     continue;
                 } else if (current_dst->at(it.key()).type() == DataType::array_type &&
                            current_src->at(it.key()).type() == DataType::array_type) {
-                    current_src = & current_src->at(it.key());
-                    current_dst = & current_dst->at(it.key());
-                    compare_array(path + it.key());
+                    do_compare(it.key(), path + it.key(), DataType::array_type);
                     continue;
                 } else if (current_dst->at(it.key()).type() == DataType::json_object_type &&
                            current_src->at(it.key()).type() == DataType::json_object_type) {
