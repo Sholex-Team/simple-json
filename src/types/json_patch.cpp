@@ -15,7 +15,7 @@ namespace simple_json::types {
     }
 
     JsonPatch::PatchBuilder::PatchBuilder(const Json & src, const Json & dst) : new_patch {new JsonPatch {}},
-    src {new Json(src)}, dst {new Json(dst)}, current_src {this->src}, current_dst {this->dst} {}
+    dst {new Json(dst)}, current_src {new Json(src)}, current_dst {this->dst} {}
 
     #pragma endregion
 

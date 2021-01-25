@@ -37,7 +37,6 @@ namespace simple_json::types {
         private:
             // Properties
             JsonPatch * new_patch {};
-            Json * src;
             Json * dst;
             Json * current_src;
             Json * current_dst;
