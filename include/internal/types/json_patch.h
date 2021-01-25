@@ -53,6 +53,7 @@ namespace simple_json::types {
                     compare_array(new_path);
                 } else {
                     compare_json_object(new_path);
+                    dst->erase(new_path);
                 }
                 current_src = old_src;
                 current_dst = old_dst;
