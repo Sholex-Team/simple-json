@@ -8,8 +8,8 @@ using namespace types;
 using namespace indent;
 
 int main() {
-    Json src(loads(R"({"r": 2, "c": 3})"));
-    Json dst(loads(R"({"r": 3})"));
+    Json src(loads(R"({"c": 3})"));
+    Json dst(loads(R"({"r": 3, "a": 3})"));
     JsonPatch patch {src.get_diff(dst)};
     std::cout << patch.get_json() << std::endl;
     return 0;
