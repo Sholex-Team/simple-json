@@ -177,7 +177,7 @@ namespace simple_json::types {
         for (Json::const_iterator it {current_src->cbegin()}; it != current_src->cend(); ++it) {
             if (current_dst->find(it.key()) != current_dst->end()) {
                 if (current_dst->at(it.key()) == it.value()) {
-                    current_dst->erase(it.key());
+                    dst->erase(it.key());
                     continue;
                 } else if (current_dst->at(it.key()).type() == DataType::array_type &&
                            current_src->at(it.key()).type() == DataType::array_type) {
@@ -199,7 +199,7 @@ namespace simple_json::types {
                 remove_item(path + it.key());
             }
         }
-        for (Json::const_iterator it {current_dst->cbegin()}; it != current_dst->cend(); ++it) {
+        for (Json::const_iterator it {dst->cbegin()}; it != dst->cend(); ++it) {
             add_item(path + it.key(), it.value());
         }
     }
