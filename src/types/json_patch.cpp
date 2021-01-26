@@ -164,6 +164,7 @@ namespace simple_json::types {
                 } else if (current_dst->at(i).type() == DataType::json_object_type &&
                            current_src->at(i).type() == DataType::json_object_type) {
                     do_compare(i, path + i, DataType::json_object_type);
+                    continue;
                 }
                 replace_item(path + i, current_dst->at(i));
                 continue;
