@@ -8,6 +8,7 @@
 #include "json.h"
 #include "exceptions/invalid_index.h"
 #include "exceptions/invalid_operation.h"
+#include "exceptions/invalid_patch_operation.h"
 #include "exceptions/failed_test.h"
 #include "json_key.h"
 #include <algorithm>
