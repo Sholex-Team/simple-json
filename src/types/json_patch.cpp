@@ -41,66 +41,63 @@ namespace simple_json::types {
 
     void JsonPatch::apply(Json & json) {
         for (Json & patch_object: * patch_data) {
-            if (patch_object.at("op") == "add") {
-                std::string path {patch_object.at("path")};
-                size_t pos {path.rfind('/')};
-                JsonPointer target_pointer {path.substr(0, pos)};
-                std::string last_index {path.substr(pos + 1)};
-                Json & target_json {json[target_pointer]};
-                if (target_json.used_type == DataType::array_type) {
-                    if (last_index == "-") {
-                        target_json.push_back(patch_object.at("value"));
-                        continue;
-                    } else if (utils::is_digit(last_index)) {
-                        target_json.data_array->insert(target_json.data_array->begin() + strtol(
-                                last_index.c_str(), nullptr, 10
-                                ),patch_object.at("value"));
-                        continue;
+            std::string op {static_cast<std::string>(patch_object.at("op"))};
+            JsonPointer path {static_cast<std::string>(patch_object.at("path"))};
+            std::cout << path << std::endl;
+            if (op == "test")  {
+                if (json.at(path) != patch_object.at("value")) {
+                    throw exceptions::FailedTest {};
+                }
+            } else if (op == "add") {
+                Json & parent {json.at(path.get_parent())};
+                if (parent.type() == DataType::json_object_type) {
+                    parent.insert({path.get_key(), patch_object.at("value")});
+                } else if (parent.type() == DataType::array_type) {
+                    parent.insert(parent.cbegin() + path.get_index(), patch_object.at("value"));
+                } else {
+                    throw exceptions::InvalidPointer {};
+                }
+            } else if (op == "replace") {
+                Json & parent {json.at(path.get_parent())};
+                if (parent.type() == DataType::json_object_type) {
+                    parent.at(path.get_key()) = patch_object.at("value");
+                } else if (parent.type() == DataType::array_type) {
+                    parent.at(path.get_index()) = patch_object.at("value");
+                } else {
+                    throw exceptions::InvalidPointer {};
+                }
+            } else if (op == "remove") {
+                Json & parent {json.at(path.get_parent())};
+                if (parent.type() == DataType::json_object_type) {
+                    parent.erase(path.get_key());
+                } else if (parent.type() == DataType::array_type) {
+                    parent.erase(path.get_index());
+                } else {
+                    throw exceptions::InvalidPointer {};
+                }
+            } else if (op == "copy") {
+                JsonPointer from_path {static_cast<std::string>(patch_object.at("from"))};
+                std::cout << from_path.get_parent() << "  " << path.get_parent() << std::endl;
+                Json & parent_path {json.at(path.get_parent())};
+                Json & parent_from {json.at(from_path.get_parent())};
+                if (parent_path.type() == parent_from.type() && parent_path.type() == DataType::array_type) {
+                    parent_path.insert(parent_path.cbegin() + from_path.get_index(),
+                                       parent_from.at(from_path.get_index()));
+                } else {
+                    if (parent_path.type() == DataType::array_type) {
+                        if (parent_from.type() == DataType::array_type) {
+                            parent_path.at(path.get_index()) = parent_from.at(from_path.get_index());
+                        } else {
+                            parent_path.at(path.get_index()) = parent_from.at(from_path.get_index());
+                        }
+                    } else {
+                        if (parent_from.type() == DataType::array_type) {
+                            parent_path.at(path.get_key()) = parent_from.at(from_path.get_index());
+                        } else {
+                            parent_path.at(path.get_key()) = parent_from.at(from_path.get_index());
+                        }
                     }
-                    throw exceptions::InvalidIndexException {};
-                } else if (target_json.used_type == DataType::json_object_type){
-                    target_json.data_json_object->emplace(JsonKey {last_index}, patch_object.at("value"));
-                    continue;
                 }
-                throw exceptions::InvalidOperation {};
-            } else if (patch_object.at("op") == "remove")  {
-                json.erase(JsonPointer {static_cast<std::string>(patch_object.at("path"))});
-                continue;
-            } else if (patch_object.at("op") == "replace") {
-                std::string path {patch_object.at("path")};
-                size_t pos {path.rfind('/')};
-                JsonPointer target_pointer {path.substr(0, path.size() - pos - 1)};
-                std::string last_index {path.substr(pos)};
-                Json & target_json {json[target_pointer]};
-                if (target_json.used_type == DataType::array_type) {
-                    if (utils::is_digit(last_index)) {
-                        target_json.data_array->at(
-                                strtol(last_index.c_str(), nullptr, 10)
-                                ) = patch_object.at("value");
-                        continue;
-                    }
-                    throw exceptions::InvalidIndexException {patch_object.used_type};
-                } else if (target_json.used_type == DataType::json_object_type) {
-                    target_json.data_json_object->at(JsonKey {last_index}) = patch_object.at("value");
-                    continue;
-                }
-                throw exceptions::InvalidOperation {};
-            } else if (patch_object.at("op") == "test") {
-                if (json.at(
-                        JsonPointer {static_cast<std::string>(patch_object.at("path"))}
-                        ) == patch_object.at("value")) {
-                    continue;
-                }
-                throw exceptions::FailedTest {};
-            } else if (patch_object.at("op") == "copy") {
-                json[
-                        JsonPointer {static_cast<std::string>(patch_object.at("from"))}
-                        ] = json.at(JsonPointer {static_cast<std::string>(patch_object.at("path"))});
-            } else if (patch_object.at("op") == "move") {
-                json[
-                        JsonPointer {static_cast<std::string>(patch_object.at("from"))}
-                        ] = json.at(JsonPointer {static_cast<std::string>(patch_object.at("path"))});
-                json.erase(JsonPointer {static_cast<std::string>(patch_object.at("path"))});
             }
         }
     }
