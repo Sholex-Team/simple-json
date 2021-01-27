@@ -7,7 +7,9 @@ using namespace types;
 using namespace indent;
 
 int main() {
-    Json json(loads(R"({"a": "reza", "b": "sadi", "c": "mosi", "d": [1, 2, 3]})"));
-    std::cout << json.at(JsonPointer {"/c"}) << std::endl;
+    Json json (loads(R"({"a": "reza", "b": "sadi", "c": "mosi", "d": [1, 2, 3]})"));
+    JsonPatch patch (loads(R"([{ "op": "copy", "from": "/c", "path": "/d/2" }])"));
+    patch.apply(json);
+    std::cout << json << std::endl;
     return 0;
 }

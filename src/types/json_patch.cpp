@@ -43,7 +43,6 @@ namespace simple_json::types {
         for (Json & patch_object: * patch_data) {
             std::string op {static_cast<std::string>(patch_object.at("op"))};
             JsonPointer path {static_cast<std::string>(patch_object.at("path"))};
-            std::cout << path << std::endl;
             if (op == "test")  {
                 if (json.at(path) != patch_object.at("value")) {
                     throw exceptions::FailedTest {};
@@ -77,7 +76,6 @@ namespace simple_json::types {
                 }
             } else if (op == "copy") {
                 JsonPointer from_path {static_cast<std::string>(patch_object.at("from"))};
-                std::cout << from_path.get_parent() << "  " << path.get_parent() << std::endl;
                 Json & parent_path {json.at(path.get_parent())};
                 Json & parent_from {json.at(from_path.get_parent())};
                 if (parent_path.type() == parent_from.type() && parent_path.type() == DataType::array_type) {
@@ -88,13 +86,13 @@ namespace simple_json::types {
                         if (parent_from.type() == DataType::array_type) {
                             parent_path.at(path.get_index()) = parent_from.at(from_path.get_index());
                         } else {
-                            parent_path.at(path.get_index()) = parent_from.at(from_path.get_index());
+                            parent_path.at(path.get_index()) = parent_from.at(from_path.get_key());
                         }
                     } else {
                         if (parent_from.type() == DataType::array_type) {
                             parent_path.at(path.get_key()) = parent_from.at(from_path.get_index());
                         } else {
-                            parent_path.at(path.get_key()) = parent_from.at(from_path.get_index());
+                            parent_path.at(path.get_key()) = parent_from.at(from_path.get_key());
                         }
                     }
                 }
