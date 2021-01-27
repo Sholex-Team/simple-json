@@ -213,7 +213,7 @@ namespace simple_json::types {
         }
         new_patch->patch_data->push_back({
             {"op"_json_key, "remove"},
-            {"path"_json_key, std::string {path}}
+            {"path"_json_key, static_cast<std::string>(path)}
         });
     }
 
@@ -223,7 +223,7 @@ namespace simple_json::types {
         }
         new_patch->patch_data->push_back({
             {"op"_json_key, "add"},
-            {"path"_json_key, std::string {path}},
+            {"path"_json_key, static_cast<std::string>(path)},
             {"value"_json_key, item}
         });
     }
@@ -236,7 +236,7 @@ namespace simple_json::types {
         }
         new_patch->patch_data->push_back({
             {"op"_json_key, "replace"},
-            {"path"_json_key, std::string {path}},
+            {"path"_json_key, static_cast<std::string>(path)},
             {"value"_json_key, item}
         });
     }
@@ -251,8 +251,8 @@ namespace simple_json::types {
         }
         new_patch->patch_data->push_back({
             {"op"_json_key, "move"},
-            {"from"_json_key, std::string {old_path}},
-            {"path"_json_key, std::string {new_path}}
+            {"from"_json_key, static_cast<std::string>(old_path)},
+            {"path"_json_key, static_cast<std::string>(new_path)}
         });
     }
 
