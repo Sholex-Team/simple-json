@@ -78,24 +78,43 @@ namespace simple_json::types {
                 JsonPointer from_path {static_cast<std::string>(patch_object.at("from"))};
                 Json & parent_path {json.at(path.get_parent())};
                 Json & parent_from {json.at(from_path.get_parent())};
-                if (parent_path.type() == parent_from.type() && parent_path.type() == DataType::array_type) {
-                    parent_path.insert(parent_path.cbegin() + from_path.get_index(),
-                                       parent_from.at(from_path.get_index()));
-                } else {
-                    if (parent_path.type() == DataType::array_type) {
-                        if (parent_from.type() == DataType::array_type) {
-                            parent_path.at(path.get_index()) = parent_from.at(from_path.get_index());
-                        } else {
-                            parent_path.at(path.get_index()) = parent_from.at(from_path.get_key());
-                        }
+                if (parent_path.type() == DataType::array_type) {
+                    if (parent_from.type() == DataType::array_type) {
+                        parent_path.insert(parent_path.cbegin() + path.get_index(), parent_from.at(from_path.get_index()));
                     } else {
-                        if (parent_from.type() == DataType::array_type) {
-                            parent_path.at(path.get_key()) = parent_from.at(from_path.get_index());
-                        } else {
-                            parent_path.at(path.get_key()) = parent_from.at(from_path.get_key());
-                        }
+                        parent_path.insert(parent_path.cbegin() + path.get_index(), parent_from.at(from_path.get_key()));
+                    }
+                } else {
+                    if (parent_from.type() == DataType::array_type) {
+                        parent_path.at(path.get_index()) = parent_from.at(from_path.get_index());
+                    } else {
+                        parent_path.at(path.get_index()) = parent_from.at(from_path.get_key());
                     }
                 }
+            } else if (op == "move") {
+                JsonPointer from_path {static_cast<std::string>(patch_object.at("from"))};
+                Json & parent_path {json.at(path.get_parent())};
+                Json & parent_from {json.at(from_path.get_parent())};
+                if (parent_path.type() == DataType::array_type) {
+                    if (parent_from.type() == DataType::array_type) {
+                        Json tmp (parent_path.at(from_path.get_index()));
+                        parent_from.erase(from_path.get_index());
+                        parent_path.insert(parent_path.cbegin() + path.get_index(), tmp);
+                    } else {
+                        parent_path.insert(parent_path.cbegin() + path.get_index(), parent_from.at(from_path.get_key()));
+                        parent_from.erase(from_path.get_key());
+                    }
+                } else {
+                    if (parent_from.type() == DataType::array_type) {
+                        parent_path.at(path.get_key()) = parent_from.at(from_path.get_index());
+                        parent_from.erase(from_path.get_index());
+                    } else {
+                        parent_path.insert(parent_path.cbegin() + path.get_index(), parent_from.at(from_path.get_key()));
+                        parent_from.erase(from_path.get_key());
+                    }
+                }
+            } else {
+                throw exceptions::InvalidOperation {};
             }
         }
     }
