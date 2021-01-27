@@ -22,6 +22,8 @@ add_executable(
         src/json_utils.cpp
         src/types/json_pointer.cpp
         src/types/json_patch.cpp
-        src/types/exceptions/failed_test.cpp src/types/exceptions/invalid_patch_operation.cpp)
+        src/types/exceptions/failed_test.cpp
+        src/types/exceptions/invalid_patch_operation.cpp
+)
 target_include_directories(simple_json PUBLIC include/external)
 target_include_directories(simple_json PRIVATE include/internal)
