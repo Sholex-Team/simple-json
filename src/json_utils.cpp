@@ -21,9 +21,18 @@ namespace simple_json::utils {
     }
 
     void replace_str(std::string & base, const std::string & old_value, const std::string & new_value) {
-        size_t index;
-        while ((index = base.find(old_value)) != std::string::npos) {
-            base.replace(index, old_value.length(), new_value);
+        std::string temp_str {};
+        for (size_t i {0}; i < base.length(); ++i) {
+            temp_str.push_back(base[i]);
+            if (temp_str == old_value) {
+                base.replace(i - old_value.length() + 1, old_value.length(), new_value);
+                i += old_value.length();
+                temp_str.clear();
+                continue;
+            }
+            if (old_value.rfind(temp_str, 0) == std::string::npos) {
+                temp_str.clear();
+            }
         }
     }
 
