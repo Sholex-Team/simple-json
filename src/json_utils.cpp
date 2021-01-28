@@ -26,4 +26,14 @@ namespace simple_json::utils {
             base.replace(index, old_value.length(), new_value);
         }
     }
+
+    void deserialize_json_pointer(std::string & base) {
+        replace_str(base, "~1", "/");
+        replace_str(base, "~0", "~");
+    }
+
+    void serialize_json_pointer(std::string & base) {
+        replace_str(base, "~", "~0");
+        replace_str(base, "/", "~1");
+    }
 }

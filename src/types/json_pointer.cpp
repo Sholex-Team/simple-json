@@ -11,8 +11,7 @@ namespace simple_json::types {
         }
         pointer_list->erase(pointer_list->begin());
         for (std::string & pointer_item: * pointer_list) {
-            utils::replace_str(pointer_item, "~1", "/");
-            utils::replace_str(pointer_item, "~0", "~");
+            utils::deserialize_json_pointer(pointer_item);
         }
     }
 
@@ -66,8 +65,10 @@ namespace simple_json::types {
 
     JsonPointer JsonPointer::operator+(const JsonKey & r_path) const {
         std::string new_pointer {* pointer_text};
+        std::string serialized_key {r_path.get_key()};
+        utils::serialize_json_pointer(serialized_key);
         return JsonPointer {(new_pointer.back() == '/') ?
-        new_pointer.append(r_path.get_key()) : (new_pointer + '/').append(r_path.get_key())};
+        new_pointer.append(serialized_key) : (new_pointer + '/').append(serialized_key)};
     }
 
     JsonPointer  JsonPointer::operator+(const size_t r_index) const {
@@ -79,11 +80,10 @@ namespace simple_json::types {
     #pragma region Public Methods
 
     void JsonPointer::add_to_path(std::string path) {
-        utils::replace_str(path, "~1", "/");
-        utils::replace_str(path, "~0", "~");
-        pointer_list->push_back(path);
         pointer_text->push_back('/');
         pointer_text->append(path);
+        utils::deserialize_json_pointer(path);
+        pointer_list->push_back(path);
     }
 
     void JsonPointer::add_to_path(const size_t index) {
@@ -107,7 +107,9 @@ namespace simple_json::types {
             throw exceptions::InvalidPointer {};
         }
         std::string tmp {* pointer_text};
-        utils::replace_str(tmp, '/' + pointer_list->back(), "");
+        std::string last_pointer {pointer_list->back()};
+        utils::serialize_json_pointer(last_pointer);
+        utils::replace_str(tmp, '/' + last_pointer, "");
         if (tmp.empty()) {
             tmp.push_back('/');
         }

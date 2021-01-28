@@ -9,6 +9,8 @@ namespace simple_json::utils {
     std::vector<std::string> split(std::string base, const std::string & target);
     bool is_digit(const std::string & str);
     void replace_str(std::string & base, const std::string & old_value, const std::string & new_value);
+    void serialize_json_pointer(std::string & base);
+    void deserialize_json_pointer(std::string & base);
 }
 
 #endif //SIMPLE_JSON_JSON_UTILS_H
