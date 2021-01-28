@@ -113,7 +113,7 @@ namespace simple_json::types {
                         parent_path.at(path.get_key()) = parent_from.at(from_path.get_index());
                         parent_from.erase(from_path.get_index());
                     } else {
-                        parent_path.insert(parent_path.cbegin() + path.get_index(), parent_from.at(from_path.get_key()));
+                        parent_path.insert({path.get_key(), parent_from.at(from_path.get_key())});
                         parent_from.erase(from_path.get_key());
                     }
                 }
