@@ -114,7 +114,11 @@ namespace simple_json::types {
         return JsonPointer {tmp};
     }
 
-    #pragma endregion
+    bool JsonPointer::check_ended() const {
+        return pointer_list->back() == "-";
+    }
+
+#pragma endregion
 
     #pragma region Private Methods
 

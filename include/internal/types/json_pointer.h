@@ -37,6 +37,7 @@ namespace simple_json::types {
         size_t get_index() const;
         JsonKey get_key() const;
         JsonPointer get_parent() const;
+        bool check_ended() const;
 
         // Operator Overloading
         bool operator==(const JsonPointer &) const;
