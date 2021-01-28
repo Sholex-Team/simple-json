@@ -52,7 +52,11 @@ namespace simple_json::types {
                 if (parent.type() == DataType::json_object_type) {
                     parent.insert({path.get_key(), patch_object.at("value")});
                 } else if (parent.type() == DataType::array_type) {
-                    parent.insert(parent.cbegin() + path.get_index(), patch_object.at("value"));
+                    if (path.check_ended()){
+                        parent.push_back(patch_object.at("value"));
+                    } else {
+                        parent.insert(parent.cbegin() + path.get_index(), patch_object.at("value"));
+                    }
                 } else {
                     throw exceptions::InvalidPointer {};
                 }
