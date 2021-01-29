@@ -8,7 +8,8 @@ using namespace types;
 using namespace indent;
 
 int main() {
-    Json src(load("/home/antiwanted/Desktop/test.json"));
-    dump(src, "/home/antiwanted/Desktop/test_2.json");
+    Json src(loads(R"({
+                     "Value": 10})"));
+    dump(src, "/home/rez/Desktop/test_2.json");
     return 0;
 }
