@@ -9,6 +9,7 @@ using namespace indent;
 
 int main() {
     Json src(loads(R"({
+
                      "v":10})"));
     return 0;
 }

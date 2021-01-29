@@ -351,7 +351,9 @@ namespace simple_json::deserializer {
                         if (last_type == DataType::string_key_type || last_type == DataType::string_type) {
                             throw exceptions::ParsingException {Errors::illegal_escape_sequences};
                         }
-                        is_spaced = true;
+                        if (last_type != DataType::unknown) {
+                            is_spaced = true;
+                        }
                         continue;
                     case 'n':
                         if (escaped) {
