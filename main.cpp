@@ -8,8 +8,8 @@ using namespace types;
 using namespace indent;
 
 int main() {
-    Json src(loads(R"({
-
-                     "v":10})"));
+    Json src(loads(R"({"n": "1", "a": "2"})"));
+    std::string s {dumps(src, 2)};
+    std::cout << s;
     return 0;
 }

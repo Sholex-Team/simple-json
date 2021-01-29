@@ -66,7 +66,7 @@ namespace simple_json::types {
                     p.second.data_array->stream_with_indent(os, local_indent + indent::indent_length);
                     continue;
                 case DataType::string_type:
-                    os << p.second.serialize();
+                    os << p.second.serialize() << (p.first == std::prev(end())->first ? "" : ", ");
                     continue;
                 default:
                     os << p.second;
