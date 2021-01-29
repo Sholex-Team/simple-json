@@ -9,11 +9,6 @@ namespace simple_json::deserializer {
     namespace {
         #pragma region Private Methods
 
-        void Deserializer::change_type(types::DataType new_type) {
-            last_type = new_type;
-            is_spaced = false;
-        }
-
         void Deserializer::general_push_or_exception() {
             switch (last_type) {
                 case DataType::string_type:
@@ -31,11 +26,11 @@ namespace simple_json::deserializer {
                     }
                     last_value.push_back(ch);
                     if (isdigit(ch)) {
-                        change_type(DataType::integer_type);
+                        last_type = DataType::integer_type;
                         return;
                     }
                     if (is_special()) {
-                        change_type(DataType::special_type);
+                        last_type = DataType::special_type;
                         return;
                     }
                     throw exceptions::ParsingException {Errors::invalid_character};
@@ -297,26 +292,26 @@ namespace simple_json::deserializer {
                             case DataType::unknown:
                                 // Creating a string as single object
                                 if (primary_stack.empty()) {
-                                    change_type(DataType::string_type);
+                                    last_type = DataType::string_type;
                                     continue;
                                 }
                                 if (primary_stack.top()->type() == DataType::json_object_type) {
                                     // Creating a string as value
                                     if (!last_key.empty() && key_split) {
                                         key_split = false;
-                                        change_type(DataType::string_type);
+                                        last_type = DataType::string_type;
                                         continue;
                                         // Creating a string as key
                                     } else if (last_key.empty() && array_split) {
                                         array_split = false;
-                                        change_type(DataType::string_key_type);
+                                        last_type = DataType::string_key_type;
                                         continue;
                                     }
                                 } else if (primary_stack.top()->type() == DataType::array_type && array_split) {
                                     // Creating  a string as array value
                                     if (last_key.empty()) {
                                         array_split = false;
-                                        change_type(DataType::string_type);
+                                        last_type = DataType::string_type;
                                         continue;
                                     }
                                 }
@@ -336,7 +331,7 @@ namespace simple_json::deserializer {
                         }
                     case '-':
                         if (last_type == DataType::unknown) {
-                            change_type(DataType::integer_type);
+                            last_type = DataType::integer_type;
                             last_value.push_back(ch);
                             continue;
                         }
@@ -344,7 +339,7 @@ namespace simple_json::deserializer {
                         continue;
                     case '.':
                         if (last_type == DataType::unknown || last_type == DataType::integer_type) {
-                            change_type(DataType::double_type);
+                            last_type = DataType::double_type;
                             last_value.push_back(ch);
                             continue;
                         }

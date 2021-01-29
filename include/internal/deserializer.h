@@ -49,7 +49,6 @@ namespace simple_json::deserializer {
             void set_main_object();
             bool is_special();
             void general_push_or_exception();
-            void change_type(types::DataType new_type);
         public:
             types::Json deserialize(std::istream & steam);
             types::Json deserialize(std::istream && stream);
