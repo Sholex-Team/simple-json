@@ -382,7 +382,7 @@ namespace simple_json::deserializer {
                             is_spaced = true;
                             continue;
                         }
-                        strings_or_exception();
+                        string_push_or_exception();
                         continue;
                     default:
                         general_push_or_exception();
