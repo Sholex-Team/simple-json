@@ -22,11 +22,12 @@ namespace simple_json::utils {
 
     void replace_str(std::string & base, const std::string & old_value, const std::string & new_value) {
         std::string temp_str {};
-        for (size_t i {0}; i < base.length(); ++i) {
+        long difference {static_cast<long>(new_value.length()) - static_cast<long>(new_value.length())};
+        for (long i {0}; i >= 0 && i < base.length(); ++i) {
             temp_str.push_back(base[i]);
             if (temp_str == old_value) {
                 base.replace(i - old_value.length() + 1, old_value.length(), new_value);
-                i += old_value.length();
+                i += difference;
                 temp_str.clear();
                 continue;
             }
