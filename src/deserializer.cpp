@@ -9,6 +9,50 @@ namespace simple_json::deserializer {
     namespace {
         #pragma region Private Methods
 
+        void Deserializer::general_push_or_exception() {
+            switch (last_type) {
+                case DataType::string_type:
+                    last_value.push_back(ch);
+                    return;
+                case DataType::string_key_type:
+                    last_key.push_back(ch);
+                    return;
+                case DataType::unknown:
+                    if (!primary_stack.empty() && (
+                            (primary_stack.top()->type() == DataType::array_type && !array_split) ||
+                            (primary_stack.top()->type() == DataType::json_object_type && !key_split)
+                    )) {
+                        throw exceptions::ParsingException {Errors::invalid_character};
+                    }
+                    last_value.push_back(ch);
+                    if (isdigit(ch)) {
+                        last_type = DataType::integer_type;
+                        return;
+                    }
+                    if (is_special()) {
+                        last_type = DataType::special_type;
+                        return;
+                    }
+                    throw exceptions::ParsingException {Errors::invalid_character};
+                case DataType::special_type:
+                    last_value.push_back(ch);
+                    if (is_special()) {
+                        add_to_top();
+                        return;
+                    }
+                    throw exceptions::ParsingException {Errors::invalid_character};
+                default:
+                    if (isdigit(ch)) {
+                        if (is_spaced) {
+                            throw exceptions::ParsingException {Errors::illegal_space};
+                        }
+                        last_value.push_back(ch);
+                        return;
+                    }
+                    throw exceptions::ParsingException {Errors::invalid_character};
+            }
+        }
+
         bool Deserializer::is_special() {
             return true_str.rfind(last_value, 0) == 0 ||
             false_str.rfind(last_value, 0) == 0 ||
@@ -129,7 +173,7 @@ namespace simple_json::deserializer {
         Json Deserializer::deserialize(std::istream & stream) {
             main_object = DataType::unknown;
             while (stream.get(ch)) {
-                if (finished) {
+                if (finished && (ch != '\n' && ch != '\t' && ch != '\b')) {
                     throw exceptions::ParsingException {Errors::extra_character};
                 }
                 if ((ch == '}' || ch == ']' || ch == ',') &&
@@ -315,14 +359,14 @@ namespace simple_json::deserializer {
                             escaped = false;
                             ch = '\n';
                         }
-                        string_push_or_exception();
+                        general_push_or_exception();
                         continue;
                     case 't':
                         if (escaped) {
                             escaped = false;
                             ch = '\t';
                         }
-                        string_push_or_exception();
+                        general_push_or_exception();
                         continue;
                     case 'b':
                         if (escaped) {
@@ -341,47 +385,7 @@ namespace simple_json::deserializer {
                         strings_or_exception();
                         continue;
                     default:
-                        switch (last_type) {
-                            case DataType::string_type:
-                                last_value.push_back(ch);
-                                continue;
-                            case DataType::string_key_type:
-                                last_key.push_back(ch);
-                                continue;
-                            case DataType::unknown:
-                                if (!primary_stack.empty() && (
-                                        (primary_stack.top()->type() == DataType::array_type && !array_split) ||
-                                        (primary_stack.top()->type() == DataType::json_object_type && !key_split)
-                                    )) {
-                                    throw exceptions::ParsingException {Errors::invalid_character};
-                                }
-                                last_value.push_back(ch);
-                                if (isdigit(ch)) {
-                                    last_type = DataType::integer_type;
-                                    continue;
-                                }
-                                if (is_special()) {
-                                    last_type = DataType::special_type;
-                                    continue;
-                                }
-                                throw exceptions::ParsingException {Errors::invalid_character};
-                            case DataType::special_type:
-                                last_value.push_back(ch);
-                                if (is_special()) {
-                                    add_to_top();
-                                    continue;
-                                }
-                                throw exceptions::ParsingException {Errors::invalid_character};
-                            default:
-                                if (isdigit(ch)) {
-                                    if (is_spaced) {
-                                        throw exceptions::ParsingException {Errors::illegal_space};
-                                    }
-                                    last_value.push_back(ch);
-                                    continue;
-                                }
-                                throw exceptions::ParsingException {Errors::invalid_character};
-                        }
+                        general_push_or_exception();
                 }
             }
             if (main_object.type() == DataType::unknown &&

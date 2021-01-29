@@ -48,6 +48,7 @@ namespace simple_json::deserializer {
             void push_array_stack();
             void set_main_object();
             bool is_special();
+            void general_push_or_exception();
         public:
             types::Json deserialize(std::istream & steam);
             types::Json deserialize(std::istream && stream);
