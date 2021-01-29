@@ -183,6 +183,7 @@ namespace simple_json::deserializer {
                     } else {
                         double_value = strtod(last_value.c_str(), nullptr);
                     }
+                    is_spaced = false;
                     add_to_top();
                 }
                 switch (ch) {
