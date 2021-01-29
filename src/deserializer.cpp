@@ -218,6 +218,7 @@ namespace simple_json::deserializer {
                                 throw exceptions::ParsingException {Errors::illegal_key_split};
                             }
                             key_split = true;
+                            is_spaced = false;
                             continue;
                         }
                         string_push_or_exception();
