@@ -28,7 +28,7 @@ namespace simple_json::types {
         }
     }
 
-#pragma endregion
+    #pragma endregion
 
     #pragma region Operator Overloading OStream
 
