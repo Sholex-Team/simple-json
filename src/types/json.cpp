@@ -132,24 +132,24 @@ namespace simple_json::types {
         return * this;
     }
 
-    Json & Json::operator[](const size_t & index) {
+    Json & Json::operator[](const size_t & index) const {
         check_type(DataType::array_type);
         return (* data_array)[index];
     }
 
-    Json & Json::operator[](const char * & index) {
+    Json & Json::operator[](const char * & index) const {
         check_type(DataType::json_object_type);
         return (* data_json_object)[JsonKey {index}];
     }
 
-    Json &Json::operator[](const JsonKey & index) {
+    Json & Json::operator[](const JsonKey & index) const {
         check_type(DataType::json_object_type);
         return (* data_json_object)[index];
     }
 
-    Json & Json::operator[](const JsonPointer & json_pointer) {
+    Json & Json::operator[](const JsonPointer & json_pointer) const {
         can_iterate();
-        Json * tmp_return {this};
+        const Json * tmp_return(this);
         for (const std::string & index: * json_pointer.pointer_list) {
             if (tmp_return->used_type == DataType::array_type) {
                 if (utils::is_digit(index)) {
@@ -161,7 +161,7 @@ namespace simple_json::types {
                 tmp_return = & (* tmp_return->data_json_object)[JsonKey {index}];
             }
         }
-        return * tmp_return;
+        return const_cast<Json &>(* tmp_return);
     }
 
     bool Json::operator==(const Json & json_item) const {
@@ -354,15 +354,70 @@ namespace simple_json::types {
     #pragma endregion
 
     #pragma region Public Methods
+    Json Json::merge(const Json & target) const {
+        if (used_type == DataType::array_type || used_type == DataType::json_object_type) {
+            if (used_type != target.used_type) {
+                throw exceptions::InvalidMerge {target.used_type};
+            }
+        } else if (target.used_type == DataType::array_type || target.used_type == DataType::json_object_type) {
+            throw exceptions::InvalidMerge {};
+        }
+        Json new_json(used_type);
+        if (used_type == DataType::array_type) {
+            size_t i;
+            for (i = 0; i < size() && i < target.size(); ++i) {
+                const Json & src_item {at(i)};
+                const Json & dst_item {at(i)};
+                if (src_item == dst_item) {
+                    new_json.push_back(src_item);
+                    continue;
+                }
+                new_json.push_back(dst_item);
+            }
+            if (size() == target.size()) {
+                return new_json;
+            }
+            if (size() > target.size()) {
+                for (i = 0; i < size(); ++i) {
+                    new_json.push_back(at(i));
+                }
+            } else {
+                for (i = 0; i < target.size(); ++i) {
+                    new_json.push_back(target.at(i));
+                }
+            }
+            return new_json;
+        }
+        for (const auto & [key, value]: items()) {
+            if (target.find(key) != target.cend()) {
+                const Json & dst_item {target.at(key)};
+                if (value != dst_item) {
+                    new_json.insert({key, dst_item});
+                    continue;
+                }
+            }
+            new_json.insert({key, value});
+        }
+        for (const auto & [key, value]: target.items()) {
+            if (new_json.find(key) != new_json.end()) {
+                continue;
+            }
+            new_json.insert({key, value});
+        }
+        return new_json;
+    }
+
     JsonPatch Json::get_diff(const Json & dst) const {
         return JsonPatch::PatchBuilder {* this, dst}.create_patch();
     }
+
     void Json::update(const Json & target) {
         check_type(DataType::json_object_type);
         for (const pair_type & item: target.items()) {
             this->at(item.first) = item.second;
         }
     }
+
     size_t Json::size() const noexcept {
         switch (used_type) {
             case DataType::string_type:
@@ -478,23 +533,23 @@ namespace simple_json::types {
         }
     }
 
-    Json & Json::at(const size_t index) {
+    Json & Json::at(const size_t index) const {
         check_type(DataType::array_type);
         return data_array->at(index);
     }
 
-    Json & Json::at(const std::string & index) {
+    Json & Json::at(const std::string & index) const {
         check_type(DataType::json_object_type);
         return data_json_object->at(JsonKey {index});
     }
 
-    Json & Json::at(const JsonKey & key) {
+    Json & Json::at(const JsonKey & key) const {
         check_type(DataType::json_object_type);
         return data_json_object->at(key);
     }
 
-    Json & Json::at(const JsonPointer & json_pointer) {
-        Json * tmp_return {this};
+    Json & Json::at(const JsonPointer & json_pointer) const {
+        const Json * tmp_return {this};
         can_iterate();
         for (const std::string & index: * json_pointer.pointer_list) {
             if (tmp_return->used_type == DataType::array_type) {
@@ -507,7 +562,7 @@ namespace simple_json::types {
                 tmp_return = & tmp_return->at(index);
             }
         }
-        return * tmp_return;
+        return const_cast<Json &>(* tmp_return);
     }
 
     void Json::erase(size_t index) {

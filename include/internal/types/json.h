@@ -19,6 +19,7 @@
 #include "json_pointer.h"
 #include <algorithm>
 #include <functional>
+#include "exceptions/invalid_merge.h"
 
 namespace simple_json::types {
     class JsonKey;
@@ -173,18 +174,19 @@ namespace simple_json::types {
         friend JsonPatch;
 
         // Operator Overloading
-        Json & operator[](const size_t & index);
-        Json & operator[](const char * & index);
-        Json & operator[](const JsonKey & index);
-        Json & operator[](const JsonPointer & json_pointer);
+        Json & operator[](const size_t & index) const;
+        Json & operator[](const char * & index) const;
+        Json & operator[](const JsonKey & index) const;
+        Json & operator[](const JsonPointer & json_pointer) const;
         bool operator==(const Json & json_item) const;
         bool operator!=(const Json & json_item) const;
 
         // Public Method
-        Json & at(size_t);
-        Json & at(const std::string &);
-        Json & at(const JsonPointer &);
-        Json & at(const JsonKey &);
+        Json merge(const Json & target) const;
+        Json & at(size_t) const;
+        Json & at(const std::string &) const;
+        Json & at(const JsonPointer &) const;
+        Json & at(const JsonKey &) const;
         const_iterator get_item(size_t index) const;
         JsonPatch get_diff(const Json & dst) const;
         void erase(size_t);
