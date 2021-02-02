@@ -8,8 +8,9 @@ using namespace types;
 using namespace indent;
 
 int main() {
-    Json src(loads(R"({"n": "1", "a": "2"})"));
-    std::string s {dumps(src, 2)};
-    std::cout << s;
+    Json src(loads(R"([1, 2, 3, 6, 4, 7, 11])"));
+    Json dst(loads(R"([1, 3, 2, 6, 5, 7])"));
+    Json merged(src.merge(dst));
+    std::cout << merged << std::endl;
     return 0;
 }

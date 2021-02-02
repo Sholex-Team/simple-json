@@ -367,7 +367,7 @@ namespace simple_json::types {
             size_t i;
             for (i = 0; i < size() && i < target.size(); ++i) {
                 const Json & src_item {at(i)};
-                const Json & dst_item {at(i)};
+                const Json & dst_item {target.at(i)};
                 if (src_item == dst_item) {
                     new_json.push_back(src_item);
                     continue;
@@ -378,11 +378,11 @@ namespace simple_json::types {
                 return new_json;
             }
             if (size() > target.size()) {
-                for (i = 0; i < size(); ++i) {
+                for (i = target.size(); i < size(); ++i) {
                     new_json.push_back(at(i));
                 }
             } else {
-                for (i = 0; i < target.size(); ++i) {
+                for (i = size(); i < target.size(); ++i) {
                     new_json.push_back(target.at(i));
                 }
             }
