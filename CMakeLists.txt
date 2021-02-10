@@ -25,6 +25,6 @@ add_executable(
         src/types/exceptions/failed_test.cpp
         src/types/exceptions/invalid_patch_operation.cpp
         src/types/exceptions/invalid_merge.cpp
-)
+        src/json_merge_patch.cpp)
 target_include_directories(simple_json PUBLIC include/external)
 target_include_directories(simple_json PRIVATE include/internal)
