@@ -10,7 +10,6 @@
 #include "types/exceptions/invalid_index.h"
 #include "types/json_key.h"
 #include "types/json_object.h"
-#include "types/json_merge_patch.h"
 #include "types/exceptions/stream_exceptions.h"
 #include "indent.h"
 #include "serializer.h"

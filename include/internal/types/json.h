@@ -27,6 +27,11 @@ namespace simple_json::types {
     class Array;
     class JsonPatch;
 
+    // Functions
+    namespace {
+        void apply_merge_patch(Json & current_item, const Json & current_patch) noexcept;
+    }
+
     class Json {
     private:
         union {
@@ -182,6 +187,7 @@ namespace simple_json::types {
         bool operator!=(const Json & json_item) const;
 
         // Public Method
+        void merge_patch(const Json & merge_patch) noexcept;
         Json merge(const Json & target) const;
         Json & at(size_t) const;
         Json & at(const std::string &) const;

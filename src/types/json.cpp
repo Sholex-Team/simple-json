@@ -1,6 +1,30 @@
 #include "types/json.h"
 
 namespace simple_json::types {
+    #pragma region Functions
+
+    namespace {
+        void apply_merge_patch(Json & current_item, const Json & current_patch) noexcept {
+            if (current_patch.type() == DataType::json_object_type) {
+                if (current_item.type() != DataType::json_object_type) {
+                    current_item = Json (DataType::json_object_type);
+                }
+                for (auto & [key, value]: current_patch.items()) {
+                    if (value.type() == DataType::null_type) {
+                        if (current_item.find(key) != current_item.end()) {
+                            current_item.erase(key);
+                        }
+                    } else {
+                        apply_merge_patch(current_item.at(key), value);
+                    }
+                }
+            } else {
+                current_item = current_patch;
+            }
+        }
+    }
+
+    #pragma endregion
     #pragma region Constructors
     Json::Json(const double data) : data_double {data}, used_type {DataType::double_type} {}
 
@@ -354,6 +378,10 @@ namespace simple_json::types {
     #pragma endregion
 
     #pragma region Public Methods
+    void Json::merge_patch(const Json & merge_patch) noexcept {
+        apply_merge_patch(* this, merge_patch);
+    }
+
     Json Json::merge(const Json & target) const {
         if (used_type == DataType::array_type || used_type == DataType::json_object_type) {
             if (used_type != target.used_type) {

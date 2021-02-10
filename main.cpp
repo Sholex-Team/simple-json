@@ -17,6 +17,7 @@ int main() {
             }
     })"));
     Json merge_patch(loads(R"({"n": null, "f": {"a": 99, "n": null}})"));
-    std::cout << apply_merge_patch(src, merge_patch) << std::endl;
+    src.merge_patch(merge_patch);
+    std::cout << src << std::endl;
     return 0;
 }
