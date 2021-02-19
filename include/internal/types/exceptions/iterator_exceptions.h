@@ -2,7 +2,7 @@
 #define SIMPLE_JSON_ITERATOR_EXCEPTIONS_H
 
 #include "base_exception.h"
-#include "types/enum_types.h"
+#include "../enum_types.h"
 
 namespace simple_json::iterators::exceptions {
     class InvalidDereference : public base_exceptions::JsonException {

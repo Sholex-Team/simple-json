@@ -2,7 +2,7 @@
 #define SIMPLE_JSON_BAD_CONVERSION_H
 
 #include "base_exception.h"
-#include "types/enum_types.h"
+#include "../enum_types.h"
 
 namespace simple_json::types::exceptions {
         class BadConversion : public base_exceptions::JsonException {

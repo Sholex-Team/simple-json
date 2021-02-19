@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <ostream>
-#include "indent.h"
+#include "../indent.h"
 #include <iomanip>
 
 namespace simple_json::types {

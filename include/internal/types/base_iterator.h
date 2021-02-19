@@ -1,8 +1,8 @@
 #ifndef SIMPLE_JSON_BASE_ITERATOR_H
 #define SIMPLE_JSON_BASE_ITERATOR_H
 
-#include "types/json_key.h"
-#include "types/enum_types.h"
+#include "json_key.h"
+#include "enum_types.h"
 #include "exceptions/iterator_exceptions.h"
 #include "exceptions/invalid_operator.h"
 

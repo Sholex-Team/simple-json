@@ -3,7 +3,7 @@
 
 #include <string>
 #include <vector>
-#include "json_utils.h"
+#include "../json_utils.h"
 #include "json_key.h"
 #include "exceptions/invalid_pointer.h"
 #include "enum_types.h"

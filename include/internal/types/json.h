@@ -15,7 +15,7 @@
 #include "exceptions/iterator_exceptions.h"
 #include <utility>
 #include "exceptions/invalid_operator.h"
-#include "json_utils.h"
+#include "../json_utils.h"
 #include "json_pointer.h"
 #include <algorithm>
 #include <functional>
