@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.17)
 project("Simple JSON" VERSION 1.0.0)
 set(CMAKE_CXX_STANDARD 17)
-add_library(
+add_executable(
         simple_json
-        SHARED
+        main.cpp
         src/types/exceptions/stream_exceptions.cpp
         src/types/array_type.cpp
         src/types/exceptions/bad_conversion.cpp
