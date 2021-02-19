@@ -1,9 +1,8 @@
 cmake_minimum_required(VERSION 3.17)
-project("Simple JSON" VERSION 1.0.0)
+project(simple_json VERSION 1.0.0)
 set(CMAKE_CXX_STANDARD 17)
-add_executable(
+add_library(
         simple_json
-        main.cpp
         src/types/exceptions/stream_exceptions.cpp
         src/types/array_type.cpp
         src/types/exceptions/bad_conversion.cpp
@@ -26,5 +25,8 @@ add_executable(
         src/types/exceptions/invalid_patch_operation.cpp
         src/types/exceptions/invalid_merge.cpp
 )
-target_include_directories(simple_json PUBLIC include/external)
+target_include_directories(simple_json INTERFACE include/external)
 target_include_directories(simple_json PRIVATE include/internal)
+install(TARGETS simple_json DESTINATION lib/${PROJECT_NAME})
+install(FILES include/external/simple_json.h DESTINATION include/${PROJECT_NAME})
+install(DIRECTORY include/internal DESTINATION include/${PROJECT_NAME})
