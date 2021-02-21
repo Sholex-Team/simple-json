@@ -70,7 +70,7 @@ write_basic_package_version_file(
 
 # Installing
 if (INSTALL_LIB)
-    message(STATUS "Install Project In Your System")
+    message(STATUS "Using Simple JSON as main project")
     if (CMAKE_COMPILER_IS_GNUCC)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -w")
     endif ()
@@ -85,5 +85,5 @@ if (INSTALL_LIB)
     )
     install(FILES ${CONFIG_FILE} ${VERSION_CONFIG_FILE} DESTINATION ${CONFIG_INSTALL_DIR})
 else ()
-    message(WARNING "Use Project With SubProject")
+    message(WARNING "Using Simple JSON as subproject")
 endif ()
