@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.17)
 project(simple_json VERSION 1.0.0)
 set(CMAKE_CXX_STANDARD 17)
-set(MAIN_PROJECT OFF)
 
+set(MAIN_PROJECT OFF)
 if (CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
     set(MAIN_PROJECT ON)
-endif()
+endif ()
 
 # Includes
 include(GNUInstallDirs)
@@ -70,12 +70,13 @@ write_basic_package_version_file(
 
 # Installing
 if (INSTALL_LIB)
+    message(STATUS "Install Project In Your System")
     if (CMAKE_COMPILER_IS_GNUCC)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -w")
-    endif()
+    endif ()
     if (MSVC)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w")
-    endif()
+    endif ()
     install(TARGETS simple_json DESTINATION ${LIB_DIR} EXPORT ${TARGETS_EXPORT_NAME})
     install(FILES include/external/simple_json.h DESTINATION ${INCLUDE_DIR})
     install(DIRECTORY include/internal/ DESTINATION ${INCLUDE_DIR})
@@ -83,4 +84,6 @@ if (INSTALL_LIB)
             EXPORT ${TARGETS_EXPORT_NAME} FILE ${TARGETS_EXPORT_NAME}.cmake DESTINATION ${CONFIG_INSTALL_DIR}
     )
     install(FILES ${CONFIG_FILE} ${VERSION_CONFIG_FILE} DESTINATION ${CONFIG_INSTALL_DIR})
-endif()
+else ()
+    message(WARNING "Use Project With SubProject")
+endif ()
