@@ -218,7 +218,7 @@ namespace simple_json::types {
             case DataType::integer_type:
                 return data_int != json_item.data_int;
             case DataType::string_type:
-                return * data_string != * json_item.data_string;;
+                return * data_string != * json_item.data_string;
             case DataType::double_type:
                 return data_double != json_item.data_double;
             case DataType::boolean_type:
