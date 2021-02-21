@@ -78,5 +78,4 @@ namespace simple_json::types {
     };
 }
 
-
 #endif //SIMPLE_JSON_JSON_PATCH_H
