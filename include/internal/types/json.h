@@ -24,6 +24,7 @@ namespace simple_json::types {
     class JsonKey;
     class JsonObject;
     class Array;
+    class JsonPatch;
 
     // Functions
     namespace {
