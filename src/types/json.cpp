@@ -1,5 +1,4 @@
 #include "types/json.h"
-#include "types/json_patch.h"
 
 namespace simple_json::types {
     #pragma region Functions
