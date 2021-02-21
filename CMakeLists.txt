@@ -7,6 +7,22 @@ if (CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
     set(MAIN_PROJECT ON)
 endif()
 
+# Includes
+include(GNUInstallDirs)
+include(CMakePackageConfigHelpers)
+
+# Options
+option(INSTALL_LIB "Install CMake targets during install step." ${MAIN_PROJECT})
+
+# Variables
+set(CONFIG_INSTALL_DIR "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}")
+set(TARGETS_EXPORT_NAME "${PROJECT_NAME}Targets")
+set(CONFIG_TEMPLATE "cmake/Config.cmake.in")
+set(CONFIG_FILE "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake")
+set(VERSION_CONFIG_FILE "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion")
+set(LIB_DIR "${CMAKE_INSTALL_LIBDIR}/${PROJECT_NAME}")
+set(INCLUDE_DIR "${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}")
+
 add_library(
         simple_json
         src/types/exceptions/stream_exceptions.cpp
@@ -35,31 +51,30 @@ target_include_directories(
         simple_json INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>$<INSTALL_INTERFACE:include>
 )
 target_include_directories(simple_json PRIVATE include/internal)
-install(TARGETS simple_json DESTINATION lib/${PROJECT_NAME} EXPORT simple_jsonTargets)
-install(FILES include/external/simple_json.h DESTINATION include/${PROJECT_NAME})
-install(DIRECTORY include/internal/ DESTINATION include/${PROJECT_NAME})
-install(EXPORT simple_jsonTargets FILE simple_jsonTargets.cmake DESTINATION lib/cmake/${PROJECT_NAME})
-include(CMakePackageConfigHelpers)
 
 # Generate the config file that is includes the exports
 configure_package_config_file(
-        ${CMAKE_CURRENT_SOURCE_DIR}/cmake/Config.cmake.in
-        "${CMAKE_CURRENT_BINARY_DIR}/simple_jsonConfig.cmake"
-        INSTALL_DESTINATION "lib/cmake/simple_json"
+        ${CONFIG_TEMPLATE}
+        ${CONFIG_FILE}
+        INSTALL_DESTINATION ${CONFIG_INSTALL_DIR}
         NO_SET_AND_CHECK_MACRO
         NO_CHECK_REQUIRED_COMPONENTS_MACRO
 )
 
 # Generate the version file for the config file
 write_basic_package_version_file(
-        "${CMAKE_CURRENT_BINARY_DIR}/simple_jsonConfigVersion.cmake"
+        ${VERSION_CONFIG_FILE}
         VERSION "1.0.0"
         COMPATIBILITY AnyNewerVersion
 )
 
-# Install the configuration file
-install(
-        FILES
-        ${CMAKE_CURRENT_BINARY_DIR}/simple_jsonConfig.cmake ${CMAKE_CURRENT_BINARY_DIR}/simple_jsonConfigVersion.cmake
-        DESTINATION lib/cmake/simple_json
-)
+# Installing
+if (INSTALL_LIB)
+    install(TARGETS simple_json DESTINATION ${LIB_DIR} EXPORT ${TARGETS_EXPORT_NAME})
+    install(FILES include/external/simple_json.h DESTINATION ${INCLUDE_DIR})
+    install(DIRECTORY include/internal/ DESTINATION ${INCLUDE_DIR})
+    install(
+            EXPORT ${TARGETS_EXPORT_NAME} FILE ${TARGETS_EXPORT_NAME}.cmake DESTINATION ${INCLUDE_DIR}
+    )
+    install(FILES ${VERSION_CONFIG_FILE} DESTINATION ${CONFIG_INSTALL_DIR})
+endif()
