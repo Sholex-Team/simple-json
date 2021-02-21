@@ -64,7 +64,7 @@ configure_package_config_file(
 # Generate the version file for the config file
 write_basic_package_version_file(
         ${VERSION_CONFIG_FILE}
-        VERSION "1.0.0"
+        VERSION ${CMAKE_PROJECT_VERSION}
         COMPATIBILITY AnyNewerVersion
 )
 
