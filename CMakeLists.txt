@@ -70,6 +70,12 @@ write_basic_package_version_file(
 
 # Installing
 if (INSTALL_LIB)
+    if (CMAKE_COMPILER_IS_GNUCC)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -w")
+    endif()
+    if (MSVC)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
+    endif()
     install(TARGETS simple_json DESTINATION ${LIB_DIR} EXPORT ${TARGETS_EXPORT_NAME})
     install(FILES include/external/simple_json.h DESTINATION ${INCLUDE_DIR})
     install(DIRECTORY include/internal/ DESTINATION ${INCLUDE_DIR})
