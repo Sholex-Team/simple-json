@@ -14,8 +14,6 @@
 #include <algorithm>
 
 namespace simple_json::types {
-    class Json;
-
     class JsonPatch {
     private:
         Json * patch_data;
