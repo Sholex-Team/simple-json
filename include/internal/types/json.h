@@ -5,7 +5,6 @@
 #include "enum_types.h"
 #include "json_object.h"
 #include "array_type.h"
-#include "json_patch.h"
 #include "base_iterator.h"
 #include "exceptions/invalid_operation.h"
 #include <string>
