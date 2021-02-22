@@ -54,3 +54,6 @@ out/
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
+
+# make file
+make/
