@@ -1,5 +1,4 @@
 #include "types/json_patch.h"
-#include <iostream>
 
 namespace simple_json::types {
 
