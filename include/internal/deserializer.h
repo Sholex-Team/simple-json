@@ -12,6 +12,7 @@
 #include <iostream>
 #include "types/exceptions/stream_exceptions.h"
 #include "json_utils.h"
+#include <sstream>
 
 namespace simple_json::deserializer {
     types::Json loads(const std::string & json_text);
