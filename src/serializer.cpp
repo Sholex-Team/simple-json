@@ -67,4 +67,3 @@ namespace simple_json::serializer {
         }
     }
 }
-
