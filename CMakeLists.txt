@@ -23,8 +23,9 @@ set(VERSION_CONFIG_FILE "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersio
 set(LIB_DIR "${CMAKE_INSTALL_LIBDIR}/${PROJECT_NAME}")
 set(INCLUDE_DIR "${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}")
 
-add_library(
+add_executable(
         simple_json
+        main.cpp
         src/types/exceptions/stream_exceptions.cpp
         src/types/array_type.cpp
         src/types/exceptions/bad_conversion.cpp
@@ -69,7 +70,7 @@ write_basic_package_version_file(
 )
 
 # Installing
-if (INSTALL_LIB)
+if (OFF)
     message(STATUS "Using Simple JSON as main project")
     install(TARGETS simple_json DESTINATION ${LIB_DIR} EXPORT ${TARGETS_EXPORT_NAME})
     install(FILES include/external/simple_json.h DESTINATION ${INCLUDE_DIR})
