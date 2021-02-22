@@ -22,7 +22,7 @@ set(CONFIG_FILE "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake")
 set(VERSION_CONFIG_FILE "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake")
 set(LIB_DIR "${CMAKE_INSTALL_LIBDIR}/${PROJECT_NAME}")
 set(INCLUDE_DIR "${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}")
-set(EXTERNAL_INCLUDE_DIR "/include/external")
+set(EXTERNAL_INCLUDE_DIR "")
 
 add_library(
         simple_json
@@ -51,7 +51,7 @@ add_library(
 target_include_directories(
         simple_json
         INTERFACE
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}${EXTERNAL_INCLUDE_DIR}>$<INSTALL_INTERFACE:${EXTERNAL_INCLUDE_DIR}>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/external>$<INSTALL_INTERFACE:include/${PROJECT_NAME}/external>
 )
 target_include_directories(simple_json PRIVATE include/internal)
 
@@ -75,8 +75,8 @@ write_basic_package_version_file(
 if (INSTALL_LIB)
     message(STATUS "Using Simple JSON as main project")
     install(TARGETS simple_json DESTINATION ${LIB_DIR} EXPORT ${TARGETS_EXPORT_NAME})
-    install(FILES include/external/simple_json.h DESTINATION ${INCLUDE_DIR})
-    install(DIRECTORY include/internal/ DESTINATION ${INCLUDE_DIR})
+    install(FILES  DESTINATION ${INCLUDE_DIR})
+    install(DIRECTORY include/external include/internal DESTINATION ${INCLUDE_DIR})
     install(
             EXPORT ${TARGETS_EXPORT_NAME} FILE ${TARGETS_EXPORT_NAME}.cmake DESTINATION ${CONFIG_INSTALL_DIR}
     )
