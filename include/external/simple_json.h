@@ -8,6 +8,7 @@
 #include "types/json_object.h"
 #include "types/json_patch.h"
 #include "types/json_pointer.h"
+#include "types/base_iterator.h"
 
 #include "indent.h"
 #include "serializer.h"
