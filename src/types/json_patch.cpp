@@ -1,4 +1,5 @@
 #include "types/json_patch.h"
+#include <iostream>
 
 namespace simple_json::types {
 
@@ -250,16 +251,16 @@ namespace simple_json::types {
     }
 
     void JsonPatch::PatchBuilder::replace_item(const JsonPointer & path, const Json & item) {
+        new_patch->patch_data->push_back({
+             {"op"_json_key, "replace"},
+             {"path"_json_key, static_cast<std::string>(path)},
+             {"value"_json_key, item}
+        });
         if (current_src->type() == DataType::array_type) {
             current_src->at(path.get_index()) = item;
         } else {
             dst->erase(path);
         }
-        new_patch->patch_data->push_back({
-            {"op"_json_key, "replace"},
-            {"path"_json_key, static_cast<std::string>(path)},
-            {"value"_json_key, item}
-        });
     }
 
     void JsonPatch::PatchBuilder::move_item(const JsonPointer & old_path, const JsonPointer & new_path) {
