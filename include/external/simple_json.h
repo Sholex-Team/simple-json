@@ -11,6 +11,8 @@
 #include "types/json_key.h"
 #include "types/json_object.h"
 #include "types/exceptions/stream_exceptions.h"
+#include "types/json_patch.h"
+#include "types/json_pointer.h"
 #include "indent.h"
 #include "serializer.h"
 #include "deserializer.h"

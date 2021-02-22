@@ -7,7 +7,6 @@
 #include "array_type.h"
 #include "base_iterator.h"
 #include "exceptions/invalid_operation.h"
-#include "json_patch.h"
 #include <string>
 #include "enum_types.h"
 #include "exceptions/bad_conversion.h"
@@ -25,6 +24,7 @@ namespace simple_json::types {
     class JsonKey;
     class JsonObject;
     class Array;
+    class JsonPatch;
 
     // Functions
     namespace {
