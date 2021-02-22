@@ -57,3 +57,8 @@ out/
 
 # make file
 make/
+
+# File Visual Studio
+out/
+.vs/
+CMakeSettings.json
