@@ -22,6 +22,7 @@ set(CONFIG_FILE "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake")
 set(VERSION_CONFIG_FILE "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake")
 set(LIB_DIR "${CMAKE_INSTALL_LIBDIR}/${PROJECT_NAME}")
 set(INCLUDE_DIR "${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}")
+set(EXTERNAL_INCLUDE_DIR "/include/external")
 
 add_library(
         simple_json
@@ -48,7 +49,9 @@ add_library(
         src/types/exceptions/invalid_merge.cpp
 )
 target_include_directories(
-        simple_json INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>$<INSTALL_INTERFACE:include>
+        simple_json
+        INTERFACE
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}${EXTERNAL_INCLUDE_DIR}>$<INSTALL_INTERFACE:${EXTERNAL_INCLUDE_DIR}>
 )
 target_include_directories(simple_json PRIVATE include/internal)
 
