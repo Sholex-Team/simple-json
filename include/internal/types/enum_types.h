@@ -5,7 +5,7 @@
 #include <string>
 
 namespace simple_json::types {
-    enum DataType : std::uint8_t {
+    enum class DataType : std::uint8_t {
         integer_type,
         string_type,
         double_type,
@@ -18,7 +18,7 @@ namespace simple_json::types {
         unknown
     };
 
-    enum IteratorTypes : std::uint8_t  {
+    enum class IteratorTypes : std::uint8_t  {
         array_iterator_type,
         json_object_iterator_type
     };
