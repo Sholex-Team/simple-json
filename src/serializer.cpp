@@ -9,11 +9,11 @@ namespace simple_json::serializer {
         return stream.str();
     }
 
-    void dump(types::Json & json, const std::string & file_path, const size_t local_indent) {
+    void dump(const types::Json & json, const std::string & file_path, const size_t local_indent) {
         Dump {file_path, local_indent}.dump(json);
     }
 
-    void dump(types::Json & json, std::ofstream & file_stream, const size_t local_indent) {
+    void dump(const types::Json & json, std::ofstream & file_stream, const size_t local_indent) {
         if (!file_stream.is_open()) {
             throw exceptions::WritingToFileException {};
         }
