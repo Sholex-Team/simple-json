@@ -93,7 +93,7 @@ namespace simple_json::types {
     }
 
     size_t JsonPointer::get_index() const {
-        check_pointer(array_type);
+        check_pointer(DataType::array_type);
         return std::strtoul(pointer_list->back().c_str(), nullptr, 10);
     }
 
