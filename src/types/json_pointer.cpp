@@ -109,7 +109,7 @@ namespace simple_json::types {
         std::string tmp {* pointer_text};
         std::string last_pointer {pointer_list->back()};
         utils::serialize_json_pointer(last_pointer);
-        utils::replace_str(tmp, '/' + last_pointer, "");
+        tmp = tmp.substr(0, tmp.length() - (last_pointer.length() + 1));
         if (tmp.empty()) {
             tmp.push_back('/');
         }
