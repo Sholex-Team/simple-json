@@ -61,13 +61,13 @@ namespace simple_json::types {
             switch (p.second.used_type) {
                 case DataType::json_object_type:
                     p.second.data_json_object->stream_with_indent(os, local_indent + indent::indent_length);
-                    continue;
+                    break;
                 case DataType::array_type:
                     p.second.data_array->stream_with_indent(os, local_indent + indent::indent_length);
-                    continue;
+                    break;
                 case DataType::string_type:
-                    os << p.second.serialize() << (p.first == std::prev(end())->first ? "" : ", ");
-                    continue;
+                    os << p.second.serialize();
+                    break;
                 default:
                     os << p.second;
             }
