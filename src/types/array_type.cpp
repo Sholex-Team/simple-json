@@ -27,7 +27,7 @@ namespace simple_json::types {
         os << '[';
         for (const Json & item: * this) {
             os << ((item.type() == DataType::string_type) ? item.serialize() : item)
-            << ( item == *std::prev(end()) ? "" : ", ");
+            << (item == *std::prev(end()) ? "" : ", ");
         }
         os << ']';
         return os;
@@ -53,7 +53,7 @@ namespace simple_json::types {
                 default:
                     os << item;
             }
-            os << ( item == *std::prev(end()) ? "" : ",");
+            os << (item == *std::prev(end()) ? "" : ",");
         }
         os << '\n' << std::setw(local_indent - indent_length + 1) << ']';
         return os;
