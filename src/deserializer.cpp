@@ -424,11 +424,6 @@ namespace simple_json::deserializer {
         }
     }
 
-    /**
-     * deserialize as text json
-     * @param json_text JSON serialized text
-     * @return Json deserialized object
-     */
     simple_json::types::Json loads(const std::string & json_text) {
         return Deserializer {}.deserialize(std::stringstream {json_text});
     }
