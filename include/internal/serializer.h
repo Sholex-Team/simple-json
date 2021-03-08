@@ -13,8 +13,8 @@
 
 namespace simple_json::serializer {
     std::string dumps(const types::Json & json, size_t local_indent = 0);
-    void dump(const types::Json &, const std::string & file_path, size_t local_indent = 0);
-    void dump(const types::Json &, std::ofstream & file_stream, size_t local_indent = 0);
+    void dump(const types::Json & json, const std::string & file_path, size_t local_indent = 0);
+    void dump(const types::Json & json, std::ofstream & file_stream, size_t local_indent = 0);
 
     namespace {
         class Dump {
