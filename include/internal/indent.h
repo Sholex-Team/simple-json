@@ -1,6 +1,3 @@
-/**
- * \dontinclude
- */
 
 #ifndef SIMPLE_JSON_INDENT_H
 #define SIMPLE_JSON_INDENT_H
