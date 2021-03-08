@@ -4,8 +4,16 @@
 #include <ostream>
 
 namespace simple_json::indent {
+    /**
+     * Test
+     */
     struct SetIndent {};
 
+    /**
+     * size indent_length
+     *
+     * @showinitializer
+     */
     extern size_t indent_length;
 
     inline SetIndent set_indent(size_t length = 2)  {
