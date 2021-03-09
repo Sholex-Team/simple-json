@@ -79,4 +79,5 @@ namespace simple_json::indent {
  *
  * This is an example of indentation usage on ostream.
 */
+
 #endif //SIMPLE_JSON_INDENT_H
