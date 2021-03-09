@@ -5,12 +5,6 @@
 #include <ostream>
 
 namespace simple_json::indent {
-    /*! @example indent.cpp
-     * @brief Indentation example.
-     *
-     * This is an example of indentation usage on ostream.
-    */
-
     struct SetIndent {};
     /*! @struct SetIndent
      * @brief Indent dummy struct.
@@ -79,4 +73,10 @@ namespace simple_json::indent {
  * Using the functions and variables provided by this namespace, your will be able to control indentation applied on
  * ostream during serialization process.
  */
+
+/*! @example indent.cpp
+ * @brief Indentation example.
+ *
+ * This is an example of indentation usage on ostream.
+*/
 #endif //SIMPLE_JSON_INDENT_H
