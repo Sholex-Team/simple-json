@@ -12,7 +12,6 @@ namespace simple_json::deserializer::exceptions {
      */
     class ParsingException : public base_exceptions::JsonException {
     public:
-        /*! Parsing error types */
         enum Errors : std::uint8_t {
             illegal_array_split, /*!< Used when there is an illegal "," inside the serialized JSON. */
             illegal_key_split, /*!< Used when there is an illegal ":" inside the serialized JSON. */
