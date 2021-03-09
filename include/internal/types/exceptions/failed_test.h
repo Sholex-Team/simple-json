@@ -4,6 +4,11 @@
 #include "base_exception.h"
 
 namespace simple_json::types::exceptions {
+    /*!
+     * @brief JsonPointer failed test exception.
+     *
+     * This exceptions is thrown when a JsonPointer test fails.
+     */
     class FailedTest : public base_exceptions::JsonException {
     public:
         // Public Methods

@@ -4,17 +4,17 @@ namespace simple_json::types::exceptions {
     const char * InvalidIndexException::what() const noexcept {
         switch (used_type) {
             case DataType::integer_type:
-                return "invalid used index integer !";
+                return "Used an index on integer type !";
             case DataType::double_type:
-                return "invalid used index double !";
+                return "Used an index on double type !";
             case DataType::json_object_type:
-                return "invalid used index(\"integer\") in json !";
+                return "Invalid index (\"integer\") used on JsonObject type !";
             case DataType::string_type:
-                return "invalid used index(\"string\") in string !";
+                return "Used an index on string type !";
             case DataType::array_type:
-                return "invalid used index(\"string\") in array !";
+                return "Invalid index (\"string\") used on Array type !";
             default:
-                return "Bad indexing !";
+                return "Invalid index used !";
         }
     }
 
