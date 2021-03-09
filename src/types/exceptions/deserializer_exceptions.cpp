@@ -3,8 +3,6 @@
 namespace simple_json::deserializer::exceptions {
     #pragma region Constructors
 
-    ParsingException::ParsingException() : error {Errors::unknown} {}
-
     ParsingException::ParsingException(const Errors error) : error {error} {}
 
     #pragma endregion
