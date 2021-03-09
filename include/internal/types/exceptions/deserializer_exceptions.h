@@ -6,7 +6,7 @@
 
 namespace simple_json::deserializer::exceptions {
     /*!
-     * Parsing Exception thrown when serialized JSON is invalid.
+     * @brief Parsing Exception thrown when serialized JSON is invalid.
      *
      * This exceptions will be thrown during deserialization if the serialized string/ifstream data is invalid.
      */
