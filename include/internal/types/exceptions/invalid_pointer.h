@@ -4,6 +4,11 @@
 #include "base_exception.h"
 
 namespace simple_json::types::exceptions {
+    /*!
+     * @brief Invalid Pointer exception.
+     *
+     * This exception throws when used Json Pointer string is invalid.
+     */
     class InvalidPointer : public base_exceptions::JsonException {
     public:
         const char * what() const noexcept override;
