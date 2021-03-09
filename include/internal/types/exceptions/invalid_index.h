@@ -11,7 +11,7 @@ namespace simple_json::types::exceptions {
      * This exception is thrown when an invalid index is used on a Json object.
      * e.g: Using int as an index when Json object type is JsonObject.
      */
-    class InvalidIndexException : public base_exceptions::JsonException {
+    class InvalidIndex : public base_exceptions::JsonException {
     private:
         DataType used_type;
     public:
@@ -20,12 +20,12 @@ namespace simple_json::types::exceptions {
 
         // Constructors
         /*!
-         * @brief InvalidIndexException constructor.
+         * @brief InvalidIndex constructor.
          *
          * This constructor accepts an optional argument representing the object type which the index is being used on.
          * @param used_type Object Type.
          */
-        explicit InvalidIndexException(DataType used_type = DataType::unknown);
+        explicit InvalidIndex(DataType used_type = DataType::unknown);
     };
 }
 

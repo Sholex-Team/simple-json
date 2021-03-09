@@ -615,7 +615,7 @@ namespace simple_json::types {
         } else if (target.used_type == DataType::json_object_type){
             target.data_json_object->erase(json_pointer.get_key());
         } else {
-            throw exceptions::InvalidIndexException {used_type};
+            throw exceptions::InvalidIndex {used_type};
         }
     }
 

@@ -1,7 +1,7 @@
 #include "types/exceptions/invalid_index.h"
 
 namespace simple_json::types::exceptions {
-    const char * InvalidIndexException::what() const noexcept {
+    const char * InvalidIndex::what() const noexcept {
         switch (used_type) {
             case DataType::integer_type:
                 return "Used an index on integer type !";
@@ -18,6 +18,6 @@ namespace simple_json::types::exceptions {
         }
     }
 
-    InvalidIndexException::InvalidIndexException(const DataType used_type) : JsonException(),
-    used_type (used_type) {}
+    InvalidIndex::InvalidIndex(const DataType used_type) : JsonException(),
+                                                           used_type (used_type) {}
 }
