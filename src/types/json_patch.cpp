@@ -118,7 +118,7 @@ namespace simple_json::types {
                     }
                 }
             } else {
-                throw exceptions::InvalidPatchOperation {op};
+                throw exceptions::InvalidPatchOperation {};
             }
         }
     }

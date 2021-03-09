@@ -1,9 +1,11 @@
 #include "types/exceptions/invalid_patch_operation.h"
-#include <utility>
 
-simple_json::types::exceptions::InvalidPatchOperation::InvalidPatchOperation(std::string operation) :
-        operation{std::move(operation)} {}
+namespace simple_json::types::exceptions {
+    #pragma region Public Methods
 
-const char * simple_json::types::exceptions::InvalidPatchOperation::what() const noexcept {
-    return "Operation used invalid !";
+    const char * simple_json::types::exceptions::InvalidPatchOperation::what() const noexcept {
+        return "Operation used invalid !";
+    }
+
+    #pragma endregion
 }
