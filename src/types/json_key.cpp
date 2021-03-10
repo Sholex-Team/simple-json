@@ -28,11 +28,6 @@ namespace simple_json::types {
         return os;
     }
 
-    std::ostream & operator<<(std::ostream & os, const JsonKey && json_key) {
-        os << json_key;
-        return os;
-    }
-
     bool JsonKey::operator<(const JsonKey & r_json_key) const {
         return * key < * r_json_key.key;
     }
