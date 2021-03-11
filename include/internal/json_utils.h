@@ -7,7 +7,7 @@
 namespace simple_json::utils {
     /*!
      * @brief Takes a string and splits it based on a word.
-     * @param Base string which is going to turn into a vector using the target word.
+     * @param base string which is going to turn into a vector using the target word.
      * @param target The word which is going to be used for splitting the base string.
      * @return std::vector containing parts of base string parted using the target word.
      */
@@ -27,21 +27,21 @@ namespace simple_json::utils {
      *
      * This function can replace a value containing one or many words or characters with another value without need of
      * having the same character count as the old_value.
-     * @param base[out] The base string which is going to be changed.
-     * @param old_value[in] The old value which is going to be replaced with new_value.
-     * @param new_value[in] The new value which is going to replace the old_value.
+     * @param base [out] The base string which is going to be changed.
+     * @param old_value [in] The old value which is going to be replaced with new_value.
+     * @param new_value [in] The new value which is going to replace the old_value.
      */
     void replace_str(std::string & base, const std::string & old_value, const std::string & new_value);
 
     /*!
      * @brief Serializes a JSON Pointer string.
-     * @param base[out] The JSON Pointer string which is going to get serialized.
+     * @param base [out] The JSON Pointer string which is going to get serialized.
      */
     void serialize_json_pointer(std::string & base);
 
     /*!
      * @brief Deserializes a JSON Pointer string.
-     * @param base[out] The JSON Pointer string which is going to get deserialized.
+     * @param base [out] The JSON Pointer string which is going to get deserialized.
      */
     void deserialize_json_pointer(std::string & base);
 }

@@ -84,8 +84,8 @@ namespace simple_json::types {
      *
      * This Array stream insertion overloaded operator provides the ability to serialize Array object and insert it into
      * the stdout stream.
-     * @param os[out] Output Stream.
-     * @param array[in] Array which is going to get serialized.
+     * @param os [out] Output Stream.
+     * @param array [in] Array which is going to get serialized.
      * @return A reference to the Output Stream(os).
      */
     std::ostream & operator<<(std::ostream & os, const Array & array);

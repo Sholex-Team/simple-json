@@ -14,27 +14,76 @@
 #include <algorithm>
 
 namespace simple_json::types {
+    /*!
+     * @brief Json Patch type class.
+     *
+     * This type is used to store JSON Patch data. It also provides functionalities such as applying patches on Json
+     * objects.
+     */
     class JsonPatch {
     private:
         Json * patch_data;
     public:
         // Constructors
+        /*!
+         * @brief JsonPatch default constructor.
+         *
+         * This constructor creates an empty JsonPatch object.
+         */
         JsonPatch();
-        JsonPatch(const Json &);
-        JsonPatch(const JsonPatch &);
-        JsonPatch(JsonPatch &&) noexcept;
+
+        /*!
+         * @brief JsonPatch Json constructor.
+         *
+         * This constructor accepts a Json object as an argument and creates a JsonPatch from it.
+         */
+        explicit JsonPatch(const Json &);
+
+        /*!
+         * @brief JsonPatch copy constructor.
+         *
+         * JsonPatch copy constructor which creates a new JsonPatch based on another JsonPatch.
+         * @param json_patch JsonPatch object which is about to get copied.
+         */
+        JsonPatch(const JsonPatch & json_patch);
+
+        /*!
+         * @brief JsonPatch move constructor.
+         *
+         * JsonPatch move constructor moves an already existing JsonPatch object into a new one.
+         * @param json_patch JsonPatch object which is about to get moved.
+         */
+        JsonPatch(JsonPatch && json_patch) noexcept;
 
         // Destructors
+        /*!
+         * @brief JsonPatch destructor.
+         *
+         * This destructor deletes patch_data private property which is storing a Json object representing a JSON Patch.
+         */
         ~JsonPatch();
 
         // Public Method
-        void apply(Json &json);
+        /*!
+         * @brief Public apply method.
+         *
+         * This public method can be used to apply a patch on an already existing Json object.
+         * @param json [out] A reference Json object which is about to get patched.
+         */
+        void apply(Json & json);
+
+        /*!
+         * @brief Returns the JSON Patch data.
+         *
+         * This public method returns the Json object which is storing the patch data.
+         * @return Json object holding the patch data.
+         */
         const Json & get_json() const;
 
         // Builders
         class PatchBuilder {
         private:
-            // Properties
+            // Private Properties
             JsonPatch * new_patch {};
             Json * dst;
             Json * current_src;

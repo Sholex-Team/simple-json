@@ -59,7 +59,7 @@ namespace simple_json::types {
              * @brief JsonObject copy constructor.
              *
              * Copy constructor which is derived from std::map and copies a JsonObject into a new JsonObject.
-             * @param json_object
+             * @param json_object JsonObject which is about to get copied.
              */
             JsonObject(JsonObject & json_object) = default;
 
@@ -98,8 +98,8 @@ namespace simple_json::types {
      *
      * This overloaded stream insertion operator can be used to serialize a JsonObject object or a Json object
      * containing a JsonObject object inside.
-     * @param os[out] Output Stream.
-     * @param json_object[in] JsonObject that is going to get serialized.
+     * @param os [out] Output Stream.
+     * @param json_object [in] JsonObject that is going to get serialized.
      * @return A reference to the Output Stream passed into the function.
      */
     std::ostream & operator<<(std::ostream & os, const JsonObject & json_object);
