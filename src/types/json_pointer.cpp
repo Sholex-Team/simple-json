@@ -44,8 +44,8 @@ namespace simple_json::types {
         return pointer_text == json_pointer.pointer_text;
     }
 
-    JsonPointer operator""_json_ptr(const char * pointer_text, size_t) {
-        return JsonPointer {pointer_text};
+    JsonPointer operator""_json_ptr(const char * pointer_ptr, size_t) {
+        return JsonPointer {pointer_ptr};
     }
 
     std::ostream & operator<<(std::ostream & os, const JsonPointer & json_pointer) {
@@ -120,7 +120,7 @@ namespace simple_json::types {
         return pointer_list->back() == "-";
     }
 
-#pragma endregion
+    #pragma endregion
 
     #pragma region Private Methods
 
@@ -140,5 +140,5 @@ namespace simple_json::types {
         }
     }
 
-#pragma endregion
+    #pragma endregion
 }
