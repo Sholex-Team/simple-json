@@ -208,7 +208,7 @@ namespace simple_json::types {
             /*!
              * @brief iterator destructor
              *
-             * Checks the iterator type and deletes the union iterator based on it.
+             * Checks the iterator type and deletes the iterator union member based on it.
              */
             ~iterator() noexcept override;
 
@@ -340,14 +340,27 @@ namespace simple_json::types {
             /*!
              * @brief Returns the key of object that the const_iterator is pointing to.
              *
-             * This method returns a const reference to the key(first item) of the std::pair that the iterator is
-             * pointing to inside a JsonObject.
+             * This method returns a const reference to the key(first item) of the std::pair that the const_iterator is
+             * pointing to within a JsonObject.
              * @return A const reference to a JsonKey object.
              */
             const JsonKey & key() const override;
+
+            /*!
+             * @brief Returns the value of object that the const_iterator is pointing to.
+             *
+             * This method returns a const reference to the value(second item) of the std::pair that the const_iterator
+             * is pointing to within a JsonObject.
+             * @return A const reference to a Json object.
+             */
             const Json & value() const;
 
             // Destructor
+            /*!
+             * @brief const_iterator destructor
+             *
+             * Checks the const_iterator type and deletes the iterator union member based on it.
+             */
             ~const_iterator() noexcept override;
 
             // Friends
