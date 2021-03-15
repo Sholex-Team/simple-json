@@ -406,6 +406,12 @@ namespace simple_json::types {
          * @return Created const_iterator object.
          */
         const_iterator cend() const;
+
+        /*!
+         * @brief Returns the JsonObject object stored withing Json object.
+         * @return JsonObject stored inside the Json object.
+         * @throw iterators::exceptions::InvalidType Throws when the Json object type is JsonObject.
+         */
         JsonObject & items() const;
 
         // Constructors

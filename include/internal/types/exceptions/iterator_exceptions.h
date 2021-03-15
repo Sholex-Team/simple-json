@@ -37,7 +37,7 @@ namespace simple_json::iterators::exceptions {
     /*!
      * @brief Invalid Type exception.
      *
-     * This exception throws when you try to accept key, value methods on a non-JsonObject type.
+     * This exception throws when you try to access key, value or items method on a non-JsonObject type.
      */
     class InvalidType : public base_exceptions::JsonException {
     public:
