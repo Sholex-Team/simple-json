@@ -345,7 +345,7 @@ namespace simple_json::types {
              * @return A const reference to a JsonKey object.
              */
             const JsonKey & key() const override;
-            const Json & value() const;
+            Json & value() const;
 
             // Destructor
             ~const_iterator() noexcept override;

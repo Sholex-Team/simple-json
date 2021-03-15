@@ -797,7 +797,7 @@ namespace simple_json::types {
         return (* json_object_iterator)->first;
     }
 
-    const Json & Json::const_iterator::value() const {
+    Json & Json::const_iterator::value() const {
         check_json_object();
         return (* json_object_iterator)->second;
     }
