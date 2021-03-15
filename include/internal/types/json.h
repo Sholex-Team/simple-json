@@ -269,9 +269,39 @@ namespace simple_json::types {
              * @return Json object which the iterator is pointing to.
              */
             const Json & operator*() const;
+
+            /*!
+             * @brief const_iterator post-increment operator overload.
+             *
+             * Copies the const_iterator and advances the original const_iterator object and returns the copy.
+             * @return A copied const_iterator object of the original one before advancing.
+             */
             const_iterator operator++(int);
+
+            /*!
+             * @brief const_iterator pre-increment operator overload.
+             *
+             * Advances the const_iterator object by one position.
+             * @return A reference to advanced const_iterator object.
+             */
             const_iterator & operator++();
+
+            /*!
+             * @brief const_iterator addition operator.
+             *
+             * Copies the const_iterator and advances the copy by given positions.
+             * @param i Positions that the copied const_iterator object is going to advance.
+             * @return Advanced copy of const_iterator object.
+             */
             const_iterator operator+(size_t i) const;
+
+            /*!
+             * @brief const_iterator subtraction operator.
+             *
+             * Copies the const_iterator object and moves the copy back by given positions.
+             * @param i Positions that the copied const_iterator object is going to move back.
+             * @return Moved back copy of const_iterator object.
+             */
             const_iterator operator-(size_t i) const;
             const_iterator operator+=(size_t i);
             const_iterator operator-=(size_t i);
