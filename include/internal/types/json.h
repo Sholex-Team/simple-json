@@ -156,7 +156,7 @@ namespace simple_json::types {
              * @param i Positions that the iterator is going to advance.
              * @return Advanced iterator.
              */
-            iterator operator+=(size_t i);
+            iterator & operator+=(size_t i);
 
             /*!
              * @brief iteration subtraction assignment operator overload.
@@ -165,7 +165,7 @@ namespace simple_json::types {
              * @param i Positions that the iterator it going to move back.
              * @return Moved back iterator.
              */
-            iterator operator-=(size_t i);
+            iterator & operator-=(size_t i);
 
             /*!
              * @brief Not equal to operator overload.
@@ -303,8 +303,8 @@ namespace simple_json::types {
              * @return Moved back copy of const_iterator object.
              */
             const_iterator operator-(size_t i) const;
-            const_iterator operator+=(size_t i);
-            const_iterator operator-=(size_t i);
+            const_iterator & operator+=(size_t i);
+            const_iterator & operator-=(size_t i);
             bool operator!=(const const_iterator & r_iterator) const;
             bool operator==(const const_iterator & r_iterator) const;
 

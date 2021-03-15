@@ -831,13 +831,13 @@ namespace simple_json::types {
         return Json::iterator{* array_iterator - i};
     }
 
-    Json::iterator Json::iterator::operator+=(size_t i) {
+    Json::iterator & Json::iterator::operator+=(size_t i) {
         check_array_type();
         * array_iterator += i;
         return * this;
     }
 
-    Json::iterator Json::iterator::operator-=(size_t i) {
+    Json::iterator & Json::iterator::operator-=(size_t i) {
         check_array_type();
         * array_iterator -= i;
         return * this;
@@ -885,13 +885,13 @@ namespace simple_json::types {
         return Json::const_iterator {* array_iterator - i};
     }
 
-    Json::const_iterator Json::const_iterator::operator+=(size_t i) {
+    Json::const_iterator & Json::const_iterator::operator+=(size_t i) {
         check_array_type();
         * array_iterator += i;
         return * this;
     }
 
-    Json::const_iterator Json::const_iterator::operator-=(size_t i) {
+    Json::const_iterator & Json::const_iterator::operator-=(size_t i) {
         check_array_type();
         * array_iterator -= i;
         return * this;
