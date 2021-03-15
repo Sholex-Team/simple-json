@@ -455,11 +455,13 @@ namespace simple_json::types {
         friend Array;
         friend JsonPatch;
 
-        // Operator Overloading
+        // Array Subscript Operator overloading
         Json & operator[](const size_t & index) const;
         Json & operator[](const char * & index) const;
         Json & operator[](const JsonKey & index) const;
         Json & operator[](const JsonPointer & json_pointer) const;
+
+        // Comparison
         bool operator==(const Json & json_item) const;
         bool operator!=(const Json & json_item) const;
 
