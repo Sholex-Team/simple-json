@@ -372,6 +372,7 @@ namespace simple_json::types {
          *
          * This method returns an iterator object pointing the beginning of a Json object.
          * The Json object must be an Array or JsonObject type.
+         * @throw iterators::exceptions::InvalidIteration Throws when data type of Json object is not iterable.
          * @return Created iterator object.
          */
         iterator begin();
@@ -381,6 +382,7 @@ namespace simple_json::types {
          *
          * This method returns an iterator object pointing to the past-the-end element of Json object.
          * The Json object must be an Array or JsonObject type.
+         * @throw iterators::exceptions::InvalidIteration Throws when data type of Json object is not iterable.
          * @return Created iterator object.
          */
         iterator end();
@@ -390,6 +392,7 @@ namespace simple_json::types {
          *
          * This public method returns a const_iterator pointing to the beginning of a Json object.
          * The Json object must be an Array or JsonObject type.
+         * @throw iterators::exceptions::InvalidIteration Throws when data type of Json object is not iterable.
          * @return Created const_iterator object.
          */
         const_iterator cbegin() const;
@@ -399,6 +402,7 @@ namespace simple_json::types {
          *
          * This method returns and const_iterator object pointing to the past-the-end element in the Json object.
          * The Json object must be an Array or JsonObject type.
+         * @throw iterators::exceptions::InvalidIteration Throws when data type of Json object is not iterable.
          * @return Created const_iterator object.
          */
         const_iterator cend() const;
