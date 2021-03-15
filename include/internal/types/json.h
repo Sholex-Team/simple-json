@@ -415,23 +415,119 @@ namespace simple_json::types {
         JsonObject & items() const;
 
         // Constructors
+        /*!
+         * @brief Json default constructor.
+         *
+         * Creates a Json object with an empty JsonObject within.
+         */
         Json();
+
+        /*!
+         * @brief Json double data type constructor.
+         * @param data double data
+         */
         Json(double data);
+
+        /*!
+         * @brief Json long int data type constructor.
+         * @param data long int data
+         */
         Json(long int data);
+
+        /*!
+         * @brief Json bool data type constructor.
+         * @param data bool data
+         */
         Json(bool data);
+
+        /*!
+         * @brief Json int data type constructor.
+         * @param data int data
+         */
         Json(int data);
+
+        /*!
+         * @brief Json null constructor.
+         * @param data std::nullptr_t data.
+         */
         Json(std::nullptr_t data);
+
+        /*!
+         * @brief Json Array constructor.
+         * @param data Const reference to Array data.
+         */
         explicit Json(const Array & data);
+
+        /*!
+         * @brief Json Array constructor.
+         * @param data A r-value reference to Array data.
+         */
         Json(Array && data);
-        Json(const array_list_type & list_initial);
-        Json(std::string &);
-        Json(std::string &&);
-        Json(const char *);
-        explicit Json(JsonObject);
-        Json(JsonObject &&);
+
+        /*!
+         * @brief Json Array initializer_list constructor.
+         * @param initializer_list A const reference to an Array initializer-List data.
+         */
+        Json(const array_list_type & initializer_list);
+
+        /*!
+         * @brief Json std::string constructor.
+         * @param data A const reference to std::string data.
+         */
+        Json(const std::string & data);
+
+        /*!
+         * @brief Json std::string constructor.
+         * @param data A r-value reference to std::string data.
+         */
+        Json(std::string && data);
+
+        /*!
+         * @brief Json c-string constructor.
+         * @param data const char pointer pointing to the first character of c-string.
+         */
+        Json(const char * data);
+
+        /*!
+         * @brief Json JsonObject constructor.
+         * @param data A const reference to JsonObject data.
+         */
+        explicit Json(const JsonObject & data);
+
+        /*!
+         * @brief Json JsonObject constructor.
+         * @param data A r-value reference to JsonObject data.
+         */
+        Json(JsonObject && data);
+
+        /*!
+         * @brief Json JsonObject initializer_list constructor.
+         * @param initializer_list A const reference to JsonObject initializer_list.
+         */
         Json(const json_list_type & initializer_list);
+
+        /*!
+         * @brief Json copy constructor.
+         *
+         * Copies a Json object into a new Json object.
+         * @param json_item A reference to Json object which is about to get copied.
+         */
         Json(const Json & json_item);
+
+        /*!
+         * @brief Json move constructor.
+         *
+         * Moves a Json object into a new Json object.
+         * @param json_item A r-value reference to Json which is about to be moved.
+         */
         Json(Json && json_item) noexcept;
+
+        /*!
+         * @brief Json data type constructor.
+         *
+         * Creates a new empty Json object based on the given data type.
+         * @param object_type Data type which is about to be used to create an empty Json object.
+         */
         explicit Json(DataType object_type);
 
         // Conversion operators for implicit & explicit conversions

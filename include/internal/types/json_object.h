@@ -61,7 +61,7 @@ namespace simple_json::types {
              * Copy constructor which is derived from std::map and copies a JsonObject into a new JsonObject.
              * @param json_object JsonObject which is about to get copied.
              */
-            JsonObject(JsonObject & json_object) = default;
+            JsonObject(const JsonObject & json_object) = default;
 
             // Friends
             friend std::ostream & operator<<(std::ostream & os, const JsonObject & json_object);

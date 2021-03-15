@@ -42,10 +42,10 @@ namespace simple_json::types {
     Json::Json(Array && data) : data_array {new Array(std::move(data))},
     used_type {DataType::array_type} {}
 
-    Json::Json(const array_list_type & list_initial) : data_array {new Array {list_initial}},
+    Json::Json(const array_list_type & initializer_list) : data_array {new Array {initializer_list}},
     used_type(DataType::array_type) {}
 
-    Json::Json(std::string & data) : data_string {new std::string {data}},
+    Json::Json(const std::string & data) : data_string {new std::string {data}},
     used_type {DataType::string_type} {}
 
     Json::Json(std::string && data) : data_string {new std::string {std::move(data)}},
@@ -53,7 +53,7 @@ namespace simple_json::types {
 
     Json::Json(const char * data) : data_string {new std::string {data}}, used_type {DataType::string_type} {}
 
-    Json::Json(JsonObject data) : data_json_object {new JsonObject {std::move(data)}},
+    Json::Json(const JsonObject & data) : data_json_object {new JsonObject {data}},
     used_type {DataType::json_object_type} {}
 
     Json::Json(JsonObject && data) : data_json_object {new JsonObject {std::move(data)}},
