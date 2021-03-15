@@ -212,7 +212,7 @@ namespace simple_json::types {
             /*!
              * @brief iterator destructor
              *
-             * Checks the iterator type and deletes the union value based on it.
+             * Checks the iterator type and deletes the union iterator based on it.
              */
             ~iterator() noexcept override;
 
