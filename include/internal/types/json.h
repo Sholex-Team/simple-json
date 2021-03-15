@@ -303,12 +303,47 @@ namespace simple_json::types {
              * @return Moved back copy of const_iterator object.
              */
             const_iterator operator-(size_t i) const;
+
+            /*!
+             * @brief const_iterator addition assignment operator overload.
+             *
+             * Advances the const_iterator object by given positions.
+             * @param i Positions and the const_iterator object is going to advance.
+             * @return A reference to advanced const_iterator object.
+             */
             const_iterator & operator+=(size_t i);
+
+            /*!
+             * @brief const_iterator subtractions assignment operator overload.
+             *
+             * Moves the const_iterator object back by given positions.
+             * @param i Positions that the const_iterator object to going to move back.
+             * @return A reference to moved back const_iterator object.
+             */
             const_iterator & operator-=(size_t i);
+
+            /*!
+             * @brief Checks if the const_iterator is not equal to given const_iterator object reference.
+             * @param r_iterator A const reference to const_iterator object which is going to get compared.
+             * @return Result of comparison.
+             */
             bool operator!=(const const_iterator & r_iterator) const;
+
+            /*!
+             * @brief Check is the const_iterator is equal to given const_iterator object reference.
+             * @param r_iterator A const reference to const_iterator object which is going to get compared.
+             * @return Result of comparison.
+             */
             bool operator==(const const_iterator & r_iterator) const;
 
             // Public Methods
+            /*!
+             * @brief Returns the key of object that the const_iterator is pointing to.
+             *
+             * This method returns a const reference to the key(first item) of the std::pair that the iterator is
+             * pointing to inside a JsonObject.
+             * @return A const reference to a JsonKey object.
+             */
             const JsonKey & key() const override;
             const Json & value() const;
 
