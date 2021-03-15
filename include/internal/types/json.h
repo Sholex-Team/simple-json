@@ -111,8 +111,8 @@ namespace simple_json::types {
 
             /*!
              * @brief iterator dereference operator overload.
-             * @throw iterators::exceptions::InvalidDereference Throws when the type of the object that iterator
-             * is pointing to is not Array.
+             * @throw iterators::exceptions::InvalidDereference Throws when the type of the base iterator is not
+             * Array::iterator.
              * @return Json object which the iterator is pointing to.
              */
             Json & operator*() const;
@@ -230,12 +230,50 @@ namespace simple_json::types {
             void add_to_iterator() override;
         public:
             // Constructors
+
+            /*!
+             * @brief const_iterator copy constructor.
+             *
+             * Copies the const_iterator passed to it into a new const_iterator object.
+             * @param r_iterator const_iterator object that is going to get copied.
+             */
             const_iterator(const const_iterator & r_iterator);
+
+            /*!
+             * @brief const_iterator move constructor.
+             *
+             * Moves the const_iterator object passed to it into a new const_iterator object.
+             * @param r_iterator const_iterator object which is about to be moved.
+             */
             const_iterator(const_iterator && r_iterator) noexcept;
+
+            /*!
+             * @brief const_iterator JsonObject::iterator constructor.
+             *
+             * Creates a new const_iterator based on a JsonObject::const_iterator object passed to it.
+             * @param json_object_iterator A const reference to the JsonObject::const_iterator that is going to be
+             * used for creating a new
+             * const_iterator object.
+             */
             explicit const_iterator(const JsonObject::const_iterator & json_object_iterator);
+
+            /*!
+             * @brief const_iterator Array::const_iterator constructor.
+             *
+             * Creates a new const_iterator object based on a Array::const_iterator object passed to it.
+             * @param array_iterator A const reference to the Array::const_iterator object which is about to be
+             * used as base.
+             */
             explicit const_iterator(const Array::const_iterator & array_iterator);
 
             // Operators
+
+            /*!
+             * @brief const_iterator dereference operator overload.
+             * @throw iterators::exceptions::InvalidDereference Throws when the type of the base const_iterator is not
+             * Array::const_iterator.
+             * @return Json object which the iterator is pointing to.
+             */
             const Json & operator*() const;
             const_iterator operator++(int);
             const_iterator & operator++();
