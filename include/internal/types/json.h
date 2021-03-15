@@ -56,6 +56,12 @@ namespace simple_json::types {
         void clean_memory() noexcept;
     public:
         // Iterators
+
+        /*!
+         * @brief Json Iterator class.
+         *
+         * This class is used to create an iterator for a Json object.
+         */
         class iterator : public iterators::JsonIterator {
         private:
             union {
@@ -66,27 +72,148 @@ namespace simple_json::types {
             void add_to_iterator() override;
         public:
             // Constructors
+
+            /*!
+             * @brief iterator class copy constructor.
+             *
+             * This constructor creates and iterator from an iterator reference. it actually copies the iterator
+             * passed to it.
+             * @param r_iterator iterator object which is going to be copied.
+             */
             iterator(const iterator & r_iterator);
+
+            /*!
+             * @brief iterator class move constructor.
+             *
+             * This move constructor creates a new iterator object and moves the data within iterator which it's
+             * r-value reference is passed to it into the new object.
+             * @param r_iterator A r-value reference to iterator object which is about to be moved.
+             */
             iterator(iterator && r_iterator) noexcept;
+
+            /*!
+             * @brief iterator class constructor.
+             *
+             * This constructor creates an iterator object based on an Array::iterator.
+             * @param array_iterator Array::iterator which is going to be used to create an iterator object.
+             */
             explicit iterator(const Array::iterator & array_iterator);
+
+            /*!
+             * @brief iterator class constructor.
+             *
+             * This constructor creates an iterator object based on a JsonObject::iterator.
+             * @param json_object_iterator JsonObject::iterator which is going to be used to create an iterator object.
+             */
             explicit iterator(const JsonObject::iterator & json_object_iterator);
 
             // Operator Overloading
+
+            /*!
+             * @brief iterator dereference operator overload.
+             * @throw iterators::exceptions::InvalidDereference Throws when the type of the object that iterator
+             * is pointing to is not Array.
+             * @return Json object which the iterator is pointing to.
+             */
             Json & operator*() const;
+
+            /*!
+             * @brief iterator post-increment operator overload.
+             *
+             * This operator copies the iterator object and advances the original iterator by one position.
+             * @return A const copy of iterator object before advancing.
+             */
             const iterator operator++(int);
+
+            /*!
+             * @brief iterator pre-increment operator overload.
+             *
+             * This operator advances the iterator by one position.
+             * @return A reference to advanced operator.
+             */
             iterator & operator++();
+
+            /*!
+             * @brief iterator addition operator overload.
+             *
+             * This operator copies the iterator object and advances the copy by specified positions.
+             * @param i Positions that the iterator is going to advance.
+             * @return Advanced iterator object.
+             */
             iterator operator+(size_t i) const;
+
+            /*!
+             * @brief iterator subtraction operator overload.
+             *
+             * This operator copies the iterator object and moves back the copy by given positions.
+             * @param i Positions that the iterator is going to move back.
+             * @return Moved back iterator object.
+             */
             iterator operator-(size_t i) const;
+
+            /*!
+             * @brief iterator addition assignment operator overload.
+             *
+             * This operator advances the iterator by given positions.
+             * @param i Positions that the iterator is going to advance.
+             * @return Advanced iterator.
+             */
             iterator operator+=(size_t i);
+
+            /*!
+             * @brief iteration subtraction assignment operator overload.
+             *
+             * This operator moves the iterator back by given positions.
+             * @param i Positions that the iterator it going to move back.
+             * @return Moved back iterator.
+             */
             iterator operator-=(size_t i);
+
+            /*!
+             * @brief Not equal to operator overload.
+             *
+             * This operator checks if iterator is not equal to given operator.
+             * @param r_iterator The iterator object which is going to get compared.
+             * @return Boolean representing the checking result.
+             */
             bool operator!=(const iterator & r_iterator) const;
+
+            /*!
+             * @brief equality operator overload.
+             *
+             * This operator checks if iterator is equal to a given iterator.
+             * @param r_iterator The iterator object which is going to get compared.
+             * @return Boolean representing the checking result.
+             */
             bool operator==(const iterator & r_iterator) const;
 
             // Public Methods
+
+            /*!
+             * @brief Returns the JsonKey object.
+             *
+             * Returns the JsonKey object representing the key of std::pair that the iterator is pointing to.
+             * @throw iterators::exceptions::InvalidType Throws if the iterator is not a JsonObject iterator.
+             * @return A const reference to the JsonKey object.
+             */
             const JsonKey & key() const override;
+
+            /*!
+             * @brief Returns the Json object.
+             *
+             * Returns the Json object of the std::pair that the iterator is pointing to.
+             * @throw iterators::exceptions::InvalidType Throws if the iterator is not a JsonObject iterator.
+             * @return A reference to value inside std::pair.
+             */
             Json & value() const;
 
             // Destructor
+
+            /*!
+             * @brief iterator destructor
+             *
+             * Checks the iterator type and deletes the union value based on it.
+             */
             ~iterator() noexcept override;
 
             // Friends

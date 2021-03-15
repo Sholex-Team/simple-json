@@ -813,7 +813,7 @@ namespace simple_json::types {
     const Json::iterator Json::iterator::operator++(int) {
         Json::iterator temp {* this};
         add_to_iterator();
-        return std::move(temp);
+        return temp;
     }
 
     Json::iterator & Json::iterator::operator++() {
