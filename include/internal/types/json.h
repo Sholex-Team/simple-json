@@ -72,7 +72,6 @@ namespace simple_json::types {
             void add_to_iterator() override;
         public:
             // Constructors
-
             /*!
              * @brief iterator class copy constructor.
              *
@@ -108,7 +107,6 @@ namespace simple_json::types {
             explicit iterator(const JsonObject::iterator & json_object_iterator);
 
             // Operator Overloading
-
             /*!
              * @brief iterator dereference operator overload.
              * @throw iterators::exceptions::InvalidDereference Throws when the type of the base iterator is not
@@ -188,7 +186,6 @@ namespace simple_json::types {
             bool operator==(const iterator & r_iterator) const;
 
             // Public Methods
-
             /*!
              * @brief Returns the JsonKey object.
              *
@@ -208,7 +205,6 @@ namespace simple_json::types {
             Json & value() const;
 
             // Destructor
-
             /*!
              * @brief iterator destructor
              *
@@ -230,7 +226,6 @@ namespace simple_json::types {
             void add_to_iterator() override;
         public:
             // Constructors
-
             /*!
              * @brief const_iterator copy constructor.
              *
@@ -267,7 +262,6 @@ namespace simple_json::types {
             explicit const_iterator(const Array::const_iterator & array_iterator);
 
             // Operators
-
             /*!
              * @brief const_iterator dereference operator overload.
              * @throw iterators::exceptions::InvalidDereference Throws when the type of the base const_iterator is not
