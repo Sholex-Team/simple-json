@@ -734,16 +734,16 @@ namespace simple_json::types {
          * @return Created JsonPatch object which transforms the current Json object into the dst.
          */
         JsonPatch get_diff(const Json & dst) const;
-        void erase(size_t);
-        void erase(const std::string &);
-        void erase(const JsonKey &);
-        void erase(const JsonPointer &);
-        void push_back(const Json &);
-        void insert(const pair_type &);
-        void insert(pair_type &&);
+        void erase(size_t index);
+        void erase(const std::string & key);
+        void erase(const JsonKey & key);
+        void erase(const JsonPointer & json_pointer);
+        void push_back(const Json & new_item);
+        void push_back(Json && new_item);
+        void insert(const pair_type & new_item);
+        void insert(pair_type && new_item);
         void insert(const const_iterator & position, const Json & item);
         void insert(const const_iterator & position, Json && item);
-        void push_back(Json &&);
         Json & back() const noexcept;
         inline DataType type() const noexcept {return used_type;}
         bool empty() const;
