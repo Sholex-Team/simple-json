@@ -6,7 +6,7 @@ namespace simple_json::types {
     using namespace indent;
     #pragma region Construcors
 
-    Array::Array(const array_list_type & list_initial) : type_array(list_initial) {}
+    Array::Array(const array_list_type & initializer_list) : type_array(initializer_list) {}
 
     #pragma endregion
 

@@ -47,7 +47,7 @@ namespace simple_json::types {
         void move(Json &) noexcept;
         void copy(const Json & json_item);
         void create_object();
-        void check_type(const DataType target_type) const;
+        void check_type(DataType target_type) const;
         inline void can_iterate() const {
             if (!(used_type == DataType::array_type || used_type == DataType::json_object_type)) {
                 throw exceptions::InvalidOperation {};
@@ -599,10 +599,10 @@ namespace simple_json::types {
          * @brief Json Array initializer_list assignment operator overload.
          *
          * Assigns a Array to the the current Json object using given initializer_list.
-         * @param json_object_list Array initializer_list containing items inside a JsonObject.
+         * @param initializer_list Array initializer_list containing items inside a JsonObject.
          * @return A reference to modified Json object.
          */
-        Json & operator=(const array_list_type & array_list);
+        Json & operator=(const array_list_type & initializer_list);
 
         /*!
          * @brief Json DataType assignment operator overload.
@@ -668,13 +668,71 @@ namespace simple_json::types {
         bool operator!=(const Json & json_item) const;
 
         // Public Method
+        /*!
+         * @brief Applies a merge patch on Json object.
+         * @param merge_patch A const reference to the merge patch Json object.
+         */
         void merge_patch(const Json & merge_patch) noexcept;
+
+        /*!
+         * @brief Merges two Json objects.
+         *
+         * Creates a copy of current Json object and merges given Json object with the copy.
+         * @param target A const reference to Json object which is about to be merged.
+         * @return Merged Json object.
+         */
         Json merge(const Json & target) const;
-        Json & at(size_t) const;
-        Json & at(const std::string &) const;
-        Json & at(const JsonPointer &) const;
-        Json & at(const JsonKey &) const;
+
+        /*!
+         * @brief Returns Json object at given size_t index.
+         *
+         * This method also provides bound checking of the Array object.
+         * @param index size_t index
+         * @throw exceptions::InvalidOperation Throws when the Json object is not Array type.
+         * @return Json object at the given index.
+         */
+        Json & at(size_t index) const;
+
+        /*!
+         * @brief Returns Json object at given std::string key.
+         * @param key std::string key related to Json object in a JsonObject object.
+         * @throw exceptions::InvalidOperation Throws when the Json object type is not JsonObject.
+         * @return Json object at the given std::string key.
+         */
+        Json & at(const std::string & key) const;
+
+        /*!
+         * @brief Returns Json object at the given JsonPointer address.
+         * @param json_pointer A const reference to the JsonPointer object.
+         * @throw exceptions::InvalidOperation Throws when the Json object is not iterable type.
+         * @return Json object at the given JsonPointer address.
+         */
+        Json & at(const JsonPointer & json_pointer) const;
+
+        /*!
+         * @brief Returns Json object related to given JsonKey key.
+         * @param key A const reference to JsonKey object.
+         * @throw exceptions::InvalidOperation Throws when the Json object is not JsonObject type.
+         * @return Json object related to the given JsonKey key.
+         */
+        Json & at(const JsonKey & key) const;
+
+        /*!
+         * @brief Returns a const_iterator pointing to the Json object at the given index.
+         * @param index size_t index.
+         * @throw exceptions::InvalidOperation Throws when the Json object is not Array type.
+         * @return Created const_iterator object.
+         */
         const_iterator get_item(size_t index) const;
+
+        /*!
+         * @brief Creates a JsonPatch to the given destination Json object.
+         *
+         * This public method creates an JsonPatch based on current Json object and the const reference to destination
+         * Json object. It uses the current Json object as the source of JsonPatch.
+         * @param dst A const reference to the destination of JsonPatch.
+         * @return Created JsonPatch object which transforms the current Json object into the dst.
+         */
         JsonPatch get_diff(const Json & dst) const;
         void erase(size_t);
         void erase(const std::string &);

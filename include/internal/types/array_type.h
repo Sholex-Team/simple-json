@@ -50,17 +50,17 @@ namespace simple_json::types {
         /*!
          * @brief Array list initializer constructor.
          *
-         * This constructor takes a list initializer containing Json objects and creates an Array from it.
-         * @param list_initial List Initializer containing Json objects.
+         * This constructor takes an initializer list containing Json objects and creates an Array from it.
+         * @param initializer_list Initializer list containing Json objects.
          */
-        Array(const array_list_type & list_initial);
+        Array(const array_list_type & initializer_list);
 
         // Assignment Operator Overloading
         /*!
          * @brief Array copy assignment operator.
          *
-         * This overloaded copy assignment operator copies an Array object into existing LHS Array object.
-         * @param array Array object which is about to be copied.
+         * Assigns an Array object to the current Array object.
+         * @param array A const reference to Array object which is about to be copied.
          * @return A reference to current Array object.
          */
         Array & operator=(const Array & array) = default;
@@ -68,8 +68,8 @@ namespace simple_json::types {
         /*!
          * @brief Array move assignment operator.
          *
-         * This overloaded copy assignment moves an Array object into existing LHS Array object.
-         * @param array Array object which is about to be moved.
+         * Moves an Array object into the current existing Array object.
+         * @param array A r-value reference to the Array object which is about to be moved.
          * @return A reference to current Array object.
          */
         Array & operator=(Array && array) noexcept = default;
