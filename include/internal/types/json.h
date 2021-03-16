@@ -653,7 +653,18 @@ namespace simple_json::types {
         Json & operator[](const JsonPointer & json_pointer) const;
 
         // Comparison
+        /*!
+         * @brief Json equality operator overload.
+         * @param json_item A const reference to Json object that is going to get compared.
+         * @return Boolean representing result of comparison.
+         */
         bool operator==(const Json & json_item) const;
+
+        /*!
+         * @brief Json not-equal operator overload.
+         * @param json_item A const reference to Json object that is going to get compared.
+         * @return Boolean representing result of comparison.
+         */
         bool operator!=(const Json & json_item) const;
 
         // Public Method
