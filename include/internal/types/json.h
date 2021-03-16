@@ -589,7 +589,7 @@ namespace simple_json::types {
         /*!
          * @brief Json JsonObject initializer_list assignment operator overload.
          *
-         * Assigns a JsonObject to the the current Json object using given initializer_list
+         * Assigns a JsonObject to the the current Json object using given initializer_list.
          * @param initializer_list JsonObject initializer_list containing items inside a JsonObject.
          * @return A reference to modified Json object.
          */
@@ -598,7 +598,7 @@ namespace simple_json::types {
         /*!
          * @brief Json Array initializer_list assignment operator overload.
          *
-         * Assigns a Array to the the current Json object using given initializer_list
+         * Assigns a Array to the the current Json object using given initializer_list.
          * @param json_object_list Array initializer_list containing items inside a JsonObject.
          * @return A reference to modified Json object.
          */
