@@ -531,11 +531,40 @@ namespace simple_json::types {
         explicit Json(DataType object_type);
 
         // Explicit conversion operators
+        /*!
+         * @brief Json to long int conversion operator.
+         * @return int data
+         */
         explicit operator long int() const;
+
+        /*!
+         * @brief Json to double conversion operator.
+         * @return double data
+         */
         explicit operator double() const;
+
+        /*!
+         * @brief Json to Array conversion operator.
+         * @return Array data
+         */
         explicit operator Array() const;
+
+        /*!
+         * @brief Json to std::string conversion operator.
+         * @return std::string data
+         */
         explicit operator std::string() const;
+
+        /*!
+         * @brief Json to JsonObject conversion operator.
+         * @return JsonObject data
+         */
         explicit operator JsonObject() const;
+
+        /*!
+         * @brief Json to const c-string conversion operator.
+         * @return Const pointer to first character of c-string data.
+         */
         explicit operator const char *() const;
 
         // Assignment Operator Overloading
