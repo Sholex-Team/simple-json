@@ -568,10 +568,49 @@ namespace simple_json::types {
         explicit operator const char *() const;
 
         // Assignment Operator Overloading
-        Json & operator=(const Json &);
-        Json & operator=(Json &&) noexcept;
-        Json & operator=(const json_list_type & json_object_list);
+        /*!
+         * @brief Json copy assignment operator overload.
+         *
+         * Assigns a copy of a Json object as the data stored inside Json object.
+         * @param data A const reference to Json object which is about to get copied.
+         * @return A reference to modified Json object.
+         */
+        Json & operator=(const Json & data);
+
+        /*!
+         * @brief Json move assignment operator overload.
+         *
+         * Moves a Json object into the current Json object.
+         * @param data A r-value reference to Json object which is about ot be moved.
+         * @return A reference to modified Json object.
+         */
+        Json & operator=(Json && data) noexcept;
+
+        /*!
+         * @brief Json JsonObject initializer_list assignment operator overload.
+         *
+         * Assigns a JsonObject to the the current Json object using given initializer_list
+         * @param initializer_list JsonObject initializer_list containing items inside a JsonObject.
+         * @return A reference to modified Json object.
+         */
+        Json & operator=(const json_list_type & initializer_list);
+
+        /*!
+         * @brief Json Array initializer_list assignment operator overload.
+         *
+         * Assigns a Array to the the current Json object using given initializer_list
+         * @param json_object_list Array initializer_list containing items inside a JsonObject.
+         * @return A reference to modified Json object.
+         */
         Json & operator=(const array_list_type & array_list);
+
+        /*!
+         * @brief Json DataType assignment operator overload.
+         *
+         * Creates an empty Json object with given DataType and assigns it to the current Json object.
+         * @param object_type A reference to modified Json object.
+         * @return
+         */
         Json & operator=(DataType object_type);
 
         // Friends

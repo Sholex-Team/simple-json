@@ -81,17 +81,17 @@ namespace simple_json::types {
 
     #pragma region Operator Overloading
 
-    Json & Json::operator=(const array_list_type & array_list) {
+    Json & Json::operator=(const array_list_type & initializer_list) {
         clean_memory();
         used_type = DataType::array_type;
-        data_array = new Array(array_list);
+        data_array = new Array(initializer_list);
         return * this;
     }
 
-    Json & Json::operator=(const json_list_type & json_object_list) {
+    Json & Json::operator=(const json_list_type & initializer_list) {
         clean_memory();
         used_type = DataType::json_object_type;
-        data_json_object = new JsonObject(json_object_list);
+        data_json_object = new JsonObject(initializer_list);
         return * this;
     }
 
@@ -142,17 +142,17 @@ namespace simple_json::types {
         throw exceptions::BadConversion {DataType::json_object_type};
     }
 
-    Json & Json::operator=(const Json & json_item) {
+    Json & Json::operator=(const Json & data) {
         clean_memory();
-        used_type = json_item.used_type;
-        copy(json_item);
+        used_type = data.used_type;
+        copy(data);
         return * this;
     }
 
-    Json & Json::operator=(Json && json_item) noexcept {
+    Json & Json::operator=(Json && data) noexcept {
         clean_memory();
-        used_type = json_item.used_type;
-        move(json_item);
+        used_type = data.used_type;
+        move(data);
         return * this;
     }
 
