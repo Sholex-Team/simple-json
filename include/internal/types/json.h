@@ -530,7 +530,7 @@ namespace simple_json::types {
          */
         explicit Json(DataType object_type);
 
-        // Conversion operators for implicit & explicit conversions
+        // Explicit conversion operators
         explicit operator long int() const;
         explicit operator double() const;
         explicit operator Array() const;
