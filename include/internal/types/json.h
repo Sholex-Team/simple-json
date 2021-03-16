@@ -620,9 +620,36 @@ namespace simple_json::types {
         friend JsonPatch;
 
         // Array Subscript Operator overloading
+        /*!
+         * @brief Json size_t array subscript operator overload.
+         * @throw exceptions::InvalidOperation Throws when Json object type is not Array.
+         * @param index Item index.
+         * @return A reference to item related to the given index.
+         */
         Json & operator[](const size_t & index) const;
-        Json & operator[](const char * & index) const;
-        Json & operator[](const JsonKey & index) const;
+
+        /*!
+         * @brief Json c-string array subscript operator overload.
+         * @throw exceptions::InvalidOperation Throws when Json object type is not JsonObject.
+         * @param key Item key
+         * @return A reference to item related to the given key.
+         */
+        Json & operator[](const char * & key) const;
+
+        /*!
+         * @brief Json JsonKey array subscript operator overload.
+         * @throw exceptions::InvalidOperation Throws when Json object type is not JsonObject.
+         * @param key Item key
+         * @return A reference to item related to the given key.
+         */
+        Json & operator[](const JsonKey & key) const;
+
+        /*!
+         * @brief Json JsonPointer array subscript operator overload.
+         * @throw exceptions::InvalidOperation Throws when Json object type is not iterable.
+         * @param json_pointer A const reference to a JsonPointer object.
+         * @return A reference to item related to the given JsonPointer object.
+         */
         Json & operator[](const JsonPointer & json_pointer) const;
 
         // Comparison

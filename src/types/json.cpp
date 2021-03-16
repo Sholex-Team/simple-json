@@ -161,14 +161,14 @@ namespace simple_json::types {
         return (* data_array)[index];
     }
 
-    Json & Json::operator[](const char * & index) const {
+    Json & Json::operator[](const char * & key) const {
         check_type(DataType::json_object_type);
-        return (* data_json_object)[JsonKey {index}];
+        return (* data_json_object)[JsonKey {key}];
     }
 
-    Json & Json::operator[](const JsonKey & index) const {
+    Json & Json::operator[](const JsonKey & key) const {
         check_type(DataType::json_object_type);
-        return (* data_json_object)[index];
+        return (* data_json_object)[key];
     }
 
     Json & Json::operator[](const JsonPointer & json_pointer) const {
