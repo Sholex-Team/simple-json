@@ -734,18 +734,95 @@ namespace simple_json::types {
          * @return Created JsonPatch object which transforms the current Json object into the dst.
          */
         JsonPatch get_diff(const Json & dst) const;
+
+        /*!
+         * @brief Erases the Json object at the given index.
+         * @throw exceptions::InvalidOperation Throws when the Json object type is not Array.
+         * @param index size_t index
+         */
         void erase(size_t index);
+
+        /*!
+         * @brief Erases the Json object related to the given key.
+         * @throw exceptions::InvalidOperation Throws when the Json object type is not JsonObject.
+         * @param key std::string key
+         */
         void erase(const std::string & key);
+
+        /*!
+         * @brief Erases the Json object related to the given key.
+         * @throw exceptions::InvalidOperation Throws when the Json object type is not JsonObject.
+         * @param key A const reference to a JsonKey object.
+         */
         void erase(const JsonKey & key);
+
+        /*!
+         * @brief Erases the Json object at the given JsonPointer address.
+         * @throw exceptions::InvalidOperation Throws when the Json object type is not iterable.
+         * @param json_pointer A const reference to a JsonPointer object.
+         */
         void erase(const JsonPointer & json_pointer);
+
+        /*!
+         * @brief Pushes a new item into the Array inside Json object.
+         * @throw exceptions::InvalidOperation Throws when the Json object is not an Array.
+         * @param new_item A const reference to the the new Json object.
+         */
         void push_back(const Json & new_item);
+
+        /*!
+         * @brief Moves a new Json object into the Array inside Json object.
+         * @throw exceptions:;InvalidOperation Throws when the Json object is not an Array.
+         * @param new_item A r-value reference to the Json object which is about to be moved.
+         */
         void push_back(Json && new_item);
+
+        /*!
+         * @brief Inserts a new std::pair into the JsonObject stored inside Json object.
+         * @throw exceptions::InvalidOperation Throws when the Json object is not a JsonObject.
+         * @param new_item A const reference to the new std::pair object.
+         */
         void insert(const pair_type & new_item);
+
+        /*!
+         * @brief Moves a new std::pair into the JsonObject stored inside Json object.
+         * @throw exceptions::InvalidOperation Throws when the Json object is not a JsonObject.
+         * @param new_item A r-value reference to the std::pair object which is about to be moved.
+         */
         void insert(pair_type && new_item);
+
+        /*!
+         * @brief Inserts a new item to into the Array at the given position.
+         * @param position A const reference to a const_iterator object pointing to the intended position.
+         * @param item A const reference to the Json item about to get inserted into the Array.
+         */
         void insert(const const_iterator & position, const Json & item);
+
+        /*!
+         * @brief Moves a new item to into the Array at the given position.
+         * @param position A const reference to a const_iterator object pointing to the intended position.
+         * @param item A r-value reference to the Json item about to get moved into the Array.
+         */
         void insert(const const_iterator & position, Json && item);
+
+        /*!
+         * @brief Returns the last element in the Array.
+         * @throw exceptions::InvalidOperation Throws when the Json object is not an Array.
+         * @return A reference to the last element in the Array.
+         */
         Json & back() const noexcept;
+
+        /*!
+         * @brief Returns the inner type of Json object.
+         * @return DataType of the object stored inside Json object.
+         */
         inline DataType type() const noexcept {return used_type;}
+
+        /*!
+         * @brief Checks if the Json object is an empty container.
+         * @throw exceptions::InvalidOperation Throws when the Json object is not a container(iterable type).
+         * @return Boolean representing the result of the checking.
+         */
         bool empty() const;
         std::string serialize() const;
         size_t count(const JsonKey & key) const;
