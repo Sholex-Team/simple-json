@@ -987,9 +987,22 @@ namespace simple_json::types {
         }
 
         // Destructors
+        /*!
+         * @brief Json destructor
+         *
+         * Deletes data stored within a Json object.
+         */
         ~Json();
     };
 
+    /*!
+     * @brief Json stream insertion operator overload.
+     *
+     * Serializes the Json object and inserts it into the given output stream.
+     * @param os [out] Output Stream
+     * @param json_item A const reference to Json object which is about to get serialized.
+     * @return
+     */
     std::ostream & operator<<(std::ostream & os, const Json & json_item);
 }
 
