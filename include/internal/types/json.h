@@ -953,13 +953,32 @@ namespace simple_json::types {
          */
         void update(const Json & target);
 
+        /*!
+         * @brief Finds the given Json object in the given range.
+         * @tparam T Type of given iterators.
+         * @param first First iterator in the range.
+         * @param last Last iterator in the range.
+         * @param item A const reference to the Json object going to be searched.
+         * @throw iterators::exceptions::InvalidIteration Throws when the iterator is not an Array iterator.
+         * @return The iterator with the given type pointing to the given item in the container. If the item
+         * does not exist in the range iterator pointing to this->end() will be returned instead.
+         */
         template<typename T>
         T find_in_range(const T & first, const T & last, const Json & item) const {
             first.check_type(IteratorTypes::array_iterator_type);
             last.check_type(IteratorTypes::array_iterator_type);
-            return T {std::find(* first.array_iterator, * last.array_iterator, item)};
+            return T{std::find(*first.array_iterator, *last.array_iterator, item)};
         }
 
+        /*!
+         * @brief Counts the instances of the given Json object in the given range.
+         * @tparam T Type of given iterators.
+         * @param first First iterator in the range.
+         * @param last Last iterator in the range.
+         * @param item A const reference to the Json object that is going to be searched.
+         * @throw iterators::exceptions::InvalidIteration Throws when the iterator is not an Array iterator.
+         * @return size_t count of instances of the given Json object in the container.
+         */
         template<typename T>
         size_t count_in_range(const T & first, const T & last, const Json & item) const {
             first.check_type(IteratorTypes::array_iterator_type);
