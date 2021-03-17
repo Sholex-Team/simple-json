@@ -927,7 +927,7 @@ namespace simple_json::types {
 
         /*!
          * @brief Returns the index of Json object related to the given const_iterator inside Array.
-         * @param item A const reference to the const_iterator that is going to be checked inside the Array.
+         * @param it A const reference to the const_iterator that is going to be checked inside the Array.
          * @throw exceptions::InvalidOperation Throws when the Json object type is not Array.
          * @return size_t index of Json object related to the given const_iterator inside the Array.
          */
