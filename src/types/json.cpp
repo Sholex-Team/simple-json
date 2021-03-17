@@ -467,15 +467,16 @@ namespace simple_json::types {
     }
 
     Json::iterator Json::find(const Json & item) {
-        can_iterate();
         if (used_type == DataType::array_type) {
             return iterator {std::find(data_array->begin(), data_array->end(), item)};
-        } else {
+        } else if (used_type == DataType::json_object_type) {
             return iterator { std::find_if(
-                    data_json_object->begin(), data_json_object->end(), [item](const pair_type & pair_item){
+                    data_json_object->begin(), data_json_object->end(), [item](const pair_type & pair_item) {
                         return pair_item.second == item;
                     }
             )};
+        } else {
+            throw exceptions::InvalidOperation {};
         }
     }
 
@@ -533,11 +534,6 @@ namespace simple_json::types {
             throw iterators::exceptions::InvalidType{};
         }
         return std::distance(data_array->cbegin(), *it.array_iterator);
-    }
-
-    size_t Json::count(const JsonKey & key) const {
-        check_type(DataType::json_object_type);
-        return data_json_object->count(key);
     }
 
     size_t Json::count(const Json & item) const {

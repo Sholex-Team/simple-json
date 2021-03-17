@@ -824,21 +824,133 @@ namespace simple_json::types {
          * @return Boolean representing the result of the checking.
          */
         bool empty() const;
+
+        /*!
+         * @brief Serializes the Json object.
+         * @return Serialized std::string of Json object.
+         */
         std::string serialize() const;
-        size_t count(const JsonKey & key) const;
+
+        /*!
+         * @brief Counts how many instances of given object exist in the Array.
+         * @param item A const reference to object that is going to be counted.
+         * @throw exceptions::InvalidOperation Throws when the Json object type is not Array.
+         * @return size_t count of same objects found.
+         */
         size_t count(const Json & item) const;
+
+        /*!
+         * @brief Checks is the given key exists in JsonObject.
+         * @throw exceptions::InvalidOperation Throws if the Json object type is not JsonObject.
+         * @param key A const reference to the key that is going to be checked.
+         * @return Boolean result of the checking.
+         */
         bool contains(const JsonKey & key) const;
+
+        /*!
+         * @brief Returns an iterator to the Json object related to given JsonKey.
+         * @param key A const reference to JsonKey object.
+         * @throw exceptions::InvalidOperation Throws when the Json object type is not JsonObject.
+         * @return iterator pointing to the object related to the given JsonKey. If the given key is not found
+         * this->end() would be returned instead.
+         */
         iterator find(const JsonKey & key);
+
+        /*!
+         * @brief Returns an iterator to the given Json in the container.
+         * @param item A const reference to Json object.
+         * @throw exceptions::InvalidOperation Throws when the Json object type is not iterable(container).
+         * @return iterator pointing to the found object inside Json container. If the Json object is not found
+         * this->end() would be returned instead.
+         */
         iterator find(const Json & item);
+
+        /*!
+         * @brief Returns a const_iterator to the Json object related to given JsonKey.
+         * @param key A const reference to JsonKey object.
+         * @throw exceptions::InvalidOperation Throws when the Json object type is not JsonObject.
+         * @return const_iterator pointing to the object related to the given JsonKey. If the given key is not found
+         * this->cend() would be returned instead.
+         */
         const_iterator find(const JsonKey & key) const;
+
+        /*!
+         * @brief Returns a const_iterator to the given Json in the container.
+         * @param item A const reference to Json object.
+         * @throw exceptions::InvalidOperation Throws when the Json object type is not iterable(container).
+         * @return const_iterator pointing to the found object inside Json container. If the Json object is not found
+         * this->cend() would be returned instead.
+         */
         const_iterator find(const Json & item) const;
+
+        /*!
+         * @brief Returns an iterator to the item that passed the given test function.
+         * @throw exceptions::InvalidOperation Throws if the Json object type is not Array.
+         * @param test_func A const reference to test function object.
+         * @return An iterator pointing to the first item that passed the test or this->end() if none of them passed it.
+         */
         iterator find_if(const std::function<bool(const Json &)> & test_func);
+
+        /*!
+         * @brief Returns an const_iterator to the item that passed the given test function.
+         * @throw exceptions::InvalidOperation Throws if the Json object type is not Array.
+         * @param test_func A const reference to test function object.
+         * @return An const_iterator pointing to the first item that passed the test or this->cend() if none of
+         * them passed it.
+         */
         const_iterator find_if(const std::function<bool(const Json &)> & test_func) const;
+
+        /*!
+         * @brief Returns an iterator to the item that passed the given test function.
+         * @throw exceptions::InvalidOperation Throws if the Json object type is not JsonObject.
+         * @param test_func A const reference to test function object.
+         * @return An iterator pointing to the first item that passed the test or this->end() if none of them passed it.
+         */
         iterator find_if(const std::function<bool(const pair_type &)> & test_func);
+
+        /*!
+         * @brief Returns an const_iterator to the item that passed the given test function.
+         * @throw exceptions::InvalidOperation Throws if the Json object type is not JsonObject.
+         * @param test_func A const reference to test function object.
+         * @return An const_iterator pointing to the first item that passed the test or this->cend() if none of
+         * them passed it.
+         */
         const_iterator find_if(const std::function<bool(const pair_type &)> & test_func) const;
+
+        /*!
+         * @brief Returns the index of given Json object inside Array.
+         * @param item A const reference to the Json object that is going to be checked inside the Array.
+         * @throw exceptions::InvalidOperation Throws when the Json object type is not Array.
+         * @return size_t index of given Json object inside the Array.
+         */
         size_t find_index(const Json & item) const;
+
+        /*!
+         * @brief Returns the index of Json object related to the given const_iterator inside Array.
+         * @param item A const reference to the const_iterator that is going to be checked inside the Array.
+         * @throw exceptions::InvalidOperation Throws when the Json object type is not Array.
+         * @return size_t index of Json object related to the given const_iterator inside the Array.
+         */
         size_t find_index(const const_iterator & it) const;
+
+        /*!
+         * @brief Returns the size of the container stored inside Json object.
+         *
+         * If the data type is not a container 1 will be returned as size.
+         * If the data type is not unknown then a 0 will be returned.
+         * @return size_t size of the Json object.
+         */
         size_t size() const noexcept;
+
+        /*!
+         * @brief Updates the JsonObject with the given Json object.
+         *
+         * This public method replaces all the JsonObject keys existing inside the given Json object with it's
+         * JsonObject values. If a key doesn't exist in the given Json object then it will remain untouched. Any
+         * new key will be added with it's corresponding value inside the given JsonObject.
+         * @throw exceptions::InvalidOperation Throws when the Json object type is not JsonObject.
+         * @param target A const reference to Json which is going to update stored JsonObject.
+         */
         void update(const Json & target);
 
         template<typename T>
