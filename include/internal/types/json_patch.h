@@ -1,4 +1,3 @@
-
 #ifndef SIMPLE_JSON_JSON_PATCH_H
 #define SIMPLE_JSON_JSON_PATCH_H
 
