@@ -127,4 +127,12 @@ namespace simple_json::types {
     };
 }
 
+/*! @example getdiff_jsonpatch.cpp
+ * @brief Creating a JsonPatch object from two Json objects.
+ */
+
+/*! @example apply_jsonpatch.cpp
+ * @brief Applies a JsonPatch on a Json object.
+ */
+
 #endif //SIMPLE_JSON_JSON_PATCH_H

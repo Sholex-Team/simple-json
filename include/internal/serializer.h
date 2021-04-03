@@ -74,4 +74,8 @@ namespace simple_json::serializer {
  * JSON serialized string.
  */
 
+/*! @example serializer.cpp
+ * @brief Serializer usage example.
+ */
+
 #endif //SIMPLE_Json_SERIALIZER_H

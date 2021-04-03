@@ -102,4 +102,7 @@ namespace simple_json::deserializer {
  * type object.
  */
 
+/*! @example deserializer.cpp
+ * @brief Deserializer usage example.
+ */
 #endif //SIMPLE_JSON_DESERIALIZER_H
