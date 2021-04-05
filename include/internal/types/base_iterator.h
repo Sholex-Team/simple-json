@@ -70,4 +70,8 @@ namespace simple_json::iterators {
  * This namespace contains all of iterators and other related parts used inside the project.
  */
 
+/*! @example iterator.cpp
+ * @brief Iterators usage example.
+ */
+
 #endif //SIMPLE_JSON_BASE_ITERATOR_H
