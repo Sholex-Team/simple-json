@@ -53,7 +53,7 @@ namespace simple_json::types {
                 default:
                     os << item;
             }
-            os << (item == *std::prev(end()) ? "" : ",");
+            os << (item == * std::prev(end()) ? "" : ",");
         }
         os << '\n' << std::setw(local_indent - indent_length + 1) << ']';
         return os;
