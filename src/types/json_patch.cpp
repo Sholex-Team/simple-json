@@ -90,9 +90,9 @@ namespace simple_json::types {
                     }
                 } else {
                     if (parent_from.type() == DataType::array_type) {
-                        parent_path.at(path.get_index()) = parent_from.at(from_path.get_index());
+                        parent_path.at(path.get_key()) = parent_from.at(from_path.get_index());
                     } else {
-                        parent_path.at(path.get_index()) = parent_from.at(from_path.get_key());
+                        parent_path.at(path.get_key()) = parent_from.at(from_path.get_key());
                     }
                 }
             } else if (op == "move") {
