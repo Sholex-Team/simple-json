@@ -634,7 +634,7 @@ namespace simple_json::types {
          * @param key Item key
          * @return A reference to item related to the given key.
          */
-        Json & operator[](const char * & key) const;
+        Json & operator[](const char * key) const;
 
         /*!
          * @brief Json JsonKey array subscript operator overload.

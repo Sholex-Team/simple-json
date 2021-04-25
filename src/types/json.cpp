@@ -161,7 +161,7 @@ namespace simple_json::types {
         return (* data_array)[index];
     }
 
-    Json & Json::operator[](const char * & key) const {
+    Json & Json::operator[](const char * key) const {
         check_type(DataType::json_object_type);
         return (* data_json_object)[JsonKey {key}];
     }
