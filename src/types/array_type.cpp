@@ -49,7 +49,7 @@ namespace simple_json::types {
                     break;
                 case DataType::string_type:
                     os << item.serialize();
-                    continue;
+                    break;
                 default:
                     os << item;
             }
