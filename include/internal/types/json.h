@@ -667,7 +667,8 @@ namespace simple_json::types {
          */
         bool operator!=(const Json & json_item) const;
 
-        // Public Method
+        // Public Methods
+
         /*!
          * @brief Applies a merge patch on Json object.
          * @param merge_patch A const reference to the merge patch Json object.
