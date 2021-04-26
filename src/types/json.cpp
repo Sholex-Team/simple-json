@@ -470,6 +470,7 @@ namespace simple_json::types {
     #pragma region Destructor
     Json::~Json() {
         clean_memory();
+        double a {1.5};
     }
 
 
