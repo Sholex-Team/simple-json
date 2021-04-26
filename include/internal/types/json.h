@@ -55,6 +55,7 @@ namespace simple_json::types {
         }
         void clean_memory() noexcept;
         void increment();
+        void decrement();
     public:
         // Iterators
 
@@ -623,7 +624,7 @@ namespace simple_json::types {
          * @brief Json pre-increment operator overload
          *
          * Increments float or number data within the Json object.
-         * @throw exceptions::InvalidOperator Throws when Json object data is not float ro number typed.
+         * @throw exceptions::InvalidOperator Throws when Json object data is not float or number typed.
          * @return A reference to the Json object
          */
         Json & operator++();
@@ -632,10 +633,28 @@ namespace simple_json::types {
          * @brief Json post-increment operator overload
          *
          * Copies the Json object and increments float or number data within the copy.
-         * @throw exceptions::InvalidOperator Throws when Json object data is not float ro number typed.
+         * @throw exceptions::InvalidOperator Throws when Json object data is not float or number typed.
          * @return A const Json object representing the original state of object(before incrementing).
          */
         const Json operator++(int);
+
+        /*!
+         * @brief Json pre-decrement operator overload
+         *
+         * Decrements float or number data within the Json object.
+         * @throw exceptions::InvalidOperator Throws when Json object data is not float or number typed.
+         * @return A reference to the Json object
+         */
+        Json & operator--();
+
+        /*!
+         * @brief Json post-decrement operator overload
+         *
+         * Copies the Json object and decrements float or number data within the copy.
+         * @throw exceptions::InvalidOperator Throws when Json object data is not float or number typed.
+         * @return A const Json object representing the original state of object(before decrementing).
+         */
+        const Json operator--(int);
 
         // Friends
         friend std::ostream & operator<<(std::ostream & os, const Json & json_item);

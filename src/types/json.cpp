@@ -243,6 +243,17 @@ namespace simple_json::types {
         return * this;
     }
 
+    const Json Json::operator--(int) {
+        Json old_json(* this);
+        decrement();
+        return old_json;
+    }
+
+    Json & Json::operator--() {
+        decrement();
+        return * this;
+    }
+
     #pragma endregion
 
     #pragma region Destructor
@@ -361,6 +372,19 @@ namespace simple_json::types {
                 return;
             case DataType::double_type:
                 ++data_double;
+                return;
+            default:
+                throw exceptions::InvalidOperator {};
+        }
+    }
+
+    void Json::decrement() {
+        switch (used_type) {
+            case DataType::integer_type:
+                --data_int;
+                return;
+            case DataType::double_type:
+                --data_double;
                 return;
             default:
                 throw exceptions::InvalidOperator {};
