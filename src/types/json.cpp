@@ -409,12 +409,6 @@ namespace simple_json::types {
         }
     }
 
-    void Json::check_operator(DataType target_type) {
-        if (used_type != target_type) {
-            throw exceptions::InvalidOperator {};
-        }
-    }
-
     void Json::is_numeric() {
         if (used_type != DataType::integer_type && used_type != DataType::double_type) {
             throw exceptions::InvalidOperator {};

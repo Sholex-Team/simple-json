@@ -56,7 +56,6 @@ namespace simple_json::types {
         void clean_memory() noexcept;
         void increment();
         void decrement();
-        void check_operator(DataType target_type);
         void is_numeric();
     public:
         // Iterators
