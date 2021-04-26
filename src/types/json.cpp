@@ -465,6 +465,26 @@ namespace simple_json::types {
         return * this;
     }
 
+    Json & Json::operator+=(int rhs) {
+        return * this += static_cast<long>(rhs);
+    }
+
+    Json & Json::operator-=(int rhs) {
+        return * this -= static_cast<long>(rhs);
+    }
+
+    Json & Json::operator*=(int rhs) {
+        return * this *= static_cast<long>(rhs);
+    }
+
+    Json & Json::operator/=(int rhs) {
+        return * this /= static_cast<long>(rhs);
+    }
+
+    Json & Json::operator%=(int rhs) {
+        return * this %= static_cast<long>(rhs);
+    }
+
     #pragma endregion
 
     #pragma region Destructor
