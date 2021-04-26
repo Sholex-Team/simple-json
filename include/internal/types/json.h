@@ -685,6 +685,20 @@ namespace simple_json::types {
          */
         Json operator+(double rhs);
 
+        /*!
+         * @brief Json number subtraction operator
+         * @param rhs Number which is going to get subtracted from Json object.
+         * @return Json result of subtraction
+         */
+        Json operator-(long rhs);
+
+        /*!
+         * @brief Json float/double subtraction operator
+         * @param rhs float/double which is going to get subtracted from Json object.
+         * @return Json result of subtraction
+         */
+        Json operator-(double rhs);
+
         // Friends
         friend std::ostream & operator<<(std::ostream & os, const Json & json_item);
         friend JsonObject;

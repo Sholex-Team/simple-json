@@ -298,6 +298,28 @@ namespace simple_json::types {
         return new_json;
     }
 
+    Json Json::operator-(long rhs) {
+        is_numeric();
+        Json new_json(* this);
+        if (new_json.used_type == DataType::integer_type) {
+            new_json.data_int -= rhs;
+        } else {
+            new_json.data_double -= static_cast<double>(rhs);
+        }
+        return new_json;
+    }
+
+    Json Json::operator-(double rhs) {
+        is_numeric();
+        Json new_json(* this);
+        if (new_json.used_type == DataType::integer_type) {
+            new_json.data_double = static_cast<double>(new_json.data_int) - rhs;
+        } else {
+            new_json.data_double -= rhs;
+        }
+        return new_json;
+    }
+
     #pragma endregion
 
     #pragma region Destructor
