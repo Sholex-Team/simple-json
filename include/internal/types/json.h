@@ -226,6 +226,7 @@ namespace simple_json::types {
             void add_to_iterator() override;
         public:
             // Constructors
+
             /*!
              * @brief const_iterator copy constructor.
              *
@@ -261,7 +262,8 @@ namespace simple_json::types {
              */
             explicit const_iterator(const Array::const_iterator & array_iterator);
 
-            // Operators
+            // Operator Overloading
+
             /*!
              * @brief const_iterator dereference operator overload.
              * @throw iterators::exceptions::InvalidDereference Throws when the type of the base const_iterator is not
@@ -356,6 +358,7 @@ namespace simple_json::types {
             const Json & value() const;
 
             // Destructor
+
             /*!
              * @brief const_iterator destructor
              *
@@ -367,54 +370,8 @@ namespace simple_json::types {
             friend Json;
         };
 
-        /*!
-         * @brief Returns an iterator pointing to the beginning of Json object.
-         *
-         * This method returns an iterator object pointing the beginning of a Json object.
-         * The Json object must be an Array or JsonObject type.
-         * @throw iterators::exceptions::InvalidIteration Throws when data type of Json object is not iterable.
-         * @return Created iterator object.
-         */
-        iterator begin();
-
-        /*!
-         * @brief Returns a iterator pointing to the past-the-end element in the Json object.
-         *
-         * This method returns an iterator object pointing to the past-the-end element of Json object.
-         * The Json object must be an Array or JsonObject type.
-         * @throw iterators::exceptions::InvalidIteration Throws when data type of Json object is not iterable.
-         * @return Created iterator object.
-         */
-        iterator end();
-
-        /*!
-         * @brief Returns a const_iterator pointing to the beginning of the Json object.
-         *
-         * This public method returns a const_iterator pointing to the beginning of a Json object.
-         * The Json object must be an Array or JsonObject type.
-         * @throw iterators::exceptions::InvalidIteration Throws when data type of Json object is not iterable.
-         * @return Created const_iterator object.
-         */
-        const_iterator cbegin() const;
-
-        /*!
-         * @brief Returns a const_Iterator pointing to the past-the-end element in the Json object.
-         *
-         * This method returns and const_iterator object pointing to the past-the-end element in the Json object.
-         * The Json object must be an Array or JsonObject type.
-         * @throw iterators::exceptions::InvalidIteration Throws when data type of Json object is not iterable.
-         * @return Created const_iterator object.
-         */
-        const_iterator cend() const;
-
-        /*!
-         * @brief Returns the JsonObject object stored withing Json object.
-         * @return JsonObject stored inside the Json object.
-         * @throw iterators::exceptions::InvalidType Throws when the Json object type is JsonObject.
-         */
-        JsonObject & items() const;
-
         // Constructors
+
         /*!
          * @brief Json default constructor.
          *
@@ -565,9 +522,11 @@ namespace simple_json::types {
          * @brief Json to const c-string conversion operator.
          * @return Const pointer to first character of c-string data.
          */
-        explicit operator const char *() const;
 
-        // Assignment Operator Overloading
+        // Operator Overloading
+
+        explicit operator const char * () const;
+
         /*!
          * @brief Json copy assignment operator overload.
          *
@@ -613,13 +572,6 @@ namespace simple_json::types {
          */
         Json & operator=(DataType object_type);
 
-        // Friends
-        friend std::ostream & operator<<(std::ostream & os, const Json & json_item);
-        friend JsonObject;
-        friend Array;
-        friend JsonPatch;
-
-        // Array Subscript Operator overloading
         /*!
          * @brief Json size_t array subscript operator overload.
          * @throw exceptions::InvalidOperation Throws when Json object type is not Array.
@@ -652,7 +604,6 @@ namespace simple_json::types {
          */
         Json & operator[](const JsonPointer & json_pointer) const;
 
-        // Comparison
         /*!
          * @brief Json equality operator overload.
          * @param json_item A const reference to Json object that is going to get compared.
@@ -667,7 +618,60 @@ namespace simple_json::types {
          */
         bool operator!=(const Json & json_item) const;
 
+        // Friends
+        friend std::ostream & operator<<(std::ostream & os, const Json & json_item);
+        friend JsonObject;
+        friend Array;
+        friend JsonPatch;
+
         // Public Methods
+
+        /*!
+         * @brief Returns an iterator pointing to the beginning of Json object.
+         *
+         * This method returns an iterator object pointing the beginning of a Json object.
+         * The Json object must be an Array or JsonObject type.
+         * @throw iterators::exceptions::InvalidIteration Throws when data type of Json object is not iterable.
+         * @return Created iterator object.
+         */
+        iterator begin();
+
+        /*!
+         * @brief Returns a iterator pointing to the past-the-end element in the Json object.
+         *
+         * This method returns an iterator object pointing to the past-the-end element of Json object.
+         * The Json object must be an Array or JsonObject type.
+         * @throw iterators::exceptions::InvalidIteration Throws when data type of Json object is not iterable.
+         * @return Created iterator object.
+         */
+        iterator end();
+
+        /*!
+         * @brief Returns a const_iterator pointing to the beginning of the Json object.
+         *
+         * This public method returns a const_iterator pointing to the beginning of a Json object.
+         * The Json object must be an Array or JsonObject type.
+         * @throw iterators::exceptions::InvalidIteration Throws when data type of Json object is not iterable.
+         * @return Created const_iterator object.
+         */
+        const_iterator cbegin() const;
+
+        /*!
+         * @brief Returns a const_Iterator pointing to the past-the-end element in the Json object.
+         *
+         * This method returns and const_iterator object pointing to the past-the-end element in the Json object.
+         * The Json object must be an Array or JsonObject type.
+         * @throw iterators::exceptions::InvalidIteration Throws when data type of Json object is not iterable.
+         * @return Created const_iterator object.
+         */
+        const_iterator cend() const;
+
+        /*!
+         * @brief Returns the JsonObject object stored withing Json object.
+         * @return JsonObject stored inside the Json object.
+         * @throw iterators::exceptions::InvalidType Throws when the Json object type is JsonObject.
+         */
+        JsonObject & items() const;
 
         /*!
          * @brief Applies a merge patch on Json object.
