@@ -1108,6 +1108,29 @@ namespace simple_json::types {
         throw iterators::exceptions::InvalidType {};
     }
 
+    template <class T>
+    T & Json::get_data() {
+        if (std::is_same_v<T, int>) {
+            check_type(DataType::integer_type);
+            return data_int;
+        } else if (std::is_same_v<T, double>) {
+            check_type(DataType::double_type);
+            return data_double;
+        } else if (std::is_same_v<T, bool>) {
+            check_type(DataType::boolean_type);
+            return data_boolean;
+        } else if (std::is_same_v<T, std::string>) {
+            check_type(DataType::string_type);
+            return * data_string;
+        } else if (std::is_same_v<T, type_array> || std::is_same_v<T, Array>) {
+            check_type(DataType::array_type);
+            return * data_array;
+        } else if (std::is_same_v<T, map_type> || std::is_same_v<T, JsonObject>) {
+            check_type(DataType::json_object_type);
+            return * data_json_object;
+        }
+    }
+
     const JsonKey & Json::const_iterator::key() const {
         check_json_object();
         return (* json_object_iterator)->first;

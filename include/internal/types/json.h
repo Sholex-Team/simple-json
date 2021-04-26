@@ -19,6 +19,7 @@
 #include <algorithm>
 #include <functional>
 #include "exceptions/invalid_merge.h"
+#include <type_traits>
 
 namespace simple_json::types {
     class JsonKey;
@@ -1255,6 +1256,9 @@ namespace simple_json::types {
             last.check_type(IteratorTypes::array_iterator_type);
             return std::count(* first.array_iterator, * last.array_iterator, item);
         }
+
+        template <class T>
+        T & get_data();
 
         // Destructors
         /*!
