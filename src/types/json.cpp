@@ -650,7 +650,7 @@ namespace simple_json::types {
     }
 
     void Json::check_operator(DataType target_type) {
-        if (used_type == target_type) {
+        if (used_type != target_type) {
             throw exceptions::InvalidOperator {};
         }
     }
