@@ -613,7 +613,7 @@ namespace simple_json::types {
         return const_cast<Json &>(* tmp_return);
     }
 
-    void Json::erase(size_t index) {
+    void Json::erase(long index) {
         check_type(DataType::array_type);
         data_array->erase(data_array->cbegin() + index);
     }
@@ -664,7 +664,7 @@ namespace simple_json::types {
         data_array->insert(* position.array_iterator, std::move(item));
     }
 
-    Json::const_iterator Json::get_item(const size_t index) const {
+    Json::const_iterator Json::get_item(const long index) const {
         check_type(DataType::array_type);
         return const_iterator {data_array->cbegin() + index};
     }
@@ -841,23 +841,23 @@ namespace simple_json::types {
         return * this;
     }
 
-    Json::iterator Json::iterator::operator+(size_t i) const {
+    Json::iterator Json::iterator::operator+(long i) const {
         check_array_type();
         return Json::iterator{* array_iterator + i};
     }
 
-    Json::iterator Json::iterator::operator-(size_t i) const {
+    Json::iterator Json::iterator::operator-(long i) const {
         check_array_type();
         return Json::iterator{* array_iterator - i};
     }
 
-    Json::iterator & Json::iterator::operator+=(size_t i) {
+    Json::iterator & Json::iterator::operator+=(long i) {
         check_array_type();
         * array_iterator += i;
         return * this;
     }
 
-    Json::iterator & Json::iterator::operator-=(size_t i) {
+    Json::iterator & Json::iterator::operator-=(long i) {
         check_array_type();
         * array_iterator -= i;
         return * this;
@@ -895,23 +895,23 @@ namespace simple_json::types {
         return * this;
     }
 
-    Json::const_iterator Json::const_iterator::operator+(size_t i) const {
+    Json::const_iterator Json::const_iterator::operator+(long i) const {
         check_array_type();
         return Json::const_iterator {* array_iterator + i};
     }
 
-    Json::const_iterator Json::const_iterator::operator-(size_t i) const {
+    Json::const_iterator Json::const_iterator::operator-(long i) const {
         check_array_type();
         return Json::const_iterator {* array_iterator - i};
     }
 
-    Json::const_iterator & Json::const_iterator::operator+=(size_t i) {
+    Json::const_iterator & Json::const_iterator::operator+=(long i) {
         check_array_type();
         * array_iterator += i;
         return * this;
     }
 
-    Json::const_iterator & Json::const_iterator::operator-=(size_t i) {
+    Json::const_iterator & Json::const_iterator::operator-=(long i) {
         check_array_type();
         * array_iterator -= i;
         return * this;

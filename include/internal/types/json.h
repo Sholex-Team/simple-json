@@ -139,7 +139,7 @@ namespace simple_json::types {
              * @param i Positions that the iterator is going to advance.
              * @return Advanced iterator object.
              */
-            iterator operator+(size_t i) const;
+            iterator operator+(long i) const;
 
             /*!
              * @brief iterator subtraction operator overload.
@@ -148,7 +148,7 @@ namespace simple_json::types {
              * @param i Positions that the iterator is going to move back.
              * @return Moved back iterator object.
              */
-            iterator operator-(size_t i) const;
+            iterator operator-(long i) const;
 
             /*!
              * @brief iterator addition assignment operator overload.
@@ -157,7 +157,7 @@ namespace simple_json::types {
              * @param i Positions that the iterator is going to advance.
              * @return Advanced iterator.
              */
-            iterator & operator+=(size_t i);
+            iterator & operator+=(long i);
 
             /*!
              * @brief iteration subtraction assignment operator overload.
@@ -166,7 +166,7 @@ namespace simple_json::types {
              * @param i Positions that the iterator it going to move back.
              * @return Moved back iterator.
              */
-            iterator & operator-=(size_t i);
+            iterator & operator-=(long i);
 
             /*!
              * @brief Not equal to operator overload.
@@ -296,7 +296,7 @@ namespace simple_json::types {
              * @param i Positions that the copied const_iterator object is going to advance.
              * @return Advanced copy of const_iterator object.
              */
-            const_iterator operator+(size_t i) const;
+            const_iterator operator+(long i) const;
 
             /*!
              * @brief const_iterator subtraction operator.
@@ -305,7 +305,7 @@ namespace simple_json::types {
              * @param i Positions that the copied const_iterator object is going to move back.
              * @return Moved back copy of const_iterator object.
              */
-            const_iterator operator-(size_t i) const;
+            const_iterator operator-(long i) const;
 
             /*!
              * @brief const_iterator addition assignment operator overload.
@@ -314,7 +314,7 @@ namespace simple_json::types {
              * @param i Positions and the const_iterator object is going to advance.
              * @return A reference to advanced const_iterator object.
              */
-            const_iterator & operator+=(size_t i);
+            const_iterator & operator+=(long i);
 
             /*!
              * @brief const_iterator subtractions assignment operator overload.
@@ -323,7 +323,7 @@ namespace simple_json::types {
              * @param i Positions that the const_iterator object to going to move back.
              * @return A reference to moved back const_iterator object.
              */
-            const_iterator & operator-=(size_t i);
+            const_iterator & operator-=(long i);
 
             /*!
              * @brief Checks if the const_iterator is not equal to given const_iterator object reference.
@@ -743,11 +743,11 @@ namespace simple_json::types {
 
         /*!
          * @brief Returns a const_iterator pointing to the Json object at the given index.
-         * @param index size_t index.
+         * @param index Json object index
          * @throw exceptions::InvalidOperation Throws when the Json object is not Array type.
          * @return Created const_iterator object.
          */
-        const_iterator get_item(size_t index) const;
+        const_iterator get_item(long index) const;
 
         /*!
          * @brief Creates a JsonPatch to the given destination Json object.
@@ -762,9 +762,9 @@ namespace simple_json::types {
         /*!
          * @brief Erases the Json object at the given index.
          * @throw exceptions::InvalidOperation Throws when the Json object type is not Array.
-         * @param index size_t index
+         * @param index Json object index
          */
-        void erase(size_t index);
+        void erase(long index);
 
         /*!
          * @brief Erases the Json object related to the given key.
