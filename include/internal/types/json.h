@@ -56,6 +56,8 @@ namespace simple_json::types {
         void clean_memory() noexcept;
         void increment();
         void decrement();
+        void check_operator(DataType target_type);
+        void is_numeric();
     public:
         // Iterators
 
@@ -655,6 +657,34 @@ namespace simple_json::types {
          * @return A const Json object representing the original state of object(before decrementing).
          */
         const Json operator--(int);
+
+        /*!
+         * @brief Json Multiplication operator
+         * @param rhs Number that the Json object is going to be multiplied by.
+         * @return Multiplied Json object
+         */
+        Json operator*(long rhs);
+
+        /*!
+         * @brief Json float/double multiplication operator
+         * @param rhs float/double number that the Json object is going to be multiplied by.
+         * @return Multiplied Json object
+         */
+        Json operator*(double rhs);
+
+        /*!
+         * @brief Json number addition operator
+         * @param rhs Number which is going to be added to Json number
+         * @return Json result of addition
+         */
+        Json operator+(long rhs);
+
+        /*!
+         * @brief Json float/double addition operator
+         * @param rhs float/double which is going to be added to Json number
+         * @return Json result of addition
+         */
+        Json operator+(double rhs);
 
         // Friends
         friend std::ostream & operator<<(std::ostream & os, const Json & json_item);

@@ -254,6 +254,50 @@ namespace simple_json::types {
         return * this;
     }
 
+    Json Json::operator*(long rhs) {
+        is_numeric();
+        Json new_json(*this);
+        if (new_json.used_type == DataType::integer_type) {
+            new_json.data_int *= rhs;
+        } else {
+            new_json.data_double *= static_cast<double>(rhs);
+        }
+        return new_json;
+    }
+
+    Json Json::operator*(double rhs) {
+        is_numeric();
+        Json new_json(* this);
+        if (new_json.used_type == DataType::integer_type) {
+            new_json.data_double = static_cast<double>(new_json.data_int) * new_json.data_double;
+        } else {
+            new_json.data_double *= rhs;
+        }
+        return new_json;
+    }
+
+    Json Json::operator+(long rhs) {
+        is_numeric();
+        Json new_json(* this);
+        if (new_json.used_type == DataType::integer_type) {
+            new_json.data_int += rhs;
+        } else {
+            new_json.data_double += static_cast<double>(rhs);
+        }
+        return new_json;
+    }
+
+    Json Json::operator+(double rhs) {
+        is_numeric();
+        Json new_json(* this);
+        if (new_json.used_type == DataType::integer_type) {
+            new_json.data_double = static_cast<double>(new_json.data_int) + rhs;
+        } else {
+            new_json.data_double += rhs;
+        }
+        return new_json;
+    }
+
     #pragma endregion
 
     #pragma region Destructor
@@ -362,6 +406,18 @@ namespace simple_json::types {
     void Json::check_type(const DataType target_type) const {
         if (used_type != target_type) {
             throw exceptions::InvalidOperation {target_type};
+        }
+    }
+
+    void Json::check_operator(DataType target_type) {
+        if (used_type != target_type) {
+            throw exceptions::InvalidOperator {};
+        }
+    }
+
+    void Json::is_numeric() {
+        if (used_type != DataType::integer_type && used_type != DataType::double_type) {
+            throw exceptions::InvalidOperator {};
         }
     }
 
