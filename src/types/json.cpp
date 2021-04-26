@@ -415,7 +415,7 @@ namespace simple_json::types {
                 data_int *= rhs;
                 break;
             case DataType::double_type:
-                data_double -= static_cast<double>(rhs);
+                data_double *= static_cast<double>(rhs);
                 break;
             default:
                 throw exceptions::InvalidOperator {};
