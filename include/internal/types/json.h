@@ -57,6 +57,7 @@ namespace simple_json::types {
         void increment();
         void decrement();
         void is_numeric();
+        void check_operator(DataType target_type);
     public:
         // Iterators
 
@@ -660,6 +661,7 @@ namespace simple_json::types {
         /*!
          * @brief Json Multiplication operator
          * @param rhs Number that the Json object is going to be multiplied by.
+         * @throw exceptions::InvalidOperator Throws when Json object data is not numeric.
          * @return Multiplied Json object
          */
         Json operator*(long rhs);
@@ -667,6 +669,7 @@ namespace simple_json::types {
         /*!
          * @brief Json float/double multiplication operator
          * @param rhs float/double number that the Json object is going to be multiplied by.
+         * @throw exceptions::InvalidOperator Throws when Json object data is not numeric.
          * @return Multiplied Json object
          */
         Json operator*(double rhs);
@@ -674,6 +677,7 @@ namespace simple_json::types {
         /*!
          * @brief Json number addition operator
          * @param rhs Number which is going to be added to Json number
+         * @throw exceptions::InvalidOperator Throws when Json object data is not numeric.
          * @return Json result of addition
          */
         Json operator+(long rhs);
@@ -681,6 +685,7 @@ namespace simple_json::types {
         /*!
          * @brief Json float/double addition operator
          * @param rhs float/double which is going to be added to Json number
+         * @throw exceptions::InvalidOperator Throws when Json object data is not numeric.
          * @return Json result of addition
          */
         Json operator+(double rhs);
@@ -688,6 +693,7 @@ namespace simple_json::types {
         /*!
          * @brief Json number subtraction operator
          * @param rhs Number which is going to get subtracted from Json object.
+         * @throw exceptions::InvalidOperator Throws when Json object data is not numeric.
          * @return Json result of subtraction
          */
         Json operator-(long rhs);
@@ -695,9 +701,34 @@ namespace simple_json::types {
         /*!
          * @brief Json float/double subtraction operator
          * @param rhs float/double which is going to get subtracted from Json object.
+         * @throw exceptions::InvalidOperator Throws when Json object data is not numeric.
          * @return Json result of subtraction
          */
         Json operator-(double rhs);
+
+        /*!
+         * @brief Json number division operator
+         * @param rhs Right hand side number
+         * @throw exceptions::InvalidOperator Throws when Json object data is not numeric.
+         * @return Json result of division operation
+         */
+        Json operator/(long rhs);
+
+        /*!
+         * @brief Json float/double division operator
+         * @param rhs Right hand side float/double
+         * @throw exceptions::InvalidOperator Throws when Json object data is not numeric.
+         * @return Json result of division operation
+         */
+        Json operator/(double rhs);
+
+        /*!
+         * @brief Json number modulo operator
+         * @param rhs Right hand side number
+         * @throw exceptions::InvalidOperator Throws when Json object data is not a number.
+         * @return Json result of modulo operation
+         */
+        Json operator%(long rhs);
 
         // Friends
         friend std::ostream & operator<<(std::ostream & os, const Json & json_item);

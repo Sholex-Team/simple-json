@@ -320,6 +320,33 @@ namespace simple_json::types {
         return new_json;
     }
 
+    Json Json::operator/(long rhs) {
+        is_numeric();
+        Json new_json(* this);
+        if (new_json.used_type == DataType::integer_type) {
+            new_json.data_int /= rhs;
+        } else {
+            new_json.data_double /= static_cast<double>(rhs);
+        }
+        return new_json;
+    }
+
+    Json Json::operator/(double rhs) {
+        is_numeric();
+        Json new_json(* this);
+        if (new_json.used_type == DataType::integer_type) {
+            new_json.data_double = static_cast<double>(new_json.data_int) / rhs;
+        } else {
+            new_json.data_double /= rhs;
+        }
+        return new_json;
+    }
+
+    Json Json::operator%(long rhs) {
+        check_type(DataType::integer_type);
+        return data_int % rhs;
+    }
+
     #pragma endregion
 
     #pragma region Destructor
@@ -460,6 +487,12 @@ namespace simple_json::types {
                 return;
             default:
                 throw exceptions::InvalidOperator {};
+        }
+    }
+
+    void Json::check_operator(DataType target_type) {
+        if (used_type == target_type) {
+            throw exceptions::InvalidOperator {};
         }
     }
 
