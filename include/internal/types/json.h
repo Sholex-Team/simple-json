@@ -1257,9 +1257,6 @@ namespace simple_json::types {
             return std::count(* first.array_iterator, * last.array_iterator, item);
         }
 
-        template <class T>
-        T & get_data();
-
         // Destructors
         /*!
          * @brief Json destructor
