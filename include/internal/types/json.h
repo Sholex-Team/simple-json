@@ -577,6 +577,78 @@ namespace simple_json::types {
         Json & operator=(DataType object_type);
 
         /*!
+         * @brief Json number addition assignment operator
+         * @param rhs Right hand side number
+         * @throw exceptions::InvalidOperator Throws when the Json object data is not numeric.
+         * @return A reference to the Json object
+         */
+        Json & operator+=(long rhs);
+
+        /*!
+         * @brief Json float/double addition assignment operator
+         * @param rhs Right hand side float/double
+         * @throw exceptions::InvalidOperator Throws when the Json object data is not numeric.
+         * @return A reference to the Json object
+         */
+        Json & operator+=(double rhs);
+
+        /*!
+         * @brief Json number subtraction assignment operator
+         * @param rhs Right hand side number
+         * @throw exceptions::InvalidOperator Throws when the Json object data is not numeric.
+         * @return A reference to the Json object
+         */
+        Json & operator-=(long rhs);
+
+        /*!
+         * @brief Json float/double subtraction assignment operator
+         * @param rhs Right hand side float/double
+         * @throw exceptions::InvalidOperator Throws when the Json object data is not numeric.
+         * @return A reference to the Json object
+         */
+        Json & operator-=(double rhs);
+
+        /*!
+         * @brief Json number multiplication assignment operator
+         * @param rhs Right hand side number
+         * @throw exceptions::InvalidOperator Throws when the Json object data is not numeric.
+         * @return A reference to the Json object
+         */
+        Json & operator*=(long rhs);
+
+        /*!
+         * @brief Json float/double multiplication assignment operator
+         * @param rhs Right hand side float/double
+         * @throw exceptions::InvalidOperator Throws when the Json object data is not numeric.
+         * @return A reference to the Json object
+         */
+        Json & operator*=(double rhs);
+
+        /*!
+         * @brief Json number division assignment operator
+         * @param rhs Right hand side number
+         * @throw exceptions::InvalidOperator Throws when the Json object data is not numeric.
+         * @return A reference to the Json object
+         */
+        Json & operator/=(long rhs);
+
+        /*!
+         * @brief Json float/double division assignment operator
+         * @param rhs Right hand side float/double
+         * @throw exceptions::InvalidOperator Throws when the Json object data is not numeric.
+         * @return A reference to the Json object
+         */
+        Json & operator/=(double rhs);
+
+        /*!
+         * @brief Json number modulo assignment operator
+         * @param rhs Right hand side number
+         * @throw exceptions::InvalidOperator Throws when the Json object data is not a number.
+         * @return A reference to the result Json object
+         */
+        Json & operator%=(long rhs);
+
+        /*!
          * @brief Json size_t array subscript operator overload.
          * @throw exceptions::InvalidOperation Throws when Json object type is not Array.
          * @param index Item index.

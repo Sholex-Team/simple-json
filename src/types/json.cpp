@@ -347,6 +347,124 @@ namespace simple_json::types {
         return data_int % rhs;
     }
 
+    Json & Json::operator+=(long rhs) {
+        switch (used_type) {
+            case DataType::integer_type:
+                data_int += rhs;
+                break;
+            case DataType::double_type:
+                data_double = static_cast<double>(rhs);
+                break;
+            default:
+                throw exceptions::InvalidOperator {};
+        }
+        return * this;
+    }
+
+    Json & Json::operator+=(double rhs) {
+        switch (used_type) {
+            case DataType::integer_type:
+                data_double = static_cast<double>(data_int) + rhs;
+                break;
+            case DataType::double_type:
+                data_double += rhs;
+                break;
+            default:
+                throw exceptions::InvalidOperator {};
+        }
+        return * this;
+    }
+
+    Json & Json::operator-=(long rhs) {
+        switch (used_type) {
+            case DataType::integer_type:
+                data_int -= rhs;
+                break;
+            case DataType::double_type:
+                data_double -= static_cast<double>(rhs);
+                break;
+            default:
+                throw exceptions::InvalidOperator {};
+        }
+        return * this;
+    }
+
+    Json & Json::operator-=(double rhs) {
+        switch (used_type) {
+            case DataType::integer_type:
+                data_double = static_cast<double>(data_int) - rhs;
+                break;
+            case DataType::double_type:
+                data_double -= rhs;
+                break;
+            default:
+                throw exceptions::InvalidOperator {};
+        }
+        return * this;
+    }
+
+    Json & Json::operator*=(long rhs) {
+        switch (used_type) {
+            case DataType::integer_type:
+                data_int *= rhs;
+                break;
+            case DataType::double_type:
+                data_double -= static_cast<double>(rhs);
+                break;
+            default:
+                throw exceptions::InvalidOperator {};
+        }
+        return * this;
+    }
+
+    Json & Json::operator*=(double rhs) {
+        switch (used_type) {
+            case DataType::integer_type:
+                data_double = static_cast<double>(data_int) * rhs;
+                break;
+            case DataType::double_type:
+                data_double *= rhs;
+                break;
+            default:
+                throw exceptions::InvalidOperator {};
+        }
+        return * this;
+    }
+
+    Json & Json::operator/=(long rhs) {
+        switch (used_type) {
+            case DataType::integer_type:
+                data_int /= rhs;
+                break;
+            case DataType::double_type:
+                data_double /= static_cast<double>(rhs);
+                break;
+            default:
+                throw exceptions::InvalidOperator {};
+        }
+        return * this;
+    }
+
+    Json & Json::operator/=(double rhs) {
+        switch (used_type) {
+            case DataType::integer_type:
+                data_double = static_cast<double>(data_int) / rhs;
+                break;
+            case DataType::double_type:
+                data_double /= rhs;
+                break;
+            default:
+                throw exceptions::InvalidOperator {};
+        }
+        return * this;
+    }
+
+    Json & Json::operator%=(long rhs) {
+        check_operator(DataType::integer_type);
+        data_int %= rhs;
+        return * this;
+    }
+
     #pragma endregion
 
     #pragma region Destructor
@@ -760,7 +878,7 @@ namespace simple_json::types {
     void Json::erase(const JsonPointer & json_pointer) {
         Json & target {at(json_pointer.get_parent())};
         if (target.used_type == DataType::array_type) {
-            target.erase(json_pointer.get_index());
+            target.erase(static_cast<long>(json_pointer.get_index()));
         } else if (target.used_type == DataType::json_object_type){
             target.data_json_object->erase(json_pointer.get_key());
         } else {
