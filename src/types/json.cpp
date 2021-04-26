@@ -269,6 +269,7 @@ namespace simple_json::types {
         is_numeric();
         Json new_json(* this);
         if (new_json.used_type == DataType::integer_type) {
+            new_json.used_type = DataType::double_type;
             new_json.data_double = static_cast<double>(new_json.data_int) * new_json.data_double;
         } else {
             new_json.data_double *= rhs;
@@ -291,6 +292,7 @@ namespace simple_json::types {
         is_numeric();
         Json new_json(* this);
         if (new_json.used_type == DataType::integer_type) {
+            new_json.used_type = DataType::double_type;
             new_json.data_double = static_cast<double>(new_json.data_int) + rhs;
         } else {
             new_json.data_double += rhs;
@@ -313,6 +315,7 @@ namespace simple_json::types {
         is_numeric();
         Json new_json(* this);
         if (new_json.used_type == DataType::integer_type) {
+            new_json.used_type = DataType::double_type;
             new_json.data_double = static_cast<double>(new_json.data_int) - rhs;
         } else {
             new_json.data_double -= rhs;
@@ -335,6 +338,7 @@ namespace simple_json::types {
         is_numeric();
         Json new_json(* this);
         if (new_json.used_type == DataType::integer_type) {
+            new_json.used_type = DataType::double_type;
             new_json.data_double = static_cast<double>(new_json.data_int) / rhs;
         } else {
             new_json.data_double /= rhs;
@@ -364,6 +368,7 @@ namespace simple_json::types {
     Json & Json::operator+=(double rhs) {
         switch (used_type) {
             case DataType::integer_type:
+                used_type = DataType::double_type;
                 data_double = static_cast<double>(data_int) + rhs;
                 break;
             case DataType::double_type:
@@ -392,6 +397,7 @@ namespace simple_json::types {
     Json & Json::operator-=(double rhs) {
         switch (used_type) {
             case DataType::integer_type:
+                used_type = DataType::double_type;
                 data_double = static_cast<double>(data_int) - rhs;
                 break;
             case DataType::double_type:
@@ -420,6 +426,7 @@ namespace simple_json::types {
     Json & Json::operator*=(double rhs) {
         switch (used_type) {
             case DataType::integer_type:
+                used_type = DataType::double_type;
                 data_double = static_cast<double>(data_int) * rhs;
                 break;
             case DataType::double_type:
@@ -448,6 +455,7 @@ namespace simple_json::types {
     Json & Json::operator/=(double rhs) {
         switch (used_type) {
             case DataType::integer_type:
+                used_type = DataType::double_type;
                 data_double = static_cast<double>(data_int) / rhs;
                 break;
             case DataType::double_type:
