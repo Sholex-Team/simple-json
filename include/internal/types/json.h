@@ -54,6 +54,7 @@ namespace simple_json::types {
             }
         }
         void clean_memory() noexcept;
+        void increment();
     public:
         // Iterators
 
@@ -278,7 +279,7 @@ namespace simple_json::types {
              * Copies the const_iterator and advances the original const_iterator object and returns the copy.
              * @return A copied const_iterator object of the original one before advancing.
              */
-            const_iterator operator++(int);
+            const const_iterator operator++(int);
 
             /*!
              * @brief const_iterator pre-increment operator overload.
@@ -617,6 +618,24 @@ namespace simple_json::types {
          * @return Boolean representing result of comparison.
          */
         bool operator!=(const Json & json_item) const;
+
+        /*!
+         * @brief Json pre-increment operator overload
+         *
+         * Increments float or number data within the Json object.
+         * @throw exceptions::InvalidOperator Throws when Json object data is not float ro number typed.
+         * @return A reference to the Json object
+         */
+        Json & operator++();
+
+        /*!
+         * @brief Json post-increment operator overload
+         *
+         * Copies the Json object and increments float or number data within the copy.
+         * @throw exceptions::InvalidOperator Throws when Json object data is not float ro number typed.
+         * @return A const Json object representing the original state of object(before incrementing).
+         */
+        const Json operator++(int);
 
         // Friends
         friend std::ostream & operator<<(std::ostream & os, const Json & json_item);

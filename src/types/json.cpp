@@ -232,6 +232,17 @@ namespace simple_json::types {
         }
     }
 
+    const Json Json::operator++(int) {
+        Json old_json(* this);
+        increment();
+        return old_json;
+    }
+
+    Json & Json::operator++() {
+        increment();
+        return * this;
+    }
+
     #pragma endregion
 
     #pragma region Destructor
@@ -340,6 +351,19 @@ namespace simple_json::types {
     void Json::check_type(const DataType target_type) const {
         if (used_type != target_type) {
             throw exceptions::InvalidOperation {target_type};
+        }
+    }
+
+    void Json::increment() {
+        switch (used_type) {
+            case DataType::integer_type:
+                ++data_int;
+                return;
+            case DataType::double_type:
+                ++data_double;
+                return;
+            default:
+                throw exceptions::InvalidOperator {};
         }
     }
 
@@ -860,7 +884,7 @@ namespace simple_json::types {
          throw iterators::exceptions::InvalidDereference {};
     }
 
-    Json::const_iterator Json::const_iterator::operator++(int) {
+    const Json::const_iterator Json::const_iterator::operator++(int) {
         Json::const_iterator temp {* this};
         add_to_iterator();
         return temp;
