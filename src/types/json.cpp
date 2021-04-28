@@ -773,7 +773,7 @@ namespace simple_json::types {
     }
 
     std::string & Json::get_string() {
-        check_type(DataType::double_type);
+        check_type(DataType::string_type);
         return * data_string;
     }
 
