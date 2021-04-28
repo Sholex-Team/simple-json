@@ -1227,6 +1227,8 @@ namespace simple_json::types {
         long & get_int();
         double & get_double();
         std::string & get_string();
+        Array & get_array();
+        JsonObject & get_json_object();
 
         /*!
          * @brief Finds the given Json object in the given range.

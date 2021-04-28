@@ -777,6 +777,16 @@ namespace simple_json::types {
         return * data_string;
     }
 
+    Array & Json::get_array() {
+        check_type(DataType::array_type);
+        return * data_array;
+    }
+
+    JsonObject & Json::get_json_object() {
+        check_type(DataType::json_object_type);
+        return * data_json_object;
+    }
+
     void Json::update(const Json & target) {
         check_type(DataType::json_object_type);
         for (const pair_type & item: target.items()) {
