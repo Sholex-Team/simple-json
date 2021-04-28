@@ -1224,6 +1224,10 @@ namespace simple_json::types {
          */
         void update(const Json & target);
 
+        long & get_int();
+        double & get_double();
+        std::string & get_string();
+
         /*!
          * @brief Finds the given Json object in the given range.
          * @tparam T Type of given iterators.

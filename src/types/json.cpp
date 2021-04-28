@@ -1,3 +1,6 @@
+
+#include <types/json.h>
+
 #include "types/json_patch.h"
 
 namespace simple_json::types {
@@ -757,6 +760,21 @@ namespace simple_json::types {
 
     JsonPatch Json::get_diff(const Json & dst) const {
         return JsonPatch::PatchBuilder {* this, dst}.create_patch();
+    }
+
+    long & Json::get_int() {
+        check_type(DataType::integer_type);
+        return data_int;
+    }
+
+    double & Json::get_double() {
+        check_type(DataType::double_type);
+        return data_double;
+    }
+
+    std::string & Json::get_string() {
+        check_type(DataType::double_type);
+        return * data_string;
     }
 
     void Json::update(const Json & target) {
