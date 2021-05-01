@@ -768,27 +768,27 @@ namespace simple_json::types {
     }
 
     long & Json::get_int() {
-        check_type(DataType::integer_type);
+        check_data(DataType::integer_type);
         return data_int;
     }
 
     double & Json::get_double() {
-        check_type(DataType::double_type);
+        check_data(DataType::double_type);
         return data_double;
     }
 
     std::string & Json::get_string() {
-        check_type(DataType::string_type);
+        check_data(DataType::string_type);
         return * data_string;
     }
 
     Array & Json::get_array() {
-        check_type(DataType::array_type);
+        check_data(DataType::array_type);
         return * data_array;
     }
 
     JsonObject & Json::get_json_object() {
-        check_type(DataType::json_object_type);
+        check_data(DataType::json_object_type);
         return * data_json_object;
     }
 
