@@ -1228,6 +1228,7 @@ namespace simple_json::types {
 
         long & get_int();
         double & get_double();
+        bool & get_bool();
         std::string & get_string();
         Array & get_array();
         JsonObject & get_json_object();

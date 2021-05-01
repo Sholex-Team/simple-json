@@ -777,6 +777,11 @@ namespace simple_json::types {
         return data_double;
     }
 
+    bool & Json::get_bool() {
+        check_data(DataType::boolean_type);
+        return data_boolean;
+    }
+
     std::string & Json::get_string() {
         check_data(DataType::string_type);
         return * data_string;
