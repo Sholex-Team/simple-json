@@ -20,5 +20,5 @@ namespace simple_json::types::exceptions {
         }
     }
 
-#pragma endregion
+    #pragma endregion
 }

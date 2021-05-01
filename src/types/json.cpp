@@ -521,7 +521,6 @@ namespace simple_json::types {
     #pragma region Destructor
     Json::~Json() {
         clean_memory();
-        double a {1.5};
     }
 
 
@@ -628,7 +627,7 @@ namespace simple_json::types {
         }
     }
 
-    void Json::is_numeric() {
+    void Json::is_numeric() const {
         if (used_type != DataType::integer_type && used_type != DataType::double_type) {
             throw exceptions::InvalidOperator {};
         }
@@ -660,9 +659,15 @@ namespace simple_json::types {
         }
     }
 
-    void Json::check_operator(DataType target_type) {
+    void Json::check_operator(DataType target_type) const {
         if (used_type != target_type) {
             throw exceptions::InvalidOperator {};
+        }
+    }
+
+    void Json::check_data(DataType target_type) const {
+        if (used_type != target_type) {
+            throw exceptions::WrongType {used_type};
         }
     }
 

@@ -18,6 +18,5 @@ namespace simple_json::types::exceptions {
         }
     }
 
-    InvalidIndex::InvalidIndex(const DataType used_type) : JsonException(),
-                                                           used_type (used_type) {}
+    InvalidIndex::InvalidIndex(const DataType used_type) : JsonException(), used_type (used_type) {}
 }

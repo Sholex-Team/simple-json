@@ -1,7 +1,13 @@
 #include "types/exceptions/invalid_merge.h"
 
 namespace simple_json::types::exceptions {
+    #pragma region Constructors
+
     InvalidMerge::InvalidMerge(DataType target_type) : target_type {target_type} {}
+
+    #pragma endregion
+
+    #pragma region Public Methods
 
     const char * InvalidMerge::what() const noexcept {
         switch (target_type) {
@@ -13,4 +19,6 @@ namespace simple_json::types::exceptions {
                 return "Invalid merge operation !";
         }
     }
+
+    #pragma endregion
 }

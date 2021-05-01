@@ -11,6 +11,7 @@
 #include "enum_types.h"
 #include "exceptions/bad_conversion.h"
 #include "exceptions/stream_exceptions.h"
+#include "exceptions/wrong_type.h"
 #include "exceptions/iterator_exceptions.h"
 #include <utility>
 #include "exceptions/invalid_operator.h"
@@ -57,8 +58,9 @@ namespace simple_json::types {
         void clean_memory() noexcept;
         void increment();
         void decrement();
-        void is_numeric();
-        void check_operator(DataType target_type);
+        void is_numeric() const;
+        void check_operator(DataType target_type) const;
+        void check_data(DataType target_type) const;
     public:
         // Iterators
 

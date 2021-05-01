@@ -2,7 +2,7 @@
 
 namespace simple_json {
     namespace serializer::exceptions {
-    #pragma region Public Methods
+        #pragma region Public Methods
 
         const char * StreamInsertionException::what() const noexcept {
             return "Failed to insert the value into stream !";
@@ -12,16 +12,16 @@ namespace simple_json {
             return "Writing to file failed !";
         }
 
-    #pragma endregion
+        #pragma endregion
     }
 
     namespace deserializer::exceptions {
-    #pragma region Public Methods
+        #pragma region Public Methods
 
         const char * ReadingFromFileException::what() const noexcept {
             return "Reading from file failed !";
         }
 
-    #pragma endregion
+        #pragma endregion
     }
 }
