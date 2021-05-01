@@ -1226,11 +1226,40 @@ namespace simple_json::types {
          */
         void update(const Json & target);
 
+        /*!
+         * @brief int data getter
+         * @return A reference to int data stored inside
+         */
         long & get_int();
+
+        /*!
+         * @brief double data getter
+         * @return A reference to double data stored inside
+         */
         double & get_double();
+
+        /*!
+         * @brief bool data getter
+         * @return A reference to bool data stored inside
+         */
         bool & get_bool();
+
+        /*!
+         * @brief std::string data getter
+         * @return A reference to std::string data stored inside
+         */
         std::string & get_string();
+
+        /*!
+         * @brief Array data getter
+         * @return A reference to Array data stored inside
+         */
         Array & get_array();
+
+        /*!
+         * @brief JsonObject data getter
+         * @return A reference to JsonObject data stored inside
+         */
         JsonObject & get_json_object();
 
         /*!
