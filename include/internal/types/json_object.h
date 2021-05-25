@@ -13,7 +13,7 @@
 namespace simple_json::types {
     class Json;
     class Array;
-    using map_type = std::map<JsonKey, Json>;
+    using map_type = std::map<const JsonKey, Json>;
     using pair_type = std::pair<const JsonKey, Json>;
     using json_list_type = std::initializer_list<pair_type>;
 
