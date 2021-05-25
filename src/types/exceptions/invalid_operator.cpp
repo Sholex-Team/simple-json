@@ -3,7 +3,8 @@
 namespace simple_json::types::exceptions {
     #pragma region Constructors
 
-    InvalidOperator::InvalidOperator(int target_type) : base_exceptions::JsonException {}, used_type {target_type} {}
+    InvalidOperator::InvalidOperator(DataType target_type) : base_exceptions::JsonException {},
+            used_type {target_type} {}
 
     #pragma endregion
 
