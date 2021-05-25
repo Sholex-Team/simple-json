@@ -41,6 +41,8 @@ add_library(
         src/types/base_iterator.cpp
         src/types/exceptions/deserializer_exceptions.cpp
         src/types/exceptions/invalid_operation.cpp
+        src/types/exceptions/invalid_operator.cpp
+        src/types/exceptions/wrong_type.cpp
         src/json_utils.cpp
         src/types/json_pointer.cpp
         src/types/json_patch.cpp

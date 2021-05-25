@@ -9,12 +9,11 @@
 #include "../internal/types/json_patch.h"
 #include "../internal/types/json_pointer.h"
 #include "../internal/types/base_iterator.h"
-
 #include "../internal/indent.h"
 #include "../internal/serializer.h"
 #include "../internal/deserializer.h"
 #include "../internal/json_utils.h"
-
+#include "../internal/types/exceptions/wrong_type.h"
 #include "../internal/types/exceptions/invalid_merge.h"
 #include "../internal/types/exceptions/invalid_operation.h"
 #include "../internal/types/exceptions/invalid_operator.h"
