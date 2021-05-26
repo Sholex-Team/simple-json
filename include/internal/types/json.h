@@ -1234,7 +1234,7 @@ namespace simple_json::types {
         const_iterator cbegin() const;
 
         /*!
-         * @brief Returns a const_Iterator pointing to the past-the-end element in the Json object.
+         * @brief Returns a const_iterator pointing to the past-the-end element in the Json object.
          *
          * This method returns and const_iterator object pointing to the past-the-end element in the Json object.
          * The Json object must be an Array or JsonObject type.
@@ -1242,6 +1242,47 @@ namespace simple_json::types {
          * @return Created const_iterator object.
          */
         const_iterator cend() const;
+
+        /*!
+         * @brief Returns a reverse_iterator pointing to the beginning of Json object.
+         *
+         * This method returns an iterator object pointing the beginning of a Json object.
+         * The Json object must be an Array or JsonObject type.
+         * @throw iterators::exceptions::InvalidIteration Throws when data type of Json object is not iterable.
+         * @return Created reverse_iterator object.
+         */
+        reverse_iterator rbegin();
+
+        /*!
+         * @brief Returns a reverse_iterator pointing to the past-the-end element in the Json object.
+         *
+         * This method returns an iterator object pointing to the past-the-end element of Json object.
+         * The Json object must be an Array or JsonObject type.
+         * @throw iterators::exceptions::InvalidIteration Throws when data type of Json object is not iterable.
+         * @return Created reverse_iterator object.
+         */
+        reverse_iterator rend();
+
+        /*!
+         * @brief Returns a const_reverse_iterator pointing to the beginning of the Json object.
+         *
+         * This public method returns a const_reverse_iterator pointing to the beginning of a Json object.
+         * The Json object must be an Array or JsonObject type.
+         * @throw iterators::exceptions::InvalidIteration Throws when data type of Json object is not iterable.
+         * @return Created const_reverse_iterator object.
+         */
+        const_reverse_iterator crbegin() const;
+
+        /*!
+         * @brief Returns a const_reverse_iterator pointing to the past-the-end element in the Json object.
+         *
+         * This method returns and const_reverse_iterator object pointing to the past-the-end element in the Json
+         * object.
+         * The Json object must be an Array or JsonObject type.
+         * @throw iterators::exceptions::InvalidIteration Throws when data type of Json object is not iterable.
+         * @return Created const_reverse_iterator object.
+         */
+        const_reverse_iterator crend() const;
 
         /*!
          * @brief Returns the JsonObject object stored withing Json object.
@@ -1474,10 +1515,10 @@ namespace simple_json::types {
         iterator find_if(const std::function<bool(const Json &)> & test_func);
 
         /*!
-         * @brief Returns an const_iterator to the item that passed the given test function.
+         * @brief Returns a const_iterator to the item that passed the given test function.
          * @throw exceptions::InvalidOperation Throws if the Json object type is not Array.
          * @param test_func A const reference to test function object.
-         * @return An const_iterator pointing to the first item that passed the test or this->cend() if none of
+         * @return A const_iterator pointing to the first item that passed the test or this->cend() if none of
          * them passed it.
          */
         const_iterator find_if(const std::function<bool(const Json &)> & test_func) const;
@@ -1491,10 +1532,10 @@ namespace simple_json::types {
         iterator find_if(const std::function<bool(const pair_type &)> & test_func);
 
         /*!
-         * @brief Returns an const_iterator to the item that passed the given test function.
+         * @brief Returns a const_iterator to the item that passed the given test function.
          * @throw exceptions::InvalidOperation Throws if the Json object type is not JsonObject.
          * @param test_func A const reference to test function object.
-         * @return An const_iterator pointing to the first item that passed the test or this->cend() if none of
+         * @return A const_iterator pointing to the first item that passed the test or this->cend() if none of
          * them passed it.
          */
         const_iterator find_if(const std::function<bool(const pair_type &)> & test_func) const;

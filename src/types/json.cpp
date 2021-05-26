@@ -758,6 +758,50 @@ namespace simple_json::types {
         }
     }
 
+    Json::reverse_iterator Json::rbegin() {
+        switch (used_type) {
+            case DataType::array_type:
+                return Json::reverse_iterator {data_array->rbegin()};
+            case DataType::json_object_type:
+                return Json::reverse_iterator {data_json_object->rbegin()};
+            default:
+                throw iterators::exceptions::InvalidIteration {used_type};
+        }
+    }
+
+    Json::reverse_iterator Json::rend() {
+        switch (used_type) {
+            case DataType::array_type:
+                return Json::reverse_iterator {data_array->rend()};
+            case DataType::json_object_type:
+                return Json::reverse_iterator {data_json_object->rend()};
+            default:
+                throw iterators::exceptions::InvalidIteration {used_type};
+        }
+    }
+
+    Json::const_reverse_iterator Json::crbegin() const {
+        switch (used_type) {
+            case DataType::array_type:
+                return const_reverse_iterator {data_array->crbegin()};
+            case DataType::json_object_type:
+                return const_reverse_iterator {data_json_object->crbegin()};
+            default:
+                throw iterators::exceptions::InvalidIteration {used_type};
+        }
+    }
+
+    Json::const_reverse_iterator Json::crend() const {
+        switch (used_type) {
+            case DataType::array_type:
+                return Json::const_reverse_iterator {data_array->crend()};
+            case DataType::json_object_type:
+                return Json::const_reverse_iterator {data_json_object->crend()};
+            default:
+                throw iterators::exceptions::InvalidIteration {used_type};
+        }
+    }
+
     void Json::merge_patch(const Json & merge_patch) noexcept {
         apply_merge_patch(* this, merge_patch);
     }
