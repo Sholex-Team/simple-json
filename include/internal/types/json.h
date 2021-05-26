@@ -377,8 +377,317 @@ namespace simple_json::types {
             friend Json;
         };
 
-        // Constructors
+        class reverse_iterator : public iterators::JsonIterator {
+        private:
+            const union {
+                Array::reverse_iterator * array_iterator;
+                JsonObject::reverse_iterator * json_object_iterator;
+            };
+        protected:
+            void add_to_iterator() override;
+        public:
+            // Constructors
 
+            /*!
+             * @brief reverse_iterator copy constructor.
+             *
+             * Copies the reverse_iterator passed to it into a new reverse_iterator object.
+             * @param r_iterator reverse_iterator object that is going to get copied.
+             */
+            reverse_iterator(const reverse_iterator & r_iterator);
+
+            /*!
+             * @brief reverse_iterator move constructor.
+             *
+             * Moves the reverse_iterator object passed to it into a new reverse_iterator object.
+             * @param r_iterator reverse_iterator object which is about to be moved.
+             */
+            reverse_iterator(reverse_iterator && r_iterator) noexcept;
+
+            /*!
+             * @brief reverse_iterator JsonObject::iterator constructor.
+             *
+             * Creates a new reverse_iterator based on a JsonObject::reverse_iterator object passed to it.
+             * @param json_object_iterator A const reference to the JsonObject::reverse_iterator that is
+             * going to be used for creating a new
+             * reverse_iterator object.
+             */
+            explicit reverse_iterator(const JsonObject::reverse_iterator & json_object_iterator);
+
+            /*!
+             * @brief reverse_iterator Array::reverse_iterator constructor.
+             *
+             * Creates a new reverse_iterator object based on a Array::reverse_iterator object passed to it.
+             * @param array_iterator A const reference to the Array::reverse_iterator object which is about
+             * to be used as base.
+             */
+            explicit reverse_iterator(const Array::reverse_iterator & array_iterator);
+
+            // Operator Overloading
+
+            /*!
+             * @brief reverse_iterator dereference operator overload.
+             * @throw iterators::exceptions::InvalidDereference Throws when the type of the base
+             * reverse_iterator is not Array::reverse_iterator.
+             * @return Json object which the iterator is pointing to.
+             */
+            Json & operator*() const;
+
+            /*!
+             * @brief reverse_iterator post-increment operator overload.
+             *
+             * Copies the reverse_iterator and advances the original reverse_iterator object and
+             * returns the copy.
+             * @return A copied reverse_iterator object of the original one before advancing.
+             */
+            const reverse_iterator operator++(int);
+
+            /*!
+             * @brief reverse_iterator pre-increment operator overload.
+             *
+             * Advances the reverse_iterator object by one position.
+             * @return A reference to advanced reverse_iterator object.
+             */
+            reverse_iterator & operator++();
+
+            /*!
+             * @brief reverse_iterator addition operator.
+             *
+             * Copies the reverse_iterator and advances the copy by given positions.
+             * @param i Positions that the copied reverse_iterator object is going to advance.
+             * @return Advanced copy of reverse_iterator object.
+             */
+            reverse_iterator operator+(long i) const;
+
+            /*!
+             * @brief reverse_iterator subtraction operator.
+             *
+             * Copies the reverse_iterator object and moves the copy back by given positions.
+             * @param i Positions that the copied reverse_iterator object is going to move back.
+             * @return Moved back copy of reverse_iterator object.
+             */
+            reverse_iterator operator-(long i) const;
+
+            /*!
+             * @brief reverse_iterator addition assignment operator overload.
+             *
+             * Advances the reverse_iterator object by given positions.
+             * @param i Positions and the reverse_iterator object is going to advance.
+             * @return A reference to advanced reverse_iterator object.
+             */
+            reverse_iterator & operator+=(long i);
+
+            /*!
+             * @brief reverse_iterator subtractions assignment operator overload.
+             *
+             * Moves the reverse_iterator object back by given positions.
+             * @param i Positions that the reverse_iterator object to going to move back.
+             * @return A reference to moved back reverse_iterator object.
+             */
+            reverse_iterator & operator-=(long i);
+
+            /*!
+             * @brief Checks if the reverse_iterator is not equal to given reverse_iterator object reference.
+             * @param r_iterator A const reference to reverse_iterator object which is going to get compared.
+             * @return Result of comparison.
+             */
+            bool operator!=(const reverse_iterator & r_iterator) const;
+
+            /*!
+             * @brief Check is the reverse_iterator is equal to given reverse_iterator object reference.
+             * @param r_iterator A const reference to reverse_iterator object which is going to get compared.
+             * @return Result of comparison.
+             */
+            bool operator==(const reverse_iterator & r_iterator) const;
+
+            // Public Methods
+            /*!
+             * @brief Returns the key of object that the reverse_iterator is pointing to.
+             *
+             * This method returns a const reference to the key(first item) of the std::pair that the
+             * reverse_iterator is pointing to within a JsonObject.
+             * @return A const reference to a JsonKey object.
+             */
+            const JsonKey & key() const override;
+
+            /*!
+             * @brief Returns the value of object that the reverse_iterator is pointing to.
+             *
+             * This method returns a const reference to the value(second item) of the std::pair that the
+             * reverse_iterator is pointing to within a JsonObject.
+             * @return A const reference to a Json object.
+             */
+            Json & value() const;
+
+            // Destructor
+
+            /*!
+             * @brief reverse_iterator destructor
+             *
+             * Checks the reverse_iterator type and deletes the iterator union member based on it.
+             */
+            ~reverse_iterator() noexcept override;
+
+            // Friends
+            friend Json;
+        };
+
+        class const_reverse_iterator : public iterators::JsonIterator {
+        private:
+            const union {
+                Array::const_reverse_iterator * array_iterator;
+                JsonObject::const_reverse_iterator * json_object_iterator;
+            };
+        protected:
+            void add_to_iterator() override;
+        public:
+            // Constructors
+
+            /*!
+             * @brief const_reverse_iterator copy constructor.
+             *
+             * Copies the const_reverse_iterator passed to it into a new const_reverse_iterator object.
+             * @param r_iterator const_reverse_iterator object that is going to get copied.
+             */
+            const_reverse_iterator(const const_reverse_iterator & r_iterator);
+
+            /*!
+             * @brief const_reverse_iterator move constructor.
+             *
+             * Moves the const_reverse_iterator object passed to it into a new const_reverse_iterator object.
+             * @param r_iterator const_reverse_iterator object which is about to be moved.
+             */
+            const_reverse_iterator(const_reverse_iterator && r_iterator) noexcept;
+
+            /*!
+             * @brief const_reverse_iterator JsonObject::iterator constructor.
+             *
+             * Creates a new const_reverse_iterator based on a JsonObject::const_reverse_iterator object passed to it.
+             * @param json_object_iterator A const reference to the JsonObject::const_reverse_iterator that is
+             * going to be used for creating a new
+             * const_reverse_iterator object.
+             */
+            explicit const_reverse_iterator(const JsonObject::const_reverse_iterator & json_object_iterator);
+
+            /*!
+             * @brief const_reverse_iterator Array::const_reverse_iterator constructor.
+             *
+             * Creates a new const_reverse_iterator object based on a Array::const_reverse_iterator object passed to it.
+             * @param array_iterator A const reference to the Array::const_reverse_iterator object which is about to be
+             * used as base.
+             */
+            explicit const_reverse_iterator(const Array::const_reverse_iterator & array_iterator);
+
+            // Operator Overloading
+
+            /*!
+             * @brief const_reverse_iterator dereference operator overload.
+             * @throw iterators::exceptions::InvalidDereference Throws when the type of the base
+             * const_reverse_iterator is not Array::const_reverse_iterator.
+             * @return Json object which the iterator is pointing to.
+             */
+            const Json & operator*() const;
+
+            /*!
+             * @brief const_reverse_iterator post-increment operator overload.
+             *
+             * Copies the const_reverse_iterator and advances the original const_reverse_iterator object and
+             * returns the copy.
+             * @return A copied const_reverse_iterator object of the original one before advancing.
+             */
+            const const_reverse_iterator operator++(int);
+
+            /*!
+             * @brief const_reverse_iterator pre-increment operator overload.
+             *
+             * Advances the const_reverse_iterator object by one position.
+             * @return A reference to advanced const_reverse_iterator object.
+             */
+            const_reverse_iterator & operator++();
+
+            /*!
+             * @brief const_reverse_iterator addition operator.
+             *
+             * Copies the const_reverse_iterator and advances the copy by given positions.
+             * @param i Positions that the copied const_reverse_iterator object is going to advance.
+             * @return Advanced copy of const_reverse_iterator object.
+             */
+            const_reverse_iterator operator+(long i) const;
+
+            /*!
+             * @brief const_reverse_iterator subtraction operator.
+             *
+             * Copies the const_reverse_iterator object and moves the copy back by given positions.
+             * @param i Positions that the copied const_reverse_iterator object is going to move back.
+             * @return Moved back copy of const_reverse_iterator object.
+             */
+            const_reverse_iterator operator-(long i) const;
+
+            /*!
+             * @brief const_reverse_iterator addition assignment operator overload.
+             *
+             * Advances the const_reverse_iterator object by given positions.
+             * @param i Positions and the const_reverse_iterator object is going to advance.
+             * @return A reference to advanced const_reverse_iterator object.
+             */
+            const_reverse_iterator & operator+=(long i);
+
+            /*!
+             * @brief const_reverse_iterator subtractions assignment operator overload.
+             *
+             * Moves the const_reverse_iterator object back by given positions.
+             * @param i Positions that the const_reverse_iterator object to going to move back.
+             * @return A reference to moved back const_reverse_iterator object.
+             */
+            const_reverse_iterator & operator-=(long i);
+
+            /*!
+             * @brief Checks if the const_reverse_iterator is not equal to given const_reverse_iterator object reference.
+             * @param r_iterator A const reference to const_reverse_iterator object which is going to get compared.
+             * @return Result of comparison.
+             */
+            bool operator!=(const const_reverse_iterator & r_iterator) const;
+
+            /*!
+             * @brief Check is the const_reverse_iterator is equal to given const_reverse_iterator object reference.
+             * @param r_iterator A const reference to const_reverse_iterator object which is going to get compared.
+             * @return Result of comparison.
+             */
+            bool operator==(const const_reverse_iterator & r_iterator) const;
+
+            // Public Methods
+            /*!
+             * @brief Returns the key of object that the const_reverse_iterator is pointing to.
+             *
+             * This method returns a const reference to the key(first item) of the std::pair that the
+             * const_reverse_iterator is pointing to within a JsonObject.
+             * @return A const reference to a JsonKey object.
+             */
+            const JsonKey & key() const override;
+
+            /*!
+             * @brief Returns the value of object that the const_reverse_iterator is pointing to.
+             *
+             * This method returns a const reference to the value(second item) of the std::pair that the
+             * const_reverse_iterator is pointing to within a JsonObject.
+             * @return A const reference to a Json object.
+             */
+            const Json & value() const;
+
+            // Destructor
+
+            /*!
+             * @brief const_reverse_iterator destructor
+             *
+             * Checks the const_reverse_iterator type and deletes the iterator union member based on it.
+             */
+            ~const_reverse_iterator() noexcept override;
+
+            // Friends
+            friend Json;
+        };
+
+        // Constructors
         /*!
          * @brief Json default constructor.
          *

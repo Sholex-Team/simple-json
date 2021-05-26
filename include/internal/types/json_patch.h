@@ -69,7 +69,7 @@ namespace simple_json::types {
          * This public method can be used to apply a patch on an already existing Json object.
          * @param json [out] A reference Json object which is about to get patched.
          */
-        void apply(Json & json);
+        void apply(Json & json, bool reverse = false);
 
         /*!
          * @brief Returns the JSON Patch data.

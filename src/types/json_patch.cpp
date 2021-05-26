@@ -39,7 +39,10 @@ namespace simple_json::types {
         return * patch_data;
     }
 
-    void JsonPatch::apply(Json & json) {
+    void JsonPatch::apply(Json & json, bool reverse) {
+        if (json.empty()) {
+            return;
+        }
         for (Json & patch_object: * patch_data) {
             std::string op {static_cast<std::string>(patch_object.at("op"))};
             JsonPointer path {static_cast<std::string>(patch_object.at("path"))};
