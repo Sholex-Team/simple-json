@@ -26,6 +26,11 @@ namespace simple_json::types::exceptions {
         };
 
         // Constructors
+        /*!
+         * @brief Failed Test exception constructor.
+         * @param json_pointer A const reference to the JsonPointer which exception occurred at.
+         * @param error Type of the exception.
+         */
         explicit FailedTest(const JsonPointer & json_pointer, Error error = Error::INVALID_VALUE);
 
         // Public Methods
