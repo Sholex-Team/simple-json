@@ -12,6 +12,9 @@ namespace simple_json::deserializer::exceptions {
      */
     class ParsingException : public base_exceptions::JsonException {
     public:
+        /*! @enum
+         * @brief Different types of parsing errors.
+         */
         enum class Errors : std::uint8_t {
             illegal_array_split, /*!< Used when there is an illegal "," inside the serialized JSON. */
             illegal_key_split, /*!< Used when there is an illegal ":" inside the serialized JSON. */
@@ -35,12 +38,6 @@ namespace simple_json::deserializer::exceptions {
              */
             unknown
         };
-
-        /*! @enum Errors
-         * @brief Different types of parsing errors.
-         *
-         * These types are used when an ParsingException is being thrown.
-         */
 
         // Constructors
         /*!

@@ -45,7 +45,7 @@ namespace simple_json::types {
             JsonPointer path {static_cast<std::string>(patch_object.at("path"))};
             if (op == "test")  {
                 if (json.at(path) != patch_object.at("value")) {
-                    throw exceptions::FailedTest {};
+                    throw exceptions::FailedTest {path};
                 }
             } else if (op == "add") {
                 Json & parent {json.at(path.get_parent())};
