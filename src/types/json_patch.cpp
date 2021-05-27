@@ -6,7 +6,10 @@ namespace simple_json::types {
 
     JsonPatch::JsonPatch() : patch_data {new Json(DataType::array_type)} {}
 
-    JsonPatch::JsonPatch(const Json & json_patch) : patch_data {new Json(json_patch)} {}
+    JsonPatch::JsonPatch(const Json & json_patch) {
+        json_patch.check_data(DataType::array_type);
+        patch_data = new Json(json_patch);
+    }
 
     JsonPatch::JsonPatch(const JsonPatch & json_patch) : patch_data {new Json(* json_patch.patch_data)} {}
 
