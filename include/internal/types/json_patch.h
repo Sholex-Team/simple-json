@@ -11,6 +11,7 @@
 #include "exceptions/failed_test.h"
 #include "json_key.h"
 #include <algorithm>
+#include <stdexcept>
 
 namespace simple_json::types {
     /*!
@@ -25,12 +26,20 @@ namespace simple_json::types {
 
         template<typename T>
         void apply_loop(Json & json, T it, T end) {
+            JsonPatch rollback_patch {};
+            Json & rollback {rollback_patch.get_json()};
+            Json * target_json;
             for (; it != end; ++it) {
                 const Json & patch_object {* it};
                 std::string op {static_cast<std::string>(patch_object.at("op"))};
                 JsonPointer path {static_cast<std::string>(patch_object.at("path"))};
                 if (op == "test")  {
-                    if (json.at(path) != patch_object.at("value")) {
+                    try {
+                        target_json = & json.at(path);
+                    } catch (const std::out_of_range &) {
+                        throw exceptions::FailedTest {path, exceptions::FailedTest::Error::INVALID_PATH};
+                    }
+                    if (* target_json != patch_object.at("value")) {
                         throw exceptions::FailedTest {path};
                     }
                 } else if (op == "add") {
