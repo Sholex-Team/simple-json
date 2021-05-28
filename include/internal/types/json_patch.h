@@ -177,7 +177,7 @@ namespace simple_json::types {
          * This public method returns the Json object which is storing the patch data.
          * @return Json object holding the patch data.
          */
-        const Json & get_json() const;
+        Json & get_json() const;
 
         // Builders
         class PatchBuilder {

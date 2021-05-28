@@ -38,7 +38,7 @@ namespace simple_json::types {
 
     #pragma region Public Methods
 
-    const Json & JsonPatch::get_json() const {
+    Json & JsonPatch::get_json() const {
         return * patch_data;
     }
 
