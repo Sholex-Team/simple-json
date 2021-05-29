@@ -79,63 +79,110 @@ namespace simple_json::types {
                     throw exceptions::InvalidPointer {};
                 } else if (op == "remove") {
                     Json & parent {json.at(path.get_parent())};
-                    if (parent.type() == DataType::json_object_type) {
-                        parent.erase(path.get_key());
-                    } else if (parent.type() == DataType::array_type) {
+                    if (parent.type() == DataType::array_type || parent.type() == DataType::array_type) {
+                        rollback.push_back({
+                            {"op"_json_key, "add"},
+                            {"path"_json_key, json_path},
+                            {"value"_json_key, json.at(path)}
+                        });
+                        if (parent.type() == DataType::json_object_type) {
+                            parent.erase(path.get_key());
+                            continue;
+                        }
                         parent.erase(path.get_index());
-                    } else {
-                        throw exceptions::InvalidPointer {};
+                        continue;
                     }
+                    throw exceptions::InvalidPointer {};
                 } else if (op == "copy") {
                     JsonPointer from_path {static_cast<std::string>(patch_object.at("from"))};
                     Json & parent {json.at(path.get_parent())};
-                    Json & parent_from {json.at(from_path.get_parent())};
+                    Json & from_parent {json.at(from_path.get_parent())};
                     if (parent.type() == DataType::array_type) {
-                        if (parent_from.type() == DataType::array_type) {
-                            parent.insert(
-                                    parent.cbegin() + path.get_index(),
-                                    parent_from.at(from_path.get_index())
-                                    );
+                        size_t target_index = path.get_index();
+                        if (target_index < parent.size()) {
+                            throw exceptions::InvalidPointer {};
+                        } else if (target_index == parent.size()) {
+                            rollback.push_back({{"op"_json_key, "rm"}, {"path"_json_key, json_path}});
                         } else {
-                            parent.insert(
-                                    parent.cbegin() + path.get_index(),
-                                    parent_from.at(from_path.get_key())
-                                    );
+                            rollback.push_back({
+                                {"op"_json_key, "replace"},
+                                {"path"_json_key, json_path},
+                                {"value"_json_key, parent.at(path)}
+                            });
                         }
-                    } else {
-                        if (parent_from.type() == DataType::array_type) {
-                            parent.at(path.get_key()) = parent_from.at(from_path.get_index());
-                        } else {
-                            parent.at(path.get_key()) = parent_from.at(from_path.get_key());
+                        if (from_parent.type() == DataType::array_type) {
+                            parent.insert(
+                                    parent.cbegin() + target_index,
+                                    from_parent.at(from_path.get_index())
+                                    );
+                            continue;
+                        }
+                        if (from_parent.type() == DataType::json_object_type) {
+                            parent.insert(
+                                    parent.cbegin() + target_index,
+                                    from_parent.at(from_path.get_key())
+                                    );
+                            continue;
                         }
                     }
+                    if (parent.type() == DataType::json_object_type) {
+                        if (parent.find(from_path.get_key()) == parent.end()) {
+                            rollback.push_back({{"op"_json_key, "rm"}, {"path"_json_key, json_path}});
+                        } else {
+                            rollback.push_back({
+                               {"op"_json_key, "replace"},
+                               {"path"_json_key, json_path},
+                               {"value"_json_key, parent.at(path)}
+                            });
+                        }
+                        if (from_parent.type() == DataType::array_type) {
+                            parent.at(path.get_key()) = from_parent.at(from_path.get_index());
+                            continue;
+                        }
+                        if (from_parent.type() == DataType::json_object_type) {
+                            parent.at(path.get_key()) = from_parent.at(from_path.get_key());
+                            continue;
+                        }
+                        throw exceptions::InvalidPointer {};
+                    }
+                    throw exceptions::InvalidPointer {};
                 } else if (op == "move") {
                     JsonPointer from_path {static_cast<std::string>(patch_object.at("from"))};
                     Json & parent {json.at(path.get_parent())};
-                    Json & parent_from {json.at(from_path.get_parent())};
+                    Json & from_parent {json.at(from_path.get_parent())};
                     if (parent.type() == DataType::array_type) {
-                        if (parent_from.type() == DataType::array_type) {
+                        if (from_parent.type() == DataType::array_type) {
                             Json tmp (parent.at(from_path.get_index()));
-                            parent_from.erase(from_path.get_index());
+                            from_parent.erase(from_path.get_index());
                             parent.insert(parent.cbegin() + path.get_index(), tmp);
-                        } else {
+                            continue;
+                        }
+                        if (from_parent.type() == DataType::json_object_type) {
                             parent.insert(
                                     parent.cbegin() + path.get_index(),
-                                    parent_from.at(from_path.get_key())
+                                    from_parent.at(from_path.get_key())
                                     );
-                            parent_from.erase(from_path.get_key());
+                            from_parent.erase(from_path.get_key());
+                            continue;
                         }
-                    } else {
-                        if (parent_from.type() == DataType::array_type) {
-                            parent.at(path.get_key()) = parent_from.at(from_path.get_index());
-                            parent_from.erase(from_path.get_index());
-                        } else {
-                            parent.insert(
-                                    {path.get_key(), parent_from.at(from_path.get_key())}
-                                    );
-                            parent_from.erase(from_path.get_key());
-                        }
+                        throw exceptions::InvalidPointer {};
                     }
+                    if (parent.type() == DataType::json_object_type) {
+                        if (from_parent.type() == DataType::array_type) {
+                            parent.at(path.get_key()) = from_parent.at(from_path.get_index());
+                            from_parent.erase(from_path.get_index());
+                            continue;
+                        }
+                        if (from_parent.type() == DataType::json_object_type) {
+                            parent.insert(
+                                    {path.get_key(), from_parent.at(from_path.get_key())}
+                                    );
+                            from_parent.erase(from_path.get_key());
+                            continue;
+                        }
+                        throw exceptions::InvalidPointer {};
+                    }
+                    throw exceptions::InvalidPointer {};
                 } else {
                     throw exceptions::InvalidPatchOperation {};
                 }
