@@ -47,9 +47,9 @@ namespace simple_json::types {
             return;
         }
         if (reverse)
-            apply_loop<Json::const_reverse_iterator>(json, json.crbegin(), json.crend());
+            apply_loop<Json::const_reverse_iterator>(json, patch_data->crbegin(), patch_data->crend());
         else
-            apply_loop<Json::const_iterator>(json, json.cbegin(), json.cend());
+            apply_loop<Json::const_iterator>(json, patch_data->cbegin(), patch_data->cend());
     }
 
     JsonPatch JsonPatch::PatchBuilder::create_patch() {
