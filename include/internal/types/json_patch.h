@@ -80,7 +80,7 @@ namespace simple_json::types {
                         throw exceptions::InvalidPointer {};
                     } else if (op == "remove") {
                         Json & parent {json.at(path.get_parent())};
-                        if (parent.type() == DataType::array_type || parent.type() == DataType::array_type) {
+                        if (parent.type() == DataType::array_type || parent.type() == DataType::json_object_type) {
                             rollback.push_back({
                                 {"op"_json_key, "add"},
                                 {"path"_json_key, json_path},
