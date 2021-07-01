@@ -894,7 +894,7 @@ namespace simple_json::types {
     }
 
     void Json::update(const Json & target) {
-        if (used_type == DataType::json_object_type && target.used_type == DataType::json_object_type) {
+        if (used_type != DataType::json_object_type || target.used_type != DataType::json_object_type) {
             throw exceptions::InvalidOperation {DataType::json_object_type};
         }
         for (const pair_type & item: target.items()) {
