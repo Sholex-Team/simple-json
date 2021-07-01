@@ -1335,14 +1335,45 @@ namespace simple_json::types {
         /*!
          * @brief Returns Json object related to given JsonKey key.
          * @param key A const reference to JsonKey object.
-         * @throw exceptions::InvalidOperation Throws when the Json object is not JsonObject type.
+         * @throw exceptions::InvalidOperation Throws when the Json object is not JsonObject typed.
          * @return Json object related to the given JsonKey key.
          */
         Json & at(const JsonKey & key) const;
 
+        /*!
+         * @brief Gets a value related to a key or returns specified value as a default.
+         * @param key JsonKey key which the method is going to look for.
+         * @param default_return Default value which will be returned in case of the key not existing.
+         * @throw exceptions::InvalidOperation Throws when the Json object is not JsonObject typed.
+         * @return A Json object whether it's the value related to the key or a copy of default value.
+         */
         Json get(const JsonKey & key, const Json & default_return) const;
+
+        /*!
+         * @brief Gets a value related to a key or returns specified value as a default.
+         * @param key The ke which the method is going to look for.
+         * @param default_return Default value which will be returned in  case of the key not existing.
+         * @throw exceptions::InvalidOperation Throws when the Json object is not JsonObject typed.
+         * @return A Json object whether it's the value related to the key or the default value.
+         */
         Json get(const JsonKey & key, Json && default_return) const;
+
+        /*!
+         * @brief Gets a value related to a key or returns specified value as a default.
+         * @param key The key which the method is going to look for.
+         * @param default_return Default value which will be returned in case of the key not existing.
+         * @throw exceptions::InvalidOperation Throws when the Json object is not JsonObject typed.
+         * @return A Json object whether it's the value related to the key or a copy of default value.
+         */
         Json get(const std::string & key, const Json & default_return) const;
+
+        /*!
+         * @brief Gets a value related to a key or returns specified value as a default.
+         * @param key The key which the method is going to look for.
+         * @param default_return Default value which will be returned in case of the key not existing.
+         * @throw exceptions::InvalidOperation Throws when the Json object is not JsonObject typed.
+         * @return A Json object whether it's the value related to the key or the default value.
+         */
         Json get(const std::string & key, Json && default_return) const;
 
         /*!
