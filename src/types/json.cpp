@@ -1055,12 +1055,12 @@ namespace simple_json::types {
 
     Json Json::get(const std::string & key, const Json & default_return) const {
         check_type(DataType::json_object_type);
-        return data_json_object->get(JsonKey(key), default_return);
+        return data_json_object->get(JsonKey {key}, default_return);
     }
 
     Json Json::get(const std::string & key, Json && default_return) const {
         check_type(DataType::json_object_type);
-        return data_json_object->get(JsonKey(key), std::move(default_return));
+        return data_json_object->get(JsonKey {key}, std::move(default_return));
     }
 
     void Json::erase(long index) {

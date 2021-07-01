@@ -15,7 +15,7 @@ namespace simple_json::types {
     Json JsonObject::get(const JsonKey & key, const Json & default_return) const {
         try {
             return at(key);
-        } catch (std::out_of_range &e) {
+        } catch (std::out_of_range & e) {
             return default_return;
         }
     }
@@ -23,17 +23,17 @@ namespace simple_json::types {
     Json JsonObject::get(const JsonKey & key, Json && default_return) const {
         try {
             return at(key);
-        } catch (std::out_of_range &e) {
+        } catch (std::out_of_range & e) {
             return std::move(default_return);
         }
     }
 
     Json JsonObject::get(const std::string & key, Json && default_return) const {
-        return get(JsonKey{key}, std::move(default_return));
+        return get(JsonKey {key}, std::move(default_return));
     }
 
     Json JsonObject::get(const std::string & key, const Json & default_return) const {
-        return get(JsonKey{key}, default_return);
+        return get(JsonKey {key}, default_return);
     }
 
     #pragma endregion
@@ -53,7 +53,7 @@ namespace simple_json::types {
 
     std::ostream & JsonObject::stream_without_indent(std::ostream & os) const {
         os << '{';
-        for (const auto &p: *this) {
+        for (const auto & p: * this) {
             os << p.first << ": " << ((p.second.type() == DataType::string_type) ? p.second.serialize() : p.second)
             << (p.first == std::prev(end())->first ? "" : ", ");
         }
@@ -63,7 +63,7 @@ namespace simple_json::types {
 
     std::ostream & JsonObject::stream_with_indent(std::ostream & os, size_t local_indent) const {
         os << '{';
-        for (const auto &p: *this) {
+        for (const auto & p: * this) {
             os << std::endl;
             os << std::setw(local_indent + 1) << p.first << ": ";
             switch (p.second.used_type) {
