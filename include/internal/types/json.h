@@ -1340,6 +1340,11 @@ namespace simple_json::types {
          */
         Json & at(const JsonKey & key) const;
 
+        Json get(const JsonKey & key, const Json & default_return) const;
+        Json get(const JsonKey & key, Json && default_return) const;
+        Json get(const std::string & key, const Json & default_return) const;
+        Json get(const std::string & key, Json && default_return) const;
+
         /*!
          * @brief Returns a const_iterator pointing to the Json object at the given index.
          * @param index Json object index
