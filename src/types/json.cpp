@@ -997,7 +997,7 @@ namespace simple_json::types {
 
     bool Json::contains(const JsonKey & key) const {
         check_type(DataType::json_object_type);
-        return data_json_object->count(key) > 0;
+        return data_json_object->find(key) != data_json_object->cend();
     }
 
     bool Json::empty() const {
