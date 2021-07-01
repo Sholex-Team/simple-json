@@ -78,7 +78,7 @@ namespace simple_json::types {
              * the map.
              * @return A Json object whether it's the value related to the key or the default value.
              */
-            Json get(const std::string & key, const Json & default_return) const;
+            Json get(const JsonKey & key, const Json & default_return) const;
 
             /*!
              * @brief Get a value with a key or return specified value.
@@ -90,7 +90,9 @@ namespace simple_json::types {
              * in case of the key not existing inside the std::map.
              * @return A Json object whether it's the value related to the key or the moved default value.
              */
+            Json get(const JsonKey & key, Json && default_return) const;
             Json get(const std::string & key, Json && default_return) const;
+            Json get(const std::string & key, const Json & default_return) const;
         };
 
     /*!

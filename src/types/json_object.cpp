@@ -12,20 +12,28 @@ namespace simple_json::types {
 
     #pragma region Methods
 
-    Json JsonObject::get(const std::string & key, const Json & default_return) const {
+    Json JsonObject::get(const JsonKey & key, const Json & default_return) const {
         try {
-            return at(JsonKey{key});
+            return at(key);
         } catch (std::out_of_range &e) {
             return default_return;
         }
     }
 
-    Json JsonObject::get(const std::string & key, Json && default_return) const {
+    Json JsonObject::get(const JsonKey & key, Json && default_return) const {
         try {
-            return at(JsonKey{key});
+            return at(key);
         } catch (std::out_of_range &e) {
             return std::move(default_return);
         }
+    }
+
+    Json JsonObject::get(const std::string & key, Json && default_return) const {
+        return get(JsonKey{key}, default_return);
+    }
+
+    Json JsonObject::get(const std::string & key, const Json & default_return) const {
+        return get(JsonKey{key}, default_return);
     }
 
     #pragma endregion
