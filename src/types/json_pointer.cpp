@@ -7,6 +7,8 @@ namespace simple_json::types {
     JsonPointer::JsonPointer(std::string & pointer_text) : pointer_text {new std::string {pointer_text}},
     pointer_list {new std::vector<std::string> {utils::split(pointer_text, "/")}} {
         if (!pointer_list->begin()->empty()) {
+            delete this->pointer_text;
+            delete pointer_list;
             throw exceptions::InvalidPointer {};
         }
         pointer_list->erase(pointer_list->begin());
