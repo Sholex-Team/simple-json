@@ -29,7 +29,7 @@ namespace simple_json::types {
     }
 
     Json JsonObject::get(const std::string & key, Json && default_return) const {
-        return get(JsonKey{key}, default_return);
+        return get(JsonKey{key}, std::move(default_return));
     }
 
     Json JsonObject::get(const std::string & key, const Json & default_return) const {
