@@ -894,9 +894,15 @@ namespace simple_json::types {
     }
 
     void Json::update(const Json & target) {
-        check_type(DataType::json_object_type);
+        if (used_type == DataType::json_object_type && target.used_type == DataType::json_object_type) {
+            throw exceptions::InvalidOperation {DataType::json_object_type};
+        }
         for (const pair_type & item: target.items()) {
-            this->at(item.first) = item.second;
+            if (data_json_object->find(item.first) != data_json_object->cend()) {
+                data_json_object->at(item.first) = item.second;
+                continue;
+            }
+            data_json_object->insert(item);
         }
     }
 
