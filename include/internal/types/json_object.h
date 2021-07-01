@@ -73,7 +73,7 @@ namespace simple_json::types {
              *
              * This public method tries to return a value related to given key and in case of the key not existing
              * it will return a copy of Json object given to the method.
-             * @param key JsonKey which the method is going to look it up inside the std::map.
+             * @param key JsonKey key which the method is going to look it up inside the std::map.
              * @param default_return Default value which is going to get returned in case of the key not existing inside
              * the map.
              * @return A Json object whether it's the value related to the key or the default value.
@@ -85,14 +85,36 @@ namespace simple_json::types {
              *
              * This public method tries to return a value related to given key and in case of the key not existing
              * it will return a moved object of Json object given to the method.
-             * @param key JsonKey which the method is going to look it up inside the std::map.
+             * @param key JsonKey key which the method is going to look it up inside the std::map.
              * @param default_return Default value which is going to be moved into a new Json object and returned
              * in case of the key not existing inside the std::map.
              * @return A Json object whether it's the value related to the key or the moved default value.
              */
             Json get(const JsonKey & key, Json && default_return) const;
-            Json get(const std::string & key, Json && default_return) const;
+
+           /*!
+            * @brief Get a value with a key or return specified value.
+            *
+            * This public method tries to return a value related to given key and in case of the key not existing
+            * it will return a copy of Json object given to the method.
+            * @param key std::string key which the method is going to look it up inside the std::map.
+            * @param default_return Default value which is going to get returned in case of the key not existing inside
+            * the map.
+            * @return A Json object whether it's the value related to the key or the default value.
+            */
             Json get(const std::string & key, const Json & default_return) const;
+
+            /*!
+             * @brief Get a value with a key or return specified value.
+             *
+             * This public method tries to return a value related to given key and in case of the key not existing
+             * it will return a moved object of Json object given to the method.
+             * @param key std::string key which the method is going to look it up inside the std::map.
+             * @param default_return Default value which is going to be moved into a new Json object and returned
+             * in case of the key not existing inside the std::map.
+             * @return A Json object whether it's the value related to the key or the moved default value.
+             */
+            Json get(const std::string & key, Json && default_return) const;
         };
 
     /*!
