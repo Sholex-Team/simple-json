@@ -1501,10 +1501,18 @@ namespace simple_json::types {
         /*!
          * @brief Checks is the given key exists in JsonObject.
          * @throw exceptions::InvalidOperation Throws if the Json object type is not JsonObject.
-         * @param key A const reference to the key that is going to be checked.
-         * @return Boolean result of the checking.
+         * @param key A const reference to the JsonKey
+         * @return Result of the checking.
          */
         bool contains(const JsonKey & key) const;
+
+        /*!
+         * @brief Checks is the given Json item exists in the container.
+         * @throw exceptions::InvalidOperation Throws if the Json object type is not iterable.
+         * @param key const reference to the target Json item
+         * @return Result of the checking
+         */
+        bool contains(const Json & item) const;
 
         /*!
          * @brief Returns an iterator to the Json object related to given JsonKey.

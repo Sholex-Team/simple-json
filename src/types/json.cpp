@@ -1000,6 +1000,10 @@ namespace simple_json::types {
         return data_json_object->find(key) != data_json_object->cend();
     }
 
+    bool Json::contains(const Json & item) const {
+        return find(item) != cend();
+    }
+
     bool Json::empty() const {
         switch (used_type) {
             case DataType::array_type:
