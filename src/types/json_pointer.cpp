@@ -41,7 +41,7 @@ namespace simple_json::types {
     #pragma region Operator Overloading
 
     bool JsonPointer::operator==(const JsonPointer & json_pointer) const {
-        return pointer_text == json_pointer.pointer_text;
+        return * pointer_text == * json_pointer.pointer_text;
     }
 
     JsonPointer operator""_json_ptr(const char * pointer_ptr, size_t) {
