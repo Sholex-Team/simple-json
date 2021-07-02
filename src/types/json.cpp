@@ -107,7 +107,7 @@ namespace simple_json::types {
         if (used_type == DataType::integer_type) {
             return data_int;
         }
-        throw exceptions::BadConversion {DataType::integer_type};
+        throw exceptions::BadConversion {used_type, DataType::integer_type};
     }
 
     Json::operator double() const {
@@ -115,7 +115,7 @@ namespace simple_json::types {
             case DataType::double_type: return data_double;
             case DataType::integer_type: return static_cast<double>(data_int);
             default:
-                throw exceptions::BadConversion {DataType::double_type};
+                throw exceptions::BadConversion {used_type, DataType::double_type};
         }
     }
 
@@ -123,7 +123,7 @@ namespace simple_json::types {
         if (used_type == DataType::string_type) {
             return * data_string;
         }
-        throw exceptions::BadConversion {DataType::string_type};
+        throw exceptions::BadConversion {used_type, DataType::string_type};
     }
 
     Json::operator const char *() const {
@@ -135,14 +135,14 @@ namespace simple_json::types {
         if (used_type == DataType::array_type) {
             return * data_array;
         }
-        throw exceptions::BadConversion {DataType::array_type};
+        throw exceptions::BadConversion {used_type, DataType::array_type};
     }
 
     Json::operator JsonObject() const {
         if (used_type == DataType::json_object_type) {
             return * data_json_object;
         }
-        throw exceptions::BadConversion {DataType::json_object_type};
+        throw exceptions::BadConversion {used_type, DataType::json_object_type};
     }
 
     Json & Json::operator=(const Json & data) {

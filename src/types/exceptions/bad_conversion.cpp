@@ -3,23 +3,20 @@
 namespace simple_json::types::exceptions {
     #pragma region Constructors
 
-    BadConversion::BadConversion(const DataType to) noexcept : JsonException(), to {to} {}
+    BadConversion::BadConversion(const DataType src, const DataType dst) noexcept : JsonException(),
+            error_text {"Invalid conversion tried from "} {
+        error_text.append(utils::json_type_to_string(src));
+        error_text.append(" type to ");
+        error_text.append(utils::json_type_to_string(dst));
+        error_text.append(" type !");
+    }
 
     #pragma endregion
 
     #pragma region Public Methods
 
     const char * BadConversion::what() const noexcept {
-        switch (to) {
-            case DataType::integer_type:
-                return "Bad conversion to integer !";
-            case DataType::double_type:
-                return "Bad conversion to double !";
-            case DataType::string_type:
-                return "Bad conversion to std::string !";
-            default:
-                return "Bad Conversion !";
-        }
+        return error_text.c_str();
     }
 
     #pragma endregion

@@ -3,28 +3,28 @@
 
 #include "base_exception.h"
 #include "../enum_types.h"
+#include <string>
+#include "json_utils.h"
 
 namespace simple_json::types::exceptions {
     /*!
      * @brief Conversion exceptions.
      *
-     * This exception happens when is thrown when an invalid conversion is happening from a Json object to an unrelated
+     * This exception happens when is thrown when an invalid conversion is tried from a Json object to an unrelated
      * type.
-     * e.g : Json(used_type = DataType::integer_type) -> std::string.
      */
     class BadConversion : public base_exceptions::JsonException {
     private:
-        DataType to;
+        std::string error_text;
     public:
         const char * what() const noexcept override;
 
         /*!
-         * BadConversion constructor.
-         *
-         * This constructor takes an optional parameter which is the invalid destination type of conversion.
-         * @param to Invalid destination type.
+         * BadConversion exception constructor.
+         * @param src Source Type
+         * @param dst Invalid Destination Type
          */
-        explicit BadConversion(DataType to = DataType::unknown) noexcept;
+        explicit BadConversion(const DataType src = DataType::unknown, const DataType dst = DataType::unknown) noexcept;
     };
 }
 

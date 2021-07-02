@@ -46,6 +46,11 @@ namespace simple_json::utils {
      */
     void deserialize_json_pointer(std::string & base);
 
+    /*!
+     * @brief Returns the string representation of a DataType value.
+     * @param type DataType value
+     * @return const char * of the c-string representation
+     */
     const char * json_type_to_string(const simple_json::types::DataType & type);
 }
 
