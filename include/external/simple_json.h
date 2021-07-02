@@ -20,7 +20,7 @@
 #include "../internal/types/exceptions/invalid_pointer.h"
 #include "../internal/types/exceptions/invalid_index.h"
 #include "../internal/types/exceptions/invalid_patch_operation.h"
-#include "../internal/types/exceptions/base_exception.h"
+#include "../internal/types/exceptions/base_exceptions.h"
 #include "../internal/types/exceptions/bad_conversion.h"
 #include "../internal/types/exceptions/deserializer_exceptions.h"
 #include "../internal/types/exceptions/stream_exceptions.h"

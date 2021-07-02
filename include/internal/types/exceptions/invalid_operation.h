@@ -1,8 +1,9 @@
 #ifndef SIMPLE_JSON_INVALID_OPERATION_H
 #define SIMPLE_JSON_INVALID_OPERATION_H
 
-#include "base_exception.h"
+#include "base_exceptions.h"
 #include "../enum_types.h"
+#include "../../json_utils.h"
 
 namespace simple_json::types::exceptions {
     /*!
@@ -10,9 +11,7 @@ namespace simple_json::types::exceptions {
      *
      * This exception throws when there is an invalid operation happening on a Json object.
      */
-    class InvalidOperation : public base_exceptions::JsonException {
-    private:
-        DataType used_type;
+    class InvalidOperation : public base_exceptions::JsonErrorTextException {
     public:
         // Constructors
         /*!
@@ -22,10 +21,7 @@ namespace simple_json::types::exceptions {
          * operation.
          * @param used_type The type of Json object which is being used in the operation.
          */
-        explicit InvalidOperation(DataType used_type = DataType::unknown);
-
-        // Public Methods
-        const char * what() const noexcept override;
+        explicit InvalidOperation(DataType used_type = DataType::unknown, DataType operation_type = DataType::unknown);
     };
 }
 

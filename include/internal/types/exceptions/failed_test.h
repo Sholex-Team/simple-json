@@ -1,7 +1,7 @@
 #ifndef SIMPLE_JSON_FAILED_TEST_H
 #define SIMPLE_JSON_FAILED_TEST_H
 
-#include "base_exception.h"
+#include "base_exceptions.h"
 #include <string>
 #include <cinttypes>
 #include "../json_pointer.h"

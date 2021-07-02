@@ -1,7 +1,7 @@
 #ifndef SIMPLE_JSON_STREAM_EXCEPTIONS_H
 #define SIMPLE_JSON_STREAM_EXCEPTIONS_H
 
-#include "base_exception.h"
+#include "base_exceptions.h"
 #include "../array_type.h"
 
 namespace simple_json {

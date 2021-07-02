@@ -3,21 +3,13 @@
 namespace simple_json::types::exceptions {
     #pragma region Constructors
 
-    InvalidOperation::InvalidOperation(const DataType used_type) : used_type {used_type} {}
-
-    #pragma endregion
-
-    #pragma region Public Methods
-
-    const char * InvalidOperation::what() const noexcept {
-        switch (used_type) {
-            case DataType::json_object_type:
-                return "Invalid JsonObject operation on object !";
-            case DataType::array_type:
-                return "Invalid Array operation on object !";
-            default:
-                return "Invalid operation on object !";
-        }
+    InvalidOperation::InvalidOperation(const DataType used_type, const DataType operation_type) :
+    base_exceptions::JsonErrorTextException {} {
+        error_text->append("Invalid ");
+        error_text->append(utils::json_type_to_string(operation_type));
+        error_text->append(" operation attempt on ");
+        error_text->append(utils::json_type_to_string(used_type));
+        error_text->append(" !");
     }
 
     #pragma endregion

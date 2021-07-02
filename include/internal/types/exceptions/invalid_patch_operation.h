@@ -2,7 +2,7 @@
 #define SIMPLE_JSON_INVALID_PATCH_OPERATION_H
 
 #include <string>
-#include "base_exception.h"
+#include "base_exceptions.h"
 
 namespace simple_json::types::exceptions {
     /*!

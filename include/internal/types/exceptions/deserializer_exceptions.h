@@ -1,7 +1,7 @@
 #ifndef SIMPLE_JSON_DESERIALIZER_EXCEPTIONS_H
 #define SIMPLE_JSON_DESERIALIZER_EXCEPTIONS_H
 
-#include "base_exception.h"
+#include "base_exceptions.h"
 #include <cinttypes>
 
 namespace simple_json::deserializer::exceptions {

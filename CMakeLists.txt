@@ -49,7 +49,7 @@ add_library(
         src/types/exceptions/failed_test.cpp
         src/types/exceptions/invalid_patch_operation.cpp
         src/types/exceptions/invalid_merge.cpp
-)
+        src/types/exceptions/base_exceptions.cpp)
 target_include_directories(
         simple_json
         INTERFACE

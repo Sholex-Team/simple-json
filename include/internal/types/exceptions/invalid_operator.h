@@ -1,7 +1,7 @@
 #ifndef SIMPLE_JSON_INVALID_OPERATOR_H
 #define SIMPLE_JSON_INVALID_OPERATOR_H
 
-#include "base_exception.h"
+#include "base_exceptions.h"
 #include "../enum_types.h"
 
 namespace simple_json::types::exceptions {
