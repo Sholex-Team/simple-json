@@ -15,16 +15,21 @@ namespace simple_json::types::exceptions {
      */
     class BadConversion : public base_exceptions::JsonException {
     private:
-        std::string error_text;
+        std::string * error_text;
     public:
+        // Public Methods
         const char * what() const noexcept override;
 
+        // Constructors
         /*!
          * BadConversion exception constructor.
          * @param src Source Type
          * @param dst Invalid Destination Type
          */
         explicit BadConversion(const DataType src = DataType::unknown, const DataType dst = DataType::unknown) noexcept;
+
+        // Destructor
+        ~BadConversion() override;
     };
 }
 
