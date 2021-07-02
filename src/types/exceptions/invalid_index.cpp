@@ -8,11 +8,11 @@ namespace simple_json::types::exceptions {
             case DataType::double_type:
                 return "Used an index on double type !";
             case DataType::json_object_type:
-                return "Invalid index (\"integer\") used on JsonObject type !";
+                return "Invalid index(integer) used on JsonObject type !";
             case DataType::string_type:
                 return "Used an index on string type !";
             case DataType::array_type:
-                return "Invalid index (\"string\") used on Array type !";
+                return "Invalid index(string key) used on Array type !";
             default:
                 return "Invalid index used !";
         }
