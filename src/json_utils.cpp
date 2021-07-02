@@ -58,7 +58,7 @@ namespace simple_json::utils {
             case types::DataType::null_type: return "Null";
             case types::DataType::string_key_type: return "JsonKey";
             case types::DataType::special_type: return "Special Type";
-            case types::DataType::unknown: return "Unknown Type";
+            default: return "Unknown Type";
         }
     }
 }
