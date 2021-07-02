@@ -1,0 +1,3 @@
+A simple JSON library developed for modern CPP using standard library (STD) as the base.
+Types and classes defined in this project provide STL-like access which makes them easy to use in your project.
+No library, no subproject, no dependencies and no complex build system are used in this project !

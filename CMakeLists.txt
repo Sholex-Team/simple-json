@@ -77,7 +77,7 @@ write_basic_package_version_file(
 if (INSTALL_LIB)
     message(STATUS "Compiling Simple JSON as main project")
     install(TARGETS simple_json DESTINATION ${LIB_DIR} EXPORT ${TARGETS_EXPORT_NAME})
-    install(FILES  DESTINATION ${INCLUDE_DIR})
+    install(FILES DESTINATION ${INCLUDE_DIR})
     install(DIRECTORY include/external include/internal DESTINATION ${INCLUDE_DIR})
     install(
             EXPORT ${TARGETS_EXPORT_NAME} FILE ${TARGETS_EXPORT_NAME}.cmake DESTINATION ${CONFIG_INSTALL_DIR}
@@ -85,9 +85,13 @@ if (INSTALL_LIB)
     install(FILES ${CONFIG_FILE} ${VERSION_CONFIG_FILE} DESTINATION ${CONFIG_INSTALL_DIR})
     include(InstallRequiredSystemLibraries)
     set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE.md")
-    set(CPACK_PACKAGE_VERSION_MAJOR "${simple_json_VERSION_MAJOR}")
-    set(CPACK_PACKAGE_VERSION_MINOR "${simple_json_VERSION_MINOR}")
-    set(CPACK_DEBIAN_PACKAGE_MAINTAINER "NitroZeus")
+    set(CPACK_PACKAGE_VENDOR "Sholex Team")
+    set(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_CURRENT_SOURCE_DIR}/DESCRIPTION.txt")
+    set(
+            CPACK_PACKAGE_DESCRIPTION_SUMMARY
+            "A simple JSON library developed for modern CPP using standard library (STD) as the base."
+    )
+    set(CPACK_PACKAGE_FILE_NAME "${CMAKE_PROJECT_NAME}-${CMAKE_PROJECT_VERSION}")
     include(CPack)
 else ()
     message(STATUS "Using Simple JSON as subproject")
