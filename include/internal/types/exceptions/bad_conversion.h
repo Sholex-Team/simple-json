@@ -4,7 +4,7 @@
 #include "base_exception.h"
 #include "../enum_types.h"
 #include <string>
-#include "json_utils.h"
+#include "../../json_utils.h"
 
 namespace simple_json::types::exceptions {
     /*!
