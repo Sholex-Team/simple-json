@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include "types/enum_types.h"
 
 namespace simple_json::utils {
     /*!
@@ -44,6 +45,8 @@ namespace simple_json::utils {
      * @param base [out] The JSON Pointer string which is going to get deserialized.
      */
     void deserialize_json_pointer(std::string & base);
+
+    const char * json_type_to_string(const simple_json::types::DataType & type);
 }
 
 /*! @namespace simple_json::utils

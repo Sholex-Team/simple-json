@@ -46,4 +46,19 @@ namespace simple_json::utils {
         replace_str(base, "~", "~0");
         replace_str(base, "/", "~1");
     }
+
+    const char * json_type_to_string(const simple_json::types::DataType & type) {
+        switch (type) {
+            case types::DataType::integer_type: return "Integer";
+            case types::DataType::string_type: return "String";
+            case types::DataType::double_type: return "Double";
+            case types::DataType::boolean_type: return "Boolean";
+            case types::DataType::array_type: return "Array";
+            case types::DataType::json_object_type: return "JsonObject";
+            case types::DataType::null_type: return "Null";
+            case types::DataType::string_key_type: return "JsonKey";
+            case types::DataType::special_type: return "Special Type";
+            case types::DataType::unknown: return "Unknown Type";
+        }
+    }
 }
