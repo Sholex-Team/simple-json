@@ -75,7 +75,7 @@ write_basic_package_version_file(
 
 # Installing
 if (INSTALL_LIB)
-    message(STATUS "Using Simple JSON as main project")
+    message(STATUS "Compiling Simple JSON as main project")
     install(TARGETS simple_json DESTINATION ${LIB_DIR} EXPORT ${TARGETS_EXPORT_NAME})
     install(FILES  DESTINATION ${INCLUDE_DIR})
     install(DIRECTORY include/external include/internal DESTINATION ${INCLUDE_DIR})
@@ -83,6 +83,12 @@ if (INSTALL_LIB)
             EXPORT ${TARGETS_EXPORT_NAME} FILE ${TARGETS_EXPORT_NAME}.cmake DESTINATION ${CONFIG_INSTALL_DIR}
     )
     install(FILES ${CONFIG_FILE} ${VERSION_CONFIG_FILE} DESTINATION ${CONFIG_INSTALL_DIR})
+    include(InstallRequiredSystemLibraries)
+    set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE.md")
+    set(CPACK_PACKAGE_VERSION_MAJOR "${simple_json_VERSION_MAJOR}")
+    set(CPACK_PACKAGE_VERSION_MINOR "${simple_json_VERSION_MINOR}")
+    set(CPACK_DEBIAN_PACKAGE_MAINTAINER "NitroZeus")
+    include(CPack)
 else ()
-    message(WARNING "Using Simple JSON as subproject")
+    message(STATUS "Using Simple JSON as subproject")
 endif ()
