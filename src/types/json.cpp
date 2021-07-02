@@ -111,10 +111,12 @@ namespace simple_json::types {
     }
 
     Json::operator double() const {
-        if (used_type == DataType::double_type) {
-            return data_double;
+        switch (used_type) {
+            case DataType::double_type: return data_double;
+            case DataType::integer_type: return static_cast<double>(data_int);
+            default:
+                throw exceptions::BadConversion {DataType::double_type};
         }
-        throw exceptions::BadConversion {DataType::double_type};
     }
 
     Json::operator std::string() const {
