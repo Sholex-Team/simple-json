@@ -677,26 +677,19 @@ namespace simple_json::types {
     std::ostream & operator<<(std::ostream & os, const Json & json_item) {
         switch (json_item.used_type) {
             case DataType::integer_type:
-                os << json_item.data_int;
-                break;
+                return os << json_item.data_int;
             case DataType::string_type:
-                os << * (json_item.data_string);
-                break;
+                return os << * (json_item.data_string);
             case DataType::double_type:
-                os << json_item.data_double;
-                break;
+                return os << json_item.data_double;
             case DataType::boolean_type:
-                os << std::boolalpha << json_item.data_boolean << std::noboolalpha;
-                break;
+                return os << std::boolalpha << json_item.data_boolean << std::noboolalpha;
             case DataType::array_type:
-                os << * json_item.data_array;
-                break;
+                return os << * json_item.data_array;
             case DataType::json_object_type:
-                os << * json_item.data_json_object;
-                break;
+                return os << * json_item.data_json_object;
             case DataType::null_type:
-                os << "null";
-                break;
+                return os << "null";
             default:
                 throw serializer::exceptions::StreamInsertionException();
         }
