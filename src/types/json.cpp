@@ -693,7 +693,6 @@ namespace simple_json::types {
             default:
                 throw serializer::exceptions::StreamInsertionException();
         }
-        return os;
     }
 
     #pragma endregion
