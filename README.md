@@ -17,6 +17,8 @@
         <a href="https://github.com/Sholex-Team/simple-json/issues">Report Bug</a>
         ·
         <a href="https://github.com/Sholex-Team/simple-json/issues">Request Feature</a>
+        ·
+        <a href="https://github.com/Sholex-Team/simple-json/releases">Releases</a>
     </p>
 </p>
 
