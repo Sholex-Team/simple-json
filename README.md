@@ -46,6 +46,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 Nothing special, a simple, fast and small JSON library with many interesting features.
+
 Here are some features :
 - **There is NO Dependency !**
   
