@@ -19,7 +19,8 @@ namespace simple_json::types::exceptions {
          *
          * This constructor takes an optional argument which represents Json object data type being used in an
          * operation.
-         * @param used_type The type of Json object which is being used in the operation.
+         * @param used_type The type of Json object which is being used in the operation
+         * @param operation_type DataType which the operation can be performed on
          */
         explicit InvalidOperation(DataType used_type = DataType::unknown, DataType operation_type = DataType::unknown);
     };

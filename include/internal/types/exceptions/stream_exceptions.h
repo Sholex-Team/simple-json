@@ -5,6 +5,11 @@
 #include "../array_type.h"
 
 namespace simple_json {
+    /*!
+     * @brief A namespace dedicated to serializer exceptions.
+     *
+     * This namespace contains all the exceptions related to serializer and serializing operations.
+     */
     namespace serializer::exceptions {
         /*!
          * @brief Stream Insertion exception.
@@ -26,11 +31,6 @@ namespace simple_json {
             const char * what() const noexcept override;
         };
     }
-    /*! @namespace simple_json::serializer::exceptions
-     * @brief A namespace dedicated to serializer exceptions.
-     *
-     * This namespace contains all the exceptions related to serializer and serializing operations.
-     */
 
     namespace deserializer::exceptions {
         class ReadingFromFileException : public simple_json::base_exceptions::JsonException {
@@ -38,11 +38,6 @@ namespace simple_json {
             const char * what() const noexcept override;
         };
     }
-    /*! @namespace deserializer::exceptions
-     * @brief A namespace dedicated to deserializer exceptions.
-     *
-     * This namespace contains all the exceptions related to deserializer and deserializing operations.
-     */
 }
 
 #endif //SIMPLE_JSON_STREAM_EXCEPTIONS_H

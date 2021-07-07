@@ -4,6 +4,11 @@
 #include "base_exceptions.h"
 #include <cinttypes>
 
+/*!
+ * @brief Namespace dedicated to deserializer related exceptions.
+ *
+ * Every single exceptions thrown from deserializers are located here.
+ */
 namespace simple_json::deserializer::exceptions {
     /*!
      * @brief Parsing Exception thrown when serialized JSON is invalid.
@@ -54,11 +59,5 @@ namespace simple_json::deserializer::exceptions {
         Errors error;
     };
 }
-
-/*! @namespace simple_json::deserializer::exceptions
- * @brief Namespace dedicated to deserializer related exceptions.
- *
- * Every single exceptions thrown from deserializers are located here.
- */
 
 #endif //SIMPLE_JSON_DESERIALIZER_EXCEPTIONS_H

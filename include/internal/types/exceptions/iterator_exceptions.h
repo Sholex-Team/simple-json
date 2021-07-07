@@ -4,6 +4,11 @@
 #include "base_exceptions.h"
 #include "../enum_types.h"
 
+/*!
+ * @brief A namespace dedicated to iterator related exceptions.
+ *
+ * This namespace contains exceptions which are related to iterator types used in this project.
+ */
 namespace simple_json::iterators::exceptions {
     /*!
      * @brief Invalid Dereference exception.
@@ -60,15 +65,9 @@ namespace simple_json::iterators::exceptions {
          * being performed on.
          * @param used_type Invalid iterator type.
          */
-        InvalidIterator(types::IteratorTypes used_type);
+        explicit InvalidIterator(types::IteratorTypes used_type);
         const char * what() const noexcept override;
     };
 }
-
-/*! @namespace simple_json::iterators::exceptions
- * @brief A namespace dedicated to iterator related exceptions.
- *
- * This namespace contains exceptions which are related to iterator types used in this project.
- */
 
 #endif //SIMPLE_JSON_ITERATOR_EXCEPTIONS_H

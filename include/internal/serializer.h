@@ -11,6 +11,12 @@
 #include "types/exceptions/stream_exceptions.h"
 #include "types/enum_types.h"
 
+/*!
+ * @brief Namespace dedicated to serialization.
+ *
+ * This namespace contains functions and classes required for serialization operation which turns a Json object into a
+ * JSON serialized string.
+ */
 namespace simple_json::serializer {
     /*!
      * @brief Serializes a Json object.
@@ -66,13 +72,6 @@ namespace simple_json::serializer {
         void serializer(std::ostream & os, const types::Json & json, size_t local_indent);
     }
 }
-
-/*! @namespace simple_json::serializer
- * @brief Namespace dedicated to serialization.
- *
- * This namespace contains functions and classes required for serialization operation which turns a Json object into a
- * JSON serialized string.
- */
 
 /*! @example serializer.cpp
  * @brief Serializer usage example.

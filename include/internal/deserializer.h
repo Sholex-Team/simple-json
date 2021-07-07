@@ -14,6 +14,12 @@
 #include "json_utils.h"
 #include <sstream>
 
+/*!
+ * @brief Namespace dedicated to deserialization.
+ *
+ * This namespace contains functions and classes required for deserializing a JSON string and turning it into a Json
+ * type object.
+ */
 namespace simple_json::deserializer {
     /*!
      * @brief Deserializes a string.
@@ -94,13 +100,6 @@ namespace simple_json::deserializer {
         };
     }
 }
-
-/*! @namespace simple_json::deserializer
- * @brief Namespace dedicated to deserialization.
- *
- * This namespace contains functions and classes required for deserializing a JSON string and turning it into a Json
- * type object.
- */
 
 /*! @example deserializer.cpp
  * @brief Deserializer usage example.

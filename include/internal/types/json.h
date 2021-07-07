@@ -1509,7 +1509,7 @@ namespace simple_json::types {
         /*!
          * @brief Checks is the given Json item exists in the container.
          * @throw exceptions::InvalidOperation Throws if the Json object type is not iterable.
-         * @param key const reference to the target Json item
+         * @param item Const reference to the target Json item
          * @return Result of the checking
          */
         bool contains(const Json & item) const;
