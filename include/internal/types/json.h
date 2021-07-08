@@ -559,6 +559,9 @@ namespace simple_json::types {
              */
             bool operator==(const reverse_iterator & r_iterator) const;
 
+            reverse_iterator & operator=(const reverse_iterator & r_iterator);
+            reverse_iterator & operator=(reverse_iterator && r_iterator) noexcept;
+
             // Public Methods
             /*!
              * @brief Returns the key of object that the reverse_iterator is pointing to.
