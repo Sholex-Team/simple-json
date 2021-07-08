@@ -209,6 +209,9 @@ namespace simple_json::types {
              */
             bool operator==(const iterator & r_iterator) const;
 
+            iterator & operator=(const iterator & r_iterator);
+            iterator & operator=(iterator && r_iterator) noexcept;
+
             // Public Methods
             /*!
              * @brief Returns the JsonKey object.

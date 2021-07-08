@@ -1365,6 +1365,25 @@ namespace simple_json::types {
         return * json_object_iterator == * r_iterator.json_object_iterator;
     }
 
+    Json::iterator & Json::iterator::operator=(const Json::iterator & r_iterator) {
+        if (used_type == IteratorTypes::array_iterator_type)
+            array_iterator = new Array::iterator {* r_iterator.array_iterator};
+        else
+            json_object_iterator = new JsonObject::iterator {* r_iterator.json_object_iterator};
+        return * this;
+    }
+
+    Json::iterator & Json::iterator::operator=(Json::iterator && r_iterator)  noexcept {
+        if (used_type == IteratorTypes::array_iterator_type) {
+            array_iterator = r_iterator.array_iterator;
+            r_iterator.array_iterator = nullptr;
+        } else {
+            json_object_iterator = r_iterator.json_object_iterator;
+            r_iterator.json_object_iterator = nullptr;
+        }
+        return * this;
+    }
+
     const Json & Json::const_iterator::operator*() const {
          if (used_type == IteratorTypes::array_iterator_type) {
              return * * array_iterator;
