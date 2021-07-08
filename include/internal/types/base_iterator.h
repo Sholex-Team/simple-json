@@ -15,7 +15,8 @@ namespace simple_json::iterators {
     class JsonIterator {
     protected:
         types::IteratorTypes used_type;
-        virtual void add_to_iterator() = 0;
+        virtual void increment_iterator() = 0;
+        virtual void decrement_iterator() = 0;
         void check_json_object() const;
         void check_array_type() const;
     public:

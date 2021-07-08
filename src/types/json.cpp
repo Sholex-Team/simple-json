@@ -1309,12 +1309,23 @@ namespace simple_json::types {
 
     const Json::iterator Json::iterator::operator++(int) {
         Json::iterator temp {* this};
-        add_to_iterator();
+        increment_iterator();
         return temp;
     }
 
     Json::iterator & Json::iterator::operator++() {
-        add_to_iterator();
+        increment_iterator();
+        return * this;
+    }
+
+    const Json::iterator Json::iterator::operator--(int) {
+        Json::iterator temp {* this};
+        decrement_iterator();
+        return temp;
+    }
+
+    Json::iterator & Json::iterator::operator--() {
+        decrement_iterator();
         return * this;
     }
 
@@ -1363,14 +1374,26 @@ namespace simple_json::types {
 
     const Json::const_iterator Json::const_iterator::operator++(int) {
         Json::const_iterator temp {* this};
-        add_to_iterator();
+        increment_iterator();
         return temp;
     }
 
     Json::const_iterator & Json::const_iterator::operator++() {
-        add_to_iterator();
+        increment_iterator();
         return * this;
     }
+
+    const Json::const_iterator Json::const_iterator::operator--(int) {
+        Json::const_iterator temp {* this};
+        decrement_iterator();
+        return temp;
+    }
+
+    Json::const_iterator & Json::const_iterator::operator--() {
+        decrement_iterator();
+        return * this;
+    }
+
 
     Json::const_iterator Json::const_iterator::operator+(long i) const {
         check_array_type();
@@ -1436,12 +1459,23 @@ namespace simple_json::types {
 
     const Json::reverse_iterator Json::reverse_iterator::operator++(int) {
         Json::reverse_iterator temp {* this};
-        add_to_iterator();
+        increment_iterator();
         return temp;
     }
 
     Json::reverse_iterator & Json::reverse_iterator::operator++() {
-        add_to_iterator();
+        increment_iterator();
+        return * this;
+    }
+
+    const Json::reverse_iterator Json::reverse_iterator::operator--(int) {
+        Json::reverse_iterator temp {* this};
+        decrement_iterator();
+        return temp;
+    }
+
+    Json::reverse_iterator & Json::reverse_iterator::operator--() {
+        decrement_iterator();
         return * this;
     }
 
@@ -1490,12 +1524,23 @@ namespace simple_json::types {
 
     const Json::const_reverse_iterator Json::const_reverse_iterator::operator++(int) {
         Json::const_reverse_iterator temp {* this};
-        add_to_iterator();
+        increment_iterator();
         return temp;
     }
 
     Json::const_reverse_iterator & Json::const_reverse_iterator::operator++() {
-        add_to_iterator();
+        increment_iterator();
+        return * this;
+    }
+
+    const Json::const_reverse_iterator Json::const_reverse_iterator::operator--(int) {
+        Json::const_reverse_iterator temp {* this};
+        decrement_iterator();
+        return temp;
+    }
+
+    Json::const_reverse_iterator & Json::const_reverse_iterator::operator--() {
+        decrement_iterator();
         return * this;
     }
 
@@ -1536,7 +1581,35 @@ namespace simple_json::types {
     }
 
     // Protected Methods
-    void Json::iterator::add_to_iterator() {
+    void Json::iterator::increment_iterator() {
+        if (used_type == IteratorTypes::array_iterator_type)
+            ++ * array_iterator;
+        else
+            ++ * json_object_iterator;
+    }
+
+    void Json::iterator::decrement_iterator() {
+        if (used_type == IteratorTypes::array_iterator_type)
+            -- * array_iterator;
+        else
+            -- * json_object_iterator;
+    }
+
+    void Json::const_iterator::increment_iterator() {
+        if (used_type == IteratorTypes::array_iterator_type)
+            ++ * array_iterator;
+        else
+            ++ * json_object_iterator;
+    }
+
+    void Json::const_iterator::decrement_iterator() {
+        if (used_type == IteratorTypes::array_iterator_type)
+            -- * array_iterator;
+        else
+            * json_object_iterator;
+    }
+
+    void Json::reverse_iterator::increment_iterator() {
         if (used_type == IteratorTypes::array_iterator_type) {
             ++ * array_iterator;
         } else {
@@ -1544,7 +1617,14 @@ namespace simple_json::types {
         }
     }
 
-    void Json::const_iterator::add_to_iterator() {
+    void Json::reverse_iterator::decrement_iterator() {
+        if (used_type == IteratorTypes::array_iterator_type)
+            -- * array_iterator;
+        else
+            -- * json_object_iterator;
+    }
+
+    void Json::const_reverse_iterator::increment_iterator() {
         if (used_type == IteratorTypes::array_iterator_type) {
             ++ * array_iterator;
         } else {
@@ -1552,20 +1632,11 @@ namespace simple_json::types {
         }
     }
 
-    void Json::reverse_iterator::add_to_iterator() {
-        if (used_type == IteratorTypes::array_iterator_type) {
-            ++ * array_iterator;
-        } else {
-            ++ * json_object_iterator;
-        }
-    }
-
-    void Json::const_reverse_iterator::add_to_iterator() {
-        if (used_type == IteratorTypes::array_iterator_type) {
-            ++ * array_iterator;
-        } else {
-            ++ * json_object_iterator;
-        }
+    void Json::const_reverse_iterator::decrement_iterator() {
+        if (used_type == IteratorTypes::array_iterator_type)
+            -- * array_iterator;
+        else
+            -- * json_object_iterator;
     }
 
     // Destructors

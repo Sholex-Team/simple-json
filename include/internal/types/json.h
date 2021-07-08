@@ -76,7 +76,8 @@ namespace simple_json::types {
                 JsonObject::iterator * json_object_iterator;
             };
         protected:
-            void add_to_iterator() override;
+            void increment_iterator() override;
+            void decrement_iterator() override;
         public:
             // Constructors
             /*!
@@ -125,52 +126,68 @@ namespace simple_json::types {
             /*!
              * @brief iterator post-increment operator overload.
              *
-             * This operator copies the iterator object and advances the original iterator by one position.
-             * @return A const copy of iterator object before advancing.
+             * This operator copies the iterator object and increments the original iterator by one position.
+             * @return A const copy of iterator object before incrementing.
              */
             const iterator operator++(int);
 
             /*!
              * @brief iterator pre-increment operator overload.
              *
-             * This operator advances the iterator by one position.
-             * @return A reference to advanced operator.
+             * This operator increments the iterator by one position.
+             * @return A reference to Incremented operator.
              */
             iterator & operator++();
 
             /*!
+             * @brief iterator post-decrement operator overload.
+             *
+             * This operator copies the iterator object and decrements the original iterator by one position.
+             * @return A const copy of iterator object before decrementing.
+             */
+            const iterator operator--(int);
+
+            /*!
+             * @brief iterator pre-decrement operator overload.
+             *
+             * This operator decrements the iterator by one position.
+             * @return A reference to decremented operator.
+             */
+            iterator & operator--();
+
+            /*!
              * @brief iterator addition operator overload.
              *
-             * This operator copies the iterator object and advances the copy by specified positions.
-             * @param i Positions that the iterator is going to advance.
-             * @return Advanced iterator object.
+             * This operator copies the iterator object and increments the copy by specified positions.
+             * @param i Positions that the iterator is going to get incremented by.
+             * @return Incremented iterator object.
              */
             iterator operator+(long i) const;
 
             /*!
              * @brief iterator subtraction operator overload.
              *
-             * This operator copies the iterator object and moves back the copy by given positions.
-             * @param i Positions that the iterator is going to move back.
-             * @return Moved back iterator object.
+             * This operator copies the iterator object and decrements the copy by given positions.
+             * @param i Positions that the iterator is going to get decremented by.
+             * @return Decremented iterator object.
              */
             iterator operator-(long i) const;
 
             /*!
              * @brief iterator addition assignment operator overload.
              *
-             * This operator advances the iterator by given positions.
-             * @param i Positions that the iterator is going to advance.
-             * @return Advanced iterator.
+             * This operator increments the iterator by given positions.
+             * @param i Positions that the iterator is going to get incremented by.
+             * @return Incremented iterator.
              */
             iterator & operator+=(long i);
 
             /*!
              * @brief iteration subtraction assignment operator overload.
              *
-             * This operator moves the iterator back by given positions.
-             * @param i Positions that the iterator it going to move back.
-             * @return Moved back iterator.
+             * This operator decrements the iterator by given positions.
+             * @param i Positions that the iterator it going to get decremented by.
+             * @return Decremented iterator.
              */
             iterator & operator-=(long i);
 
@@ -230,7 +247,8 @@ namespace simple_json::types {
                 JsonObject::const_iterator * json_object_iterator;
             };
         protected:
-            void add_to_iterator() override;
+            void increment_iterator() override;
+            void decrement_iterator() override;
         public:
             // Constructors
 
@@ -282,43 +300,60 @@ namespace simple_json::types {
             /*!
              * @brief const_iterator post-increment operator overload.
              *
-             * Copies the const_iterator and advances the original const_iterator object and returns the copy.
-             * @return A copied const_iterator object of the original one before advancing.
+             * Copies the const_iterator and increments the original const_iterator object and returns the copy.
+             * @return A copied const_iterator object of the original one before incrementing.
              */
             const const_iterator operator++(int);
 
             /*!
              * @brief const_iterator pre-increment operator overload.
              *
-             * Advances the const_iterator object by one position.
-             * @return A reference to advanced const_iterator object.
+             * increments the const_iterator object by one position.
+             * @return A reference to incremented const_iterator object.
              */
             const_iterator & operator++();
 
             /*!
+             * @brief const_iterator post-decrement operator overload.
+             *
+             * Copies the const_iterator and decrements the original const_iterator object and returns the copy.
+             * @return A copied const_iterator object of the original one before decrementing.
+             */
+            const const_iterator operator--(int);
+
+            /*!
+             * @brief const_iterator pre-decrement operator overload.
+             *
+             * Decrements the const_iterator object by one position.
+             * @return A reference to decremented const_iterator object.
+             */
+            const_iterator & operator--();
+
+
+            /*!
              * @brief const_iterator addition operator.
              *
-             * Copies the const_iterator and advances the copy by given positions.
-             * @param i Positions that the copied const_iterator object is going to advance.
-             * @return Advanced copy of const_iterator object.
+             * Copies the const_iterator and increments the copy by given positions.
+             * @param i Positions that the copied const_iterator object is going to get incremented by.
+             * @return Incremented copy of const_iterator object.
              */
             const_iterator operator+(long i) const;
 
             /*!
              * @brief const_iterator subtraction operator.
              *
-             * Copies the const_iterator object and moves the copy back by given positions.
-             * @param i Positions that the copied const_iterator object is going to move back.
-             * @return Moved back copy of const_iterator object.
+             * Copies the const_iterator object and decrements the copy by given positions.
+             * @param i Positions that the copied const_iterator object is going to get decremented by.
+             * @return Decremented copy of const_iterator object.
              */
             const_iterator operator-(long i) const;
 
             /*!
              * @brief const_iterator addition assignment operator overload.
              *
-             * Advances the const_iterator object by given positions.
-             * @param i Positions and the const_iterator object is going to advance.
-             * @return A reference to advanced const_iterator object.
+             * increments the const_iterator object by given positions.
+             * @param i Positions and the const_iterator object is going to get incremented by.
+             * @return A reference to Incremented const_iterator object.
              */
             const_iterator & operator+=(long i);
 
@@ -326,8 +361,8 @@ namespace simple_json::types {
              * @brief const_iterator subtractions assignment operator overload.
              *
              * Moves the const_iterator object back by given positions.
-             * @param i Positions that the const_iterator object to going to move back.
-             * @return A reference to moved back const_iterator object.
+             * @param i Positions that the const_iterator object to going to get decremented by.
+             * @return A reference to Decremented const_iterator object.
              */
             const_iterator & operator-=(long i);
 
@@ -387,7 +422,8 @@ namespace simple_json::types {
                 JsonObject::reverse_iterator * json_object_iterator;
             };
         protected:
-            void add_to_iterator() override;
+            void increment_iterator() override;
+            void decrement_iterator() override;
         public:
             // Constructors
 
@@ -439,26 +475,43 @@ namespace simple_json::types {
             /*!
              * @brief reverse_iterator post-increment operator overload.
              *
-             * Copies the reverse_iterator and advances the original reverse_iterator object and
+             * Copies the reverse_iterator and increments the original reverse_iterator object and
              * returns the copy.
-             * @return A copied reverse_iterator object of the original one before advancing.
+             * @return A copied reverse_iterator object of the original one before incrementing.
              */
             const reverse_iterator operator++(int);
 
             /*!
              * @brief reverse_iterator pre-increment operator overload.
              *
-             * Advances the reverse_iterator object by one position.
-             * @return A reference to advanced reverse_iterator object.
+             * increments the reverse_iterator object by one position.
+             * @return A reference to Incremented reverse_iterator object.
              */
             reverse_iterator & operator++();
+            
+            /*!
+             * @brief reverse_iterator post-decrement operator overload.
+             *
+             * Copies the reverse_iterator and decrements the original reverse_iterator object and
+             * returns the copy.
+             * @return A copied reverse_iterator object of the original one before decrementing.
+             */
+            const reverse_iterator operator--(int);
+
+            /*!
+             * @brief reverse_iterator pre-decrement operator overload.
+             *
+             * decrements the reverse_iterator object by one position.
+             * @return A reference to decremented reverse_iterator object.
+             */
+            reverse_iterator & operator--();
 
             /*!
              * @brief reverse_iterator addition operator.
              *
-             * Copies the reverse_iterator and advances the copy by given positions.
-             * @param i Positions that the copied reverse_iterator object is going to advance.
-             * @return Advanced copy of reverse_iterator object.
+             * Copies the reverse_iterator and increments the copy by given positions.
+             * @param i Positions that the copied reverse_iterator object is going to get incremented by.
+             * @return Incremented copy of reverse_iterator object.
              */
             reverse_iterator operator+(long i) const;
 
@@ -466,17 +519,17 @@ namespace simple_json::types {
              * @brief reverse_iterator subtraction operator.
              *
              * Copies the reverse_iterator object and moves the copy back by given positions.
-             * @param i Positions that the copied reverse_iterator object is going to move back.
-             * @return Moved back copy of reverse_iterator object.
+             * @param i Positions that the copied reverse_iterator object is going to get decremented by.
+             * @return Decremented copy of reverse_iterator object.
              */
             reverse_iterator operator-(long i) const;
 
             /*!
              * @brief reverse_iterator addition assignment operator overload.
              *
-             * Advances the reverse_iterator object by given positions.
-             * @param i Positions and the reverse_iterator object is going to advance.
-             * @return A reference to advanced reverse_iterator object.
+             * increments the reverse_iterator object by given positions.
+             * @param i Positions and the reverse_iterator object is going to get incremented by.
+             * @return A reference to Incremented reverse_iterator object.
              */
             reverse_iterator & operator+=(long i);
 
@@ -484,8 +537,8 @@ namespace simple_json::types {
              * @brief reverse_iterator subtractions assignment operator overload.
              *
              * Moves the reverse_iterator object back by given positions.
-             * @param i Positions that the reverse_iterator object to going to move back.
-             * @return A reference to moved back reverse_iterator object.
+             * @param i Positions that the reverse_iterator object to going to get decremented by.
+             * @return A reference to Decremented reverse_iterator object.
              */
             reverse_iterator & operator-=(long i);
 
@@ -542,7 +595,8 @@ namespace simple_json::types {
                 JsonObject::const_reverse_iterator * json_object_iterator;
             };
         protected:
-            void add_to_iterator() override;
+            void increment_iterator() override;
+            void decrement_iterator() override;
         public:
             // Constructors
 
@@ -594,26 +648,43 @@ namespace simple_json::types {
             /*!
              * @brief const_reverse_iterator post-increment operator overload.
              *
-             * Copies the const_reverse_iterator and advances the original const_reverse_iterator object and
+             * Copies the const_reverse_iterator and increments the original const_reverse_iterator object and
              * returns the copy.
-             * @return A copied const_reverse_iterator object of the original one before advancing.
+             * @return A copied const_reverse_iterator object of the original one before incrementing.
              */
             const const_reverse_iterator operator++(int);
 
             /*!
              * @brief const_reverse_iterator pre-increment operator overload.
              *
-             * Advances the const_reverse_iterator object by one position.
-             * @return A reference to advanced const_reverse_iterator object.
+             * increments the const_reverse_iterator object by one position.
+             * @return A reference to Incremented const_reverse_iterator object.
              */
             const_reverse_iterator & operator++();
 
             /*!
+             * @brief const_reverse_iterator post-decrement operator overload.
+             *
+             * Copies the const_reverse_iterator and decrements the original const_reverse_iterator object and
+             * returns the copy.
+             * @return A copied const_reverse_iterator object of the original one before decrementing.
+             */
+            const const_reverse_iterator operator--(int);
+
+            /*!
+             * @brief const_reverse_iterator pre-decrement operator overload.
+             *
+             * decrements the const_reverse_iterator object by one position.
+             * @return A reference to decremented const_reverse_iterator object.
+             */
+            const_reverse_iterator & operator--();
+
+            /*!
              * @brief const_reverse_iterator addition operator.
              *
-             * Copies the const_reverse_iterator and advances the copy by given positions.
-             * @param i Positions that the copied const_reverse_iterator object is going to advance.
-             * @return Advanced copy of const_reverse_iterator object.
+             * Copies the const_reverse_iterator and increments the copy by given positions.
+             * @param i Positions that the copied const_reverse_iterator object is going to get incremented by.
+             * @return Incremented copy of const_reverse_iterator object.
              */
             const_reverse_iterator operator+(long i) const;
 
@@ -621,17 +692,17 @@ namespace simple_json::types {
              * @brief const_reverse_iterator subtraction operator.
              *
              * Copies the const_reverse_iterator object and moves the copy back by given positions.
-             * @param i Positions that the copied const_reverse_iterator object is going to move back.
-             * @return Moved back copy of const_reverse_iterator object.
+             * @param i Positions that the copied const_reverse_iterator object is going to get decremented by.
+             * @return Decremented copy of const_reverse_iterator object.
              */
             const_reverse_iterator operator-(long i) const;
 
             /*!
              * @brief const_reverse_iterator addition assignment operator overload.
              *
-             * Advances the const_reverse_iterator object by given positions.
-             * @param i Positions and the const_reverse_iterator object is going to advance.
-             * @return A reference to advanced const_reverse_iterator object.
+             * increments the const_reverse_iterator object by given positions.
+             * @param i Positions and the const_reverse_iterator object is going to get incremented by.
+             * @return A reference to Incremented const_reverse_iterator object.
              */
             const_reverse_iterator & operator+=(long i);
 
@@ -639,8 +710,8 @@ namespace simple_json::types {
              * @brief const_reverse_iterator subtractions assignment operator overload.
              *
              * Moves the const_reverse_iterator object back by given positions.
-             * @param i Positions that the const_reverse_iterator object to going to move back.
-             * @return A reference to moved back const_reverse_iterator object.
+             * @param i Positions that the const_reverse_iterator object to going to get decremented by.
+             * @return A reference to Decremented const_reverse_iterator object.
              */
             const_reverse_iterator & operator-=(long i);
 
