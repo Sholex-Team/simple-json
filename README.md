@@ -51,6 +51,7 @@
             <a href="#creating-json-patches-from-object-differences">Creating JSON Patches from object differences</a>
         </li>
         <li><a href="#creating-json-patches-from-strings">Creating JSON Patches from strings</a></li>
+        <li><a href="#applying-merge-patches">Applying Merge Patches</a></li>
       </ul>
     </li>
     <li><a href="#contributing">Contributing</a></li>
@@ -418,6 +419,37 @@ int main() {
 }
 ```
 
+### Applying Merge Patches
+```c++
+#include "simple_json.h"
+#include <iostream>
+
+using namespace simple_json::types;
+
+int main() {
+    // Creating source JSON
+    Json json(loads(R"({
+      "a": "b",
+      "c": {
+        "d": "e",
+        "f": "g"
+      }
+    })"));
+    
+    // Creating merge patch
+    Json patch(loads(R"({
+      "a":"z",
+      "c": {
+        "f": null
+      }
+    })"));
+    
+    // Applying the Merge Patch
+    json.merge_patch(patch);
+    std::cout << json << std::endl;
+}
+```
+
 _For more examples, please refer to the [Documentation](https://doc.sholexteam.ir/simple-json/)_
 
 <!-- CONTRIBUTING -->
@@ -430,8 +462,6 @@ to share it with us 👇
 3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
-
-
 
 <!-- LICENSE -->
 ## License
