@@ -1599,6 +1599,25 @@ namespace simple_json::types {
         return * json_object_iterator == * r_iterator.json_object_iterator;
     }
 
+    Json::const_reverse_iterator & Json::const_reverse_iterator::operator=(const Json::const_reverse_iterator & r_iterator) {
+        if (used_type == IteratorTypes::array_iterator_type)
+            array_iterator = new Array::const_reverse_iterator {* r_iterator.array_iterator};
+        else
+            json_object_iterator = new JsonObject::const_reverse_iterator {* r_iterator.json_object_iterator};
+        return * this;
+    }
+
+    Json::const_reverse_iterator & Json::const_reverse_iterator::operator=(Json::const_reverse_iterator && r_iterator)  noexcept {
+        if (used_type == IteratorTypes::array_iterator_type) {
+            array_iterator = r_iterator.array_iterator;
+            r_iterator.array_iterator = nullptr;
+        } else {
+            json_object_iterator = r_iterator.json_object_iterator;
+            r_iterator.json_object_iterator = nullptr;
+        }
+        return * this;
+    }
+
     // Protected Methods
     void Json::iterator::increment_iterator() {
         if (used_type == IteratorTypes::array_iterator_type)
