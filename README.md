@@ -22,8 +22,6 @@
     </p>
 </p>
 
-
-
 <!-- TABLE OF CONTENTS -->
 <details open="open">
   <summary>Table of Contents</summary>
@@ -42,6 +40,7 @@
       <a href="#usage">Usage</a>
       <ul>
         <li><a href="#creating-json-objects">Creating JSON objects</a></li>
+        <li><a href="#conversions-and-assignments">Conversion and Assignments</a></li>
         <li><a href="#data-access">Data Access</a></li>
         <li><a href="#range-based-iteration">Range based iteration</a></li>
         <li><a href="#using-iterators">Using iterators</a></li>
@@ -169,6 +168,42 @@ int main() {
 }
 ```
 
+### Conversions and Assignments
+```c++
+#include "simple_json.h"
+#include <iostream>
+
+using namespace simple_json::types;
+
+void read_json(const Json & target_json) {
+    std::cout << target_json << std::endl;
+}
+
+int main() {
+    Json json {1, 2, 3};
+
+    // Explicit Conversion
+    long int second_number {json.at(1)};
+    double third_number {static_cast<double>(json.at(2))};
+
+    // Converting an Array to std::string is impossible !
+    try {
+        static_cast<std::string>(json);
+    } catch (const exceptions::BadConversion & error) {
+        std::cout << error.what() << std::endl;
+    }
+
+    // Implicit Conversion
+    read_json(10);
+
+    // Assignments
+    json = 10;
+    json += 10;
+    Json second_json = json - 5;
+    return 0;
+}
+```
+
 ### Data Access
 ```c++
 #include "simple_json.h"
@@ -183,7 +218,18 @@ int main() {
         }},
         {"json_object"_json_key, {{{"second_inner_key"_json_key}, 10.5}}}
     };
+    
+    // Using indexes and keys
     std::cout << json.at("array"_json_key)[3]["second_key"] << std::endl;
+    
+    // Getting a reference to inner values
+    Array & inner_array {json.at("array").get_array()};
+    inner_array.push_back(10);
+    double & inner_double {json.at("json_object").at("second_inner_key").get_double()};
+    inner_double *= 2;
+    
+    // Output must be 21
+    std::cout << json.at("json_object").at("second_inner_key") << std::endl;
     return 0;
 }
 ```
@@ -310,6 +356,22 @@ int main() {
     return 0;
 }
 
+```
+
+### Using JSON Pointers
+```c++
+#include "simple_json.h"
+#include <iostream>
+
+int main() {
+    Json src {{"array"_json_key, {1, 2, {{"inner_key"_json_key, 10}}}}, {"foo"_json_key, "bar"}};
+    
+    // Using JSON Pointer to access inner_key
+    Json inner_value(src.at("/array/2/inner_key"_json_ptr));
+
+    std::cout << inner_value << std::endl; // Output is 10
+    return 0;
+}
 ```
 
 ### Creating JSON Patches from object differences
