@@ -246,6 +246,9 @@ namespace simple_json::types {
          *
          * This public method can be used to apply a patch on an already existing Json object.
          * @param json [out] A reference Json object which is about to get patched.
+         * @throw exceptions::InvalidPointer Throws when one of the patch JSON Pointers is invalid.
+         * @throw exceptions::FailedTest Throws when a JSON Patch test fails.
+         * @throw exceptions::InvalidPatchOperation Throws when the patch contains an invalid operation.
          * @param reverse If true is passed, method will apply the patch in reverse order.
          */
         void apply(Json & json, bool reverse = false);

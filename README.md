@@ -38,7 +38,22 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
+    <li>
+      <a href="#usage">Usage</a>
+      <ul>
+        <li><a href="#creating-json-objects">Creating JSON objects</a></li>
+        <li><a href="#data-access">Data Access</a></li>
+        <li><a href="#range-based-iteration">Range based iteration</a></li>
+        <li><a href="#using-iterators">Using iterators</a></li>
+        <li><a href="#using-reverse-iterators">Using reverse iterators</a></li>
+        <li><a href="#serializing-&-deserializing-using-strings">Serializing & Deserializing using strings</a></li>
+        <li><a href="#serializing-&-deserializing-using-file-path">Serializing & Deserializing using file path</a></li>
+        <li>
+            <a href="#creating-json-patches-from-object-differences">Creating JSON Patches from object differences</a>
+        </li>
+        <li><a href="#creating-json-patches-from-strings">Creating JSON Patches from strings</a></li>
+      </ul>
+    </li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -73,11 +88,12 @@ Check out the [Documentation](https://doc.sholexteam.ir/simple-json/) for more i
 ## Getting Started
 All you need to do is installing the Simple JSON as a shared library or use it directly as a sub-project in your CMake
 project.
-### Prerequisites
+## Prerequisites
 
 There isn't much here, install CMake and you are good to go !
 * CMake >= 3.16
 
+## Installation
 ### Installing using package managers
 
 1. Download one of the binary packages ([DEB](https://bin.sholexteam.ir/simple-json/deb/simple_json-1.0.0.deb)
@@ -114,7 +130,7 @@ There isn't much here, install CMake and you are good to go !
    cmake --install .
    ```
 
-### Using as a CMake sub-project
+### Using as a CMake embedded project
 
 1. Clone the project inside your project
    ```shell
@@ -132,7 +148,213 @@ There isn't much here, install CMake and you are good to go !
 
 <!-- USAGE EXAMPLES -->
 ## Usage
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+Here are some examples of library usage 👇
+
+### Creating JSON objects
+```c++
+#include "simple_json.h"
+
+using namespace simple_json::types;
+
+int main() {
+    Json array {1, 2, 3};
+    Json json_object {{"foo"_json_key, "bar"}, {"key"_json_key, 10}};
+    Json both {
+            {"array"_json_key, {1, 2, 3, {
+                {"first_key"_json_key, true}, {"second_key"_json_key, {10.5, true, nullptr}}}
+            }},
+            {"json_object"_json_key, {{{"second_inner_key"_json_key}, 10.5}}}
+    };
+    return 0;
+}
+```
+
+### Data Access
+```c++
+#include "simple_json.h"
+#include <iostream>
+  
+using namespace simple_json::types;
+
+int main() {
+    Json json {
+        {"array"_json_key, {1, 2, 3, {
+            {"first_key"_json_key, true}, {"second_key"_json_key, {10.5, true, nullptr}}}
+        }},
+        {"json_object"_json_key, {{{"second_inner_key"_json_key}, 10.5}}}
+    };
+    std::cout << json.at("array"_json_key)[3]["second_key"] << std::endl;
+    return 0;
+}
+```
+
+### Range based iteration
+```c++
+#include "simple_json.h"
+#include <iostream>
+  
+using namespace simple_json::types;
+
+int main() {
+    Json json {
+        {"array"_json_key, {1, 2, 3, {
+            {"first_key"_json_key, true}, {"second_key"_json_key, {10.5, true, nullptr}}}
+        }},
+        {"json_object"_json_key, {{{"second_inner_key"_json_key}, 10.5}}}
+    };
+    for (const pair_type & pair: json.items()) {
+        std::cout << "Key : " << pair.first << std::endl;
+        std::cout << "Value : " << pair.second << std::endl;
+    }
+    for (const Json & item: json.at("array"_json_key)) {
+        std::cout << item << std::endl;
+    }
+    return 0;
+}
+```
+
+### Using iterators
+```c++
+#include "simple_json.h"
+#include <iostream>
+  
+using namespace simple_json::types;
+
+int main() {
+    Json json {
+        {"array"_json_key, {1, 2, 3, {
+            {"first_key"_json_key, true}, {"second_key"_json_key, {10.5, true, nullptr}}}
+        }},
+        {"json_object"_json_key, {{{"second_inner_key"_json_key}, 10.5}}}
+    };
+    for (Json::iterator it = json.begin(); it != json.end(); ++it) {
+        std::cout << "Key : " << it.key() << std::endl;
+        std::cout << "Value : " << it.value() << std::endl;
+    }
+    for (Json::const_iterator it = json.at("array").cbegin(); it != json.at("array").cend(); ++it) {
+        std::cout << "Value : " << * it << std::endl;
+    }
+    return 0;
+}
+```
+
+### Using reverse iterators
+```c++
+#include "simple_json.h"
+#include <iostream>
+
+using namespace simple_json::types;
+
+int main() {
+    Json json {
+      {"array"_json_key, {1, 2, 3, {
+          {"first_key"_json_key, true}, {"second_key"_json_key, {10.5, true, nullptr}}}
+      }},
+      {"json_object"_json_key, {{{"second_inner_key"_json_key}, 10.5}}}
+    };
+    for (Json::reverse_iterator it = json.rbegin(); it != json.rend(); ++it) {
+      std::cout << "Key : " << it.key() << std::endl;
+      std::cout << "Value : " << it.value() << std::endl;
+    }
+    for (Json::const_reverse_iterator it = json.at("array").crbegin(); it != json.at("array").crend(); ++it) {
+      std::cout << "Value : " << * it << std::endl;
+    }
+    return 0;
+}
+```
+
+### Serializing & Deserializing using strings
+```c++
+#include <iostream>
+#include "simple_json.h"
+
+using namespace simple_json;
+using namespace ::types;
+using namespace ::deserializer;
+using namespace ::serializer;
+
+int main() {
+    const Json json(loads(R"({"foo": "bar", "int_value": 10, "array": [1, 12, true, null]})"));
+    const std::string serialized_json {dumps(json)};
+  
+    std::cout << json << std::endl;
+    std::cout << serialized_json << std::endl;
+    return 0;
+}
+```
+### Serializer & Deserializing using file path
+```c++
+#include <iostream>
+#include "simple_json.h"
+
+using namespace simple_json;
+using namespace ::types;
+using namespace ::deserializer;
+using namespace ::serializer;
+
+int main() {
+    Json json(DataType::unknown);
+    try {
+        json = load("serialized.json");
+    } catch (const deserializer::exceptions::ReadingFromFileException & error) {
+        std::cout << error.what() << std::endl;
+        return 1;
+    }
+    json = {1, 2, 3};
+    try {
+        dump(json, "new_serialized.json");
+    } catch (const serializer::exceptions::WritingToFileException & error) {
+        std::cout << error.what() << std::endl;
+        return 1;
+    }
+    return 0;
+}
+
+```
+
+### Creating JSON Patches from object differences
+```c++
+#include <iostream>
+#include "simple_json.h"
+
+using namespace simple_json::types;
+
+int main() {
+    const Json src {1, 2, 3, 4};
+    Json dst {9, 2, 3, 7};
+    JsonPatch patch {src.get_diff(dst)};
+    std::cout << patch.get_json() << std::endl;
+    patch.apply(dst);
+    std::cout << std::boolalpha << "Test : " << (src == dst) << std::endl;
+    return 0;
+}
+```
+
+### Creating JSON Patches from strings
+```c++
+#include <iostream>
+#include "simple_json.h"
+
+using namespace simple_json;
+using namespace ::types;
+using namespace ::deserializer;
+int main() {
+    Json src {{"array"_json_key, {1, 2, 3}}, {"foo"_json_key, "bar"}};
+    Json patch_data(loads(R"([
+            {"op": "remove", "path": "/array/0"},
+            {"op": "test", "path": "/foo", "value": "bar"},
+            {"op": "add", "path": "/array/2", "value": 5}
+    ])"));
+    JsonPatch patch {patch_data};
+    try {
+        patch.apply(src);
+    } catch (const types::exceptions::FailedTest & error) {
+        std::cout << error.what() << std::endl;
+    }
+    std::cout << src << std::endl;
+    return 0;
+}
+```
 
 _For more examples, please refer to the [Documentation](https://doc.sholexteam.ir/simple-json/)_
 
