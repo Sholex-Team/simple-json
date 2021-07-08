@@ -345,6 +345,9 @@ namespace simple_json::types {
              */
             bool operator==(const const_iterator & r_iterator) const;
 
+            const_iterator & operator=(const const_iterator & r_iterator);
+            const_iterator & operator=(const_iterator && r_iterator) noexcept;
+
             // Public Methods
             /*!
              * @brief Returns the key of object that the const_iterator is pointing to.
