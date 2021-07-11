@@ -72,6 +72,22 @@ namespace simple_json::types {
         public:
             using iterators::JsonIterator<Array::iterator, JsonObject::iterator, Json>::JsonIterator;
 
+            // Constructors
+            /*!
+             * @brief iterator copy constructor
+             * @param r_iterator iterators::JsonIterator<Array::iterator, JsonObject::iterator, Json>
+             * object which is about to get copied
+             */
+            iterator(const iterators::JsonIterator<Array::iterator, JsonObject::iterator, Json>
+                    & r_iterator);
+
+            /*!
+             * @brief iterator move constructor
+             * @param r_iterator iterators::JsonIterator<Array::iterator, JsonObject::iterator, Json>
+             * object which is about to be moved
+             */
+            iterator(iterators::JsonIterator<Array::iterator, JsonObject::iterator, Json> && r_iterator) noexcept;
+
             // Friends
             friend Json;
         };
@@ -79,7 +95,23 @@ namespace simple_json::types {
         class const_iterator :
                 public iterators::JsonIterator<Array::const_iterator, JsonObject::const_iterator, const Json> {
         public:
-            using iterators::JsonIterator<Array::const_iterator , JsonObject::const_iterator, const Json>::JsonIterator;
+            using iterators::JsonIterator<Array::const_iterator, JsonObject::const_iterator, const Json>::JsonIterator;
+
+            /*!
+             * @brief const_iterator copy constructor
+             * @param r_iterator iterators::JsonIterator<Array::const_iterator ,JsonObject::const_iterator,const Json>
+             * object which is about to get copied
+             */
+            const_iterator(const iterators::JsonIterator<Array::const_iterator, JsonObject::const_iterator, const Json>
+                    & r_iterator);
+
+            /*!
+             * @brief const_iterator move constructor
+             * @param r_iterator iterators::JsonIterator<Array::const_iterator , JsonObject::const_iterator, const Json>
+             * object which is about to be moved
+             */
+            const_iterator(iterators::JsonIterator<Array::const_iterator, JsonObject::const_iterator, const Json>
+                    && r_iterator) noexcept;
 
             // Friends
             friend Json;
@@ -88,7 +120,23 @@ namespace simple_json::types {
         class reverse_iterator :
                 public iterators::JsonIterator<Array::reverse_iterator, JsonObject::reverse_iterator, Json> {
         public:
-            using iterators::JsonIterator<Array::reverse_iterator , JsonObject::reverse_iterator , Json>::JsonIterator;
+            using iterators::JsonIterator<Array::reverse_iterator, JsonObject::reverse_iterator, Json>::JsonIterator;
+
+            /*!
+             * @brief reverse_iterator copy constructor
+             * @param r_iterator JsonIterator<Array::reverse_iterator, JsonObject::reverse_iterator, Json>
+             * object which is about to get copied
+             */
+            reverse_iterator(const JsonIterator<Array::reverse_iterator, JsonObject::reverse_iterator, Json>
+                    & r_iterator);
+
+            /*!
+             * @brief reverse_iterator move constructor
+             * @param r_iterator JsonIterator<Array::reverse_iterator, JsonObject::reverse_iterator, Json>
+             * object which is about to be moved
+             */
+            reverse_iterator(JsonIterator<Array::reverse_iterator, JsonObject::reverse_iterator, Json>
+                    && r_iterator) noexcept;
 
             // Friends
             friend Json;
@@ -99,8 +147,26 @@ namespace simple_json::types {
                 > {
         public:
             using iterators::JsonIterator<
-                    Array::const_reverse_iterator ,JsonObject::const_reverse_iterator, const Json
-                    >::JsonIterator;
+                    Array::const_reverse_iterator ,JsonObject::const_reverse_iterator, const Json>::JsonIterator;
+
+            /*!
+             * @brief const_reverse_iterator copy constructor
+             * @param r_iterator iterators::JsonIterator<
+             * Array::const_reverse_iterator ,JsonObject::const_reverse_iterator, const Json>
+             * object which is about to get copied
+             */
+            const_reverse_iterator(const iterators::JsonIterator<
+                    Array::const_reverse_iterator ,JsonObject::const_reverse_iterator, const Json> & r_iterator);
+
+            /*!
+             * @brief const_reverse_iterator move constructor
+             * @param r_iterator iterators::JsonIterator<
+             * Array::const_reverse_iterator ,JsonObject::const_reverse_iterator, const Json>
+             * object which is about to be moved
+             */
+            const_reverse_iterator(iterators::JsonIterator<
+                    Array::const_reverse_iterator ,JsonObject::const_reverse_iterator, const Json> && r_iterator)
+                    noexcept;
 
             // Friends
             friend Json;
