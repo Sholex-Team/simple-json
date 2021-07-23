@@ -203,49 +203,38 @@ namespace simple_json::types {
     public:
         // Constructors
         /*!
-         * @brief JsonPatch default constructor.
+         * @brief JsonPatch default constructor
          *
          * This constructor creates an empty JsonPatch object.
          */
         JsonPatch();
 
         /*!
-         * @brief JsonPatch Json constructor.
+         * @brief JsonPatch Json constructor
          *
          * This constructor accepts a Json object as an argument and creates a JsonPatch from it.
          */
         explicit JsonPatch(const Json &);
 
         /*!
-         * @brief JsonPatch copy constructor.
-         *
-         * JsonPatch copy constructor which creates a new JsonPatch based on another JsonPatch.
+         * @brief JsonPatch copy constructor
          * @param json_patch JsonPatch object which is about to get copied.
          */
         JsonPatch(const JsonPatch & json_patch);
 
         /*!
-         * @brief JsonPatch move constructor.
-         *
-         * JsonPatch move constructor moves an already existing JsonPatch object into a new one.
+         * @brief JsonPatch move constructor
          * @param json_patch JsonPatch object which is about to get moved.
          */
         JsonPatch(JsonPatch && json_patch) noexcept;
 
         // Destructors
-        /*!
-         * @brief JsonPatch destructor.
-         *
-         * This destructor deletes patch_data private property which is storing a Json object representing a JSON Patch.
-         */
         ~JsonPatch();
 
         // Public Method
         /*!
-         * @brief Public apply method.
-         *
-         * This public method can be used to apply a patch on an already existing Json object.
-         * @param json [out] A reference Json object which is about to get patched.
+         * @brief Applies the JsonPatch on the Json object passed into the method.
+         * @param json [out] A reference to the Json object which is about to get patched.
          * @throw exceptions::InvalidPointer Throws when one of the patch JSON Pointers is invalid.
          * @throw exceptions::FailedTest Throws when a JSON Patch test fails.
          * @throw exceptions::InvalidPatchOperation Throws when the patch contains an invalid operation.

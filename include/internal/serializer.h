@@ -12,7 +12,7 @@
 #include "types/enum_types.h"
 
 /*!
- * @brief Namespace dedicated to serialization.
+ * @brief Namespace dedicated to serialization
  *
  * This namespace contains functions and classes required for serialization operation which turns a Json object into a
  * JSON serialized string.
@@ -24,7 +24,7 @@ namespace simple_json::serializer {
      * This function serializes a Json object into a JSON string with intended indentation length.
      * @param json Json object which is going to get serialized.
      * @param local_indent Indentation length if needed.
-     * @return A serialized JSON string.
+     * @return Serialized JSON string
      */
     std::string dumps(const types::Json & json, size_t local_indent = 0);
 
@@ -74,7 +74,7 @@ namespace simple_json::serializer {
 }
 
 /*! @example serializer.cpp
- * @brief Serializer usage example.
+ * @brief Serializer usage example
  */
 
 #endif //SIMPLE_Json_SERIALIZER_H

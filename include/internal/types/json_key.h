@@ -8,7 +8,7 @@ namespace simple_json::types {
     class JsonObject;
 
     /*!
-     * @brief Json Key class.
+     * @brief Json Key class
      *
      * Objects created from this class are used as the keys in JsonObject objects which is derived from std::map<Json>.
      */
@@ -18,66 +18,51 @@ namespace simple_json::types {
     public:
         // Constructors
         /*!
-         * @brief JsonKey constructor.
+         * @brief JsonKey constructor
          *
          * This constructor accepts an argument as key string which is then used as key underneath the JsonKey object.
-         * @param key
+         * @param key std::string which the JsonKey is going to be created from
          */
         explicit JsonKey(const std::string & key);
 
         /*!
-         * @brief JsonKey copy constructor.
-         *
-         * This copy constructor copies a JsonKey into a new one.
-         * @param json_key JsonKey object which is about to get copied.
+         * @brief JsonKey copy constructor
+         * @param json_key JsonKey object which is about to get copied
          */
         JsonKey(const JsonKey & json_key);
 
         /*!
-         * @brief JsonKey move constructor.
-         *
-         * This move constructor moves a JsonKey string into a new JsonKey.
-         * @param json_key JsonKey which is about to get moved.
+         * @brief JsonKey move constructor
+         * @param json_key JsonKey which is about to get moved
          */
         JsonKey(JsonKey && json_key) noexcept;
 
         // Destructors
-        /*!
-         * @brief JsonKey destructor.
-         *
-         * This destructor removes std::string stored inside the JsonKey object.
-         */
         ~JsonKey();
 
         // Operators
         /*!
-         * @brief Less than operator overload.
-         *
-         * Overloaded less than operator which compares a JsonKey with another one.
-         * @param r_json_key JsonKey object on RHS.
+         * @brief Less than operator overload
+         * @param r_json_key JsonKey object on RHS
          * @return A boolean specifying if the JsonKey was less than RHS one.
          */
         bool operator<(const JsonKey & r_json_key) const;
 
         /*!
          * @brief Greater than operator overload.
-         *
-         * Overloaded greater than operator which compares a JsonKey with another one.
-         * @param r_json_key JsonKey object on RHS.
+         * @param r_json_key JsonKey object on RHS
          * @return A boolean specifying if the JsonKey was greater than RHS one.
          */
         bool operator>(const JsonKey & r_json_key) const;
 
         /*!
-         * @brief Equal operator overload.
-         *
-         * Overloaded equal operator which checks is a JsonKey is equal to another one.
-         * @param r_json_key JsonKey object on RHS.
+         * @brief Equal operator overload
+         * @param r_json_key JsonKey object on RHS
          * @return A boolean specifying if the JsonKey was equal with RHS one.
          */
         bool operator==(const JsonKey & r_json_key) const;
 
-        // Operator OStream
+        // Friends
         friend std::ostream & operator<<(std::ostream & os, const JsonKey & json_key);
         friend JsonObject;
 
@@ -92,13 +77,12 @@ namespace simple_json::types {
     };
 
     // Operator Overloading
-
     /*!
      * @brief User-Defined literal operator overload.
      *
      * This overload provides ability to create a JsonKey from a string literal using ""_ syntax.
      * @param key_ptr Pointer pointing to first character of c-string that operator is being used on.
-     * @return A new JsonKey object created from a c-string.
+     * @return A new JsonKey object created from a c-string
      */
     JsonKey operator""_json_key(const char * key_ptr, size_t);
 
@@ -107,8 +91,8 @@ namespace simple_json::types {
      *
      * This overloaded operator is used during serialization of JsonKey object.
      * @param os Output Stream
-     * @param json_key JsonKey which is about to get serialized.
-     * @return
+     * @param json_key JsonKey which is about to get serialized
+     * @return A reference to Output Stream object passed into the function.
      */
     std::ostream & operator<<(std::ostream & os, const JsonKey & json_key);
 }

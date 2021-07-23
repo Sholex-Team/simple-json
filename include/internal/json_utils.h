@@ -55,7 +55,7 @@ namespace simple_json::utils {
 }
 
 /*! @namespace simple_json::utils
- * @brief JSON related utilities.
+ * @brief JSON related utilities
  *
  * This namespace contains functions which are used in different parts of simple_json for simple tasks such as splitting
  * texts or replacing words in a std::string.

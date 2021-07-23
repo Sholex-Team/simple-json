@@ -29,14 +29,6 @@ namespace simple_json::types {
             std::ostream & stream_with_indent(std::ostream & os, size_t local_indent) const;
         public:
             // Constructors
-
-            /*!
-             * @brief JsonObject default constructor.
-             *
-             * This constructor is derived from std::map<const JsonKey, Json> and it constructs an empty JsonObject.
-             */
-            JsonObject() = default;
-
             /*!
              * @brief JsonObject initializer list constructor.
              *
@@ -46,22 +38,6 @@ namespace simple_json::types {
              * initialize the object.
              */
             JsonObject(const json_list_type & initializer_list);
-
-            /*!
-             * @brief JsonObject move constructor.
-             *
-             * This move constructor is derived from base std::map and moves a JsonObject into another one.
-             * @param json_object JsonObject which is about to get moved.
-             */
-            JsonObject(JsonObject && json_object) noexcept = default;
-
-            /*!
-             * @brief JsonObject copy constructor.
-             *
-             * Copy constructor which is derived from std::map and copies a JsonObject into a new JsonObject.
-             * @param json_object JsonObject which is about to get copied.
-             */
-            JsonObject(const JsonObject & json_object) = default;
 
             // Friends
             friend std::ostream & operator<<(std::ostream & os, const JsonObject & json_object);
@@ -118,13 +94,14 @@ namespace simple_json::types {
         };
 
     /*!
+     * @relatedalso JsonObject
      * @brief JsonObject stream insertion operator overload.
      *
      * This overloaded stream insertion operator can be used to serialize a JsonObject object or a Json object
      * containing a JsonObject object inside.
-     * @param os [out] Output Stream.
+     * @param os [out] Output Stream
      * @param json_object [in] JsonObject that is going to get serialized.
-     * @return A reference to the Output Stream passed into the function.
+     * @return A reference to the Output Stream passed into the function
      */
     std::ostream & operator<<(std::ostream & os, const JsonObject & json_object);
 }

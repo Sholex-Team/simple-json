@@ -29,10 +29,10 @@ namespace simple_json::types {
     public:
         // Constructors
         /*!
-         * @throw exceptions::InvalidPointer Throws if pointer_text is invalid.
-         * @brief JsonPointer string constructor.
+         * @brief JsonPointer string constructor
          *
          * This constructor copies a std::string into a new JsonPointer as JSON Pointer string.
+         * @throw exceptions::InvalidPointer Throws if pointer_text is invalid.
          * @param pointer_text A L-Value reference to a std::string which is about to get copied as JSON Pointer string.
          */
         explicit JsonPointer(std::string & pointer_text);
@@ -47,67 +47,53 @@ namespace simple_json::types {
         explicit JsonPointer(std::string && pointer_text);
 
         /*!
-         * @brief JsonPointer copy constructor.
-         *
-         * JsonPointer copy constructor which takes a L-Value reference to a JsonPointer object and copies it into a new
-         * object.
-         * @param json_pointer L-Value reference to a JsonPointer object which is about to get copied.
+         * @brief JsonPointer copy constructor
+         * @param json_pointer Const reference to a JsonPointer object which is about to get copied.
          */
         JsonPointer(const JsonPointer & json_pointer);
 
         /*!
-         * @brief JsonPointer move constructor.
-         *
-         * JsonPointer move constructor which takes a R-Value reference to a JsonPointer object and moves it into a new
-         * JsonPointer object.
-         * @param json_pointer R-Value reference to a JsonPointer object which is about to get moved.
+         * @brief JsonPointer move constructor
+         * @param json_pointer A r-value reference to a JsonPointer object which is about to get moved.
          */
         JsonPointer(JsonPointer && json_pointer) noexcept;
 
         // Destructors
-
-        /*!
-         * @brief JsonPointer destructor.
-         *
-         * JsonPointer destructor which deletes pointer_text that is a std::string and pointer_list that is a
-         * std::vector containing pointer indexes.
-         */
         ~JsonPointer();
 
         // Public Methods
-
         /*!
-         * @brief Adds a string index to pointer.
+         * @brief Adds a string index to pointer
          *
          * This public method adds a new key index to JsonPointer.
-         * @param path String key which is going to get added.
+         * @param path String key which is going to get added
          */
         void add_to_path(std::string path);
 
         /*!
-         * @brief Adds a index to pointer.
+         * @brief Adds a index to pointer
          *
          * This public method adds a new index to JsonPointer.
-         * @param index Index which is going to get added.
+         * @param index Index which is going to get added
          */
         void add_to_path(size_t index);
 
         /*!
-         * @brief Returns last index in pointer.
-         * @return size_t which is the last index inside the JsonPointer.
+         * @brief Returns last index in pointer
          * @throw exceptions::InvalidPointer Throws if last index is not a size_t value.
+         * @return size_t which is the last index inside the JsonPointer
          */
         size_t get_index() const;
 
         /*!
-         * @brief Returns last key in pointer.
-         * @return JsonKey which is the last string index in the JsonPointer.
+         * @brief Returns last key in pointer
+         * @return JsonKey which is the last string index in the JsonPointer
          * @throw exceptions::InvalidPointer Throws if last index is not a JsonKey object.
          */
         JsonKey get_key() const;
 
         /*!
-         * @brief Returns last index parent.
+         * @brief Returns last index parent
          *
          * This public method removes last index inside the JsonPointer and returns the remains of pointer as a new
          * JsonPointer object.
@@ -127,21 +113,21 @@ namespace simple_json::types {
         /*!
          * @brief Checks if two JsonPointer objects are equal.
          * @param json_pointer JsonPointer which is going to get compared.
-         * @return
+         * @return A boolean representing the checking result.
          */
         bool operator==(const JsonPointer & json_pointer) const;
 
         /*!
-         * @brief Addition operator overload.
+         * @brief Addition operator overload
          *
          * This operator overload adds a string key to a copy of current JsonPointer object and returns the copy.
-         * @param r_path std::string which is going to get added to the pointer.
-         * @return Created JsonPointer object.
+         * @param r_path std::string which is going to get added to the pointer
+         * @return Created JsonPointer object
          */
         JsonPointer operator+(const std::string & r_path) const;
 
         /*!
-         * @brief Addition operator overload.
+         * @brief Addition operator overload
          *
          * This operator overload adds a JsonKey object to a copy of current JsonPointer object and returns the copy.
          * @param r_path JsonKey object which is going to be added to current pointer.
@@ -150,7 +136,7 @@ namespace simple_json::types {
         JsonPointer operator+(const JsonKey & r_path) const;
 
         /*!
-         * @brief Addition operator overload.
+         * @brief Addition operator overload
          *
          * This operator overload adds a size_t index to a copy of current JsonPointer object and returns the copy.
          * @param r_index size_t index which is going to get added to the current pointer.
@@ -159,7 +145,7 @@ namespace simple_json::types {
         JsonPointer operator+(size_t r_index) const;
 
         /*!
-         * @brief std::string explicit conversion operator.
+         * @brief std::string explicit conversion operator
          *
          * This operator overload returns a copy of JsonPointer inner pointer_text which is a std::string object.
          * @return A copy of pointer_text inside the current JsonPointer object.
@@ -175,7 +161,7 @@ namespace simple_json::types {
     // Operator Overloading
 
     /*!
-     * @brief User-Defined literal operator overload.
+     * @brief User-Defined literal operator overload
      *
      * This overload provides ability to create a JsonPointer from a string literal using ""_ syntax.
      * @param pointer_ptr Pointer pointing to first character of c-string that operator is being used on.
@@ -184,12 +170,13 @@ namespace simple_json::types {
     JsonPointer operator""_json_ptr(const char * pointer_ptr, size_t);
 
     /*!
-     * @brief Overloaded stream insertion operator.
+     * @relatedalso JsonPointer
+     * @brief Overloaded stream insertion operator
      *
      * This overloaded operator is used during serialization of JsonPointer object.
      * @param os Output Stream
      * @param json_pointer JsonPointer which is about to get serialized.
-     * @return
+     * @return A reference to the std::ostream object passed into the function.
      */
     std::ostream & operator<<(std::ostream & os, const JsonPointer & json_pointer);
 }

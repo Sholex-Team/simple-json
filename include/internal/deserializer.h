@@ -15,7 +15,7 @@
 #include <sstream>
 
 /*!
- * @brief Namespace dedicated to deserialization.
+ * @brief Namespace dedicated to deserialization
  *
  * This namespace contains functions and classes required for deserializing a JSON string and turning it into a Json
  * type object.
@@ -25,8 +25,8 @@ namespace simple_json::deserializer {
      * @brief Deserializes a string.
      *
      * This function gets a string as input and deserializes it into a Json type object.
-     * @param json_text Serializer JSON string.
-     * @return Deserialized Json object.
+     * @param json_text Serialized JSON std::string
+     * @return Deserialized Json object
      * @throw exceptions::ParsingException Throws this exception when there is a problem in JSON string serialization.
      */
     types::Json loads(const std::string & json_text);
@@ -35,11 +35,11 @@ namespace simple_json::deserializer {
      * @brief Deserializes a serialized JSON file.
      *
      * This function gets a file path as input, reads the file and deserializes it.
-     * @param file_path Json serialized file path.
-     * @return Deserialized Json object created from serialized Json file.
+     * @param file_path Json serialized file path
      * @throw exceptions::ReadingFromFileException Throws this exception when it fails to read the file from the
      * given path.
      * @throw exceptions::ParsingException Throws this exception when there is a problem in JSON string serialization.
+     * @return Deserialized Json object created from serialized Json file
      */
     types::Json load(const std::string & file_path);
 
@@ -48,9 +48,9 @@ namespace simple_json::deserializer {
      *
      * This functions gets a file input stream, reads the file from it and deserializes it.
      * @param fs Input file stream.
-     * @return Deserialized Json object based on given input file stream.
      * @throw exceptions::ReadingFromFileException Throws this exception when it fails to read from input file stream.
      * @throw exceptions::ParsingException Throws this exception when there is a problem in JSON string serialization.
+     * @return Deserialized Json object based on given input file stream
      */
     types::Json load(std::ifstream & fs);
 
@@ -104,4 +104,5 @@ namespace simple_json::deserializer {
 /*! @example deserializer.cpp
  * @brief Deserializer usage example.
  */
+
 #endif //SIMPLE_JSON_DESERIALIZER_H
