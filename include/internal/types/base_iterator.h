@@ -87,7 +87,7 @@ namespace simple_json::iterators {
         /*!
          * @brief JsonIterator Array iterator types constructor
          *
-         * @param a const reference to Array iterator which is going to be used as inner iterator
+         * @param array_iterator const reference to Array iterator which is going to be used as inner iterator
          */
         explicit JsonIterator(const ArrayIterator & array_iterator) :
         BaseJsonIterator {IteratorTypes::array_iterator_type},
@@ -96,7 +96,7 @@ namespace simple_json::iterators {
         /*!
          * @brief JsonIterator JsonObject iterator types constructor
          *
-         * @param a const reference to JsonObject iterator which is going to be used as inner iterator
+         * @param json_object_iterator const reference to JsonObject iterator which is going to be used as inner iterator
          */
         explicit JsonIterator(const JsonObjectIterator & json_object_iterator) :
         BaseJsonIterator {IteratorTypes::json_object_iterator_type},

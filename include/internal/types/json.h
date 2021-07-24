@@ -65,8 +65,6 @@ namespace simple_json::types {
         // Iterators
         /*!
          * @brief Json Iterator class
-         *
-         * This class is used to create an iterator for a Json object.
          */
         class iterator : public iterators::JsonIterator<Array::iterator, JsonObject::iterator, Json> {
         public:
@@ -91,6 +89,9 @@ namespace simple_json::types {
             friend Json;
         };
 
+        /*!
+         * @brief Json Const Iterator class
+         */
         class const_iterator :
                 public iterators::JsonIterator<Array::const_iterator, JsonObject::const_iterator, const Json> {
         public:
@@ -116,6 +117,9 @@ namespace simple_json::types {
             friend Json;
         };
 
+        /*!
+         * @brief Json Reverse Iterator class
+         */
         class reverse_iterator :
                 public iterators::JsonIterator<Array::reverse_iterator, JsonObject::reverse_iterator, Json> {
         public:
@@ -126,7 +130,7 @@ namespace simple_json::types {
              * @param r_iterator JsonIterator<Array::reverse_iterator, JsonObject::reverse_iterator, Json>
              * object which is about to get copied
              */
-            reverse_iterator(const JsonIterator<Array::reverse_iterator,
+            reverse_iterator(const iterators::JsonIterator<Array::reverse_iterator,
                              JsonObject::reverse_iterator, Json> & r_iterator);
 
             /*!
@@ -134,13 +138,16 @@ namespace simple_json::types {
              * @param r_iterator JsonIterator<Array::reverse_iterator, JsonObject::reverse_iterator, Json>
              * object which is about to be moved
              */
-            reverse_iterator(JsonIterator<Array::reverse_iterator,
+            reverse_iterator(iterators::JsonIterator<Array::reverse_iterator,
                              JsonObject::reverse_iterator, Json> && r_iterator) noexcept;
 
             // Friends
             friend Json;
         };
 
+        /*!
+         * @brief Json Const Reverse Iterator class
+         */
         class const_reverse_iterator : public iterators::JsonIterator<
                 Array::const_reverse_iterator, JsonObject::const_reverse_iterator, const Json
                 > {
