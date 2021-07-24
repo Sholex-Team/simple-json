@@ -96,8 +96,8 @@ There isn't much here, install CMake and you are good to go !
 ## Installation
 ### Installing using package managers
 
-1. Download one of the binary packages ([DEB](https://bin.sholexteam.ir/simple-json/deb/simple_json-1.0.0.deb)
-   , [RPM](https://bin.sholexteam.ir/simple-json/rpm/simple_json-1.0.0.rpm))
+1. Download one of the binary packages 
+   ([Releases](https://github.com/Sholex-Team/simple-json/releases)).
 2. Install the binary using a package manager
    ```sh
    sudo dpkg -i simple_json-1.0.0.deb
