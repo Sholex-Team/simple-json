@@ -12,7 +12,7 @@
     <p align="center">
         <b>A small, simple and fast JSON library</b>
         <br />
-        <a href="https://doc.sholexteam.ir/simple-json/"><strong>Explore the docs »</strong></a>
+        <a href="https://doc.sholex.team/simple-json/"><strong>Explore the docs »</strong></a>
         <br />
         <a href="https://github.com/Sholex-Team/simple-json/issues">Report Bug</a>
         ·
@@ -82,7 +82,7 @@ Here are some features :
 using Json objects almost as easy as dictionaries in Python or objects in JS, using
   C++ operator overloading and easy to use methods.
 
-Check out the [Documentation](https://doc.sholexteam.ir/simple-json/) for more information.
+Check out the [Documentation](https://doc.sholex.team/simple-json/) for more information.
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -450,7 +450,7 @@ int main() {
 }
 ```
 
-_For more examples, please refer to the [Documentation](https://doc.sholexteam.ir/simple-json/)_
+_For more examples, please refer to the [Documentation](https://doc.sholex.team/simple-json/)_
 
 <!-- CONTRIBUTING -->
 ## Contributing
