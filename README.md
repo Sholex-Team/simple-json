@@ -94,19 +94,35 @@ There isn't much here, install CMake and you are good to go !
 * CMake >= 3.16
 
 ## Installation
+### Installing using PPA
+1. Add the PPA to your PC
+    ```sh
+    sudo add-apt-repository ppa:sholex-team/simple-json
+    sudo apt-get update
+    ```
+2. Install the library
+    ```sh
+    sudo apt-get install simple-json
+    ```
+3. Link the shared library to your project
+   ```cmake
+   find_package(simple-json 1.0.0 REQUIRED)
+   
+   target_link_libraries(${PROJECT_NAME} simple-json)
+   ```
 ### Installing using package managers
 
 1. Download one of the binary packages 
    ([Releases](https://github.com/Sholex-Team/simple-json/releases)).
 2. Install the binary using a package manager
    ```sh
-   sudo dpkg -i simple_json-1.0.0.deb
+   sudo dpkg -i simple-json-1.0.0.deb
    ```
-3. Add the shared library to your project
+3. Link the shared library to your project
    ```cmake
-   find_package(simple_json 1.0.0 REQUIRED)
+   find_package(simple-json 1.0.0 REQUIRED)
    
-   target_link_libraries(${PROJECT_NAME} simple_json)
+   target_link_libraries(${PROJECT_NAME} simple-json)
    ```
 
 ### Installing using CMake
@@ -143,7 +159,7 @@ There isn't much here, install CMake and you are good to go !
    ```
 3. Link the library to your project
    ```cmake
-   target_link_libraries(${PROJECT_NAME} simple_json)
+   target_link_libraries(${PROJECT_NAME} simple-json)
    ```
 
 <!-- USAGE EXAMPLES -->
