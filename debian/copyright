@@ -1,0 +1,9 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: simple-json
+Upstream-Contact: Sholex Team <sholexteam4real@gmail.com>
+Upstream-Source: https://github.com/sholex-team/simple-json
+
+Files: *
+Copyright: 2020-2021 Sholex Team <sholexteam4real@gmail.com>
+License: MIT License
+ The complete text of the MIT License can be found in this URL : https://opensource.org/licenses/MIT

@@ -1,0 +1,11 @@
+Source: simple-json
+Priority: optional
+Architecture: any
+Maintainer: Sholex Team <sholexteam4real@gmail.com>
+Build-Depends: cmake (>= 3.16), debhelper-compat (= 13)
+Standards-Version: 1.0.0
+Section: Libraries
+Homepage: https://doc.sholex.team/simple-json/
+#Vcs-Browser: https://github.com/sholex-team/simple-json
+#Vcs-Git: https://github.com/sholex-team/simple-json.git
+Rules-Requires-Root: no
