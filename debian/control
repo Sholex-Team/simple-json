@@ -1,7 +1,7 @@
 Source: simple-json
 Priority: optional
 Maintainer: Sholex Team <sholexteam4real@gmail.com>
-Build-Depends: cmake (>= 3.16), debhelper-compat (= 13)
+Build-Depends: cmake (>= 3.16), debhelper-compat (= 12)
 Standards-Version: 4.5.1
 Section: libs
 Homepage: https://doc.sholex.team/simple-json/
