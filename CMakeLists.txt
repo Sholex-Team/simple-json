@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(simple_json VERSION 1.0.0)
+project(simple-json VERSION 1.0.0)
 set(CMAKE_CXX_STANDARD 17)
 
 set(MAIN_PROJECT OFF)
@@ -25,7 +25,7 @@ set(INCLUDE_DIR "${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}")
 set(EXTERNAL_INCLUDE_DIR "")
 
 add_library(
-        simple_json
+        simple-json
         src/types/exceptions/stream_exceptions.cpp
         src/types/array_type.cpp
         src/types/exceptions/bad_conversion.cpp
@@ -51,11 +51,11 @@ add_library(
         src/types/exceptions/invalid_merge.cpp
         src/types/exceptions/base_exceptions.cpp)
 target_include_directories(
-        simple_json
+        simple-json
         INTERFACE
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/external>$<INSTALL_INTERFACE:include/${PROJECT_NAME}/external>
 )
-target_include_directories(simple_json PRIVATE include/internal)
+target_include_directories(simple-json PRIVATE include/internal)
 
 # Generate the config file that is includes the exports
 configure_package_config_file(
@@ -76,7 +76,7 @@ write_basic_package_version_file(
 # Installing
 if (INSTALL_LIB)
     message(STATUS "Compiling Simple JSON as main project")
-    install(TARGETS simple_json DESTINATION ${LIB_DIR} EXPORT ${TARGETS_EXPORT_NAME})
+    install(TARGETS simple-json DESTINATION ${LIB_DIR} EXPORT ${TARGETS_EXPORT_NAME})
     install(FILES DESTINATION ${INCLUDE_DIR})
     install(DIRECTORY include/external include/internal DESTINATION ${INCLUDE_DIR})
     install(
