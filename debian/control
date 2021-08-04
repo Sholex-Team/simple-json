@@ -4,18 +4,27 @@ Maintainer: Sholex Team <sholexteam4real@gmail.com>
 Build-Depends: cmake (>= 3.16), debhelper-compat (= 12)
 Standards-Version: 4.5.1
 Section: libs
-Homepage: https://doc.sholex.team/simple-json/
-#Vcs-Browser: https://github.com/sholex-team/simple-json
-#Vcs-Git: https://github.com/sholex-team/simple-json.git
+Homepage: https://github.com/sholex-team/simple-json
+Vcs-Browser: https://github.com/sholex-team/simple-json
+Vcs-Git: https://github.com/sholex-team/simple-json.git
 Rules-Requires-Root: no
 
 Package: simple-json
 Architecture: any
 Depends: ${misc:Depends}
-Description: Simple JSON library
- A simple JSON library developed for modern CPP using
+Description: Modern C++ JSON library
+ simple-json is a library developed for modern CPP using
  standard library (STD) as the base.
  Types and classes defined in this project provide STL-like access which
  makes them easy to use in your project.
  No library, no subproject, no dependencies and no complex
  build system are used in this project !
+ .
+  - Documentation :
+    https://doc.sholex.team/simple-json/
+  - Project Homepage :
+    https://github.com/sholex-team/simple-json
+  - Sholex Team GitHub page :
+    https://github.com/sholex-team
+ .
+ This package is _beta_ and it is not guaranteed to be stable !
