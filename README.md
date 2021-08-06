@@ -1,10 +1,10 @@
 <!-- PROJECT SHIELDS -->
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
+![GitHub contributors](https://img.shields.io/github/contributors/sholex-team/simple-json)
+![GitHub forks](https://img.shields.io/github/forks/sholex-team/simple-json?style=social)
+![GitHub Repo stars](https://img.shields.io/github/stars/sholex-team/simple-json?style=social)
+![GitHub issues](https://img.shields.io/github/issues/sholex-team/simple-json?logo=GitHub)
+![GitHub](https://img.shields.io/github/license/sholex-team/simple-json)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/sholex-team/simple-json)
 
 <br />
 <p align="center">
