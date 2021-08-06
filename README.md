@@ -1,10 +1,10 @@
 <!-- PROJECT SHIELDS -->
-![GitHub contributors](https://img.shields.io/github/contributors/sholex-team/simple-json)
-![GitHub forks](https://img.shields.io/github/forks/sholex-team/simple-json?style=social)
-![GitHub Repo stars](https://img.shields.io/github/stars/sholex-team/simple-json?style=social)
-![GitHub issues](https://img.shields.io/github/issues/sholex-team/simple-json?logo=GitHub)
-![GitHub](https://img.shields.io/github/license/sholex-team/simple-json)
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/sholex-team/simple-json)
+[![GitHub contributors](https://img.shields.io/github/contributors/sholex-team/simple-json)](https://github.com/Sholex-Team/simple-json/graphs/contributors)
+[![GitHub forks](https://img.shields.io/github/forks/sholex-team/simple-json?style=social)](https://github.com/Sholex-Team/simple-json/network/members)
+[![GitHub Repo stars](https://img.shields.io/github/stars/sholex-team/simple-json?style=social)](https://github.com/Sholex-Team/simple-json/stargazers)
+[![GitHub issues](https://img.shields.io/github/issues/sholex-team/simple-json?logo=GitHub)](https://github.com/Sholex-Team/simple-json/issues)
+[![GitHub](https://img.shields.io/github/license/sholex-team/simple-json)](https://github.com/Sholex-Team/simple-json/blob/main/LICENSE)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/sholex-team/simple-json)](https://github.com/Sholex-Team/simple-json/releases)
 
 <br />
 <p align="center">
