@@ -106,21 +106,21 @@ There isn't much here, install CMake and you are good to go !
     ```
 3. Link the shared library to your project
    ```cmake
-   find_package(simple-json 1.0.0 REQUIRED)
+   find_package(simple-json 0.1.0 REQUIRED)
    
    target_link_libraries(${PROJECT_NAME} simple-json)
    ```
-### Installing using package managers
+### Installing using package binary
 
 1. Download one of the binary packages 
    ([Releases](https://github.com/Sholex-Team/simple-json/releases)).
 2. Install the binary using a package manager
    ```sh
-   sudo dpkg -i simple-json-1.0.0.deb
+   sudo dpkg -i simple-json-0.1.0.deb
    ```
 3. Link the shared library to your project
    ```cmake
-   find_package(simple-json 1.0.0 REQUIRED)
+   find_package(simple-json 0.1.0 REQUIRED)
    
    target_link_libraries(${PROJECT_NAME} simple-json)
    ```
