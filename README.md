@@ -5,6 +5,7 @@
 [![GitHub issues](https://img.shields.io/github/issues/sholex-team/simple-json?logo=GitHub)](https://github.com/Sholex-Team/simple-json/issues)
 [![GitHub](https://img.shields.io/github/license/sholex-team/simple-json)](https://github.com/Sholex-Team/simple-json/blob/main/LICENSE)
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/sholex-team/simple-json)](https://github.com/Sholex-Team/simple-json/releases)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/sholex-team/simple-json/CMake?logo=GitHub)](https://github.com/Sholex-Team/simple-json/actions/workflows/cmake.yml)
 
 <br />
 <p align="center">
