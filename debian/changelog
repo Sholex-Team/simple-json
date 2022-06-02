@@ -3,7 +3,7 @@ simple-json (0.2.0-0ubuntu1) jammy; urgency=high
   * Better use of C++ templates
   * Added "nodiscard" attribute to needed functions & methods
 
- -- NitroZeus <nitrozeusdev@gmail.com>  Fri, 06 Aug 2021 14:24:20 +0430
+ -- NitroZeus <nitrozeusdev@gmail.com>  Tue, 02 Jun 2022 13:20:00 +0430
 
 simple-json (0.1.0-0ubuntu1) hirsute; urgency=medium
 
