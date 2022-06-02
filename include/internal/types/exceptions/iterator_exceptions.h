@@ -17,7 +17,7 @@ namespace simple_json::iterators::exceptions {
      */
     class InvalidDereference : public base_exceptions::JsonException {
     public:
-        const char * what() const noexcept override;
+        [[nodiscard]] const char * what() const noexcept override;
     };
 
     /*!
@@ -36,7 +36,7 @@ namespace simple_json::iterators::exceptions {
          * @param used_type Json type used.
          */
         explicit InvalidIteration(types::DataType used_type = types::DataType::unknown);
-        const char * what() const noexcept override;
+        [[nodiscard]] const char * what() const noexcept override;
     };
 
     /*!
@@ -46,7 +46,7 @@ namespace simple_json::iterators::exceptions {
      */
     class InvalidType : public base_exceptions::JsonException {
     public:
-        const char * what() const noexcept override;
+        [[nodiscard]] const char * what() const noexcept override;
     };
 
     /*!
@@ -66,7 +66,7 @@ namespace simple_json::iterators::exceptions {
          * @param used_type Invalid iterator type.
          */
         explicit InvalidIterator(types::IteratorTypes used_type);
-        const char * what() const noexcept override;
+        [[nodiscard]] const char * what() const noexcept override;
     };
 }
 

@@ -21,7 +21,7 @@ namespace simple_json::utils {
      * @param str The base string which is going to be checked.
      * @return A boolean telling whether the string was created all by digits or not.
      */
-    bool is_digit(const std::string & str);
+    [[nodiscard]] bool is_digit(const std::string & str);
 
     /*!
      * @brief Replaces a(or more) word(s) with another(more or less) word(s) inside a std::string.
@@ -51,7 +51,7 @@ namespace simple_json::utils {
      * @param type DataType value
      * @return const char * of the c-string representation
      */
-    const char * json_type_to_string(const simple_json::types::DataType & type);
+    [[nodiscard]] const char * json_type_to_string(const simple_json::types::DataType & type);
 }
 
 /*! @namespace simple_json::utils

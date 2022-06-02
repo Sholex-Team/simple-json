@@ -16,7 +16,7 @@ namespace simple_json::types::exceptions {
         DataType used_type;
     public:
         // Public Methods
-        const char * what() const noexcept override;
+        [[nodiscard]] const char * what() const noexcept override;
 
         // Constructors
         /*!

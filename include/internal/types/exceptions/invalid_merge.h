@@ -26,7 +26,7 @@ namespace simple_json::types::exceptions {
         explicit InvalidMerge(DataType target_type = DataType::unknown);
         
         // Public Methods
-        const char * what() const noexcept override;
+        [[nodiscard]] const char * what() const noexcept override;
     };
 }
 

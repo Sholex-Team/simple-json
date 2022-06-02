@@ -25,7 +25,7 @@ namespace simple_json::base_exceptions {
          * @brief Returns dynamically created error text.
          * @return const char * of error text
          */
-        const char * what() const noexcept override;
+        [[nodiscard]] const char * what() const noexcept override;
 
         // Destructor
         ~JsonErrorTextException() override;

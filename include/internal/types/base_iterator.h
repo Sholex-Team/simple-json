@@ -7,9 +7,12 @@
 #include "exceptions/invalid_operator.h"
 #include <utility>
 
+namespace simple_json::types {
+    class Json;
+}
+
 namespace simple_json::iterators {
     using namespace types;
-    class Json;
 
     /*!
      * @brief Json base iterator class
@@ -30,13 +33,14 @@ namespace simple_json::iterators {
          * @brief BaseJsonIterator iterator
          * @param used_type Inner iterator type
          */
-        explicit BaseJsonIterator(IteratorTypes used_type);
+        [[nodiscard]] explicit BaseJsonIterator(IteratorTypes used_type);
 
+        // Public Methods
         /*!
          * @brief BaseJsonIterator default copy constructor
          * @param base_json_iterator BaseJsonIterator which is about to get copied
          */
-        BaseJsonIterator(const BaseJsonIterator & base_json_iterator) = default;
+        [[nodiscard]] BaseJsonIterator(const BaseJsonIterator & base_json_iterator) = default;
 
         /*!
          * @brief Checks the type of the iterator.
@@ -46,12 +50,16 @@ namespace simple_json::iterators {
          * @param target_type The type which is about to get checked against current iterator type.
          */
         void check_type(IteratorTypes target_type) const;
+
+        // Friends
+        friend class types::Json;
     };
 
     /*!
      * @brief Base Json Iterator class.
      * @tparam ArrayIterator Inner Array iterator type
      * @tparam JsonObjectIterator Inner JsonObject iterator type
+     * @tparam ReturnType Inner value type
      */
     template<typename ArrayIterator, typename JsonObjectIterator, typename ReturnType>
     class JsonIterator : public BaseJsonIterator {
@@ -89,7 +97,7 @@ namespace simple_json::iterators {
          *
          * @param array_iterator const reference to Array iterator which is going to be used as inner iterator
          */
-        explicit JsonIterator(const ArrayIterator & array_iterator) :
+        [[nodiscard]] explicit JsonIterator(const ArrayIterator & array_iterator) :
         BaseJsonIterator {IteratorTypes::array_iterator_type},
         array_iterator {new ArrayIterator {array_iterator}} {}
 
@@ -98,7 +106,7 @@ namespace simple_json::iterators {
          *
          * @param json_object_iterator const reference to JsonObject iterator which is going to be used as inner iterator
          */
-        explicit JsonIterator(const JsonObjectIterator & json_object_iterator) :
+        [[nodiscard]] explicit JsonIterator(const JsonObjectIterator & json_object_iterator) :
         BaseJsonIterator {IteratorTypes::json_object_iterator_type},
         json_object_iterator {new JsonObjectIterator {json_object_iterator}} {}
 
@@ -107,7 +115,7 @@ namespace simple_json::iterators {
          *
          * This constructor Deep copies inner iterator and used_type.
          */
-        JsonIterator(const JsonIterator<ArrayIterator, JsonObjectIterator, ReturnType> & json_iterator) :
+        [[nodiscard]] JsonIterator(const JsonIterator<ArrayIterator, JsonObjectIterator, ReturnType> & json_iterator) :
         BaseJsonIterator {json_iterator.used_type} {
             if (used_type == IteratorTypes::array_iterator_type) {
                 array_iterator = new ArrayIterator {* json_iterator.array_iterator};
@@ -122,8 +130,9 @@ namespace simple_json::iterators {
          *
          * This constructor moves the inner iterator and used_type.
          */
-        JsonIterator(JsonIterator<ArrayIterator, JsonObjectIterator, ReturnType> && json_iterator) noexcept :
-        BaseJsonIterator {json_iterator.used_type} {
+        [[nodiscard]] JsonIterator(
+                JsonIterator<ArrayIterator, JsonObjectIterator, ReturnType> && json_iterator
+                ) noexcept : BaseJsonIterator {json_iterator.used_type} {
             if (used_type == IteratorTypes::array_iterator_type) {
                 array_iterator = json_iterator.array_iterator;
                 json_iterator.array_iterator = nullptr;
@@ -141,7 +150,7 @@ namespace simple_json::iterators {
          * to. it can not be used without getting overridden in derived iterator classes.
          * @return A constant reference to a JsonKey object.
          */
-        const JsonKey & key() const {
+        [[nodiscard]] const JsonKey & key() const {
             check_json_object();
             return (* json_object_iterator)->first;
         }
@@ -153,7 +162,7 @@ namespace simple_json::iterators {
          * iterator is pointing to within a JsonObject.
          * @return A reference to a Json object.
          */
-        ReturnType & value() const {
+        [[nodiscard]] ReturnType & value() const {
             check_json_object();
             return (* json_object_iterator)->second;
         }
@@ -164,7 +173,7 @@ namespace simple_json::iterators {
          * @throw iterators::exceptions::InvalidDereference Throws when the inner iterator is not a Array iterator.
          * @return Json object which the iterator is pointing to.
          */
-        ReturnType & operator*() const {
+        [[nodiscard]] ReturnType & operator*() const {
             if (used_type != IteratorTypes::array_iterator_type) {
                 throw iterators::exceptions::InvalidDereference {};
             }
@@ -224,7 +233,7 @@ namespace simple_json::iterators {
          * @param i Positions that the iterator is going to get incremented by.
          * @return Incremented iterator object.
          */
-        JsonIterator<ArrayIterator, JsonObjectIterator, ReturnType> operator+(long i) const {
+        [[nodiscard]] JsonIterator<ArrayIterator, JsonObjectIterator, ReturnType> operator+(long i) const {
             check_array_type();
             return JsonIterator<ArrayIterator, JsonObjectIterator, ReturnType> {* array_iterator + i};
         }
@@ -236,7 +245,7 @@ namespace simple_json::iterators {
          * @param i Positions that the iterator is going to get decremented by.
          * @return Decremented iterator object.
          */
-        JsonIterator<ArrayIterator, JsonObjectIterator, ReturnType> operator-(long i) const {
+        [[nodiscard]] JsonIterator<ArrayIterator, JsonObjectIterator, ReturnType> operator-(long i) const {
             check_array_type();
             return JsonIterator<ArrayIterator, JsonObjectIterator, ReturnType> {* array_iterator - i};
         }
@@ -274,7 +283,8 @@ namespace simple_json::iterators {
          * @param r_iterator The iterator object which is going to get compared.
          * @return Boolean representing the checking result.
          */
-        bool operator!=(const JsonIterator<ArrayIterator, JsonObjectIterator, ReturnType> & r_iterator) const {
+        [[nodiscard]] bool operator!=(const JsonIterator<ArrayIterator,
+                JsonObjectIterator, ReturnType> & r_iterator) const {
             if (used_type == IteratorTypes::array_iterator_type) {
                 return * array_iterator != * r_iterator.array_iterator;
             }
@@ -288,7 +298,8 @@ namespace simple_json::iterators {
          * @param r_iterator The iterator object which is going to get compared.
          * @return Boolean representing the checking result.
          */
-        bool operator==(const JsonIterator<ArrayIterator, JsonObjectIterator, ReturnType> & r_iterator) const {
+        [[nodiscard]] bool operator==(const JsonIterator<ArrayIterator,
+                JsonObjectIterator, ReturnType> & r_iterator) const {
             if (used_type == IteratorTypes::array_iterator_type) {
                 return * array_iterator == * r_iterator.array_iterator;
             }
@@ -341,6 +352,9 @@ namespace simple_json::iterators {
         ~JsonIterator() noexcept {
             clean_memory();
         }
+
+        // Friends
+        friend class types::Json;
     };
 }
 

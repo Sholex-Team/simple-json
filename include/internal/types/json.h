@@ -45,7 +45,7 @@ namespace simple_json::types {
         };
         DataType used_type;
 
-        // Private Method
+        // Private Methods
         void move(Json &) noexcept;
         void copy(const Json & json_item);
         void create_object();
@@ -66,116 +66,25 @@ namespace simple_json::types {
         /*!
          * @brief Json Iterator class
          */
-        class iterator : public iterators::JsonIterator<Array::iterator, JsonObject::iterator, Json> {
-        public:
-            using iterators::JsonIterator<Array::iterator, JsonObject::iterator, Json>::JsonIterator;
-
-            // Constructors
-            /*!
-             * @brief iterator copy constructor
-             * @param r_iterator iterators::JsonIterator<Array::iterator, JsonObject::iterator, Json>
-             * object which is about to get copied
-             */
-            iterator(const iterators::JsonIterator<Array::iterator, JsonObject::iterator, Json> & r_iterator);
-
-            /*!
-             * @brief iterator move constructor
-             * @param r_iterator iterators::JsonIterator<Array::iterator, JsonObject::iterator, Json>
-             * object which is about to be moved
-             */
-            iterator(iterators::JsonIterator<Array::iterator, JsonObject::iterator, Json> && r_iterator) noexcept;
-
-            // Friends
-            friend Json;
-        };
+         using iterator = iterators::JsonIterator<Array::iterator, JsonObject::iterator, Json>;
 
         /*!
          * @brief Json Const Iterator class
          */
-        class const_iterator :
-                public iterators::JsonIterator<Array::const_iterator, JsonObject::const_iterator, const Json> {
-        public:
-            using iterators::JsonIterator<Array::const_iterator, JsonObject::const_iterator, const Json>::JsonIterator;
-
-            /*!
-             * @brief const_iterator copy constructor
-             * @param r_iterator iterators::JsonIterator<Array::const_iterator ,JsonObject::const_iterator,const Json>
-             * object which is about to get copied
-             */
-            const_iterator(const iterators::JsonIterator<Array::const_iterator, JsonObject::const_iterator, const Json>
-                    & r_iterator);
-
-            /*!
-             * @brief const_iterator move constructor
-             * @param r_iterator iterators::JsonIterator<Array::const_iterator , JsonObject::const_iterator, const Json>
-             * object which is about to be moved
-             */
-            const_iterator(iterators::JsonIterator<Array::const_iterator,
-                           JsonObject::const_iterator, const Json> && r_iterator) noexcept;
-
-            // Friends
-            friend Json;
-        };
+        using const_iterator = iterators::JsonIterator<Array::const_iterator, JsonObject::const_iterator, const Json>;
 
         /*!
          * @brief Json Reverse Iterator class
          */
-        class reverse_iterator :
-                public iterators::JsonIterator<Array::reverse_iterator, JsonObject::reverse_iterator, Json> {
-        public:
-            using iterators::JsonIterator<Array::reverse_iterator, JsonObject::reverse_iterator, Json>::JsonIterator;
+         using reverse_iterator = iterators::JsonIterator<Array::reverse_iterator, JsonObject::reverse_iterator, Json>;
 
-            /*!
-             * @brief reverse_iterator copy constructor
-             * @param r_iterator JsonIterator<Array::reverse_iterator, JsonObject::reverse_iterator, Json>
-             * object which is about to get copied
-             */
-            reverse_iterator(const iterators::JsonIterator<Array::reverse_iterator,
-                             JsonObject::reverse_iterator, Json> & r_iterator);
-
-            /*!
-             * @brief reverse_iterator move constructor
-             * @param r_iterator JsonIterator<Array::reverse_iterator, JsonObject::reverse_iterator, Json>
-             * object which is about to be moved
-             */
-            reverse_iterator(iterators::JsonIterator<Array::reverse_iterator,
-                             JsonObject::reverse_iterator, Json> && r_iterator) noexcept;
-
-            // Friends
-            friend Json;
-        };
 
         /*!
          * @brief Json Const Reverse Iterator class
          */
-        class const_reverse_iterator : public iterators::JsonIterator<
-                Array::const_reverse_iterator, JsonObject::const_reverse_iterator, const Json
-                > {
-        public:
-            using iterators::JsonIterator<
-                    Array::const_reverse_iterator ,JsonObject::const_reverse_iterator, const Json>::JsonIterator;
-
-            /*!
-             * @brief const_reverse_iterator copy constructor
-             * @param r_iterator iterators::JsonIterator<
-             * Array::const_reverse_iterator ,JsonObject::const_reverse_iterator, const Json>
-             * object which is about to get copied
-             */
-            const_reverse_iterator(const iterators::JsonIterator<Array::const_reverse_iterator,
-                                   JsonObject::const_reverse_iterator, const Json> & r_iterator);
-
-            /*!
-             * @brief const_reverse_iterator move constructor
-             * @param r_iterator iterators::JsonIterator<
-             * Array::const_reverse_iterator ,JsonObject::const_reverse_iterator, const Json>
-             * object which is about to be moved
-             */
-            const_reverse_iterator(iterators::JsonIterator<Array::const_reverse_iterator,
-                                   JsonObject::const_reverse_iterator, const Json> && r_iterator) noexcept;
-
-            // Friends
-            friend Json;
-        };
+         using const_reverse_iterator = iterators::JsonIterator<
+                 Array::const_reverse_iterator, JsonObject::const_reverse_iterator, const Json
+         >;
 
         // Constructors
         /*!
@@ -183,103 +92,103 @@ namespace simple_json::types {
          *
          * Creates a Json object with an empty JsonObject within.
          */
-        Json();
+        [[nodiscard]] Json();
 
         /*!
          * @brief Json double data type constructor
          * @param data double data
          */
-        Json(double data);
+        [[nodiscard]] Json(double data);
 
         /*!
          * @brief Json long int data type constructor
          * @param data long int data
          */
-        Json(long int data);
+        [[nodiscard]] Json(long int data);
 
         /*!
          * @brief Json bool data type constructor
          * @param data bool data
          */
-        Json(bool data);
+        [[nodiscard]] Json(bool data);
 
         /*!
          * @brief Json int data type constructor
          * @param data int data
          */
-        Json(int data);
+        [[nodiscard]] Json(int data);
 
         /*!
          * @brief Json null constructor
          * @param data std::nullptr_t data
          */
-        Json(std::nullptr_t data);
+        [[nodiscard]] Json(std::nullptr_t data);
 
         /*!
          * @brief Json Array constructor
          * @param data Const reference to Array data
          */
-        explicit Json(const Array & data);
+        [[nodiscard]] explicit Json(const Array & data);
 
         /*!
          * @brief Json Array constructor.
          * @param data A r-value reference to Array data
          */
-        Json(Array && data);
+        [[nodiscard]] Json(Array && data);
 
         /*!
          * @brief Json Array initializer_list constructor
          * @param initializer_list A const reference to an Array initializer-List data
          */
-        Json(const array_list_type & initializer_list);
+        [[nodiscard]] Json(const array_list_type & initializer_list);
 
         /*!
          * @brief Json std::string constructor
          * @param data A const reference to std::string data
          */
-        Json(const std::string & data);
+        [[nodiscard]] Json(const std::string & data);
 
         /*!
          * @brief Json std::string constructor
          * @param data A r-value reference to std::string data
          */
-        Json(std::string && data);
+        [[nodiscard]] Json(std::string && data);
 
         /*!
          * @brief Json c-string constructor
          * @param data const char pointer pointing to the first character of c-string
          */
-        Json(const char * data);
+        [[nodiscard]] Json(const char * data);
 
         /*!
          * @brief Json JsonObject constructor
          * @param data A const reference to JsonObject data
          */
-        explicit Json(const JsonObject & data);
+        [[nodiscard]] explicit Json(const JsonObject & data);
 
         /*!
          * @brief Json JsonObject constructor
          * @param data A r-value reference to JsonObject data
          */
-        Json(JsonObject && data);
+        [[nodiscard]] Json(JsonObject && data);
 
         /*!
          * @brief Json JsonObject initializer_list constructor
          * @param initializer_list A const reference to JsonObject initializer_list
          */
-        Json(const json_list_type & initializer_list);
+        [[nodiscard]] Json(const json_list_type & initializer_list);
 
         /*!
          * @brief Json copy constructor
          * @param json_item A reference to Json object which is about to get copied
          */
-        Json(const Json & json_item);
+        [[nodiscard]] Json(const Json & json_item);
 
         /*!
          * @brief Json move constructor
          * @param json_item A r-value reference to Json which is about to be moved
          */
-        Json(Json && json_item) noexcept;
+        [[nodiscard]] Json(Json && json_item) noexcept;
 
         /*!
          * @brief Json data type constructor
@@ -287,48 +196,46 @@ namespace simple_json::types {
          * Creates a new empty Json object based on the given data type
          * @param object_type Data type which is about to be used to create an empty Json object
          */
-        explicit Json(DataType object_type);
+        [[nodiscard]] explicit Json(DataType object_type);
 
         // Explicit conversion operators
         /*!
          * @brief Json to long int conversion operator
          * @return int data
          */
-        explicit operator long int() const;
+        [[nodiscard]] explicit operator long int() const;
 
         /*!
          * @brief Json to double conversion operator
          * @return double data
          */
-        explicit operator double() const;
+        [[nodiscard]] explicit operator double() const;
 
         /*!
          * @brief Json to Array conversion operator
          * @return Array data
          */
-        explicit operator Array() const;
+        [[nodiscard]] explicit operator Array() const;
 
         /*!
          * @brief Json to std::string conversion operator
          * @return std::string data
          */
-        explicit operator std::string() const;
+        [[nodiscard]] explicit operator std::string() const;
 
         /*!
          * @brief Json to JsonObject conversion operator
          * @return JsonObject data
          */
-        explicit operator JsonObject() const;
+        [[nodiscard]] explicit operator JsonObject() const;
 
         /*!
          * @brief Json to const c-string conversion operator
          * @return Const pointer to first character of c-string data
          */
+        [[nodiscard]] explicit operator const char * () const;
 
         // Operator Overloading
-
-        explicit operator const char * () const;
-
         /*!
          * @brief Json copy assignment operator overload
          * @param data A const reference to Json object which is about to get copied
@@ -488,7 +395,7 @@ namespace simple_json::types {
          * @param index Item index.
          * @return A reference to item related to the given index
          */
-        Json & operator[](const size_t & index) const;
+        [[nodiscard]] Json & operator[](const size_t & index) const;
 
         /*!
          * @brief Json c-string array subscript operator overload
@@ -496,7 +403,7 @@ namespace simple_json::types {
          * @param key Item key
          * @return A reference to item related to the given key
          */
-        Json & operator[](const char * key) const;
+        [[nodiscard]] Json & operator[](const char * key) const;
 
         /*!
          * @brief Json JsonKey array subscript operator overload
@@ -504,7 +411,7 @@ namespace simple_json::types {
          * @param key Item key
          * @return A reference to item related to the given key
          */
-        Json & operator[](const JsonKey & key) const;
+        [[nodiscard]] Json & operator[](const JsonKey & key) const;
 
         /*!
          * @brief Json JsonPointer array subscript operator overload
@@ -512,21 +419,21 @@ namespace simple_json::types {
          * @param json_pointer A const reference to a JsonPointer object
          * @return A reference to item related to the given JsonPointer object
          */
-        Json & operator[](const JsonPointer & json_pointer) const;
+        [[nodiscard]] Json & operator[](const JsonPointer & json_pointer) const;
 
         /*!
          * @brief Json equality operator overload
          * @param json_item A const reference to Json object that is going to get compared
          * @return Boolean representing result of comparison
          */
-        bool operator==(const Json & json_item) const;
+        [[nodiscard]] bool operator==(const Json & json_item) const;
 
         /*!
          * @brief Json not-equal operator overload
          * @param json_item A const reference to Json object that is going to get compared
          * @return Boolean representing result of comparison
          */
-        bool operator!=(const Json & json_item) const;
+        [[nodiscard]] bool operator!=(const Json & json_item) const;
 
         /*!
          * @brief Json pre-increment operator overload
@@ -547,14 +454,14 @@ namespace simple_json::types {
          * @throw exceptions::InvalidOperator Throws when Json object data is not float or long integer typed.
          * @return A reference to the Json object
          */
-        Json & operator--();
+        [[nodiscard]] Json & operator--();
 
         /*!
          * @brief Json post-decrement operator overload
          * @throw exceptions::InvalidOperator Throws when Json object data is not float or long integer typed.
          * @return A const Json object representing the original state of object(before decrementing).
          */
-        const Json operator--(int);
+        [[nodiscard]] const Json operator--(int);
 
         /*!
          * @brief Json long integer multiplication operator
@@ -562,7 +469,7 @@ namespace simple_json::types {
          * @throw exceptions::InvalidOperator Throws when Json object data is not numeric.
          * @return Multiplied Json object
          */
-        Json operator*(long rhs);
+        [[nodiscard]] Json operator*(long rhs);
 
         /*!
          * @brief Json int multiplication operator
@@ -570,7 +477,7 @@ namespace simple_json::types {
          * @throw exceptions::InvalidOperator Throws when Json object data is not numeric.
          * @return Multiplied Json object
          */
-        Json operator*(int rhs);
+        [[nodiscard]] Json operator*(int rhs);
 
 
         /*!
@@ -579,7 +486,7 @@ namespace simple_json::types {
          * @throw exceptions::InvalidOperator Throws when Json object data is not numeric.
          * @return Multiplied Json object
          */
-        Json operator*(double rhs);
+        [[nodiscard]] Json operator*(double rhs);
 
         /*!
          * @brief Json long integer addition operator
@@ -587,7 +494,7 @@ namespace simple_json::types {
          * @throw exceptions::InvalidOperator Throws when Json object data is not numeric.
          * @return Json result of addition
          */
-        Json operator+(long rhs);
+        [[nodiscard]] Json operator+(long rhs);
 
         /*!
          * @brief Json integer addition operator
@@ -595,7 +502,7 @@ namespace simple_json::types {
          * @throw exceptions::InvalidOperator Throws when Json object data is not numeric.
          * @return Json result of addition
          */
-        Json operator+(int rhs);
+        [[nodiscard]] Json operator+(int rhs);
 
         /*!
          * @brief Json double addition operator
@@ -603,7 +510,7 @@ namespace simple_json::types {
          * @throw exceptions::InvalidOperator Throws when Json object data is not numeric.
          * @return Json result of addition
          */
-        Json operator+(double rhs);
+        [[nodiscard]] Json operator+(double rhs);
 
         /*!
          * @brief Json long integer subtraction operator
@@ -611,7 +518,7 @@ namespace simple_json::types {
          * @throw exceptions::InvalidOperator Throws when Json object data is not numeric.
          * @return Json result of subtraction
          */
-        Json operator-(long rhs);
+        [[nodiscard]] Json operator-(long rhs);
 
         /*!
          * @brief Json integer subtraction operator
@@ -619,7 +526,7 @@ namespace simple_json::types {
          * @throw exceptions::InvalidOperator Throws when Json object data is not numeric.
          * @return Json result of subtraction
          */
-        Json operator-(int rhs);
+        [[nodiscard]] Json operator-(int rhs);
 
         /*!
          * @brief Json double subtraction operator
@@ -627,7 +534,7 @@ namespace simple_json::types {
          * @throw exceptions::InvalidOperator Throws when Json object data is not numeric.
          * @return Json result of subtraction
          */
-        Json operator-(double rhs);
+        [[nodiscard]] Json operator-(double rhs);
 
         /*!
          * @brief Json long integer division operator
@@ -635,7 +542,7 @@ namespace simple_json::types {
          * @throw exceptions::InvalidOperator Throws when Json object data is not numeric.
          * @return Json result of division operation
          */
-        Json operator/(long rhs);
+        [[nodiscard]] Json operator/(long rhs);
 
         /*!
          * @brief Json integer division operator
@@ -643,7 +550,7 @@ namespace simple_json::types {
          * @throw exceptions::InvalidOperator Throws when Json object data is not numeric.
          * @return Json result of division operation
          */
-        Json operator/(int rhs);
+        [[nodiscard]] Json operator/(int rhs);
 
         /*!
          * @brief Json double division operator
@@ -651,7 +558,7 @@ namespace simple_json::types {
          * @throw exceptions::InvalidOperator Throws when Json object data is not numeric.
          * @return Json result of division operation
          */
-        Json operator/(double rhs);
+        [[nodiscard]] Json operator/(double rhs);
 
         /*!
          * @brief Json long integer modulo operator
@@ -659,7 +566,7 @@ namespace simple_json::types {
          * @throw exceptions::InvalidOperator Throws when Json object data is not a long integer.
          * @return Json result of modulo operation
          */
-        Json operator%(long rhs);
+        [[nodiscard]] Json operator%(long rhs);
 
         /*!
          * @brief Json integer modulo operator
@@ -667,13 +574,13 @@ namespace simple_json::types {
          * @throw exceptions::InvalidOperator Throws when Json object data is not a integer.
          * @return Json result of modulo operation
          */
-        Json operator%(int rhs);
+        [[nodiscard]] Json operator%(int rhs);
 
         // Friends
         friend std::ostream & operator<<(std::ostream & os, const Json & json_item);
-        friend JsonObject;
-        friend Array;
-        friend JsonPatch;
+        friend class JsonObject;
+        friend class Array;
+        friend class JsonPatch;
 
         // Public Methods
 
@@ -685,7 +592,7 @@ namespace simple_json::types {
          * @throw iterators::exceptions::InvalidIteration Throws when data type of Json object is not iterable.
          * @return Created iterator object
          */
-        iterator begin();
+        [[nodiscard]] iterator begin();
 
         /*!
          * @brief Returns a iterator pointing to the past-the-end element in the Json object.
@@ -695,7 +602,7 @@ namespace simple_json::types {
          * @throw iterators::exceptions::InvalidIteration Throws when data type of Json object is not iterable.
          * @return Created iterator object
          */
-        iterator end();
+        [[nodiscard]] iterator end();
 
         /*!
          * @brief Returns a const_iterator pointing to the beginning of the Json object.
@@ -705,7 +612,7 @@ namespace simple_json::types {
          * @throw iterators::exceptions::InvalidIteration Throws when data type of Json object is not iterable.
          * @return Created const_iterator object
          */
-        const_iterator cbegin() const;
+        [[nodiscard]] const_iterator cbegin() const;
 
         /*!
          * @brief Returns a const_iterator pointing to the past-the-end element in the Json object.
@@ -715,7 +622,7 @@ namespace simple_json::types {
          * @throw iterators::exceptions::InvalidIteration Throws when data type of Json object is not iterable.
          * @return Created const_iterator object
          */
-        const_iterator cend() const;
+        [[nodiscard]] const_iterator cend() const;
 
         /*!
          * @brief Returns a reverse_iterator pointing to the beginning of the reversed Json object.
@@ -725,7 +632,7 @@ namespace simple_json::types {
          * @throw iterators::exceptions::InvalidIteration Throws when data type of Json object is not iterable.
          * @return Created reverse_iterator object
          */
-        reverse_iterator rbegin();
+        [[nodiscard]] reverse_iterator rbegin();
 
         /*!
          * @brief Returns a reverse_iterator pointing to the past-the-end element in the reversed Json object.
@@ -735,7 +642,7 @@ namespace simple_json::types {
          * @throw iterators::exceptions::InvalidIteration Throws when data type of Json object is not iterable.
          * @return Created reverse_iterator object
          */
-        reverse_iterator rend();
+        [[nodiscard]] reverse_iterator rend();
 
         /*!
          * @brief Returns a const_reverse_iterator pointing to the beginning of the reversed Json object.
@@ -745,7 +652,7 @@ namespace simple_json::types {
          * @throw iterators::exceptions::InvalidIteration Throws when data type of Json object is not iterable.
          * @return Created const_reverse_iterator object
          */
-        const_reverse_iterator crbegin() const;
+        [[nodiscard]] const_reverse_iterator crbegin() const;
 
         /*!
          * @brief Returns a const_reverse_iterator pointing to the past-the-end element in the reversed Json object.
@@ -756,14 +663,14 @@ namespace simple_json::types {
          * @throw iterators::exceptions::InvalidIteration Throws when data type of Json object is not iterable.
          * @return Created const_reverse_iterator object.
          */
-        const_reverse_iterator crend() const;
+        [[nodiscard]] const_reverse_iterator crend() const;
 
         /*!
          * @brief Returns the JsonObject object stored withing Json object.
          * @throw iterators::exceptions::InvalidType Throws when the Json object type is JsonObject.
          * @return JsonObject stored inside the Json object
          */
-        JsonObject & items() const;
+        [[nodiscard]] JsonObject & items() const;
 
         /*!
          * @brief Applies a merge patch on Json object.
@@ -778,7 +685,7 @@ namespace simple_json::types {
          * @param target A const reference to Json object which is about to be merged
          * @return Merged Json object
          */
-        Json merge(const Json & target) const;
+        [[nodiscard]] Json merge(const Json & target) const;
 
         /*!
          * @brief Returns Json object at given size_t index
@@ -788,7 +695,7 @@ namespace simple_json::types {
          * @throw exceptions::InvalidOperation Throws when the Json object is not Array type.
          * @return Json object at the given index
          */
-        Json & at(size_t index) const;
+        [[nodiscard]] Json & at(size_t index) const;
 
         /*!
          * @brief Returns Json object at given std::string key.
@@ -796,7 +703,7 @@ namespace simple_json::types {
          * @throw exceptions::InvalidOperation Throws when the Json object type is not JsonObject.
          * @return Json object at the given std::string key
          */
-        Json & at(const std::string & key) const;
+        [[nodiscard]] Json & at(const std::string & key) const;
 
         /*!
          * @brief Returns Json object at the given JsonPointer address.
@@ -804,7 +711,7 @@ namespace simple_json::types {
          * @throw exceptions::InvalidOperation Throws when the Json object is not iterable type.
          * @return Json object at the given JsonPointer address
          */
-        Json & at(const JsonPointer & json_pointer) const;
+        [[nodiscard]] Json & at(const JsonPointer & json_pointer) const;
 
         /*!
          * @brief Returns Json object related to given JsonKey key.
@@ -812,7 +719,7 @@ namespace simple_json::types {
          * @throw exceptions::InvalidOperation Throws when the Json object is not JsonObject typed.
          * @return Json object related to the given JsonKey key
          */
-        Json & at(const JsonKey & key) const;
+        [[nodiscard]] Json & at(const JsonKey & key) const;
 
         /*!
          * @brief Gets a value related to a key or returns specified value as a default.
@@ -821,7 +728,7 @@ namespace simple_json::types {
          * @throw exceptions::InvalidOperation Throws when the Json object is not JsonObject typed.
          * @return A Json object whether it's the value related to the key or a copy of default value.
          */
-        Json get(const JsonKey & key, const Json & default_return) const;
+        [[nodiscard]] Json get(const JsonKey & key, const Json & default_return) const;
 
         /*!
          * @brief Gets a value related to a key or returns specified value as a default.
@@ -830,7 +737,7 @@ namespace simple_json::types {
          * @throw exceptions::InvalidOperation Throws when the Json object is not JsonObject typed.
          * @return A Json object whether it's the value related to the key or the default value.
          */
-        Json get(const JsonKey & key, Json && default_return) const;
+        [[nodiscard]] Json get(const JsonKey & key, Json && default_return) const;
 
         /*!
          * @brief Gets a value related to a key or returns specified value as a default.
@@ -839,7 +746,7 @@ namespace simple_json::types {
          * @throw exceptions::InvalidOperation Throws when the Json object is not JsonObject typed.
          * @return A Json object whether it's the value related to the key or a copy of default value.
          */
-        Json get(const std::string & key, const Json & default_return) const;
+        [[nodiscard]] Json get(const std::string & key, const Json & default_return) const;
 
         /*!
          * @brief Gets a value related to a key or returns specified value as a default.
@@ -848,7 +755,7 @@ namespace simple_json::types {
          * @throw exceptions::InvalidOperation Throws when the Json object is not JsonObject typed.
          * @return A Json object whether it's the value related to the key or the default value.
          */
-        Json get(const std::string & key, Json && default_return) const;
+        [[nodiscard]] Json get(const std::string & key, Json && default_return) const;
 
         /*!
          * @brief Returns a const_iterator pointing to the Json object at the given index.
@@ -856,7 +763,7 @@ namespace simple_json::types {
          * @throw exceptions::InvalidOperation Throws when the Json object is not Array type.
          * @return Created const_iterator object
          */
-        const_iterator get_item(long index) const;
+        [[nodiscard]] const_iterator get_item(long index) const;
 
         /*!
          * @brief Creates a JsonPatch to the given destination Json object.
@@ -866,7 +773,7 @@ namespace simple_json::types {
          * @param dst A const reference to the destination of JsonPatch
          * @return Created JsonPatch object which transforms the current Json object into the dst.
          */
-        JsonPatch get_diff(const Json & dst) const;
+        [[nodiscard]] JsonPatch get_diff(const Json & dst) const;
 
         /*!
          * @brief Erases the Json object at the given index.
@@ -943,26 +850,26 @@ namespace simple_json::types {
          * @throw exceptions::InvalidOperation Throws when the Json object is not an Array.
          * @return A reference to the last element in the Array
          */
-        Json & back() const noexcept;
+        [[nodiscard]] Json & back() const noexcept;
 
         /*!
          * @brief Returns the inner type of Json object.
          * @return DataType of the object stored inside Json object
          */
-        inline DataType type() const noexcept {return used_type;}
+        [[nodiscard]] inline DataType type() const noexcept {return used_type;}
 
         /*!
          * @brief Checks if the Json object is an empty container.
          * @throw exceptions::InvalidOperation Throws when the Json object is not a container(iterable type).
          * @return Boolean representing the result of the checking
          */
-        bool empty() const;
+        [[nodiscard]] bool empty() const;
 
         /*!
          * @brief Serializes the Json object.
          * @return Serialized std::string of Json object
          */
-        std::string serialize() const;
+        [[nodiscard]] std::string serialize() const;
 
         /*!
          * @brief Counts how many instances of given object exist in the Array.
@@ -970,7 +877,7 @@ namespace simple_json::types {
          * @throw exceptions::InvalidOperation Throws when the Json object type is not Array.
          * @return size_t count of same objects found
          */
-        size_t count(const Json & item) const;
+        [[nodiscard]] size_t count(const Json & item) const;
 
         /*!
          * @brief Checks is the given key exists in JsonObject.
@@ -978,7 +885,7 @@ namespace simple_json::types {
          * @param key A const reference to the JsonKey
          * @return Result of the checking
          */
-        bool contains(const JsonKey & key) const;
+        [[nodiscard]] bool contains(const JsonKey & key) const;
 
         /*!
          * @brief Checks is the given Json item exists in the container.
@@ -986,7 +893,7 @@ namespace simple_json::types {
          * @param item Const reference to the target Json item
          * @return Result of the checking
          */
-        bool contains(const Json & item) const;
+        [[nodiscard]] bool contains(const Json & item) const;
 
         /*!
          * @brief Returns an iterator to the Json object related to given JsonKey.
@@ -995,7 +902,7 @@ namespace simple_json::types {
          * @return iterator pointing to the object related to the given JsonKey. If the given key is not found
          * this->end() would be returned instead.
          */
-        iterator find(const JsonKey & key);
+        [[nodiscard]] iterator find(const JsonKey & key);
 
         /*!
          * @brief Returns an iterator to the given Json in the container.
@@ -1004,7 +911,7 @@ namespace simple_json::types {
          * @return iterator pointing to the found object inside Json container. If the Json object is not found
          * this->end() would be returned instead.
          */
-        iterator find(const Json & item);
+        [[nodiscard]] iterator find(const Json & item);
 
         /*!
          * @brief Returns a const_iterator to the Json object related to given JsonKey.
@@ -1013,7 +920,7 @@ namespace simple_json::types {
          * @return const_iterator pointing to the object related to the given JsonKey. If the given key is not found
          * this->cend() would be returned instead.
          */
-        const_iterator find(const JsonKey & key) const;
+        [[nodiscard]] const_iterator find(const JsonKey & key) const;
 
         /*!
          * @brief Returns a const_iterator to the given Json in the container.
@@ -1022,7 +929,7 @@ namespace simple_json::types {
          * @return const_iterator pointing to the found object inside Json container. If the Json object is not found
          * this->cend() would be returned instead.
          */
-        const_iterator find(const Json & item) const;
+        [[nodiscard]] const_iterator find(const Json & item) const;
 
         /*!
          * @brief Returns an iterator to the item that passed the given test function.
@@ -1030,7 +937,7 @@ namespace simple_json::types {
          * @param test_func A const reference to test function object
          * @return An iterator pointing to the first item that passed the test or this->end() if none of them passed it.
          */
-        iterator find_if(const std::function<bool(const Json &)> & test_func);
+        [[nodiscard]] iterator find_if(const std::function<bool(const Json &)> & test_func);
 
         /*!
          * @brief Returns a const_iterator to the item that passed the given test function.
@@ -1039,7 +946,7 @@ namespace simple_json::types {
          * @return A const_iterator pointing to the first item that passed the test or this->cend() if none of
          * them passed it.
          */
-        const_iterator find_if(const std::function<bool(const Json &)> & test_func) const;
+        [[nodiscard]] const_iterator find_if(const std::function<bool(const Json &)> & test_func) const;
 
         /*!
          * @brief Returns an iterator to the item that passed the given test function.
@@ -1047,7 +954,7 @@ namespace simple_json::types {
          * @param test_func A const reference to test function object
          * @return An iterator pointing to the first item that passed the test or this->end() if none of them passed it.
          */
-        iterator find_if(const std::function<bool(const pair_type &)> & test_func);
+        [[nodiscard]] iterator find_if(const std::function<bool(const pair_type &)> & test_func);
 
         /*!
          * @brief Returns a const_iterator to the item that passed the given test function.
@@ -1056,7 +963,7 @@ namespace simple_json::types {
          * @return A const_iterator pointing to the first item that passed the test or this->cend() if none of
          * them passed it.
          */
-        const_iterator find_if(const std::function<bool(const pair_type &)> & test_func) const;
+        [[nodiscard]] const_iterator find_if(const std::function<bool(const pair_type &)> & test_func) const;
 
         /*!
          * @brief Returns the index of given Json object inside Array.
@@ -1064,7 +971,7 @@ namespace simple_json::types {
          * @throw exceptions::InvalidOperation Throws when the Json object type is not Array.
          * @return size_t index of given Json object inside the Array
          */
-        size_t find_index(const Json & item) const;
+        [[nodiscard]] size_t find_index(const Json & item) const;
 
         /*!
          * @brief Returns the index of Json object related to the given const_iterator inside Array.
@@ -1072,7 +979,7 @@ namespace simple_json::types {
          * @throw exceptions::InvalidOperation Throws when the Json object type is not Array.
          * @return size_t index of Json object related to the given const_iterator inside the Array.
          */
-        size_t find_index(const const_iterator & it) const;
+        [[nodiscard]] size_t find_index(const const_iterator & it) const;
 
         /*!
          * @brief Returns the size of the container stored inside Json object.
@@ -1081,7 +988,7 @@ namespace simple_json::types {
          * If the data type is not unknown then a 0 will be returned.
          * @return size_t size of the Json object
          */
-        size_t size() const noexcept;
+        [[nodiscard]] size_t size() const noexcept;
 
         /*!
          * @brief Updates the JsonObject with the given Json object.
@@ -1098,37 +1005,37 @@ namespace simple_json::types {
          * @brief int data getter
          * @return A reference to int data stored inside
          */
-        long & get_int();
+        [[nodiscard]] long & get_int();
 
         /*!
          * @brief double data getter
          * @return A reference to double data stored inside
          */
-        double & get_double();
+        [[nodiscard]] double & get_double();
 
         /*!
          * @brief bool data getter
          * @return A reference to bool data stored inside
          */
-        bool & get_bool();
+        [[nodiscard]] bool & get_bool();
 
         /*!
          * @brief std::string data getter
          * @return A reference to std::string data stored inside
          */
-        std::string & get_string();
+        [[nodiscard]] std::string & get_string();
 
         /*!
          * @brief Array data getter
          * @return A reference to Array data stored inside
          */
-        Array & get_array();
+        [[nodiscard]] Array & get_array();
 
         /*!
          * @brief JsonObject data getter
          * @return A reference to JsonObject data stored inside
          */
-        JsonObject & get_json_object();
+        [[nodiscard]] JsonObject & get_json_object();
 
         /*!
          * @brief Finds the given Json object in the given range.
@@ -1141,7 +1048,7 @@ namespace simple_json::types {
          * does not exist in the range iterator pointing to this->end() will be returned instead.
          */
         template<typename T>
-        T find_in_range(const T & first, const T & last, const Json & item) const {
+        [[nodiscard]] T find_in_range(const T & first, const T & last, const Json & item) const {
             first.check_type(IteratorTypes::array_iterator_type);
             last.check_type(IteratorTypes::array_iterator_type);
             return T{std::find(*first.array_iterator, *last.array_iterator, item)};
@@ -1157,7 +1064,7 @@ namespace simple_json::types {
          * @return size_t count of instances of the given Json object in the container.
          */
         template<typename T>
-        size_t count_in_range(const T & first, const T & last, const Json & item) const {
+        [[nodiscard]] size_t count_in_range(const T & first, const T & last, const Json & item) const {
             first.check_type(IteratorTypes::array_iterator_type);
             last.check_type(IteratorTypes::array_iterator_type);
             return std::count(* first.array_iterator, * last.array_iterator, item);

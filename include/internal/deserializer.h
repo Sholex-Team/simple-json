@@ -29,7 +29,7 @@ namespace simple_json::deserializer {
      * @return Deserialized Json object
      * @throw exceptions::ParsingException Throws this exception when there is a problem in JSON string serialization.
      */
-    types::Json loads(const std::string & json_text);
+    [[nodiscard]] types::Json loads(const std::string & json_text);
 
     /*!
      * @brief Deserializes a serialized JSON file.
@@ -41,7 +41,7 @@ namespace simple_json::deserializer {
      * @throw exceptions::ParsingException Throws this exception when there is a problem in JSON string serialization.
      * @return Deserialized Json object created from serialized Json file
      */
-    types::Json load(const std::string & file_path);
+    [[nodiscard]] types::Json load(const std::string & file_path);
 
     /*!
      * @brief Deserializes a serialized JSON file.
@@ -52,7 +52,7 @@ namespace simple_json::deserializer {
      * @throw exceptions::ParsingException Throws this exception when there is a problem in JSON string serialization.
      * @return Deserialized Json object based on given input file stream
      */
-    types::Json load(std::ifstream & fs);
+    [[nodiscard]] types::Json load(std::ifstream & fs);
 
     namespace {
         class Deserializer {
@@ -86,16 +86,16 @@ namespace simple_json::deserializer {
             bool is_special();
             void general_push_or_exception();
         public:
-            types::Json deserialize(std::istream & steam);
-            types::Json deserialize(std::istream && stream);
+            [[nodiscard]] types::Json deserialize(std::istream & steam);
+            [[nodiscard]] types::Json deserialize(std::istream && stream);
         };
 
         class Load {
         private:
             std::ifstream file_stream;
         public:
-            types::Json load();
-            explicit Load(const std::string & file_path);
+            [[nodiscard]] types::Json load();
+            [[nodiscard]] explicit Load(const std::string & file_path);
             ~Load();
         };
     }

@@ -54,7 +54,7 @@ namespace simple_json::deserializer::exceptions {
         explicit ParsingException(Errors error = Errors::unknown);
 
         // Public Methods
-        const char * what() const noexcept override;
+        [[nodiscard]] const char * what() const noexcept override;
     private:
         Errors error;
     };

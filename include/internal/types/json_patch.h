@@ -41,7 +41,8 @@ namespace simple_json::types {
                         try {
                             target_json = & json.at(path);
                         } catch (const std::out_of_range &) {
-                            throw exceptions::FailedTest {path, exceptions::FailedTest::Error::INVALID_PATH};
+                            throw exceptions::FailedTest {path,
+                                                          exceptions::FailedTest::Error::INVALID_PATH};
                         }
                         if (* target_json != patch_object.at(value_key)) {
                             throw exceptions::FailedTest {path};
@@ -61,7 +62,8 @@ namespace simple_json::types {
                         } else {
                             throw exceptions::InvalidPointer {};
                         }
-                        rollback.push_back({{"op"_json_key, "remove"}, {"path"_json_key, json_path}});
+                        rollback.push_back({{"op"_json_key, "remove"},
+                                            {"path"_json_key, json_path}});
                     } else if (op == "replace") {
                         Json & parent {json.at(path.get_parent())};
                         if (parent.type() == DataType::json_object_type || parent.type() == DataType::array_type) {
@@ -207,26 +209,26 @@ namespace simple_json::types {
          *
          * This constructor creates an empty JsonPatch object.
          */
-        JsonPatch();
+        [[nodiscard]] JsonPatch();
 
         /*!
          * @brief JsonPatch Json constructor
          *
          * This constructor accepts a Json object as an argument and creates a JsonPatch from it.
          */
-        explicit JsonPatch(const Json &);
+        [[nodiscard]] explicit JsonPatch(const Json &);
 
         /*!
          * @brief JsonPatch copy constructor
          * @param json_patch JsonPatch object which is about to get copied.
          */
-        JsonPatch(const JsonPatch & json_patch);
+        [[nodiscard]] JsonPatch(const JsonPatch & json_patch);
 
         /*!
          * @brief JsonPatch move constructor
          * @param json_patch JsonPatch object which is about to get moved.
          */
-        JsonPatch(JsonPatch && json_patch) noexcept;
+        [[nodiscard]] JsonPatch(JsonPatch && json_patch) noexcept;
 
         // Destructors
         ~JsonPatch();
@@ -248,7 +250,7 @@ namespace simple_json::types {
          * This public method returns the Json object which is storing the patch data.
          * @return Json object holding the patch data.
          */
-        Json & get_json() const;
+        [[nodiscard]] Json & get_json() const;
 
         // Builders
         class PatchBuilder {
@@ -283,17 +285,17 @@ namespace simple_json::types {
             void move_item(const JsonPointer & old_path, const JsonPointer & new_path);
         public:
             // Constructor
-            PatchBuilder(const Json & src, const Json & dst);
+            [[nodiscard]] PatchBuilder(const Json & src, const Json & dst);
 
             // Destructor
             ~PatchBuilder();
 
             // Public Methods
-            JsonPatch create_patch();
+            [[nodiscard]] JsonPatch create_patch();
         };
 
         // Friends
-        friend PatchBuilder;
+        friend class PatchBuilder;
     };
 }
 

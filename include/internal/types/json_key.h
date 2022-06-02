@@ -23,19 +23,19 @@ namespace simple_json::types {
          * This constructor accepts an argument as key string which is then used as key underneath the JsonKey object.
          * @param key std::string which the JsonKey is going to be created from
          */
-        explicit JsonKey(const std::string & key);
+        [[nodiscard]] explicit JsonKey(const std::string & key);
 
         /*!
          * @brief JsonKey copy constructor
          * @param json_key JsonKey object which is about to get copied
          */
-        JsonKey(const JsonKey & json_key);
+        [[nodiscard]] JsonKey(const JsonKey & json_key);
 
         /*!
          * @brief JsonKey move constructor
          * @param json_key JsonKey which is about to get moved
          */
-        JsonKey(JsonKey && json_key) noexcept;
+        [[nodiscard]] JsonKey(JsonKey && json_key) noexcept;
 
         // Destructors
         ~JsonKey();
@@ -46,25 +46,25 @@ namespace simple_json::types {
          * @param r_json_key JsonKey object on RHS
          * @return A boolean specifying if the JsonKey was less than RHS one.
          */
-        bool operator<(const JsonKey & r_json_key) const;
+        [[nodiscard]] bool operator<(const JsonKey & r_json_key) const;
 
         /*!
          * @brief Greater than operator overload.
          * @param r_json_key JsonKey object on RHS
          * @return A boolean specifying if the JsonKey was greater than RHS one.
          */
-        bool operator>(const JsonKey & r_json_key) const;
+        [[nodiscard]] bool operator>(const JsonKey & r_json_key) const;
 
         /*!
          * @brief Equal operator overload
          * @param r_json_key JsonKey object on RHS
          * @return A boolean specifying if the JsonKey was equal with RHS one.
          */
-        bool operator==(const JsonKey & r_json_key) const;
+        [[nodiscard]] bool operator==(const JsonKey & r_json_key) const;
 
         // Friends
         friend std::ostream & operator<<(std::ostream & os, const JsonKey & json_key);
-        friend JsonObject;
+        friend class JsonObject;
 
         // Public Methods
         /*!
@@ -73,7 +73,7 @@ namespace simple_json::types {
          * This public method returns inner std::string stored as key inside JsonKey object.
          * @return std::string stored inside JsonKey.
          */
-        inline const std::string & get_key() const {return * key;};
+        [[nodiscard]] inline const std::string & get_key() const {return * key;};
     };
 
     // Operator Overloading
@@ -84,7 +84,7 @@ namespace simple_json::types {
      * @param key_ptr Pointer pointing to first character of c-string that operator is being used on.
      * @return A new JsonKey object created from a c-string
      */
-    JsonKey operator""_json_key(const char * key_ptr, size_t);
+    [[nodiscard]] JsonKey operator""_json_key(const char * key_ptr, size_t);
 
     /*!
      * @brief Overloaded stream insertion operator.

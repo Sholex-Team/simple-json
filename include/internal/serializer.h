@@ -26,7 +26,7 @@ namespace simple_json::serializer {
      * @param local_indent Indentation length if needed.
      * @return Serialized JSON string
      */
-    std::string dumps(const types::Json & json, size_t local_indent = 0);
+    [[nodiscard]] std::string dumps(const types::Json & json, size_t local_indent = 0);
 
     /*!
      * @brief Serializes a Json object.

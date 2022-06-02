@@ -18,7 +18,7 @@ namespace simple_json {
          */
         class StreamInsertionException : public simple_json::base_exceptions::JsonException {
         public:
-            const char * what() const noexcept override;
+            [[nodiscard]] const char * what() const noexcept override;
         };
 
         /*!
@@ -28,14 +28,14 @@ namespace simple_json {
          */
         class WritingToFileException : public simple_json::base_exceptions::JsonException {
         public:
-            const char * what() const noexcept override;
+            [[nodiscard]] const char * what() const noexcept override;
         };
     }
 
     namespace deserializer::exceptions {
         class ReadingFromFileException : public simple_json::base_exceptions::JsonException {
         public:
-            const char * what() const noexcept override;
+            [[nodiscard]] const char * what() const noexcept override;
         };
     }
 }

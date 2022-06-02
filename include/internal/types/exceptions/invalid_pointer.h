@@ -11,7 +11,7 @@ namespace simple_json::types::exceptions {
      */
     class InvalidPointer : public base_exceptions::JsonException {
     public:
-        const char * what() const noexcept override;
+        [[nodiscard]] const char * what() const noexcept override;
     };
 }
 

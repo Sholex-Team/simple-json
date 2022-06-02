@@ -37,11 +37,11 @@ namespace simple_json::types {
              * @param initializer_list An initializer list containing std::pair<const JsonKey, Json> that are going to
              * initialize the object.
              */
-            JsonObject(const json_list_type & initializer_list);
+            [[nodiscard]] JsonObject(const json_list_type & initializer_list);
 
             // Friends
             friend std::ostream & operator<<(std::ostream & os, const JsonObject & json_object);
-            friend Array;
+            friend class Array;
 
             // Public Methods
             /*!
@@ -54,7 +54,7 @@ namespace simple_json::types {
              * the map.
              * @return A Json object whether it's the value related to the key or the default value.
              */
-            Json get(const JsonKey & key, const Json & default_return) const;
+            [[nodiscard]] Json get(const JsonKey & key, const Json & default_return) const;
 
             /*!
              * @brief Get a value with a key or return specified value.
@@ -66,7 +66,7 @@ namespace simple_json::types {
              * in case of the key not existing inside the std::map.
              * @return A Json object whether it's the value related to the key or the moved default value.
              */
-            Json get(const JsonKey & key, Json && default_return) const;
+            [[nodiscard]] Json get(const JsonKey & key, Json && default_return) const;
 
            /*!
             * @brief Get a value with a key or return specified value.
@@ -78,7 +78,7 @@ namespace simple_json::types {
             * the map.
             * @return A Json object whether it's the value related to the key or the default value.
             */
-            Json get(const std::string & key, const Json & default_return) const;
+           [[nodiscard]] Json get(const std::string & key, const Json & default_return) const;
 
             /*!
              * @brief Get a value with a key or return specified value.
@@ -90,7 +90,7 @@ namespace simple_json::types {
              * in case of the key not existing inside the std::map.
              * @return A Json object whether it's the value related to the key or the moved default value.
              */
-            Json get(const std::string & key, Json && default_return) const;
+            [[nodiscard]] Json get(const std::string & key, Json && default_return) const;
         };
 
     /*!

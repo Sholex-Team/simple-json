@@ -30,11 +30,11 @@ namespace simple_json::types {
          * This constructor takes an initializer list containing Json objects and creates an Array from it.
          * @param initializer_list Initializer list containing Json objects.
          */
-        Array(const array_list_type & initializer_list);
+        [[nodiscard]] Array(const array_list_type & initializer_list);
 
         // Friends
         friend std::ostream & operator<<(std::ostream & os, const Array & array);
-        friend JsonObject;
+        friend class JsonObject;
     };
 
     /*!

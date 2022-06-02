@@ -35,7 +35,7 @@ namespace simple_json::types {
          * @throw exceptions::InvalidPointer Throws if pointer_text is invalid.
          * @param pointer_text A L-Value reference to a std::string which is about to get copied as JSON Pointer string.
          */
-        explicit JsonPointer(std::string & pointer_text);
+        [[nodiscard]] explicit JsonPointer(std::string & pointer_text);
 
         /*!
          * @throw exceptions::InvalidPointer Throws if pointer_text is invalid.
@@ -44,19 +44,19 @@ namespace simple_json::types {
          * This constructor moves a std::string into a new JsonPointer as JSON Pointer string.
          * @param pointer_text A R-Value reference to a std::string which is about to get moved as JSON pointer string.
          */
-        explicit JsonPointer(std::string && pointer_text);
+        [[nodiscard]] explicit JsonPointer(std::string && pointer_text);
 
         /*!
          * @brief JsonPointer copy constructor
          * @param json_pointer Const reference to a JsonPointer object which is about to get copied.
          */
-        JsonPointer(const JsonPointer & json_pointer);
+        [[nodiscard]] JsonPointer(const JsonPointer & json_pointer);
 
         /*!
          * @brief JsonPointer move constructor
          * @param json_pointer A r-value reference to a JsonPointer object which is about to get moved.
          */
-        JsonPointer(JsonPointer && json_pointer) noexcept;
+        [[nodiscard]] JsonPointer(JsonPointer && json_pointer) noexcept;
 
         // Destructors
         ~JsonPointer();
@@ -83,14 +83,14 @@ namespace simple_json::types {
          * @throw exceptions::InvalidPointer Throws if last index is not a size_t value.
          * @return size_t which is the last index inside the JsonPointer
          */
-        size_t get_index() const;
+        [[nodiscard]] size_t get_index() const;
 
         /*!
          * @brief Returns last key in pointer
          * @return JsonKey which is the last string index in the JsonPointer
          * @throw exceptions::InvalidPointer Throws if last index is not a JsonKey object.
          */
-        JsonKey get_key() const;
+        [[nodiscard]] JsonKey get_key() const;
 
         /*!
          * @brief Returns last index parent
@@ -100,13 +100,13 @@ namespace simple_json::types {
          * @throw exceptions::InvalidPointer Throws if pointer does not have a parent.
          * @return New JsonPointer object created from current JsonPointer object's parent.
          */
-        JsonPointer get_parent() const;
+        [[nodiscard]] JsonPointer get_parent() const;
 
         /*!
          * @brief Checks if pointer ends with "-" character.
          * @return A boolean specifying if pointer ended with "-" character.
          */
-        bool check_ended() const;
+        [[nodiscard]] bool check_ended() const;
 
         // Operator Overloading
 
@@ -115,7 +115,7 @@ namespace simple_json::types {
          * @param json_pointer JsonPointer which is going to get compared.
          * @return A boolean representing the checking result.
          */
-        bool operator==(const JsonPointer & json_pointer) const;
+        [[nodiscard]] bool operator==(const JsonPointer & json_pointer) const;
 
         /*!
          * @brief Addition operator overload
@@ -124,7 +124,7 @@ namespace simple_json::types {
          * @param r_path std::string which is going to get added to the pointer
          * @return Created JsonPointer object
          */
-        JsonPointer operator+(const std::string & r_path) const;
+        [[nodiscard]] JsonPointer operator+(const std::string & r_path) const;
 
         /*!
          * @brief Addition operator overload
@@ -133,7 +133,7 @@ namespace simple_json::types {
          * @param r_path JsonKey object which is going to be added to current pointer.
          * @return New JsonPointer object created from adding r_path to current JsonPointer object.
          */
-        JsonPointer operator+(const JsonKey & r_path) const;
+        [[nodiscard]] JsonPointer operator+(const JsonKey & r_path) const;
 
         /*!
          * @brief Addition operator overload
@@ -142,7 +142,7 @@ namespace simple_json::types {
          * @param r_index size_t index which is going to get added to the current pointer.
          * @return New JsonPointer object created from adding r_path to current JsonPointer object.
          */
-        JsonPointer operator+(size_t r_index) const;
+        [[nodiscard]] JsonPointer operator+(size_t r_index) const;
 
         /*!
          * @brief std::string explicit conversion operator
@@ -150,12 +150,12 @@ namespace simple_json::types {
          * This operator overload returns a copy of JsonPointer inner pointer_text which is a std::string object.
          * @return A copy of pointer_text inside the current JsonPointer object.
          */
-        explicit operator std::string() const;
+        [[nodiscard]] explicit operator std::string() const;
 
         // Friends
         friend std::ostream & operator<<(std::ostream &, const JsonPointer &);
-        friend Json;
-        friend JsonKey;
+        friend class Json;
+        friend class JsonKey;
     };
 
     // Operator Overloading
@@ -167,7 +167,7 @@ namespace simple_json::types {
      * @param pointer_ptr Pointer pointing to first character of c-string that operator is being used on.
      * @return A new JsonPointer object created from a c-string.
      */
-    JsonPointer operator""_json_ptr(const char * pointer_ptr, size_t);
+    [[nodiscard]] JsonPointer operator""_json_ptr(const char * pointer_ptr, size_t);
 
     /*!
      * @relatedalso JsonPointer

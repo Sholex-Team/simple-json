@@ -13,7 +13,7 @@ namespace simple_json::types::exceptions {
     class InvalidPatchOperation : public base_exceptions::JsonException {
     public:
         // Public Methods
-        const char * what() const noexcept override;
+        [[nodiscard]] const char * what() const noexcept override;
     };
 }
 

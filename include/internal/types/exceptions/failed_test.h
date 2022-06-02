@@ -34,7 +34,7 @@ namespace simple_json::types::exceptions {
         explicit FailedTest(const JsonPointer & json_pointer, Error error = Error::INVALID_VALUE);
 
         // Public Methods
-        const char * what() const noexcept override;
+        [[nodiscard]] const char * what() const noexcept override;
     };
 }
 

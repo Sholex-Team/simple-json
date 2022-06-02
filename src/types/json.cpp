@@ -1141,41 +1141,4 @@ namespace simple_json::types {
     }
 
     #pragma endregion
-
-    #pragma region Iterators
-
-    // Constructors
-    Json::iterator::iterator(const iterators::JsonIterator<Array::iterator, JsonObject::iterator, Json> & r_iterator)
-            : JsonIterator {r_iterator} {}
-
-    Json::iterator::iterator(iterators::JsonIterator<Array::iterator,
-                             JsonObject::iterator,
-                             Json> && r_iterator) noexcept : JsonIterator {std::move(r_iterator)} {}
-
-    Json::const_iterator::const_iterator(const iterators::JsonIterator<Array::const_iterator,
-                                           JsonObject::const_iterator,
-                                           const Json> & r_iterator) : JsonIterator {r_iterator} {}
-
-    Json::const_iterator::const_iterator(iterators::JsonIterator<Array::const_iterator,
-                                         JsonObject::const_iterator,
-                                         const Json> && r_iterator) noexcept : JsonIterator {std::move(r_iterator)} {}
-
-    Json::reverse_iterator::reverse_iterator(const iterators::JsonIterator<Array::reverse_iterator,
-                                             JsonObject::reverse_iterator,
-                                             Json> & r_iterator): JsonIterator {r_iterator} {}
-
-    Json::reverse_iterator::reverse_iterator(iterators::JsonIterator<Array::reverse_iterator,
-                                             JsonObject::reverse_iterator,
-                                             Json> && r_iterator) noexcept : JsonIterator {std::move(r_iterator)} {}
-
-    Json::const_reverse_iterator::const_reverse_iterator(const iterators::JsonIterator<Array::const_reverse_iterator,
-                                                         JsonObject::const_reverse_iterator,
-                                                         const Json> & r_iterator) : JsonIterator {r_iterator} {}
-
-    Json::const_reverse_iterator::const_reverse_iterator(iterators::JsonIterator<Array::const_reverse_iterator,
-                                                         JsonObject::const_reverse_iterator,
-                                                         const Json>&& r_iterator) noexcept :
-                                                         JsonIterator {std::move(r_iterator)} {}
-
-    #pragma endregion
 }
