@@ -36,15 +36,23 @@ namespace simple_json::types {
 
     class Json {
     private:
-        std::variant<std::monostate, long int, double, bool, Array *, std::string *, JsonObject *> data;
+        using variant_type = std::variant<std::monostate, nullptr_t, long int, double, bool, std::string *, Array *,
+        JsonObject *>;
+        variant_type data;
 
         // Private Methods
-        void move(Json &) noexcept;
         void copy(const Json & json_item);
-        void create_object();
-        void check_type(DataType target_type) const;
+        void create_object(DataType object_type);
+
+        template<DataType T>
+        [[nodiscard]] auto &check_type() const {
+            if (data.index() != T)
+                throw exceptions::InvalidOperation {T};
+            return std::get<T>(const_cast<variant_type &>(data));
+        }
+
         inline void can_iterate() const {
-            if (!(used_type == DataType::array_type || used_type == DataType::json_object_type)) {
+            if (!(data.index() == DataType::array_type || data.index() == DataType::json_object_type)) {
                 throw exceptions::InvalidOperation {};
             }
         }
@@ -208,17 +216,17 @@ namespace simple_json::types {
         // Operator Overloading
         /*!
          * @brief Json copy assignment operator overload
-         * @param data A const reference to Json object which is about to get copied
+         * @param r_json A const reference to Json object which is about to get copied
          * @return A reference to modified Json object.
          */
-        Json & operator=(const Json & data);
+        Json & operator=(const Json & r_json);
 
         /*!
          * @brief Json move assignment operator overload
-         * @param data A r-value reference to Json object which is about ot be moved
+         * @param r_json A r-value reference to Json object which is about ot be moved
          * @return A reference to modified Json object
          */
-        Json & operator=(Json && data) noexcept;
+        Json & operator=(Json && r_json) noexcept;
 
         /*!
          * @brief Json JsonObject initializer_list assignment operator overload.
@@ -826,7 +834,7 @@ namespace simple_json::types {
          * @brief Returns the inner type of Json object.
          * @return DataType of the object stored inside Json object
          */
-        [[nodiscard]] inline DataType type() const noexcept {return used_type;}
+        [[nodiscard]] inline DataType type() const noexcept {return static_cast<DataType>(data.index());}
 
         /*!
          * @brief Checks if the Json object is an empty container.

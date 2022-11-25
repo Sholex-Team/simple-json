@@ -40,12 +40,14 @@ namespace simple_json::types {
             for (int i {0}; i < local_indent; ++i) {
                 os << ' ';
             }
-            switch (item.used_type) {
+            switch (item.data.index()) {
                 case DataType::json_object_type:
-                    item.data_json_object->stream_with_indent(os, local_indent + indent_length);
+                    std::get<DataType::json_object_type>(item.data)->stream_with_indent(
+                            os, local_indent + indent_length);
                     break;
                 case DataType::array_type:
-                    item.data_array->stream_with_indent(os, local_indent + indent_length);
+                    std::get<DataType::array_type>(item.data)->stream_with_indent(
+                            os, local_indent + indent_length);
                     break;
                 case DataType::string_type:
                     os << item.serialize();
