@@ -21,6 +21,7 @@
 #include <functional>
 #include "exceptions/invalid_merge.h"
 #include <type_traits>
+#include <variant>
 
 namespace simple_json::types {
     class JsonKey;
@@ -35,15 +36,7 @@ namespace simple_json::types {
 
     class Json {
     private:
-        union {
-            long int data_int;
-            double data_double;
-            bool data_boolean;
-            Array * data_array;
-            std::string * data_string;
-            JsonObject * data_json_object;
-        };
-        DataType used_type;
+        std::variant<std::monostate, long int, double, bool, Array *, std::string *, JsonObject *> data;
 
         // Private Methods
         void move(Json &) noexcept;
