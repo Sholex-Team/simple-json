@@ -30,7 +30,7 @@ namespace simple_json::types {
     template<typename T>
     Json::Json(T data) : data {data} {}
 
-    Json::Json(const std::nullptr_t) : data {std::monostate()} {}
+    Json::Json(const std::nullptr_t) : data {nullptr} {}
 
     Json::Json(const Array & data) : data {new Array(data)} {}
 
