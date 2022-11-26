@@ -513,6 +513,7 @@ namespace simple_json::types {
             case DataType::double_type:
             case DataType::boolean_type:
                 data = json_item.data;
+                return;
             case DataType::string_type:
                 data = new std::string {*std::get<DataType::string_type>(json_item.data)};
                 return;
@@ -531,6 +532,7 @@ namespace simple_json::types {
         switch (object_type) {
             case DataType::null_type:
                 data = nullptr;
+                return;
             case DataType::integer_type:
                 data = 0;
                 return;
