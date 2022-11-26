@@ -530,6 +530,9 @@ namespace simple_json::types {
 
     void Json::create_object(DataType object_type) {
         switch (object_type) {
+            case DataType::unknown:
+                data = std::monostate();
+                return;
             case DataType::null_type:
                 data = nullptr;
                 return;
