@@ -786,14 +786,14 @@ namespace simple_json::types {
          * @throw exceptions::InvalidOperation Throws when the Json object is not an Array.
          * @param new_item A const reference to the the new Json object
          */
-        void push_back(const Json & new_item);
+        void push_back(const Json &new_item);
 
         /*!
          * @brief Moves a new Json object into the Array inside Json object.
-         * @throw exceptions:;InvalidOperation Throws when the Json object is not an Array.
+         * @throw exceptions::InvalidOperation Throws when the Json object is not an Array.
          * @param new_item A r-value reference to the Json object which is about to be moved.
          */
-        void push_back(Json && new_item);
+        void push_back(Json &&new_item);
 
         /*!
          * @brief Inserts a new std::pair into the JsonObject stored inside Json object.

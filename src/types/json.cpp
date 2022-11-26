@@ -510,10 +510,10 @@ namespace simple_json::types {
                 data = new std::string {*std::get<DataType::string_type>(json_item.data)};
                 return;
             case DataType::array_type:
-                data = new Array {*std::get<DataType::array_type>(json_item.data)};
+                data = new Array(*std::get<DataType::array_type>(json_item.data));
                 return;
             case DataType::json_object_type:
-                data = new JsonObject {*std::get<DataType::json_object_type>(json_item.data)};
+                data = new JsonObject(*std::get<DataType::json_object_type>(json_item.data));
                 return;
             default:
                 return;
