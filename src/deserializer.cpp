@@ -171,7 +171,6 @@ namespace simple_json::deserializer {
         }
 
         Json Deserializer::deserialize(std::istream & stream) {
-            main_object = DataType::unknown;
             while (stream.get(ch)) {
                 if (finished && (ch != '\n' && ch != '\t' && ch != '\b')) {
                     throw exceptions::ParsingException {Errors::extra_character};

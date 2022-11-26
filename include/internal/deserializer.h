@@ -71,7 +71,7 @@ namespace simple_json::deserializer {
             std::string false_str {"false"};
             std::string true_str {"true"};
             std::string null_str {"null"};
-            char ch;
+            char ch {};
             long int integer_value {};
             double double_value {};
 
@@ -86,6 +86,8 @@ namespace simple_json::deserializer {
             bool is_special();
             void general_push_or_exception();
         public:
+            Deserializer(): main_object (types::DataType::unknown) {};
+
             [[nodiscard]] types::Json deserialize(std::istream & steam);
             [[nodiscard]] types::Json deserialize(std::istream && stream);
         };
