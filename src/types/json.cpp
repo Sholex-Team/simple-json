@@ -27,8 +27,15 @@ namespace simple_json::types {
 
     #pragma endregion
     #pragma region Constructors
-    template<typename T>
-    Json::Json(T data) : data {data} {}
+    Json::Json(const double data) : data {data} {}
+
+    Json::Json(const bool data) : data {data} {}
+
+    Json::Json(const long int data) : data {data} {}
+
+    Json::Json(const int data) : data {data} {}
+
+    Json::Json(const char *data) : data {new std::string {data}} {}
 
     Json::Json(const std::nullptr_t) : data {nullptr} {}
 
@@ -127,7 +134,7 @@ namespace simple_json::types {
 
     Json & Json::operator=(const Json &r_json) {
         clean_memory();
-        copy(data);
+        copy(r_json);
         return * this;
     }
 

@@ -96,11 +96,34 @@ namespace simple_json::types {
         [[nodiscard]] Json();
 
         /*!
-         * @brief Json T data type constructor
-         * @param data T data
+         * @brief Json double data type constructor
+         * @param data double data
          */
-        template<typename T>
-        [[nodiscard]] Json(T data);
+        [[nodiscard]] Json(double data);
+
+        /*!
+         * @brief Json bool data type constructor
+         * @param data bool data
+         */
+        [[nodiscard]] Json(bool data);
+
+        /*!
+         * @brief Json long int data type constructor
+         * @param data long int data
+         */
+        [[nodiscard]] Json(long int data);
+
+        /*!
+         * @brief Json int data type constructor
+         * @param data int data
+         */
+        [[nodiscard]] Json(int data);
+
+        /*!
+         * @brief Json c-string constructor
+         * @param data const char pointer pointing to the first character of c-string
+         */
+        [[nodiscard]] Json(const char * data);
 
         /*!
          * @brief Json null constructor
