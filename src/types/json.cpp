@@ -826,6 +826,18 @@ namespace simple_json::types {
         return * std::get<DataType::json_object_type>(data);
     }
 
+    template<typename T>
+    T Json::find_in_range(const T &first, const T &last, const Json &item) const {
+        return T {std::find(*first.template check_type<IteratorType::ARRAY_ITERATOR_TYPE>(),
+                            *last.template check_type<IteratorType::ARRAY_ITERATOR_TYPE>(), item)};
+    }
+
+    template<typename T>
+    size_t Json::count_in_range(const T &first, const T &last, const Json &item) const {
+        return std::count(*first.template check_type<IteratorType::ARRAY_ITERATOR_TYPE>(),
+                          *last.template check_type<IteratorType::ARRAY_ITERATOR_TYPE>(), item);
+    }
+
     void Json::update(const Json & target) {
         if (data.index() != DataType::json_object_type || target.data.index() != DataType::json_object_type) {
             throw exceptions::InvalidOperation {DataType::json_object_type};
@@ -1080,6 +1092,22 @@ namespace simple_json::types {
     template auto Json::check_type<DataType::string_type>() const -> std::string *&;
     template auto Json::check_type<DataType::array_type>() const -> Array *&;
     template auto Json::check_type<DataType::json_object_type>() const -> JsonObject *&;
+
+    template Json::iterator Json::find_in_range(const Json::iterator &, const Json::iterator &, const Json &item) const;
+    template Json::const_iterator Json::find_in_range(const Json::const_iterator &, const Json::const_iterator &,
+            const Json &) const;
+    template Json::reverse_iterator Json::find_in_range(const Json::reverse_iterator &, const Json::reverse_iterator &,
+            const Json &) const;
+    template Json::const_reverse_iterator Json::find_in_range(const Json::const_reverse_iterator &,
+            const Json::const_reverse_iterator &, const Json &) const;
+
+    template size_t Json::count_in_range(const Json::iterator &, const Json::iterator &, const Json &item) const;
+    template size_t Json::count_in_range(const Json::const_iterator &, const Json::const_iterator &,
+                                         const Json & item) const;
+    template size_t Json::count_in_range(const Json::reverse_iterator &, const Json::reverse_iterator &,
+            const Json &) const;
+    template size_t Json::count_in_range(const Json::const_reverse_iterator &, const Json::const_reverse_iterator &,
+            const Json &) const;
 
     #pragma endregion
 }

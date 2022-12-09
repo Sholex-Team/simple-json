@@ -1044,10 +1044,7 @@ namespace simple_json::types {
          * does not exist in the range iterator pointing to this->end() will be returned instead.
          */
         template<typename T>
-        [[nodiscard]] T find_in_range(const T & first, const T & last, const Json & item) const {
-            return T {std::find(*first.template check_type<IteratorType::ARRAY_ITERATOR_TYPE>(),
-                    *last.template check_type<IteratorType::ARRAY_ITERATOR_TYPE>(), item)};
-        }
+        [[nodiscard]] T find_in_range(const T &first, const T &last, const Json &item) const;
 
         /*!
          * @brief Counts the instances of the given Json object in the given range.
@@ -1059,10 +1056,7 @@ namespace simple_json::types {
          * @return size_t count of instances of the given Json object in the container.
          */
         template<typename T>
-        [[nodiscard]] size_t count_in_range(const T & first, const T & last, const Json & item) const {
-            return std::count(*first.template check_type<IteratorType::ARRAY_ITERATOR_TYPE>(),
-                    *last.template check_type<IteratorType::ARRAY_ITERATOR_TYPE>(), item);
-        }
+        [[nodiscard]] size_t count_in_range(const T & first, const T & last, const Json & item) const;
 
         // Destructors
         ~Json();
