@@ -109,14 +109,14 @@ namespace simple_json::iterators {
 
     template<typename ArrayIterator, typename JsonObjectIterator, typename ReturnType>
     ReturnType &JsonIterator<ArrayIterator, JsonObjectIterator, ReturnType>::value() const {
-        return const_cast<ReturnType &>((*check_type<IteratorType::JSON_OBJECT_ITERATOR_TYPE>())->second);
+        return (*check_type<IteratorType::JSON_OBJECT_ITERATOR_TYPE>())->second;
     }
 
     template<typename ArrayIterator, typename JsonObjectIterator, typename ReturnType>
     ReturnType &JsonIterator<ArrayIterator, JsonObjectIterator, ReturnType>::operator*() const {
         if (data.index() != IteratorType::ARRAY_ITERATOR_TYPE)
             throw exceptions::InvalidDereference {};
-        return const_cast<ReturnType &>(**std::get<IteratorType::ARRAY_ITERATOR_TYPE>(data));
+        return **std::get<IteratorType::ARRAY_ITERATOR_TYPE>(data);
     }
 
     template<typename ArrayIterator, typename JsonObjectIterator, typename ReturnType>
