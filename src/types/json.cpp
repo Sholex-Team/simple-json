@@ -923,7 +923,7 @@ namespace simple_json::types {
 
     size_t Json::find_index(const const_iterator &it) const {
         return std::distance(check_type<DataType::array_type>()->cbegin(),
-                             *it.check_type<IteratorType::array_iterator_type>());
+                             *it.check_type<IteratorType::ARRAY_ITERATOR_TYPE>());
     }
 
     size_t Json::count(const Json & item) const {
@@ -1034,11 +1034,12 @@ namespace simple_json::types {
     }
 
     void Json::insert(const Json::const_iterator & position, const Json & item) {
-        check_type<DataType::array_type>()->insert(* position.array_iterator, item);
+        check_type<DataType::array_type>()->insert(* position.check_type<IteratorType::ARRAY_ITERATOR_TYPE>(), item);
     }
 
-    void Json::insert(const Json::const_iterator & position, Json && item) {
-        check_type<DataType::array_type>()->insert(* position.array_iterator, std::move(item));
+    void Json::insert(const Json::const_iterator &position, Json && item) {
+        check_type<DataType::array_type>()->insert(* position.check_type<IteratorType::ARRAY_ITERATOR_TYPE>(),
+                std::move(item));
     }
 
     Json::const_iterator Json::get_item(const long index) const {

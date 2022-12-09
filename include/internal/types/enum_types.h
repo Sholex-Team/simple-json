@@ -42,9 +42,9 @@ namespace simple_json::types {
      */
 
     enum IteratorType : std::size_t  {
-        unknown_iterator, /*!< This type will be used when the iterator type is not defined yet. */
-        array_iterator_type, /*!< This type will be used if iterator is Array based. */
-        json_object_iterator_type /*!< This type will be used if iterator is JsonObject based. */
+        UNKNOWN_ITERATOR, /*!< This type will be used when the iterator type is not defined yet. */
+        ARRAY_ITERATOR_TYPE, /*!< This type will be used if iterator is Array based. */
+        JSON_OBJECT_ITERATOR_TYPE /*!< This type will be used if iterator is JsonObject based. */
     };
 
     /*! @enum IteratorType

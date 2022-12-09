@@ -1050,9 +1050,8 @@ namespace simple_json::types {
          */
         template<typename T>
         [[nodiscard]] T find_in_range(const T & first, const T & last, const Json & item) const {
-            first.check_type(IteratorType::array_iterator_type);
-            last.check_type(IteratorType::array_iterator_type);
-            return T{std::find(*first.array_iterator, *last.array_iterator, item)};
+            return T {std::find(*first.template check_type<IteratorType::ARRAY_ITERATOR_TYPE>(),
+                    *last.template check_type<IteratorType::ARRAY_ITERATOR_TYPE>(), item)};
         }
 
         /*!
@@ -1066,9 +1065,8 @@ namespace simple_json::types {
          */
         template<typename T>
         [[nodiscard]] size_t count_in_range(const T & first, const T & last, const Json & item) const {
-            first.check_type(IteratorType::array_iterator_type);
-            last.check_type(IteratorType::array_iterator_type);
-            return std::count(* first.array_iterator, * last.array_iterator, item);
+            return std::count(*first.template check_type<IteratorType::ARRAY_ITERATOR_TYPE>(),
+                    *last.template check_type<IteratorType::ARRAY_ITERATOR_TYPE>(), item);
         }
 
         // Destructors

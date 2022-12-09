@@ -81,7 +81,7 @@ namespace simple_json::iterators {
 
         // Public Methods
         template<IteratorType T>
-        [[nodiscard]] auto &check_type() const;
+        [[nodiscard]] auto check_type() const -> decltype(std::get<T>(const_cast<variant_type &>(data)));
         /*!
          * @brief Key method which returns iterator key.
          *

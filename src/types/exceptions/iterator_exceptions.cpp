@@ -34,9 +34,9 @@ namespace simple_json::iterators::exceptions {
 
     const char * InvalidIterator::what() const noexcept {
         switch (used_type) {
-            case types::IteratorType::array_iterator_type:
+            case types::IteratorType::ARRAY_ITERATOR_TYPE:
                 return "Can not perform this operation on an Array iterator!";
-            case types::IteratorType::json_object_iterator_type:
+            case types::IteratorType::JSON_OBJECT_ITERATOR_TYPE:
                 return "Can not perform this operation on a JsonObject iterator!";
             default:
                 return "Can not perform this operation on an Unknown Type iterator!";
