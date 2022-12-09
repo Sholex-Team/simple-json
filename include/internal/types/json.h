@@ -41,21 +41,16 @@ namespace simple_json::types {
         variant_type data;
 
         // Private Methods
-        void copy(const Json & json_item);
-        void create_object(DataType object_type);
-
-        template<DataType T>
-        [[nodiscard]] auto &check_type() const {
-            if (data.index() != T)
-                throw exceptions::InvalidOperation {T};
-            return std::get<T>(const_cast<variant_type &>(data));
-        }
-
         inline void can_iterate() const {
             if (!(data.index() == DataType::array_type || data.index() == DataType::json_object_type)) {
                 throw exceptions::InvalidOperation {};
             }
         }
+
+        void copy(const Json & json_item);
+        void create_object(DataType object_type);
+        template<DataType T>
+        [[nodiscard]] auto check_type() const -> decltype(std::get<T>(const_cast<variant_type &>(data)));
         void clean_memory() noexcept;
         void increment();
         void decrement();

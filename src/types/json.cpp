@@ -490,6 +490,13 @@ namespace simple_json::types {
     #pragma endregion Destructor
 
     #pragma region Private Methods
+    template<DataType T>
+    auto Json::check_type() const -> decltype(std::get<T>(const_cast<variant_type &>(data))) {
+        if (data.index() != T)
+            throw exceptions::InvalidOperation {T};
+        return std::get<T>(const_cast<variant_type &>(data));
+    }
+
     void Json::clean_memory() noexcept {
         switch (data.index()) {
             case DataType::array_type:
@@ -1060,6 +1067,19 @@ namespace simple_json::types {
         }
         throw iterators::exceptions::InvalidType {};
     }
+
+    #pragma endregion
+
+    #pragma Explicit Template Instantiation
+
+    template auto Json::check_type<DataType::unknown>() const -> std::monostate &;
+    template auto Json::check_type<DataType::null_type>() const -> std::nullptr_t &;
+    template auto Json::check_type<DataType::integer_type>() const -> long int &;
+    template auto Json::check_type<DataType::double_type>() const -> double &;
+    template auto Json::check_type<DataType::boolean_type>() const -> bool &;
+    template auto Json::check_type<DataType::string_type>() const -> std::string *&;
+    template auto Json::check_type<DataType::array_type>() const -> Array *&;
+    template auto Json::check_type<DataType::json_object_type>() const -> JsonObject *&;
 
     #pragma endregion
 }
