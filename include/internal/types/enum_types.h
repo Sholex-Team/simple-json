@@ -41,12 +41,13 @@ namespace simple_json::types {
      * These types will be used for specifying Json object inner type.
      */
 
-    enum class IteratorTypes : std::uint8_t  {
+    enum IteratorType : std::size_t  {
+        unknown_iterator, /*!< This type will be used when the iterator type is not defined yet. */
         array_iterator_type, /*!< This type will be used if iterator is Array based. */
         json_object_iterator_type /*!< This type will be used if iterator is JsonObject based. */
     };
 
-    /*! @enum IteratorTypes
+    /*! @enum IteratorType
      * @brief Json Iterator types.
      *
      * This types will be used inside a JsonIterator based iterator to specify it's inner type.

@@ -921,11 +921,9 @@ namespace simple_json::types {
             );
     }
 
-    size_t Json::find_index(const const_iterator & it) const {
-        if (it.used_type != IteratorTypes::array_iterator_type) {
-            throw iterators::exceptions::InvalidType{};
-        }
-        return std::distance(check_type<DataType::array_type>()->cbegin(), *it.array_iterator);
+    size_t Json::find_index(const const_iterator &it) const {
+        return std::distance(check_type<DataType::array_type>()->cbegin(),
+                             *it.check_type<IteratorType::array_iterator_type>());
     }
 
     size_t Json::count(const Json & item) const {

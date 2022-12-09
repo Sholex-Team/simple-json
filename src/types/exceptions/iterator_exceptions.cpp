@@ -5,7 +5,7 @@ namespace simple_json::iterators::exceptions {
 
     InvalidIteration::InvalidIteration(const types::DataType used_type) : used_type {used_type} {}
 
-    InvalidIterator::InvalidIterator(types::IteratorTypes used_type) : used_type {used_type} {}
+    InvalidIterator::InvalidIterator(types::IteratorType used_type) : used_type {used_type} {}
 
     #pragma endregion
 
@@ -33,10 +33,14 @@ namespace simple_json::iterators::exceptions {
     }
 
     const char * InvalidIterator::what() const noexcept {
-        if (used_type == types::IteratorTypes::array_iterator_type) {
-            return "Iterator is not an array iterator !";
+        switch (used_type) {
+            case types::IteratorType::array_iterator_type:
+                return "Can not perform this operation on an Array iterator!";
+            case types::IteratorType::json_object_iterator_type:
+                return "Can not perform this operation on a JsonObject iterator!";
+            default:
+                return "Can not perform this operation on an Unknown Type iterator!";
         }
-        return "Iterator is not a JSON object iterator !";
     }
 
     #pragma endregion

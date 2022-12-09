@@ -1,5 +1,5 @@
-#ifndef SIMPLE_JSON_ARRAY_TYPE_H
-#define SIMPLE_JSON_ARRAY_TYPE_H
+#ifndef SIMPLE_JSON_ARRAY_H
+#define SIMPLE_JSON_ARRAY_H
 
 #include <vector>
 #include <ostream>
@@ -50,4 +50,4 @@ namespace simple_json::types {
     std::ostream & operator<<(std::ostream & os, const Array & array);
 }
 
-#endif //SIMPLE_JSON_ARRAY_TYPE_H
+#endif //SIMPLE_JSON_ARRAY_H

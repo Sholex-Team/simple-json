@@ -56,7 +56,7 @@ namespace simple_json::iterators::exceptions {
      */
     class InvalidIterator : public base_exceptions::JsonException {
     private:
-        types::IteratorTypes used_type;
+        types::IteratorType used_type;
     public:
         /*!
          * @brief InvalidIterator constructor.
@@ -65,7 +65,7 @@ namespace simple_json::iterators::exceptions {
          * being performed on.
          * @param used_type Invalid iterator type.
          */
-        explicit InvalidIterator(types::IteratorTypes used_type);
+        explicit InvalidIterator(types::IteratorType used_type);
         [[nodiscard]] const char * what() const noexcept override;
     };
 }

@@ -2,7 +2,7 @@
 #define SIMPLE_JSON_SIMPLE_JSON_H
 
 #include "../internal/types/json.h"
-#include "../internal/types/array_type.h"
+#include "../internal/types/array.h"
 #include "../internal/types/enum_types.h"
 #include "../internal/types/json_key.h"
 #include "../internal/types/json_object.h"

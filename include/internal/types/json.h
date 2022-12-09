@@ -4,7 +4,7 @@
 #include <ostream>
 #include "enum_types.h"
 #include "json_object.h"
-#include "array_type.h"
+#include "array.h"
 #include "base_iterator.h"
 #include "exceptions/invalid_operation.h"
 #include <string>
@@ -1050,8 +1050,8 @@ namespace simple_json::types {
          */
         template<typename T>
         [[nodiscard]] T find_in_range(const T & first, const T & last, const Json & item) const {
-            first.check_type(IteratorTypes::array_iterator_type);
-            last.check_type(IteratorTypes::array_iterator_type);
+            first.check_type(IteratorType::array_iterator_type);
+            last.check_type(IteratorType::array_iterator_type);
             return T{std::find(*first.array_iterator, *last.array_iterator, item)};
         }
 
@@ -1066,8 +1066,8 @@ namespace simple_json::types {
          */
         template<typename T>
         [[nodiscard]] size_t count_in_range(const T & first, const T & last, const Json & item) const {
-            first.check_type(IteratorTypes::array_iterator_type);
-            last.check_type(IteratorTypes::array_iterator_type);
+            first.check_type(IteratorType::array_iterator_type);
+            last.check_type(IteratorType::array_iterator_type);
             return std::count(* first.array_iterator, * last.array_iterator, item);
         }
 

@@ -2,7 +2,7 @@
 #define SIMPLE_JSON_STREAM_EXCEPTIONS_H
 
 #include "base_exceptions.h"
-#include "../array_type.h"
+#include "../array.h"
 
 namespace simple_json {
     /*!

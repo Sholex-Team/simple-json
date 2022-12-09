@@ -1,4 +1,4 @@
-#include "types/array_type.h"
+#include "types/array.h"
 #include "types/json.h"
 
 

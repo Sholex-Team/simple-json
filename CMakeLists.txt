@@ -27,7 +27,7 @@ set(EXTERNAL_INCLUDE_DIR "")
 add_library(
         simple-json
         src/types/exceptions/stream_exceptions.cpp
-        src/types/array_type.cpp
+        src/types/array.cpp
         src/types/exceptions/bad_conversion.cpp
         src/types/exceptions/invalid_index.cpp
         src/types/exceptions/invalid_pointer.cpp
