@@ -210,5 +210,171 @@ namespace simple_json::types {
         });
     }
 
-#pragma endregion
+    template<typename T>
+    void JsonPatch::PatchBuilder::do_compare(T i, const JsonPointer &new_path, DataType used_type) {
+        Json * old_src {current_src};
+        Json * old_dst {current_dst};
+        current_src = & current_src->at(i);
+        current_dst = & current_dst->at(i);
+        if (used_type == DataType::array_type)
+            compare_array(new_path);
+        else
+            compare_json_object(new_path);
+        current_src = old_src;
+        current_dst = old_dst;
+    }
+
+    template<typename T>
+    void JsonPatch::apply_loop(Json &json, T begin, T end) {
+        JsonPatch rollback_patch {};
+        Json & rollback {rollback_patch.get_json()};
+        Json * target_json;
+        const JsonKey path_key {"path"};
+        const JsonKey value_key {"value"};
+        try {
+            for (; begin != end; ++begin) {
+                const Json & patch_object {*begin};
+                std::string op {static_cast<std::string>(patch_object.at("op"))};
+                const Json & json_path {patch_object.at(path_key)};
+                const JsonPointer path {static_cast<std::string>(patch_object.at(path_key))};
+                if (op == "test")  {
+                    try {
+                        target_json = & json.at(path);
+                    } catch (const std::out_of_range &) {
+                        throw exceptions::FailedTest {path, exceptions::FailedTest::Error::INVALID_PATH};
+                    }
+                    if (* target_json != patch_object.at(value_key))
+                        throw exceptions::FailedTest {path};
+                } else if (op == "add") {
+                    Json & parent {json.at(path.get_parent())};
+                    if (parent.type() == DataType::json_object_type)
+                        parent.insert({path.get_key(), patch_object.at(value_key)});
+                    else if (parent.type() == DataType::array_type)
+                        if (path.check_ended())
+                            parent.push_back(patch_object.at(value_key));
+                        else
+                            parent.insert(parent.cbegin() + path.get_index(), patch_object.at(value_key));
+                    else
+                        throw exceptions::InvalidPointer {};
+                    rollback.push_back({{"op"_json_key, "remove"}, {"path"_json_key, json_path}});
+                } else if (op == "replace") {
+                    Json & parent {json.at(path.get_parent())};
+                    if (parent.type() == DataType::json_object_type || parent.type() == DataType::array_type) {
+                        rollback.push_back({{"op"_json_key, "replace"}, {"path"_json_key, json_path},
+                                            {"value"_json_key, json.at(path)}});
+                        if (parent.type() == DataType::json_object_type) {
+                            parent.at(path.get_key()) = patch_object.at(value_key);
+                            continue;
+                        }
+                        parent.at(path.get_index()) = patch_object.at(value_key);
+                        continue;
+                    }
+                    throw exceptions::InvalidPointer {};
+                } else if (op == "remove") {
+                    Json & parent {json.at(path.get_parent())};
+                    if (parent.type() == DataType::array_type || parent.type() == DataType::json_object_type) {
+                        rollback.push_back({{"op"_json_key, "add"}, {"path"_json_key, json_path},
+                                            {"value"_json_key, json.at(path)}});
+                        if (parent.type() == DataType::json_object_type) {
+                            parent.erase(path.get_key());
+                            continue;
+                        }
+                        parent.erase(path.get_index());
+                        continue;
+                    }
+                    throw exceptions::InvalidPointer {};
+                } else if (op == "copy") {
+                    JsonPointer from_path {static_cast<std::string>(patch_object.at("from"))};
+                    Json & parent {json.at(path.get_parent())};
+                    Json & from_parent {json.at(from_path.get_parent())};
+                    if (parent.type() == DataType::array_type) {
+                        size_t target_index = path.get_index();
+                        if (target_index < parent.size())
+                            throw exceptions::InvalidPointer {};
+                        else if (target_index == parent.size())
+                            rollback.push_back({{"op"_json_key, "rm"}, {"path"_json_key, json_path}});
+                        else
+                            rollback.push_back({{"op"_json_key, "replace"}, {"path"_json_key, json_path},
+                                                {"value"_json_key, parent.at(path)}});
+                        if (from_parent.type() == DataType::array_type) {
+                            parent.insert(parent.cbegin() + target_index, from_parent.at(from_path.get_index()));
+                            continue;
+                        }
+                        if (from_parent.type() == DataType::json_object_type) {
+                            parent.insert(parent.cbegin() + target_index, from_parent.at(from_path.get_key()));
+                            continue;
+                        }
+                    }
+                    if (parent.type() == DataType::json_object_type) {
+                        if (parent.find(from_path.get_key()) == parent.end())
+                            rollback.push_back({{"op"_json_key, "rm"}, {"path"_json_key, json_path}});
+                        else
+                            rollback.push_back({{"op"_json_key, "replace"}, {"path"_json_key, json_path},
+                                                {"value"_json_key, parent.at(path)}});
+                        if (from_parent.type() == DataType::array_type) {
+                            parent.at(path.get_key()) = from_parent.at(from_path.get_index());
+                            continue;
+                        }
+                        if (from_parent.type() == DataType::json_object_type) {
+                            parent.at(path.get_key()) = from_parent.at(from_path.get_key());
+                            continue;
+                        }
+                        throw exceptions::InvalidPointer {};
+                    }
+                    throw exceptions::InvalidPointer {};
+                } else if (op == "move") {
+                    const Json & json_from_path {patch_object.at("from")};
+                    JsonPointer from_path {static_cast<std::string>(json_from_path)};
+                    Json & parent {json.at(path.get_parent())};
+                    Json & from_parent {json.at(from_path.get_parent())};
+                    if (parent.type() == DataType::array_type)
+                        if (from_parent.type() == DataType::array_type) {
+                            Json tmp (parent.at(from_path.get_index()));
+                            from_parent.erase(from_path.get_index());
+                            parent.insert(parent.cbegin() + path.get_index(), tmp);
+                        } else if (from_parent.type() == DataType::json_object_type) {
+                            parent.insert( parent.cbegin() + path.get_index(), from_parent.at(from_path.get_key()));
+                            from_parent.erase(from_path.get_key());
+                        } else {
+                            throw exceptions::InvalidPointer {};
+                        }
+                    else if (parent.type() == DataType::json_object_type)
+                        if (from_parent.type() == DataType::array_type) {
+                            parent.at(path.get_key()) = from_parent.at(from_path.get_index());
+                            from_parent.erase(from_path.get_index());
+                        } else if (from_parent.type() == DataType::json_object_type) {
+                            parent.insert({path.get_key(), from_parent.at(from_path.get_key())});
+                            from_parent.erase(from_path.get_key());
+                        } else {
+                            throw exceptions::InvalidPointer {};
+                        }
+                    else
+                        throw exceptions::InvalidPointer {};
+                    rollback.push_back({{"op"_json_key, "move"}, {"path"_json_key, json_from_path},
+                                        {"from"_json_key, json_path}});
+                } else
+                    throw exceptions::InvalidPatchOperation {};
+            }
+        } catch (const std::exception &) {
+            rollback_patch.apply(json, true);
+            throw;
+        }
+    }
+
+    #pragma endregion
+
+    #pragma region Explicit Template Instantiation
+
+    template void JsonPatch::apply_loop<Json::iterator>(Json &, Json::iterator begin, Json::iterator end);
+    template void JsonPatch::apply_loop<Json::const_iterator>(Json &, Json::const_iterator begin,
+            Json::const_iterator end);
+    template void JsonPatch::apply_loop<Json::reverse_iterator>(Json &, Json::reverse_iterator begin,
+            Json::reverse_iterator end);
+    template void JsonPatch::apply_loop<Json::const_reverse_iterator>(Json &, Json::const_reverse_iterator begin,
+            Json::const_reverse_iterator end);
+
+    template void JsonPatch::PatchBuilder::do_compare<size_t>(size_t i, const JsonPointer &, DataType);
+    template void JsonPatch::PatchBuilder::do_compare<const JsonKey &>(const JsonKey &, const JsonPointer &, DataType);
+
+    #pragma endregion
 }
