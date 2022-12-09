@@ -17,10 +17,10 @@ namespace simple_json::iterators {
             const JsonIterator<ArrayIterator, JsonObjectIterator, ReturnType> &json_iterator) {
         switch (json_iterator.data.index()) {
             case IteratorType::ARRAY_ITERATOR_TYPE:
-                data = new ArrayIterator {*std::get<IteratorType::ARRAY_ITERATOR_TYPE>(data)};
+                data = new ArrayIterator {*std::get<IteratorType::ARRAY_ITERATOR_TYPE>(json_iterator.data)};
                 return;
             case IteratorType::JSON_OBJECT_ITERATOR_TYPE:
-                data = new JsonObjectIterator(*std::get<IteratorType::JSON_OBJECT_ITERATOR_TYPE>(data));
+                data = new JsonObjectIterator(*std::get<IteratorType::JSON_OBJECT_ITERATOR_TYPE>(json_iterator.data));
                 return;
             default:
                 return;
