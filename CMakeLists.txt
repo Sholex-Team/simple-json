@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(simple-json VERSION 0.2.1)
+project(simple-json VERSION 0.3.1)
 set(CMAKE_CXX_STANDARD 17)
 
 set(MAIN_PROJECT OFF)
