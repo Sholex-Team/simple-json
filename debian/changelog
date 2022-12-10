@@ -1,3 +1,12 @@
+simple-json (0.3.0-0ubuntu1) kinetic; urgency=high
+  * Moving template members implantation from header files to .cpp files
+  * Explicit template instantiation
+  * Small bug fix and improvements
+  * Renamed enum types to have UPPER_CASE names
+  * Using std::variant instead of union
+
+ -- NitroZeus <nitrozeusdev@gmail.com>
+
 simple-json (0.2.1-0ubuntu1) jammy; urgency=high
 
   * Fixed version number
