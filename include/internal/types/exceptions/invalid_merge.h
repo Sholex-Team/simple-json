@@ -23,7 +23,7 @@ namespace simple_json::types::exceptions {
          * it. If there isn't any type provided a simple error with no typing details will be thrown.
          * @param target_type Merge target type.
          */
-        explicit InvalidMerge(DataType target_type = DataType::unknown);
+        explicit InvalidMerge(DataType target_type = DataType::UNKNOWN);
         
         // Public Methods
         [[nodiscard]] const char * what() const noexcept override;

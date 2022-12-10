@@ -42,7 +42,7 @@ namespace simple_json::types {
 
         // Private Methods
         inline void can_iterate() const {
-            if (!(data.index() == DataType::array_type || data.index() == DataType::json_object_type)) {
+            if (!(data.index() == DataType::ARRAY_TYPE || data.index() == DataType::JSON_OBJECT_TYPE)) {
                 throw exceptions::InvalidOperation {};
             }
         }
@@ -981,7 +981,7 @@ namespace simple_json::types {
          * @brief Returns the size of the container stored inside Json object.
          *
          * If the data type is not a container 1 will be returned as size.
-         * If the data type is not unknown then a 0 will be returned.
+         * If the data type is not UNKNOWN then a 0 will be returned.
          * @return size_t size of the Json object
          */
         [[nodiscard]] size_t size() const noexcept;

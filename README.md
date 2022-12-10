@@ -357,7 +357,7 @@ using namespace ::deserializer;
 using namespace ::serializer;
 
 int main() {
-    Json json(DataType::unknown);
+    Json json(DataType::UNKNOWN);
     try {
         json = load("serialized.json");
     } catch (const deserializer::exceptions::ReadingFromFileException & error) {

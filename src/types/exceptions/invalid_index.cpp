@@ -3,15 +3,15 @@
 namespace simple_json::types::exceptions {
     const char * InvalidIndex::what() const noexcept {
         switch (used_type) {
-            case DataType::integer_type:
+            case DataType::INTEGER_TYPE:
                 return "Used an index on integer type !";
-            case DataType::double_type:
+            case DataType::DOUBLE_TYPE:
                 return "Used an index on double type !";
-            case DataType::json_object_type:
+            case DataType::JSON_OBJECT_TYPE:
                 return "Invalid index(integer) used on JsonObject type !";
-            case DataType::string_type:
+            case DataType::STRING_TYPE:
                 return "Used an index on string type !";
-            case DataType::array_type:
+            case DataType::ARRAY_TYPE:
                 return "Invalid index(string key) used on Array type !";
             default:
                 return "Invalid index used !";

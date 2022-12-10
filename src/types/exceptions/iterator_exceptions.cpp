@@ -17,11 +17,11 @@ namespace simple_json::iterators::exceptions {
 
     const char * InvalidIteration::what() const noexcept {
         switch (used_type) {
-            case types::DataType::integer_type:
+            case types::DataType::INTEGER_TYPE:
                 return "Invalid Iteration on integer type";
-            case types::DataType::double_type:
+            case types::DataType::DOUBLE_TYPE:
                 return "Invalid Iteration on double type";
-            case types::DataType::string_type:
+            case types::DataType::STRING_TYPE:
                 return "Invalid Iteration on std::string type";
             default:
                 return "Invalid Iteration on non-JsonObject/Array type";

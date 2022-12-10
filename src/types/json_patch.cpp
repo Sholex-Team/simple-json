@@ -4,10 +4,10 @@ namespace simple_json::types {
 
     #pragma region Constructors
 
-    JsonPatch::JsonPatch() : patch_data {new Json(DataType::array_type)} {}
+    JsonPatch::JsonPatch() : patch_data {new Json(DataType::ARRAY_TYPE)} {}
 
     JsonPatch::JsonPatch(const Json & json_patch) {
-        json_patch.check_data(DataType::array_type);
+        json_patch.check_data(DataType::ARRAY_TYPE);
         patch_data = new Json(json_patch);
     }
 
@@ -53,15 +53,15 @@ namespace simple_json::types {
     }
 
     JsonPatch JsonPatch::PatchBuilder::create_patch() {
-        if ((current_src->type() != DataType::json_object_type && current_src->type() != DataType::array_type) ||
-        (dst->type() != DataType::json_object_type && dst->type() != DataType::array_type) ||
-        (current_src->type() != dst->type())) {
+        if ((current_src->type() != DataType::JSON_OBJECT_TYPE && current_src->type() != DataType::ARRAY_TYPE) ||
+            (dst->type() != DataType::JSON_OBJECT_TYPE && dst->type() != DataType::ARRAY_TYPE) ||
+            (current_src->type() != dst->type())) {
             replace_item(JsonPointer {"/"}, * dst);
             return * new_patch;
         }
-        if (current_src->type() == DataType::array_type) {
+        if (current_src->type() == DataType::ARRAY_TYPE) {
             compare_array(JsonPointer {"/"});
-        } else if (current_src->type() == DataType::json_object_type) {
+        } else if (current_src->type() == DataType::JSON_OBJECT_TYPE) {
             compare_json_object(JsonPointer {"/"});
         }
         return * new_patch;
@@ -108,13 +108,13 @@ namespace simple_json::types {
                 }
             }
             if (current_target == current_dst->cend()) {
-                if (current_dst->at(i).type() == DataType::array_type &&
-                current_src->at(i).type() == DataType::array_type) {
-                    do_compare(i, path + i, DataType::array_type);
+                if (current_dst->at(i).type() == DataType::ARRAY_TYPE &&
+                current_src->at(i).type() == DataType::ARRAY_TYPE) {
+                    do_compare(i, path + i, DataType::ARRAY_TYPE);
                     continue;
-                } else if (current_dst->at(i).type() == DataType::json_object_type &&
-                           current_src->at(i).type() == DataType::json_object_type) {
-                    do_compare(i, path + i, DataType::json_object_type);
+                } else if (current_dst->at(i).type() == DataType::JSON_OBJECT_TYPE &&
+                           current_src->at(i).type() == DataType::JSON_OBJECT_TYPE) {
+                    do_compare(i, path + i, DataType::JSON_OBJECT_TYPE);
                     continue;
                 }
                 replace_item(path + i, current_dst->at(i));
@@ -134,14 +134,14 @@ namespace simple_json::types {
                 if (current_dst->at(it.key()) == it.value()) {
                     dst->erase(path + it.key());
                     continue;
-                } else if (current_dst->at(it.key()).type() == DataType::array_type &&
-                           current_src->at(it.key()).type() == DataType::array_type) {
-                    do_compare(it.key(), path + it.key(), DataType::array_type);
+                } else if (current_dst->at(it.key()).type() == DataType::ARRAY_TYPE &&
+                           current_src->at(it.key()).type() == DataType::ARRAY_TYPE) {
+                    do_compare(it.key(), path + it.key(), DataType::ARRAY_TYPE);
                     dst->erase(path + it.key());
                     continue;
-                } else if (current_dst->at(it.key()).type() == DataType::json_object_type &&
-                           current_src->at(it.key()).type() == DataType::json_object_type) {
-                    do_compare(it.key(), path + it.key(), DataType::json_object_type);
+                } else if (current_dst->at(it.key()).type() == DataType::JSON_OBJECT_TYPE &&
+                           current_src->at(it.key()).type() == DataType::JSON_OBJECT_TYPE) {
+                    do_compare(it.key(), path + it.key(), DataType::JSON_OBJECT_TYPE);
                     dst->erase(path + it.key());
                     continue;
                 } else {
@@ -162,7 +162,7 @@ namespace simple_json::types {
     }
 
     void JsonPatch::PatchBuilder::remove_item(const JsonPointer & path) {
-        if (current_src->type() == DataType::array_type) {
+        if (current_src->type() == DataType::ARRAY_TYPE) {
             current_src->erase(path.get_index());
         }
         new_patch->patch_data->push_back({
@@ -172,7 +172,7 @@ namespace simple_json::types {
     }
 
     void JsonPatch::PatchBuilder::add_item(const JsonPointer & path, const Json & item) {
-        if (current_src->type() == DataType::array_type) {
+        if (current_src->type() == DataType::ARRAY_TYPE) {
             current_src->insert(current_src->get_item(path.get_index()), item);
         }
         new_patch->patch_data->push_back({
@@ -188,7 +188,7 @@ namespace simple_json::types {
              {"path"_json_key, static_cast<std::string>(path)},
              {"value"_json_key, item}
         });
-        if (current_src->type() == DataType::array_type) {
+        if (current_src->type() == DataType::ARRAY_TYPE) {
             current_src->at(path.get_index()) = item;
         } else {
             dst->erase(path);
@@ -196,7 +196,7 @@ namespace simple_json::types {
     }
 
     void JsonPatch::PatchBuilder::move_item(const JsonPointer & old_path, const JsonPointer & new_path) {
-        if (current_src->type() == DataType::array_type) {
+        if (current_src->type() == DataType::ARRAY_TYPE) {
             Json temp(std::move(current_src->at(old_path.get_index())));
             current_src->erase(old_path.get_index());
             current_src->insert(current_src->get_item(new_path.get_index()), std::move(temp));
@@ -216,7 +216,7 @@ namespace simple_json::types {
         Json * old_dst {current_dst};
         current_src = & current_src->at(i);
         current_dst = & current_dst->at(i);
-        if (used_type == DataType::array_type)
+        if (used_type == DataType::ARRAY_TYPE)
             compare_array(new_path);
         else
             compare_json_object(new_path);
@@ -247,9 +247,9 @@ namespace simple_json::types {
                         throw exceptions::FailedTest {path};
                 } else if (op == "add") {
                     Json & parent {json.at(path.get_parent())};
-                    if (parent.type() == DataType::json_object_type)
+                    if (parent.type() == DataType::JSON_OBJECT_TYPE)
                         parent.insert({path.get_key(), patch_object.at(value_key)});
-                    else if (parent.type() == DataType::array_type)
+                    else if (parent.type() == DataType::ARRAY_TYPE)
                         if (path.check_ended())
                             parent.push_back(patch_object.at(value_key));
                         else
@@ -259,10 +259,10 @@ namespace simple_json::types {
                     rollback.push_back({{"op"_json_key, "remove"}, {"path"_json_key, json_path}});
                 } else if (op == "replace") {
                     Json & parent {json.at(path.get_parent())};
-                    if (parent.type() == DataType::json_object_type || parent.type() == DataType::array_type) {
+                    if (parent.type() == DataType::JSON_OBJECT_TYPE || parent.type() == DataType::ARRAY_TYPE) {
                         rollback.push_back({{"op"_json_key, "replace"}, {"path"_json_key, json_path},
                                             {"value"_json_key, json.at(path)}});
-                        if (parent.type() == DataType::json_object_type) {
+                        if (parent.type() == DataType::JSON_OBJECT_TYPE) {
                             parent.at(path.get_key()) = patch_object.at(value_key);
                             continue;
                         }
@@ -272,10 +272,10 @@ namespace simple_json::types {
                     throw exceptions::InvalidPointer {};
                 } else if (op == "remove") {
                     Json & parent {json.at(path.get_parent())};
-                    if (parent.type() == DataType::array_type || parent.type() == DataType::json_object_type) {
+                    if (parent.type() == DataType::ARRAY_TYPE || parent.type() == DataType::JSON_OBJECT_TYPE) {
                         rollback.push_back({{"op"_json_key, "add"}, {"path"_json_key, json_path},
                                             {"value"_json_key, json.at(path)}});
-                        if (parent.type() == DataType::json_object_type) {
+                        if (parent.type() == DataType::JSON_OBJECT_TYPE) {
                             parent.erase(path.get_key());
                             continue;
                         }
@@ -287,7 +287,7 @@ namespace simple_json::types {
                     JsonPointer from_path {static_cast<std::string>(patch_object.at("from"))};
                     Json & parent {json.at(path.get_parent())};
                     Json & from_parent {json.at(from_path.get_parent())};
-                    if (parent.type() == DataType::array_type) {
+                    if (parent.type() == DataType::ARRAY_TYPE) {
                         size_t target_index = path.get_index();
                         if (target_index < parent.size())
                             throw exceptions::InvalidPointer {};
@@ -296,26 +296,26 @@ namespace simple_json::types {
                         else
                             rollback.push_back({{"op"_json_key, "replace"}, {"path"_json_key, json_path},
                                                 {"value"_json_key, parent.at(path)}});
-                        if (from_parent.type() == DataType::array_type) {
+                        if (from_parent.type() == DataType::ARRAY_TYPE) {
                             parent.insert(parent.cbegin() + target_index, from_parent.at(from_path.get_index()));
                             continue;
                         }
-                        if (from_parent.type() == DataType::json_object_type) {
+                        if (from_parent.type() == DataType::JSON_OBJECT_TYPE) {
                             parent.insert(parent.cbegin() + target_index, from_parent.at(from_path.get_key()));
                             continue;
                         }
                     }
-                    if (parent.type() == DataType::json_object_type) {
+                    if (parent.type() == DataType::JSON_OBJECT_TYPE) {
                         if (parent.find(from_path.get_key()) == parent.end())
                             rollback.push_back({{"op"_json_key, "rm"}, {"path"_json_key, json_path}});
                         else
                             rollback.push_back({{"op"_json_key, "replace"}, {"path"_json_key, json_path},
                                                 {"value"_json_key, parent.at(path)}});
-                        if (from_parent.type() == DataType::array_type) {
+                        if (from_parent.type() == DataType::ARRAY_TYPE) {
                             parent.at(path.get_key()) = from_parent.at(from_path.get_index());
                             continue;
                         }
-                        if (from_parent.type() == DataType::json_object_type) {
+                        if (from_parent.type() == DataType::JSON_OBJECT_TYPE) {
                             parent.at(path.get_key()) = from_parent.at(from_path.get_key());
                             continue;
                         }
@@ -327,22 +327,22 @@ namespace simple_json::types {
                     JsonPointer from_path {static_cast<std::string>(json_from_path)};
                     Json & parent {json.at(path.get_parent())};
                     Json & from_parent {json.at(from_path.get_parent())};
-                    if (parent.type() == DataType::array_type)
-                        if (from_parent.type() == DataType::array_type) {
+                    if (parent.type() == DataType::ARRAY_TYPE)
+                        if (from_parent.type() == DataType::ARRAY_TYPE) {
                             Json tmp (parent.at(from_path.get_index()));
                             from_parent.erase(from_path.get_index());
                             parent.insert(parent.cbegin() + path.get_index(), tmp);
-                        } else if (from_parent.type() == DataType::json_object_type) {
+                        } else if (from_parent.type() == DataType::JSON_OBJECT_TYPE) {
                             parent.insert( parent.cbegin() + path.get_index(), from_parent.at(from_path.get_key()));
                             from_parent.erase(from_path.get_key());
                         } else {
                             throw exceptions::InvalidPointer {};
                         }
-                    else if (parent.type() == DataType::json_object_type)
-                        if (from_parent.type() == DataType::array_type) {
+                    else if (parent.type() == DataType::JSON_OBJECT_TYPE)
+                        if (from_parent.type() == DataType::ARRAY_TYPE) {
                             parent.at(path.get_key()) = from_parent.at(from_path.get_index());
                             from_parent.erase(from_path.get_index());
-                        } else if (from_parent.type() == DataType::json_object_type) {
+                        } else if (from_parent.type() == DataType::JSON_OBJECT_TYPE) {
                             parent.insert({path.get_key(), from_parent.at(from_path.get_key())});
                             from_parent.erase(from_path.get_key());
                         } else {

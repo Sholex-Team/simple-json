@@ -15,7 +15,7 @@ namespace simple_json::types::exceptions {
         DataType used_type{};
     public:
         // Constructors
-        explicit InvalidOperator(DataType target_type = DataType::unknown);
+        explicit InvalidOperator(DataType target_type = DataType::UNKNOWN);
 
         // Public Methods
         [[nodiscard]] const char * what() const noexcept override;

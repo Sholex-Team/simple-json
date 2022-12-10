@@ -54,7 +54,7 @@ namespace simple_json::types {
     std::ostream & JsonObject::stream_without_indent(std::ostream & os) const {
         os << '{';
         for (const auto & p: * this) {
-            os << p.first << ": " << ((p.second.type() == DataType::string_type) ? p.second.serialize() : p.second)
+            os << p.first << ": " << ((p.second.type() == DataType::STRING_TYPE) ? p.second.serialize() : p.second)
             << (p.first == std::prev(end())->first ? "" : ", ");
         }
         os << '}';
@@ -67,15 +67,15 @@ namespace simple_json::types {
             os << std::endl;
             os << std::setw(local_indent + 1) << p.first << ": ";
             switch (p.second.data.index()) {
-                case DataType::json_object_type:
-                    std::get<DataType::json_object_type>(p.second.data)->stream_with_indent(
+                case DataType::JSON_OBJECT_TYPE:
+                    std::get<DataType::JSON_OBJECT_TYPE>(p.second.data)->stream_with_indent(
                             os, local_indent + indent::indent_length);
                     break;
-                case DataType::array_type:
-                    std::get<DataType::array_type>(p.second.data)->stream_with_indent(
+                case DataType::ARRAY_TYPE:
+                    std::get<DataType::ARRAY_TYPE>(p.second.data)->stream_with_indent(
                             os, local_indent + indent::indent_length);
                     break;
-                case DataType::string_type:
+                case DataType::STRING_TYPE:
                     os << p.second.serialize();
                     break;
                 default:

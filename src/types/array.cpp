@@ -13,9 +13,8 @@ namespace simple_json::types {
     #pragma region OS Overloading
 
     std::ostream & operator<<(std::ostream & os, const Array & array) {
-        if (indent_length == 0) {
+        if (indent_length == 0)
             return array.stream_without_indent(os);
-        }
         return array.stream_with_indent(os, indent_length);
     }
 
@@ -25,10 +24,9 @@ namespace simple_json::types {
 
     std::ostream & Array::stream_without_indent(std::ostream & os) const {
         os << '[';
-        for (const Json & item: * this) {
-            os << ((item.type() == DataType::string_type) ? item.serialize() : item)
+        for (const Json & item: * this)
+            os << ((item.type() == DataType::STRING_TYPE) ? item.serialize() : item)
             << (item == *std::prev(end()) ? "" : ", ");
-        }
         os << ']';
         return os;
     }
@@ -37,19 +35,18 @@ namespace simple_json::types {
         os << '[';
         for (const Json & item: * this) {
             os << std::endl;
-            for (int i {0}; i < local_indent; ++i) {
+            for (int i {0}; i < local_indent; ++i)
                 os << ' ';
-            }
             switch (item.data.index()) {
-                case DataType::json_object_type:
-                    std::get<DataType::json_object_type>(item.data)->stream_with_indent(
+                case DataType::JSON_OBJECT_TYPE:
+                    std::get<DataType::JSON_OBJECT_TYPE>(item.data)->stream_with_indent(
                             os, local_indent + indent_length);
                     break;
-                case DataType::array_type:
-                    std::get<DataType::array_type>(item.data)->stream_with_indent(
+                case DataType::ARRAY_TYPE:
+                    std::get<DataType::ARRAY_TYPE>(item.data)->stream_with_indent(
                             os, local_indent + indent_length);
                     break;
-                case DataType::string_type:
+                case DataType::STRING_TYPE:
                     os << item.serialize();
                     break;
                 default:

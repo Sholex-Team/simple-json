@@ -14,9 +14,8 @@ namespace simple_json::serializer {
     }
 
     void dump(const types::Json & json, std::ofstream & file_stream, const size_t local_indent) {
-        if (!file_stream.is_open()) {
+        if (!file_stream.is_open())
             throw exceptions::WritingToFileException {};
-        }
         serializer(file_stream, json, local_indent);
     }
 
@@ -29,9 +28,8 @@ namespace simple_json::serializer {
         Dump::Dump(const std::string & file_path, const size_t local_indent) :
         file_stream {file_path}, local_indent {local_indent} {
             if (!file_stream) {
-                if (file_stream.is_open()) {
+                if (file_stream.is_open())
                     file_stream.close();
-                }
                 throw exceptions::WritingToFileException {};
             }
         }
@@ -58,11 +56,10 @@ namespace simple_json::serializer {
 
     void serializer(std::ostream & os, const types::Json & json, const size_t local_indent) {
             size_t old_indent = indent::switch_indent(local_indent);
-            if (json.type() == types::DataType::string_type) {
+            if (json.type() == types::DataType::STRING_TYPE)
                 os << json.serialize();
-            } else {
+            else
                 os << json;
-            }
             indent::indent_length = old_indent;
         }
     }

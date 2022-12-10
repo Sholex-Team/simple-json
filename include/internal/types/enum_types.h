@@ -10,29 +10,30 @@ namespace simple_json::types {
          * This type is used when an empty Json object is created without any type or data. Usually there is no
          * use case for it outside of deserializer and PatchBuilder.
          */
-        unknown,
-        null_type, /*!< This type represents null values in JSON. */
-        integer_type, /*!< This type represents a signed long int which is biggest integer data type in CPP .*/
-        double_type, /*!< This type represents a double which is the fractional data type. */
-        boolean_type, /*!< This type represents booleans used in JSON */
-        string_type, /*!< This type represents a std::string type which is used instead of c-string. */
+        UNKNOWN,
+        NULL_TYPE, /*!< This type represents null values in JSON. */
+        INTEGER_TYPE, /*!< This type represents a signed long int which is biggest integer data type in CPP .*/
+        DOUBLE_TYPE, /*!< This type represents a double which is the fractional data type. */
+        BOOLEAN_TYPE, /*!< This type represents booleans used in JSON */
+        STRING_TYPE, /*!< This type represents a std::string type which is used instead of c-string. */
 
         /*!
          * This type represents arrays in JSON that are stored in a Json object using Array type.
          */
-        array_type,
+        ARRAY_TYPE,
 
         /*!
          * This type represents JSON Objects in JSON that are stored in a Json object using JsonObject type.
          */
-        json_object_type,
-        string_key_type, /*!< This type represents JsonKey which is used inside a JsonObject as key of the map. */
+        JSON_OBJECT_TYPE,
+
+        STRING_KEY_TYPE, /*!< This type represents JsonKey which is used inside a JsonObject as key of the map. */
 
         /*!
          * This type represents special types such as null, false, and true. it's only used inside the deserializer
          * and there is no use case for it outside.
          */
-        special_type,
+        SPECIAL_TYPE,
     };
 
     /*! @enum DataType

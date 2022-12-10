@@ -49,15 +49,15 @@ namespace simple_json::utils {
 
     const char * json_type_to_string(const simple_json::types::DataType & type) {
         switch (type) {
-            case types::DataType::integer_type: return "Integer";
-            case types::DataType::string_type: return "String";
-            case types::DataType::double_type: return "Double";
-            case types::DataType::boolean_type: return "Boolean";
-            case types::DataType::array_type: return "Array";
-            case types::DataType::json_object_type: return "JsonObject";
-            case types::DataType::null_type: return "Null";
-            case types::DataType::string_key_type: return "JsonKey";
-            case types::DataType::special_type: return "Special";
+            case types::DataType::INTEGER_TYPE: return "Integer";
+            case types::DataType::STRING_TYPE: return "String";
+            case types::DataType::DOUBLE_TYPE: return "Double";
+            case types::DataType::BOOLEAN_TYPE: return "Boolean";
+            case types::DataType::ARRAY_TYPE: return "Array";
+            case types::DataType::JSON_OBJECT_TYPE: return "JsonObject";
+            case types::DataType::NULL_TYPE: return "Null";
+            case types::DataType::STRING_KEY_TYPE: return "JsonKey";
+            case types::DataType::SPECIAL_TYPE: return "Special";
             default: return "Unknown";
         }
     }

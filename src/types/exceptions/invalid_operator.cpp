@@ -12,19 +12,19 @@ namespace simple_json::types::exceptions {
 
     const char * InvalidOperator::what() const noexcept {
         switch (used_type) {
-            case DataType::integer_type:
+            case DataType::INTEGER_TYPE:
                 return "Invalid operator used on integer data type !";
-            case DataType::double_type:
+            case DataType::DOUBLE_TYPE:
                 return "Invalid operator used on double data type !";
-            case DataType::boolean_type:
+            case DataType::BOOLEAN_TYPE:
                 return "Invalid operator used on bool data type !";
-            case DataType::null_type:
+            case DataType::NULL_TYPE:
                 return "Invalid operator used on null data type !";
-            case DataType::string_type:
+            case DataType::STRING_TYPE:
                 return "Invalid operator used on std::string data type !";
-            case DataType::array_type:
+            case DataType::ARRAY_TYPE:
                 return "Invalid operator used on Array data type !";
-            case DataType::json_object_type:
+            case DataType::JSON_OBJECT_TYPE:
                 return "Invalid operator used on JsonObject data type !";
             default:
                 return "Invalid operator has been used !";

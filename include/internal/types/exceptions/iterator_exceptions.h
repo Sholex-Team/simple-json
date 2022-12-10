@@ -35,7 +35,7 @@ namespace simple_json::iterators::exceptions {
          * This constructor takes an optional argument which is the invalid Json type that iteration happened on.
          * @param used_type Json type used.
          */
-        explicit InvalidIteration(types::DataType used_type = types::DataType::unknown);
+        explicit InvalidIteration(types::DataType used_type = types::DataType::UNKNOWN);
         [[nodiscard]] const char * what() const noexcept override;
     };
 

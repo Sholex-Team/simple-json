@@ -62,7 +62,7 @@ namespace simple_json::deserializer {
             std::stack<types::Json *> primary_stack {};
             std::string last_value {};
             std::string last_key {};
-            types::DataType last_type {types::DataType::unknown};
+            types::DataType last_type {types::DataType::UNKNOWN};
             bool escaped {false};
             bool finished {false};
             bool key_split {false};
@@ -86,7 +86,7 @@ namespace simple_json::deserializer {
             bool is_special();
             void general_push_or_exception();
         public:
-            Deserializer(): main_object (types::DataType::unknown) {};
+            Deserializer(): main_object (types::DataType::UNKNOWN) {};
 
             [[nodiscard]] types::Json deserialize(std::istream & steam);
             [[nodiscard]] types::Json deserialize(std::istream && stream);

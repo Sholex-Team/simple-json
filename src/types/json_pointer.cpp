@@ -95,12 +95,12 @@ namespace simple_json::types {
     }
 
     size_t JsonPointer::get_index() const {
-        check_pointer(DataType::array_type);
+        check_pointer(DataType::ARRAY_TYPE);
         return std::strtoul(pointer_list->back().c_str(), nullptr, 10);
     }
 
     JsonKey JsonPointer::get_key() const {
-        check_pointer(DataType::json_object_type);
+        check_pointer(DataType::JSON_OBJECT_TYPE);
         return JsonKey {pointer_list->back()};
     }
 
@@ -131,7 +131,7 @@ namespace simple_json::types {
             throw exceptions::InvalidPointer {};
         }
         bool is_digit {utils::is_digit(pointer_list->back())};
-        if (used_type == DataType::array_type) {
+        if (used_type == DataType::ARRAY_TYPE) {
             if (!is_digit) {
                 throw exceptions::InvalidPointer {};
             }

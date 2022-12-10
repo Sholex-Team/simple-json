@@ -25,7 +25,7 @@ namespace simple_json::types::exceptions {
          * This constructor accepts an optional argument representing the object type which the index is being used on.
          * @param used_type Object Type.
          */
-        explicit InvalidIndex(DataType used_type = DataType::unknown);
+        explicit InvalidIndex(DataType used_type = DataType::UNKNOWN);
     };
 }
 

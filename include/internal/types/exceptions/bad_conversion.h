@@ -21,7 +21,7 @@ namespace simple_json::types::exceptions {
          * @param src Source Type
          * @param dst Invalid Destination Type
          */
-        explicit BadConversion(DataType src = DataType::unknown, DataType dst = DataType::unknown) noexcept;
+        explicit BadConversion(DataType src = DataType::UNKNOWN, DataType dst = DataType::UNKNOWN) noexcept;
     };
 }
 

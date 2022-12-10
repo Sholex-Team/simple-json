@@ -10,7 +10,7 @@ namespace simple_json::types::exceptions {
         DataType used_type;
     public:
         // Constructors
-        explicit WrongType(DataType used_type = DataType::unknown);
+        explicit WrongType(DataType used_type = DataType::UNKNOWN);
 
         // Public Methods
         [[nodiscard]] const char * what() const noexcept override;
