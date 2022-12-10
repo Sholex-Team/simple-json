@@ -5,7 +5,7 @@ simple-json (0.3.0-0ubuntu1) kinetic; urgency=high
   * Renamed enum types to have UPPER_CASE names
   * Using std::variant instead of union
 
- -- NitroZeus <nitrozeusdev@gmail.com>
+ -- NitroZeus <nitrozeusdev@gmail.com>  Sat, 10 Dec 2022 10:20:00 +0430
 
 simple-json (0.2.1-0ubuntu1) jammy; urgency=high
 
